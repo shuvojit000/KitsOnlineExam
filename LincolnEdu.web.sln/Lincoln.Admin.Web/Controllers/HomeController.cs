@@ -18,35 +18,37 @@ namespace Lincoln.Admin.Web.Controllers
         {
             this.onlineExamService = onlineExamService;
         }
-        public ActionResult Index()
-        {
-            onlineExamService.test();
-            return View();
-        }
+
         public ActionResult LogIn()
         {
-            onlineExamService.test();
             return View();
         }
         [HttpPost]
-        public ActionResult LogIn(string returnUrl = "")
+        public ActionResult LogIn(LogInViewModel model, string returnUrl = "")
         {
             if (ModelState.IsValid)
             {
-                var user = "";
-                if (user != null)
+                var user = onlineExamService.ValidateUser(new OnlineExam.Request.LogInRequestDTO()
                 {
+                    EmailID = model.EmailID,
+                    MobileNo = model.MobileNo,
+                    Password = model.Password,
+                    UserName = model.UserName,
+                    UserType = model.UserType
 
-
+                }, "LOGIN");
+                if (user.LoginID > 0)
+                {
                     CustomPrincipalSerializeModel serializeModel = new CustomPrincipalSerializeModel();
-                    serializeModel.UserId = 0;
+                    serializeModel.UserId = user.LoginID;
                     serializeModel.FirstName = "";
                     serializeModel.LastName = "";
-
+                    serializeModel.Email = user.EmailID;
+                    serializeModel.UserType = user.UserType;
                     string userData = JsonConvert.SerializeObject(serializeModel);
                     FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
                     1,
-                    "user.Email",
+                    user.EmailID,
                     DateTime.Now,
                     DateTime.Now.AddMinutes(15),
                     false, //pass here true, if you want to implement remember me functionality
@@ -55,21 +57,32 @@ namespace Lincoln.Admin.Web.Controllers
                     string encTicket = FormsAuthentication.Encrypt(authTicket);
                     HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
                     Response.Cookies.Add(faCookie);
-
+                    if (!string.IsNullOrEmpty(returnUrl))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else if (String.Equals(user.UserType, "ADMIN", StringComparison.OrdinalIgnoreCase))
+                    {
+                        return RedirectToAction("Dashboard", "Admin", new { area = "Admin" });
+                    }
+                    else if (String.Equals(user.UserType, "FACULTY", StringComparison.OrdinalIgnoreCase))
+                    {
+                        //return RedirectToAction("Dashboard", "Admin", new { area = "Admin" });
+                    }
 
                 }
 
-                ModelState.AddModelError("", "Incorrect username and/or password");
+                ModelState.AddModelError("UserName", "Incorrect Username and/or Password");
             }
 
-            return View();
+            return View(model);
         }
 
         [AllowAnonymous]
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Login", "Account", null);
+            return RedirectToAction("Login", "Home", new { area=""});
         }
     }
 }

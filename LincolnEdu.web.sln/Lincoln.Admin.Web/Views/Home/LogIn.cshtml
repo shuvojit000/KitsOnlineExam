@@ -1,5 +1,5 @@
-﻿
-@{ 
+﻿@model Lincoln.Admin.Web.Models.LogInViewModel
+@{
     Layout = null;
 }
 <!DOCTYPE html>
@@ -52,34 +52,39 @@
                         <div class="col-lg-4 col-md-8 col-10 box-shadow-2 p-0">
                             <div class="card border-grey border-lighten-3 px-1 py-1 m-0">
                                 <p class="text-center font-small-3 mx-2 my-1">
-                                    <img src="assets/images/ikon/ExamportalIkon.png" alt="ESA">
+                                    <img src="~/Content/assets/images/ikon/ExamportalIkon.png" alt="ESA">
                                 </p>
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form-horizontal" action="#" novalidate>
+
+                                      @using (Html.BeginForm("LogIn", "Home", FormMethod.Post))
+                                      {
+
+                                            <span style="color:red"> @Html.ValidationSummary()</span>
+
                                             <fieldset class="form-group position-relative has-icon-left">
-                                                <input type="text" class="form-control" id="user-name" placeholder="Your Username" required>
+                                                <input type="text" class="form-control" id="UserName" name="UserName" placeholder="Your Username" required>
                                                 <div class="form-control-position">
                                                     <i class="ft-user"></i>
                                                 </div>
                                             </fieldset>
                                             <fieldset class="form-group position-relative has-icon-left">
-                                                <input type="password" class="form-control" id="user-password" placeholder="Enter Password" required>
+                                                <input type="password" class="form-control" id="Password" name="Password" placeholder="Your Username" required>
                                                 <div class="form-control-position">
                                                     <i class="fa fa-key"></i>
                                                 </div>
                                             </fieldset>
                                             <div class="form-group row">
                                                 <div class="col-sm-6 col-12 text-center text-sm-left pr-0" style="padding-top:10px; padding-bottom:15px;">
-                                                    <a href="forgotPassword.html" class="card-link">Forgot Password?</a>
+                                                    <a href="javascript:void(0);" class="card-link">Forgot Password?</a>
                                                 </div>
                                                 <div class="col-sm-6 col-12 float-sm-left text-center text-sm-right">
-                                                    <!--<button type="submit" class="btn btn-outline-primary btn-block"><i class="ft-unlock"></i> Login</button>-->
-                                                    <a href="admin/adminDashboard.html" class="btn btn-outline-primary btn-block"><i class="ft-unlock"></i> Login</a>
+                                                    <button type="submit" class="btn btn-outline-primary btn-block"><i class="ft-unlock"></i> Login</button>
+
                                                 </div>
                                             </div>
-                                        </form>
-                                        <!--<a href="register.html" class="btn btn-outline-danger btn-block"><i class="ft-user"></i> New user Registration</a>-->
+                                        }
+
                                     </div>
                                 </div>
                             </div>

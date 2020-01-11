@@ -70,6 +70,7 @@
     <Compile Include="Repository\IUserRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Request\LogInRequestDTO.cs" />
+    <Compile Include="Response\LogInResponseDTO.cs" />
     <Compile Include="Utility\AccessHelper.cs" />
     <Compile Include="Utility\AccessHelper_static.cs" />
     <Compile Include="Utility\HelperBase.cs" />
@@ -78,7 +79,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
-    <Folder Include="Response\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

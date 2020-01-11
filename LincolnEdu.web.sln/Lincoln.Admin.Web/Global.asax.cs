@@ -36,7 +36,7 @@ namespace Lincoln.Admin.Web
                 newUser.FirstName = serializeModel.FirstName;
                 newUser.LastName = serializeModel.LastName;
                 newUser.roles = serializeModel.roles;
-
+                newUser.UserType = serializeModel.UserType;
                 HttpContext.Current.User = newUser;
             }
 

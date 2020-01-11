@@ -1,4 +1,5 @@
 ﻿using Lincoln.OnlineExam.Request;
+using Lincoln.OnlineExam.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Lincoln.OnlineExam
 {
     public interface IOnlineExam
     {
-        int ValidateUser(LogInRequestDTO request);
+        LogInResponseDTO ValidateUser(LogInRequestDTO request, string Operation);
     }
 }
