@@ -690,6 +690,13 @@
     <Content Include="Content\assets\vendors\css\extensions\raty\fonts\ratyd41d.eot" />
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Faculty\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Shared\_AdminLayoutPage.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Dashboard.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Batch.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Course.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\StudentRegistration.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Subject.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\FacultyRegistration.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -717,8 +724,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Admin\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\Faculty\Controllers\" />
     <Folder Include="Areas\Faculty\Models\" />
     <Folder Include="Areas\Faculty\Views\Shared\" />

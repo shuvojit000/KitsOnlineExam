@@ -69,6 +69,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IUserRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="Request\LogInRequestDTO.cs" />
     <Compile Include="Utility\AccessHelper.cs" />
     <Compile Include="Utility\AccessHelper_static.cs" />
     <Compile Include="Utility\HelperBase.cs" />
@@ -77,7 +78,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
-    <Folder Include="Request\" />
     <Folder Include="Response\" />
   </ItemGroup>
   <ItemGroup>

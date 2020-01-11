@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lincoln.OnlineExam.Request;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,8 +10,12 @@ namespace Lincoln.OnlineExam
     public class OnlineExamService : IOnlineExam
     {
 
-        public void test()
+        public int ValidateUser(LogInRequestDTO request)
         {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.UserRepository.ValidateUser(request);
+            }
 
         }
     }
