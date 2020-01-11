@@ -67,7 +67,7 @@ namespace Lincoln.Admin.Web.Controllers
                     }
                     else if (String.Equals(user.UserType, "FACULTY", StringComparison.OrdinalIgnoreCase))
                     {
-                        //return RedirectToAction("Dashboard", "Admin", new { area = "Admin" });
+                        return RedirectToAction("Dashboard", "Faculty", new { area = "Faculty" });
                     }
 
                 }

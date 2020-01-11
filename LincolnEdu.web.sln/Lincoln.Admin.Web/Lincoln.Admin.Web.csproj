@@ -131,6 +131,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Faculty\Controllers\FacultyController.cs" />
     <Compile Include="Areas\Faculty\FacultyAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -726,8 +727,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Faculty\Controllers\" />
     <Folder Include="Areas\Faculty\Models\" />
+    <Folder Include="Areas\Faculty\Views\Faculty\" />
     <Folder Include="Areas\Faculty\Views\Shared\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
