@@ -11,5 +11,6 @@ namespace Lincoln.OnlineExam.Repository
     public interface IUserRepository
     {
         LogInResponseDTO ValidateUser(LogInRequestDTO request, string Operation);
+        int SaveStudent(StudentRequestDTO recordAttributer, string Operation);
     }
 }

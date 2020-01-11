@@ -11,5 +11,6 @@ namespace Lincoln.OnlineExam
     public interface IOnlineExam
     {
         LogInResponseDTO ValidateUser(LogInRequestDTO request, string Operation);
+        int SaveStudent(StudentRequestDTO recordAttributer, string Operation);
     }
 }

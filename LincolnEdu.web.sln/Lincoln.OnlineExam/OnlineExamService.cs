@@ -20,5 +20,13 @@ namespace Lincoln.OnlineExam
             }
             return result;
         }
+        public int SaveStudent(StudentRequestDTO recordAttributer, string Operation)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.UserRepository.SaveStudent(recordAttributer, Operation);
+            }
+
+        }
     }
 }
