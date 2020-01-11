@@ -7,7 +7,7 @@ using System.Web.Mvc;
 namespace Lincoln.Application.Web.App_Start
 {
     public  abstract class BaseViewPage : WebViewPage
-    {
+    { 
         public virtual new CustomPrincipal User
         {
             get { return base.User as CustomPrincipal; }
