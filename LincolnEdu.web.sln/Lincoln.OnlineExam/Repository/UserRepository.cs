@@ -52,5 +52,44 @@ namespace Lincoln.OnlineExam.Repository
             return result;
         }
 
+        public int SaveStudent(StudentRequestDTO recordAttributer, string Operation)
+        {
+
+            SqlParameter studentID = new SqlParameter("@StudentID", SqlDbType.Int);
+            studentID.Value = recordAttributer.StudentID;
+
+            SqlParameter loginID = new SqlParameter("@LoginID", SqlDbType.Int);
+            loginID.Value = recordAttributer.LoginID;
+            SqlParameter batchID = new SqlParameter("@BatchID", SqlDbType.Int);
+            batchID.Value = recordAttributer.BatchID;
+            SqlParameter studentName = new SqlParameter("@StudentName", SqlDbType.VarChar);
+            studentName.Value = recordAttributer.StudentName;
+            SqlParameter rollNo = new SqlParameter("@RollNo", SqlDbType.VarChar);
+            rollNo.Value = recordAttributer.RollNo;
+            SqlParameter mobileNo = new SqlParameter("@MobileNo", SqlDbType.Int);
+            mobileNo.Value = recordAttributer.MobileNo;
+            SqlParameter emailID = new SqlParameter("@EmailID", SqlDbType.Int);
+            emailID.Value = recordAttributer.EmailID;
+            SqlParameter active = new SqlParameter("@Active", SqlDbType.Int);
+            active.Value = recordAttributer.Active;
+            SqlParameter createdBy = new SqlParameter("@CreatedBy", SqlDbType.Int);
+            createdBy.Value = recordAttributer.CreatedBy;
+
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Int);
+            type.Value = recordAttributer.Type;
+
+            SqlParameter status = new SqlParameter("@Status", SqlDbType.BigInt);
+            status.Value = recordAttributer.Status;
+            status.Direction = ParameterDirection.InputOutput;
+
+            SqlServerHelper.ExecuteNonQueryProc("[ln.Student].[upSaveStudent]",studentID,loginID,batchID,studentName,rollNo,mobileNo,
+                                       emailID,active,createdBy,type,status );
+
+            recordAttributer.Status = Convert.ToInt32(status.Value);
+            return recordAttributer.Status;
+        }
+
+
+
     }
 }

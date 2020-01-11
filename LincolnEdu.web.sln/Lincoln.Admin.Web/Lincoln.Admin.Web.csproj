@@ -698,6 +698,7 @@
     <Content Include="Areas\Admin\Views\Admin\StudentRegistration.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\Subject.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\FacultyRegistration.cshtml" />
+    <None Include="Properties\PublishProfiles\LinclnAdmin.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
