@@ -31,6 +31,9 @@
     <link rel="stylesheet" type="text/css" href="~/Content/assets/fonts/simple-line-icons/style.min.css">
     <link rel="stylesheet" type="text/css" href="~/Content/assets/css/pages/timeline.min.css">
     <!-- END: Page CSS-->
+    <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="~/Content/assets/vendors/js/vendors.min.js"></script>
+    <script src="~/Content/assets/vendors/js/tables/datatable/datatables.min.js"></script>
 </head>
 <!-- END: Head-->
 <!-- BEGIN: Body-->
@@ -192,7 +195,7 @@
                     <a href="#"><i class="ft-users"></i><span class="menu-title" data-i18n="">Students</span></a>
                     <ul class="menu-content">
                         <li>
-                            <a class="menu-item" href="@Url.Action("","Admin",new {area="Admin" })">Batch</a>
+                            <a class="menu-item" href="@Url.Action("Batch","Admin",new {area="Admin" })">Batch</a>
                         </li>
                         <li>
                             <a class="menu-item" href="@Url.Action("StudentRegistration","Admin",new {area="Admin" })">Students Data</a>
@@ -256,7 +259,7 @@
     <!-- BEGIN: Content-->
     <div class="app-content content">
         @RenderBody()
-       
+
     </div>
     <!-- END: Content-->
     <!-- BEGIN: Footer-->
@@ -419,7 +422,7 @@
     </div>
     <!---MyProfile POPUP end--->
     <!-- BEGIN: Vendor JS-->
-    <script src="~/Content/assets/vendors/js/vendors.min.js"></script>
+   
     <!-- BEGIN Vendor JS-->
     <!-- BEGIN: Page Vendor JS-->
     <script src="~/Content/assets/vendors/js/charts/raphael-min.js"></script>

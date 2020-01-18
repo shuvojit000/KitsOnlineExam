@@ -138,8 +138,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BatchViewModel.cs" />
+    <Compile Include="Models\CourseViewModel.cs" />
     <Compile Include="Models\CustomPrincipalSerializeModel.cs" />
     <Compile Include="Models\LogInViewModel.cs" />
+    <Compile Include="Models\SubjectViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -699,6 +702,17 @@
     <Content Include="Areas\Admin\Views\Admin\StudentRegistration.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\Subject.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\FacultyRegistration.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_SubjectView.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_AddSubject.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_addCourse.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_viewCourse.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_listCourse.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_listSubject.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_addBatch.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_viewBatch.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_listBatch.cshtml" />
     <None Include="Properties\PublishProfiles\LinclnAdmin.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

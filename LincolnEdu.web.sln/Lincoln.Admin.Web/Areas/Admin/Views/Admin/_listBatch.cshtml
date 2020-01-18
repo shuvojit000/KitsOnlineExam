@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Lincoln.Admin.Web.Models.BatchViewModel>
+@{
+
+    int sl = 1;
+}
+<table class="cell-border stripe" id="dataTables-example" style="width:100%">
+    <thead>
+        <tr>
+            <th>SLNO</th>
+            <th>Batch Name</th>
+            <th>Batch Desc</th>
+            <th>STATUS</th>
+            <th>ACTION</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @if (Model != null && Model.Count() > 0)
+        {
+
+
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@sl</td>
+                    <td>@item.BatchName</td>
+                    <td>@item.BatchDesc</td>
+                    <td>@item.Status</td>
+                    <td>
+                        <a href="javascript:void(0);" onclick="fnViewBatch(@item.BatchID)" title="View"><i class="fa fa-eye"></i></a> &nbsp;
+                        <a href="javascript:void(0);" onclick="fnAddBatch(@item.BatchID)" title="Edit"><i class="fa fa-edit"></i></a> &nbsp;
+                        <a href="javascript:void(0);" onclick="fnDeleteBatch(@item.BatchID)" title="Delete"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+                sl++;
+            }
+        }
+
+
+
+    </tbody>
+</table>
+<script>
+     $(document).ready(function () {
+        $('#dataTables-example').dataTable();
+    });
+</script>

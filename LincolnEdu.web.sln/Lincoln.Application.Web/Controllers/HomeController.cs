@@ -22,7 +22,7 @@ namespace Lincoln.Application.Web.Controllers
         }
         public ActionResult LogIn()
         {
-            onlineExamService.test();
+           
             return View();
         }
         [HttpPost]
