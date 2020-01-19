@@ -135,6 +135,11 @@
                         $("#myModal").modal('hide');
                         fnLoadSubject();
                     }
+                    else {
+                        alert('Error in your requst.');
+                        $("#myModal").modal('hide');
+
+                    }
                 },
                 error: function (e) {
                     alert(e);

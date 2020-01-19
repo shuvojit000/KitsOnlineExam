@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Lincoln.Admin.Web.Models.QuestionSectionViewModel>
+@{
+
+    int sl = 1;
+}
+<table class="cell-border stripe" id="dataTables-example" style="width:100%">
+    <thead>
+        <tr>
+            <th>SLNO</th>
+            <th>Question Section Name</th>
+            <th>Question Section Desc</th>
+            <th>STATUS</th>
+            <th>ACTION</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @if (Model != null && Model.Count() > 0)
+        {
+
+
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@sl</td>
+                    <td>@item.QuestionSectionID</td>
+                    <td>@item.QuestionSectionDesc</td>
+                    <td>@item.Status</td>
+                    <td>
+                        <a href="javascript:void(0);" onclick="fnViewQuestionSection(@item.QuestionSectionID)" title="View"><i class="fa fa-eye"></i></a> &nbsp;
+                        <a href="javascript:void(0);" onclick="fnAddQuestionSection(@item.QuestionSectionID)" title="Edit"><i class="fa fa-edit"></i></a> &nbsp;
+                        <a href="javascript:void(0);" onclick="fnDeleteQuestionSection(@item.QuestionSectionID)" title="Delete"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+                sl++;
+            }
+        }
+
+
+
+    </tbody>
+</table>
+<script>
+     $(document).ready(function () {
+        $('#dataTables-example').dataTable();
+    });
+</script>
+

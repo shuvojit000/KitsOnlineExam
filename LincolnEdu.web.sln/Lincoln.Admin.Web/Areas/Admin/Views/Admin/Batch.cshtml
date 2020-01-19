@@ -130,6 +130,11 @@
                         $("#myModal").modal('hide');
                         fnLoadBatchList();
                     }
+                    else {
+                        alert('Error in your requst.');
+                        $("#myModal").modal('hide');
+
+                    }
                 },
                 error: function (e) {
                     alert(e);

@@ -20,14 +20,6 @@ namespace Lincoln.OnlineExam
             }
             return result;
         }
-        public int SaveStudent(StudentRequestDTO recordAttributer, string Operation)
-        {
-            using (var unitOfWork = new OnlineExamUnitOfWork())
-            {
-                return unitOfWork.UserRepository.SaveStudent(recordAttributer, Operation);
-            }
-
-        }
         public List<DropdownResponseDTO> GetDropdownData(string Type)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
@@ -104,6 +96,50 @@ namespace Lincoln.OnlineExam
             }
         }
 
+        public int SaveQuestionSection(QuestionSectionRequestDTO recordAttributer, string Operation)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.SaveQuestionSection(recordAttributer, Operation);
+            }
+        }
+        public List<QuestionSectionResponseDTO> GetAllQuestionSection()
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.GetAllQuestionSection();
+            }
+        }
+        public QuestionSectionResponseDTO SelectQuestionSection(QuestionSectionRequestDTO recordAttributer)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.SelectQuestionSection(recordAttributer);
+            }
+        }
 
+
+
+        public int SaveStudent(StudentRequestDTO recordAttributer, string Operation)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.UserRepository.SaveStudent(recordAttributer, Operation);
+            }
+        }
+        public List<StudentResponseDTO> GetAllStudent()
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.UserRepository.GetAllStudent();
+            }
+        }
+        public StudentResponseDTO SelectStudent(StudentRequestDTO recordAttributer)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.UserRepository.SelectStudent(recordAttributer);
+            }
+        }
     }
 }

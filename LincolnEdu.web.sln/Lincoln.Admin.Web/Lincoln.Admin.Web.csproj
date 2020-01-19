@@ -142,6 +142,8 @@
     <Compile Include="Models\CourseViewModel.cs" />
     <Compile Include="Models\CustomPrincipalSerializeModel.cs" />
     <Compile Include="Models\LogInViewModel.cs" />
+    <Compile Include="Models\QuestionSectionViewModel.cs" />
+    <Compile Include="Models\StudentViewModel.cs" />
     <Compile Include="Models\SubjectViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -713,7 +715,16 @@
     <Content Include="Areas\Admin\Views\Admin\_addBatch.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\_viewBatch.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\_listBatch.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\QuestionSection.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_addQuestionSection.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_viewQuestionSection.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_listQuestionSection.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Student.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_addStudent.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_viewStudent.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_listStudent.cshtml" />
     <None Include="Properties\PublishProfiles\LinclnAdmin.pubxml" />
+    <None Include="Properties\PublishProfiles\LincLonAdmin.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

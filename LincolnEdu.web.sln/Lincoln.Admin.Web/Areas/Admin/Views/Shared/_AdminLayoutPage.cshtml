@@ -9,7 +9,6 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="author" content="KITS">
-    <title>Admin Dashboard - ESA</title>
     <link rel="shortcut icon" type="image/x-icon" href="../assets/images/ico/favicon.ico">
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="~/Content/assets/vendors/css/vendors.min.css">
@@ -184,7 +183,7 @@
                             <a class="menu-item" href="@Url.Action("","Admin",new {area="Admin" })">Exam Management</a>
                         </li>
                         <li>
-                            <a class="menu-item" href="javascript:void(0);">Question Type</a>
+                            <a class="menu-item" href="@Url.Action("QuestionSection","Admin",new {area="Admin" })">Question Type</a>
                         </li>
                         <li>
                             <a class="menu-item" href="@Url.Action("","Admin",new {area="Admin" })">Questions</a>
@@ -198,7 +197,7 @@
                             <a class="menu-item" href="@Url.Action("Batch","Admin",new {area="Admin" })">Batch</a>
                         </li>
                         <li>
-                            <a class="menu-item" href="@Url.Action("StudentRegistration","Admin",new {area="Admin" })">Students Data</a>
+                            <a class="menu-item" href="@Url.Action("Student","Admin",new {area="Admin" })">Students Data</a>
                         </li>
                         <li>
                             <a class="menu-item" href="javascript:void(0);">Assign To Exam</a>
@@ -274,66 +273,7 @@
     </footer>
     <!-- END: Footer-->
     <!---Password POPUP start--->
-    <div class="col-lg-12">
-        <div class="modal fade" id="passModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">
-                            <label class="modal-title text-text-bold-600">Change Password</label>
-                        </h4>
-                        <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    </div>
-                    <div class="modal-body recoPas">
-                        <div class="panel-body">
-                            <!--main content start-->
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <!--PAGE CONTENT BEGINS-->
-                                    <div class="modal-body">
-                                        <label>Old Password: </label>
-                                        <div class="form-group">
-                                            <div class="position-relative has-icon-left">
-                                                <input type="text" placeholder="Old Password" class="form-control">
-                                                <div class="form-control-position">
-                                                    <i class="ft-lock"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <label>New Password: </label>
-                                        <div class="form-group">
-                                            <div class="position-relative has-icon-left">
-                                                <input type="text" placeholder="New Password" class="form-control">
-                                                <div class="form-control-position">
-                                                    <i class="icon-lock"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <label>Confirm Password: </label>
-                                        <div class="form-group">
-                                            <div class="position-relative has-icon-left">
-                                                <input type="text" placeholder="Cobfirm Password" class="form-control">
-                                                <div class="form-control-position">
-                                                    <i class="icon-lock"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary">
-                                            <i class="fa fa-check-square-o"></i> Save
-                                        </button>
-                                    </div>
-                                    <!--PAGE CONTENT ENDS-->
-                                </div>
-                            </div>
-                            <!--main contant end-->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+   
     <!---Password POPUP end--->
     <!---MyProfile POPUP start--->
     <div class="col-lg-12">
@@ -342,79 +282,12 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">
-                            <label class="modal-title text-text-bold-600">My Profile Show & Modify</label>
+                            <label class="modal-title text-text-bold-600"></label>
                         </h4>
                         <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body recoPas">
-                        <div class="panel-body">
-                            <!--main content start-->
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <!--PAGE CONTENT BEGINS-->
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="form-group col-lg-6">
-                                                <label>Employee Code: </label>
-                                                <div class="position-relative has-icon-left">
-                                                    <input type="text" placeholder="Employee Code" class="form-control" readonly="readonly">
-                                                    <div class="form-control-position">
-                                                        <i class="ft-user"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-lg-6">
-                                                <label>Password: </label>
-                                                <div class="position-relative has-icon-left">
-                                                    <input type="text" placeholder="Password" class="form-control" readonly="readonly">
-                                                    <div class="form-control-position">
-                                                        <i class="ft-lock"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-lg-12">
-                                                <label>Employee Name: </label>
-                                                <div class="position-relative has-icon-left">
-                                                    <input type="text" placeholder="Employee Name" class="form-control">
-                                                    <div class="form-control-position">
-                                                        <i class="ft-user"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-lg-6">
-                                                <label>Mobile No: </label>
-                                                <div class="position-relative has-icon-left">
-                                                    <input type="text" placeholder="Mobile No" class="form-control">
-                                                    <div class="form-control-position">
-                                                        <i class="fa fa-mobile"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-lg-6">
-                                                <label>Email Id: </label>
-                                                <div class="position-relative has-icon-left">
-                                                    <input type="text" placeholder="Email Id" class="form-control">
-                                                    <div class="form-control-position">
-                                                        <i class="ft-mail"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary">
-                                            <i class="fa fa-check-square-o"></i> Save
-                                        </button>
-                                    </div>
-                                    <!--PAGE CONTENT ENDS-->
-                                </div>
-                            </div>
-                            <!--main contant end-->
-                        </div>
+                       
                     </div>
                 </div>
             </div>

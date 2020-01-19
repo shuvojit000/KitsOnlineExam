@@ -22,5 +22,8 @@ namespace Lincoln.OnlineExam.Repository
         int SaveBatche(BatchRequestDTO recordAttributer, string Operation);
         List<BatchResponseDTO> GetAllBatch();
         BatchResponseDTO SelectBatch(BatchRequestDTO recordAttributer);
+        int SaveQuestionSection(QuestionSectionRequestDTO recordAttributer, string Operation);
+        List<QuestionSectionResponseDTO> GetAllQuestionSection();
+        QuestionSectionResponseDTO SelectQuestionSection(QuestionSectionRequestDTO recordAttributer);
     }
 }

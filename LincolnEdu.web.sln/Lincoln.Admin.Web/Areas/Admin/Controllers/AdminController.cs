@@ -190,7 +190,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 CreatedBy = User.UserId,
                 CourseCode = model.CourseCode,
                 CourseName = model.CourseName,
-
+                Active = model.CourseID > 0 ? "A" : string.Empty
             }, type);
 
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -284,7 +284,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
         public PartialViewResult ListSubject()
         {
-           
+
             return PartialView("_listSubject", GetAllSubject());
         }
 
@@ -292,7 +292,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
         public JsonResult SaveSubject(SubjectViewModel model)
         {
             var type = "INSERT";
-            if (model.SubjectID>0)
+            if (model.SubjectID > 0)
             {
                 type = "UPDATE";
             }
@@ -302,7 +302,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 CreatedBy = User.UserId,
                 SubjectCode = model.SubjectCode,
                 SubjectID = model.SubjectID,
-                SubjectName = model.SubjectName
+                SubjectName = model.SubjectName,
+                Active = model.SubjectID > 0 ? "A" : string.Empty
             }, type);
 
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -310,7 +311,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult DeleteSubject(SubjectViewModel model)
         {
-            
+
             var result = onlineExamService.SaveSubject(new OnlineExam.Request.SubjectRequestDTO()
             {
                 CourseID = model.CourseID,
@@ -329,5 +330,214 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
         public ActionResult FacultyRegistration() => View();
 
         #endregion Faculty registration
+
+        #region Question Section
+
+        public ActionResult QuestionSection() => View();
+        private List<QuestionSectionViewModel> GetAllQuestionSection()
+        {
+            var itemSet = new List<QuestionSectionViewModel>();
+            itemSet = onlineExamService.GetAllQuestionSection().Select(a => new QuestionSectionViewModel()
+            {
+                QuestionSectionName = a.QuestionSectionName,
+                QuestionSectionID = a.QuestionSectionID,
+                ModifiedOn = a.ModifiedOn?.Date,
+                Status = a.Status,
+                QuestionSectionDesc = a.QuestionSectionDesc,
+                CreatedBy = a.CreatedBy,
+                CreatedOn = a.CreatedOn,
+                ModifiedBy = Convert.ToInt32(a.ModifiedBy),
+            }).ToList();
+
+            return itemSet;
+        }
+        private QuestionSectionViewModel SelectQuestionSection(string questionSectionId)
+        {
+            var model = new QuestionSectionViewModel();
+            var item = onlineExamService.SelectQuestionSection(new OnlineExam.Request.QuestionSectionRequestDTO
+            {
+                QuestionSectionID = Convert.ToInt32(questionSectionId)
+
+            });
+            model.QuestionSectionID = item.QuestionSectionID;
+            model.QuestionSectionName = item.QuestionSectionName;
+            model.ModifiedOn = item.ModifiedOn?.Date;
+            model.Status = item.Status;
+            model.QuestionSectionDesc = item.QuestionSectionDesc;
+            model.CreatedBy = item.CreatedBy;
+            model.CreatedOn = item.CreatedOn;
+            model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
+            return model;
+
+        }
+
+        public PartialViewResult AddQuestionSection(string id)
+        {
+            var model = new QuestionSectionViewModel();
+            if (!string.IsNullOrEmpty(id))
+            {
+                model = SelectQuestionSection(id);
+            }
+            return PartialView("_addQuestionSection", model);
+        }
+        public PartialViewResult QuestionSectionView(string id)
+        {
+            return PartialView("_viewQuestionSection", SelectQuestionSection(id));
+        }
+        public PartialViewResult QuestionSectionList()
+        {
+            return PartialView("_listQuestionSection", GetAllQuestionSection());
+        }
+        [HttpPost]
+        public JsonResult SaveQuestionSection(QuestionSectionViewModel model)
+        {
+            var type = "INSERT";
+            if (model.QuestionSectionID > 0)
+            {
+                type = "UPDATE";
+            }
+
+            var result = onlineExamService.SaveQuestionSection(new OnlineExam.Request.QuestionSectionRequestDTO()
+            {
+                QuestionSectionID = model.QuestionSectionID,
+                CreatedBy = User.UserId,
+                QuestionSectionName = model.QuestionSectionName,
+                QuestionSectionDesc = model.QuestionSectionDesc,
+                Active = model.QuestionSectionID>0?"A":string.Empty
+
+            }, type);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult DeleteQuestionSection(QuestionSectionViewModel model)
+        {
+
+            var result = onlineExamService.SaveQuestionSection(new OnlineExam.Request.QuestionSectionRequestDTO()
+            {
+                QuestionSectionID = model.QuestionSectionID,
+                CreatedBy = User.UserId,
+                QuestionSectionName = model.QuestionSectionName,
+                QuestionSectionDesc = model.QuestionSectionDesc,
+
+            }, "DELETE");
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
+
+        #region Student
+
+        public ActionResult Student() => View();
+
+        private List<StudentViewModel> GetAllStudent()
+        {
+            var itemSet = new List<StudentViewModel>();
+            itemSet = onlineExamService.GetAllStudent().Select(a => new StudentViewModel()
+            {
+                EmailID = a.EmailID,
+                LoginID = a.LoginID,
+                MobileNo = a.MobileNo,
+                RollNo = a.RollNo,
+                StudentID = a.StudentID,
+                StudentName = a.StudentName,
+                ModifiedOn = a.ModifiedOn?.Date,
+                Status = a.Status,
+                BatchID = a.BatchID,
+                CreatedBy = a.CreatedBy,
+                CreatedOn = a.CreatedOn,
+                ModifiedBy = Convert.ToInt32(a.ModifiedBy),
+            }).ToList();
+
+            return itemSet;
+        }
+        private StudentViewModel SelectStudent(string studenId)
+        {
+            var model = new StudentViewModel();
+            var item = onlineExamService.SelectStudent(new OnlineExam.Request.StudentRequestDTO
+            {
+                StudentID = Convert.ToInt32(studenId)
+
+            });
+            model.StudentID = item.StudentID;
+            model.StudentName = item.StudentName;
+            model.EmailID = item.EmailID;
+            model.LoginID = item.LoginID;
+            model.MobileNo = item.MobileNo;
+            model.Password = item.Password;
+            model.RollNo = item.RollNo;
+            model.ModifiedOn = item.ModifiedOn?.Date;
+            model.Status = item.Status;
+            model.BatchID = item.BatchID;
+            model.CreatedBy = item.CreatedBy;
+            model.CreatedOn = item.CreatedOn;
+            model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
+            return model;
+
+        }
+
+        public PartialViewResult AddStudent(string id)
+        {
+            var model = new StudentViewModel();
+            if (!string.IsNullOrEmpty(id))
+            {
+                model = SelectStudent(id);
+            }
+            model.BatchList = onlineExamService.GetDropdownData("BATCH").Select(a => new SelectListItem { Text = a.CodeDesc, Value = a.CodeID }).ToList(); ;
+            return PartialView("_addStudent", model);
+        }
+        public PartialViewResult StudentView(string id)
+        {
+            return PartialView("_viewStudent", SelectStudent(id));
+        }
+        public PartialViewResult StudentList()
+        {
+            return PartialView("_listStudent", GetAllStudent());
+        }
+        [HttpPost]
+        public JsonResult SaveStudent(StudentViewModel model)
+        {
+            var type = "INSERT";
+            if (model.StudentID > 0)
+            {
+                type = "UPDATE";
+            }
+
+            var result = onlineExamService.SaveStudent(new OnlineExam.Request.StudentRequestDTO()
+            {
+                BatchID = model.BatchID,
+                CreatedBy = User.UserId,
+                EmailID = model.EmailID,
+                RollNo = model.RollNo,
+                MobileNo = model.MobileNo,
+                StudentID = model.StudentID,
+                StudentName = model.StudentName,
+                Password = model.Password
+            }, type);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult DeleteStudent(StudentViewModel model)
+        {
+
+            var result = onlineExamService.SaveStudent(new OnlineExam.Request.StudentRequestDTO()
+            {
+
+                CreatedBy = User.UserId,
+                StudentID = model.StudentID
+
+            }, "DELETE");
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+
+        #endregion
+
+
     }
 }

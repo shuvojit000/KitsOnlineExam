@@ -11,6 +11,8 @@ namespace Lincoln.OnlineExam
         LogInResponseDTO ValidateUser(LogInRequestDTO request, string Operation);
 
         int SaveStudent(StudentRequestDTO recordAttributer, string Operation);
+        List<StudentResponseDTO> GetAllStudent();
+        StudentResponseDTO SelectStudent(StudentRequestDTO recordAttributer);
 
         int SaveSubject(SubjectRequestDTO recordAttributer, string Operation);
 
@@ -26,5 +28,9 @@ namespace Lincoln.OnlineExam
         int SaveBatche(BatchRequestDTO recordAttributer, string Operation);
         List<BatchResponseDTO> GetAllBatch();
         BatchResponseDTO SelectBatch(BatchRequestDTO recordAttributer);
+
+        int SaveQuestionSection(QuestionSectionRequestDTO recordAttributer, string Operation);
+        List<QuestionSectionResponseDTO> GetAllQuestionSection();
+        QuestionSectionResponseDTO SelectQuestionSection(QuestionSectionRequestDTO recordAttributer);
     }
 }

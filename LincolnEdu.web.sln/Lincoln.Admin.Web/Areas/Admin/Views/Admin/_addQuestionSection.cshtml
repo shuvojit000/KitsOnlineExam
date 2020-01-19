@@ -1,0 +1,42 @@
+﻿@model Lincoln.Admin.Web.Models.QuestionSectionViewModel
+
+<div class="panel-body">
+    <!--main content start-->
+    <div class="row">
+        <div class="col-lg-12">
+            <!--PAGE CONTENT BEGINS-->
+            <div class="modal-body">
+                <label>Question Section  Name: </label>
+                <div class="form-group">
+                    <div class="position-relative has-icon-left">
+                        @Html.TextBoxFor(a => a.QuestionSectionName, new { @class = "form-control" })
+
+                        <div class="form-control-position">
+                            <i class="fa fa-book"></i>
+                        </div>
+                    </div>
+                </div>
+                <label>Question Section Desc: </label>
+                <div class="form-group">
+                    <div class="position-relative has-icon-left">
+                        @Html.TextBoxFor(a => a.QuestionSectionDesc, new { @class = "form-control" })
+                        <div class="form-control-position">
+                            <i class="fa fa-book"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="fnSaveQuestionSection(@Model.QuestionSectionID)">
+                    <i class="fa fa-check-square-o"></i> Save
+                </button>
+            </div>
+            <!--PAGE CONTENT ENDS-->
+        </div>
+    </div>
+    <!--main contant end-->
+</div>
+
+
+
+

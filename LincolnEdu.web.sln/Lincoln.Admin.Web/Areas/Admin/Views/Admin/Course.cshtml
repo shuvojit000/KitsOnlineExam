@@ -128,6 +128,10 @@
                         alert('Data Save Successfully.');
                         $("#myModal").modal('hide');
                         fnLoadCourseList();
+                    } else {
+                        alert('Error in your requst.');
+                        $("#myModal").modal('hide');
+
                     }
                 },
                 error: function (e) {

@@ -364,5 +364,122 @@ namespace Lincoln.OnlineExam.Repository
         }
         #endregion
 
+        #region Question Section
+
+        public int SaveQuestionSection(QuestionSectionRequestDTO recordAttributer, string Operation)
+        {
+            SqlParameter questionSectionID = new SqlParameter("@QuestionSectionID", SqlDbType.Int);
+            questionSectionID.Value = recordAttributer.QuestionSectionID;
+
+            SqlParameter questionSectionName = new SqlParameter("@QuestionSectionName", SqlDbType.VarChar);
+            questionSectionName.Value = recordAttributer.QuestionSectionName;
+
+            SqlParameter qestionSectionDesc = new SqlParameter("@QuestionSectionDesc", SqlDbType.VarChar);
+            qestionSectionDesc.Value = recordAttributer.QuestionSectionDesc;
+
+            SqlParameter active = new SqlParameter("@Active", SqlDbType.Char);
+            active.Value = recordAttributer.Active;
+            SqlParameter createdBy = new SqlParameter("@CreatedBy", SqlDbType.Int);
+            createdBy.Value = recordAttributer.CreatedBy;
+            
+            SqlParameter section = new SqlParameter("@Section", SqlDbType.Char);
+            section.Value = Operation;
+
+
+            SqlParameter status = new SqlParameter("@Status", SqlDbType.Int);
+            status.Value = 0;
+            status.Direction = ParameterDirection.InputOutput;
+
+            SqlServerHelper.ExecuteNonQueryProc("[ln.Master].[upSaveQuestionSection]", questionSectionID, questionSectionName, qestionSectionDesc, active, createdBy, section, status);
+
+            return Convert.ToInt32(status.Value);
+
+        }
+        public List<QuestionSectionResponseDTO> GetAllQuestionSection()
+        {
+            var itemSet = new List<QuestionSectionResponseDTO>();
+
+
+            SqlParameter questionSectionID = new SqlParameter("@QuestionSectionID", SqlDbType.Int);
+            questionSectionID.Value = DBNull.Value;
+            SqlParameter subjectID = new SqlParameter("@SubjectID", SqlDbType.Int);
+            subjectID.Value = DBNull.Value;
+            SqlParameter questionSectionName = new SqlParameter("@QuestionSectionName", SqlDbType.VarChar);
+            questionSectionName.Value = DBNull.Value;
+            SqlParameter questionSectionDesc = new SqlParameter("@QuestionSectionDesc", SqlDbType.VarChar);
+            questionSectionDesc.Value = DBNull.Value;
+
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = "GET";
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Master].[upGetQuestionSection]", questionSectionID, subjectID, questionSectionName, questionSectionDesc, type))
+            {
+                if (dr != null && dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        itemSet.Add(new QuestionSectionResponseDTO()
+                        {
+                            QuestionSectionID = Convert.ToInt32(dr["QuestionSectionID"]),
+
+                            QuestionSectionName = object.ReferenceEquals(dr["QuestionSectionName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["QuestionSectionName"]),
+                            QuestionSectionDesc = object.ReferenceEquals(dr["QuestionSectionDesc"], DBNull.Value) ? string.Empty : Convert.ToString(dr["QuestionSectionDesc"]),
+                            Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
+                            CreatedBy = Convert.ToInt32(dr["CreatedBy"]),
+                            //CreatedOn = object.ReferenceEquals(dr["CreatedOn"], DBNull.Value) ? default(DateTime) : Convert.ToDateTime(dr["CreatedOn"]),
+                            // ModifiedBy = Convert.ToInt32(dr["ModifiedBy"]),
+                            // ModifiedOn = object.ReferenceEquals(dr["ModifiedOn"], DBNull.Value) ? default(DateTime) : Convert.ToDateTime(dr["ModifiedOn"])
+
+                        });
+
+                    }
+                }
+            }
+            return itemSet;
+
+        }
+
+        public QuestionSectionResponseDTO SelectQuestionSection(QuestionSectionRequestDTO recordAttributer)
+        {
+            var item = new QuestionSectionResponseDTO();
+
+
+            SqlParameter questionSectionID = new SqlParameter("@QuestionSectionID", SqlDbType.Int);
+            questionSectionID.Value = recordAttributer.QuestionSectionID;
+            SqlParameter subjectID = new SqlParameter("@SubjectID", SqlDbType.Int);
+            subjectID.Value = recordAttributer.SubjectID;
+
+            SqlParameter questionSectionName = new SqlParameter("@QuestionSectionName", SqlDbType.VarChar);
+            questionSectionName.Value = recordAttributer.QuestionSectionName;
+            SqlParameter questionSectionDesc = new SqlParameter("@QuestionSectionDesc", SqlDbType.VarChar);
+            questionSectionDesc.Value = recordAttributer.QuestionSectionDesc;
+
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = "GET";
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Master].[upGetQuestionSection]", questionSectionID, subjectID,
+                questionSectionName, questionSectionDesc, type))
+            {
+                if (dr != null && dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+
+                        item.QuestionSectionID = Convert.ToInt32(dr["QuestionSectionID"]);
+                        item.QuestionSectionName = object.ReferenceEquals(dr["QuestionSectionName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["QuestionSectionName"]);
+                        item.QuestionSectionDesc = object.ReferenceEquals(dr["QuestionSectionDesc"], DBNull.Value) ? string.Empty : Convert.ToString(dr["QuestionSectionDesc"]);
+                        item.Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]);
+                        item.CreatedBy = Convert.ToInt32(dr["CreatedBy"]);
+                        //item.CreatedOn = object.ReferenceEquals(dr["CreatedOn"], DBNull.Value) ? default(DateTime) : Convert.ToDateTime(dr["CreatedOn"]);
+                        //item.ModifiedBy = Convert.ToInt32(dr["ModifiedBy"]);
+                        // item.ModifiedOn = object.ReferenceEquals(dr["ModifiedOn"], DBNull.Value) ? default(DateTime) : Convert.ToDateTime(dr["ModifiedOn"]);
+
+                    }
+                }
+            }
+            return item;
+
+        }
+
+
+        #endregion
     }
 }

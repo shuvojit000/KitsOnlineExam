@@ -75,6 +75,7 @@
     <Compile Include="Request\CourseRequestDTO.cs" />
     <Compile Include="Request\FacultyRequestDTO.cs" />
     <Compile Include="Request\LogInRequestDTO.cs" />
+    <Compile Include="Request\QuestionSectionRequestDTO.cs" />
     <Compile Include="Request\StudentRequestDTO.cs" />
     <Compile Include="Request\SubjectRequestDTO.cs" />
     <Compile Include="Response\BatchResponseDTO.cs" />
@@ -82,6 +83,8 @@
     <Compile Include="Response\DropdownResponseDTO.cs" />
     <Compile Include="Response\FacultyResponseDTO.cs" />
     <Compile Include="Response\LogInResponseDTO.cs" />
+    <Compile Include="Response\QuestionSectionResponseDTO.cs" />
+    <Compile Include="Response\StudentResponseDTO.cs" />
     <Compile Include="Response\SubjectResponseDTO.cs" />
     <Compile Include="Utility\AccessHelper.cs" />
     <Compile Include="Utility\AccessHelper_static.cs" />
