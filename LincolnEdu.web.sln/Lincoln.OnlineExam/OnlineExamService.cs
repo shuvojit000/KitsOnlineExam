@@ -141,5 +141,26 @@ namespace Lincoln.OnlineExam
                 return unitOfWork.UserRepository.SelectStudent(recordAttributer);
             }
         }
+        public int SaveFaculty(FacultyRequestDTO recordAttributer, string Operation)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.UserRepository.SaveFaculty(recordAttributer,Operation);
+            }
+        }
+        public List<FacultyResponseDTO> GetAllFaculty()
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.UserRepository.GetAllFaculty();
+            }
+        }
+        public FacultyResponseDTO SelectFaculty(FacultyRequestDTO recordAttributer)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.UserRepository.SelectFaculty(recordAttributer);
+            }
+        }
     }
 }

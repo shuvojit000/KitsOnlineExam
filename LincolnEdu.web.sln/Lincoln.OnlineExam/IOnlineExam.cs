@@ -32,5 +32,8 @@ namespace Lincoln.OnlineExam
         int SaveQuestionSection(QuestionSectionRequestDTO recordAttributer, string Operation);
         List<QuestionSectionResponseDTO> GetAllQuestionSection();
         QuestionSectionResponseDTO SelectQuestionSection(QuestionSectionRequestDTO recordAttributer);
+        int SaveFaculty(FacultyRequestDTO recordAttributer, string Operation);
+        List<FacultyResponseDTO> GetAllFaculty();
+        FacultyResponseDTO SelectFaculty(FacultyRequestDTO recordAttributer);
     }
 }

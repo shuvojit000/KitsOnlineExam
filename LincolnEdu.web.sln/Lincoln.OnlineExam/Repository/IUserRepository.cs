@@ -14,5 +14,10 @@ namespace Lincoln.OnlineExam.Repository
         int SaveStudent(StudentRequestDTO recordAttributer, string Operation);
         List<StudentResponseDTO> GetAllStudent();
         StudentResponseDTO SelectStudent(StudentRequestDTO recordAttributer);
+
+
+        int SaveFaculty(FacultyRequestDTO recordAttributer, string Operation);
+        List<FacultyResponseDTO> GetAllFaculty();
+        FacultyResponseDTO SelectFaculty(FacultyRequestDTO recordAttributer);
     }
 }

@@ -201,16 +201,26 @@ namespace Lincoln.OnlineExam.Repository
             SqlParameter loginID = new SqlParameter("@LoginID", SqlDbType.Int);
             loginID.Value = recordAttributer.LoginID;
 
+            SqlParameter userName = new SqlParameter("@UserName", SqlDbType.VarChar);
+            userName.Value = recordAttributer.UserName;
+
             SqlParameter employeeCode = new SqlParameter("@EmployeeCode", SqlDbType.VarChar);
             employeeCode.Value = recordAttributer.EmployeeCode;
 
             SqlParameter employeeName = new SqlParameter("@EmployeeName", SqlDbType.VarChar);
             employeeName.Value = recordAttributer.EmployeeName;
 
-            SqlParameter mobileNo = new SqlParameter("@MobileNo", SqlDbType.Int);
+            SqlParameter mobileNo = new SqlParameter("@MobileNo", SqlDbType.VarChar);
             mobileNo.Value = recordAttributer.MobileNo;
-            SqlParameter emailID = new SqlParameter("@EmailID", SqlDbType.Int);
+            SqlParameter emailID = new SqlParameter("@EmailID", SqlDbType.VarChar);
             emailID.Value = recordAttributer.EmailID;
+
+            SqlParameter password = new SqlParameter("@Password", SqlDbType.VarChar);
+            password.Value = recordAttributer.Password;
+
+            SqlParameter userType = new SqlParameter("@UserType", SqlDbType.VarChar);
+            userType.Value = recordAttributer.UserType;
+
 
             SqlParameter active = new SqlParameter("@Active", SqlDbType.Int);
             active.Value = recordAttributer.Active;
@@ -225,14 +235,112 @@ namespace Lincoln.OnlineExam.Repository
             status.Value = recordAttributer.Status;
             status.Direction = ParameterDirection.InputOutput;
 
-            SqlServerHelper.ExecuteNonQueryProc("[ln.Faculty].[upSaveFaculty]", facultyID, loginID, employeeCode, employeeName, mobileNo,
-                                       emailID, active, createdBy, type, status);
+            SqlServerHelper.ExecuteNonQueryProc("[ln.Faculty].[upSaveFaculty]", facultyID, loginID, userName, employeeCode, employeeName, mobileNo,
+                                       emailID, password, userType, active, createdBy, type, status);
 
             return Convert.ToInt32(status.Value);
 
         }
 
+        public List<FacultyResponseDTO> GetAllFaculty()
+        {
+            var itemSet = new List<FacultyResponseDTO>();
 
 
+            SqlParameter facultyID = new SqlParameter("@FacultyID", SqlDbType.Int);
+            facultyID.Value = DBNull.Value;
+            SqlParameter loginID = new SqlParameter("@LoginID", SqlDbType.Int);
+            loginID.Value = DBNull.Value;
+            SqlParameter employeeCode = new SqlParameter("@EmployeeCode", SqlDbType.VarChar);
+            employeeCode.Value = DBNull.Value;
+
+            SqlParameter emailID = new SqlParameter("@EmailID", SqlDbType.VarChar);
+            emailID.Value = DBNull.Value;
+            SqlParameter mobileNo = new SqlParameter("@MobileNo", SqlDbType.VarChar);
+            mobileNo.Value = DBNull.Value;
+
+
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = "GET";
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Faculty].[upGetFaculty]", facultyID, loginID, employeeCode, emailID, mobileNo, type))
+            {
+                if (dr != null && dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        itemSet.Add(new FacultyResponseDTO()
+                        {
+                            FacultyID = Convert.ToInt32(dr["FacultyID"]),
+                            LoginID = Convert.ToInt32(dr["LoginID"]),
+                            EmployeeCode = object.ReferenceEquals(dr["EmployeeCode"], DBNull.Value) ? string.Empty : Convert.ToString(dr["EmployeeCode"]),
+                            EmployeeName = object.ReferenceEquals(dr["EmployeeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["EmployeeName"]),
+                            MobileNo = object.ReferenceEquals(dr["MobileNo"], DBNull.Value) ? string.Empty : Convert.ToString(dr["MobileNo"]),
+                            EmailID = object.ReferenceEquals(dr["EmailID"], DBNull.Value) ? string.Empty : Convert.ToString(dr["EmailID"]),
+                            UserName = object.ReferenceEquals(dr["UserName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["UserName"]),
+                            UserType = object.ReferenceEquals(dr["UserType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["UserType"]),
+                            Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
+                            CreatedBy = Convert.ToInt32(dr["CreatedBy"]),
+                            //CreatedOn = object.ReferenceEquals(dr["CreatedOn"], DBNull.Value) ? default(DateTime) : Convert.ToDateTime(dr["CreatedOn"]),
+                            // ModifiedBy = Convert.ToInt32(dr["ModifiedBy"]),
+                            // ModifiedOn = object.ReferenceEquals(dr["ModifiedOn"], DBNull.Value) ? default(DateTime) : Convert.ToDateTime(dr["ModifiedOn"])
+
+                        });
+
+                    }
+                }
+            }
+            return itemSet;
+
+        }
+
+        public FacultyResponseDTO SelectFaculty(FacultyRequestDTO recordAttributer)
+        {
+            var item = new FacultyResponseDTO();
+
+
+            SqlParameter facultyID = new SqlParameter("@FacultyID", SqlDbType.Int);
+            facultyID.Value = recordAttributer.FacultyID;
+            SqlParameter loginID = new SqlParameter("@LoginID", SqlDbType.Int);
+            loginID.Value = recordAttributer.LoginID;
+            SqlParameter employeeCode = new SqlParameter("@EmployeeCode", SqlDbType.VarChar);
+            employeeCode.Value = recordAttributer.EmployeeCode;
+
+            SqlParameter emailID = new SqlParameter("@EmailID", SqlDbType.VarChar);
+            emailID.Value = recordAttributer.EmailID;
+            SqlParameter mobileNo = new SqlParameter("@MobileNo", SqlDbType.VarChar);
+            mobileNo.Value = recordAttributer.MobileNo;
+
+
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = "GET";
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Faculty].[upGetFaculty]", facultyID, loginID, employeeCode, emailID, mobileNo, type))
+            {
+                if (dr != null && dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+
+                        item.FacultyID = Convert.ToInt32(dr["FacultyID"]);
+                        item.LoginID = Convert.ToInt32(dr["LoginID"]);
+
+                        item.EmailID = object.ReferenceEquals(dr["EmailID"], DBNull.Value) ? string.Empty : Convert.ToString(dr["EmailID"]);
+                        item.EmployeeCode = object.ReferenceEquals(dr["EmployeeCode"], DBNull.Value) ? string.Empty : Convert.ToString(dr["EmployeeCode"]);
+                        item.Password = object.ReferenceEquals(dr["Password"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Password"]);
+                        item.MobileNo = object.ReferenceEquals(dr["MobileNo"], DBNull.Value) ? string.Empty : Convert.ToString(dr["MobileNo"]);
+                        item.UserName = object.ReferenceEquals(dr["UserName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["UserName"]);
+                        item.UserType = object.ReferenceEquals(dr["UserType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["UserType"]);
+                        item.EmployeeName = object.ReferenceEquals(dr["EmployeeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["EmployeeName"]);
+                        item.Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]);
+                        item.CreatedBy = Convert.ToInt32(dr["CreatedBy"]);
+                        //item.CreatedOn = object.ReferenceEquals(dr["CreatedOn"], DBNull.Value) ? default(DateTime) : Convert.ToDateTime(dr["CreatedOn"]);
+                        //item.ModifiedBy = Convert.ToInt32(dr["ModifiedBy"]);
+                        // item.ModifiedOn = object.ReferenceEquals(dr["ModifiedOn"], DBNull.Value) ? default(DateTime) : Convert.ToDateTime(dr["ModifiedOn"]);
+
+                    }
+                }
+            }
+            return item;
+
+        }
     }
 }

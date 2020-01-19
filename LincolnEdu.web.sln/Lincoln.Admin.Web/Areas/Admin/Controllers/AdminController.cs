@@ -96,7 +96,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 CreatedBy = User.UserId,
                 BatchName = model.BatchName,
                 BatchDesc = model.BatchDesc,
-                Active=model.Active
+                Active = model.Active
 
             }, type);
 
@@ -214,7 +214,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
         #endregion Course
 
-       
+
 
         #region Subject
 
@@ -325,6 +325,113 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
         #region Faculty registration
 
         public ActionResult FacultyRegistration() => View();
+
+        private List<FacultyViewModel> GetAllFaculty()
+        {
+            var itemSet = new List<FacultyViewModel>();
+            itemSet = onlineExamService.GetAllFaculty().Select(a => new FacultyViewModel()
+            {
+                EmailID = a.EmailID,
+                LoginID = a.LoginID,
+                MobileNo = a.MobileNo,
+                EmployeeCode = a.EmployeeCode,
+                FacultyID = a.FacultyID,
+                EmployeeName = a.EmployeeName,
+                ModifiedOn = a.ModifiedOn?.Date,
+                Status = a.Status,
+                UserName = a.UserName,
+                UserType = a.UserType,
+                CreatedBy = a.CreatedBy,
+                CreatedOn = a.CreatedOn,
+                ModifiedBy = Convert.ToInt32(a.ModifiedBy),
+            }).ToList();
+
+            return itemSet;
+        }
+        private FacultyViewModel SelectFaculty(string facultyId)
+        {
+            var model = new FacultyViewModel();
+            var item = onlineExamService.SelectFaculty(new OnlineExam.Request.FacultyRequestDTO
+            {
+                FacultyID = Convert.ToInt32(facultyId)
+
+            });
+            model.FacultyID = item.FacultyID;
+            model.EmployeeName = item.EmployeeName;
+            model.EmailID = item.EmailID;
+            model.LoginID = item.LoginID;
+            model.MobileNo = item.MobileNo;
+            model.Password = item.Password;
+            model.EmployeeCode = item.EmployeeCode;
+            model.ModifiedOn = item.ModifiedOn?.Date;
+            model.Status = item.Status;
+            model.UserName = item.UserName;
+            model.Password = item.Password;
+            model.CreatedBy = item.CreatedBy;
+            model.CreatedOn = item.CreatedOn;
+            model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
+            return model;
+
+        }
+
+        public PartialViewResult AddFaculty(string id)
+        {
+            var model = new FacultyViewModel();
+            if (!string.IsNullOrEmpty(id))
+            {
+                model = SelectFaculty(id);
+            }
+            //model.BatchList = onlineExamService.GetDropdownData("BATCH").Select(a => new SelectListItem { Text = a.CodeDesc, Value = a.CodeID }).ToList(); ;
+            return PartialView("_addFaculty", model);
+        }
+        public PartialViewResult FacultyView(string id)
+        {
+            return PartialView("_viewFaculty", SelectStudent(id));
+        }
+        public PartialViewResult FacultyList()
+        {
+            return PartialView("_listFaculty", GetAllFaculty());
+        }
+        [HttpPost]
+        public JsonResult SaveFaculty(FacultyViewModel model)
+        {
+            var type = "INSERT";
+            if (model.FacultyID > 0)
+            {
+                type = "UPDATE";
+            }
+
+            var result = onlineExamService.SaveFaculty(new OnlineExam.Request.FacultyRequestDTO()
+            {
+                FacultyID = model.FacultyID,
+                CreatedBy = User.UserId,
+                EmailID = model.EmailID,
+                EmployeeCode = "E"+DateTime.Now.Millisecond,
+                MobileNo = model.MobileNo,
+                EmployeeName = model.EmployeeName,
+                UserName = model.UserName,
+                Password = model.Password,
+                Active = model.Active,
+                UserType = "FACULTY"
+            }, type);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult DeleteFaculty(FacultyViewModel model)
+        {
+
+            var result = onlineExamService.SaveFaculty(new OnlineExam.Request.FacultyRequestDTO()
+            {
+
+                CreatedBy = User.UserId,
+                FacultyID = model.FacultyID
+
+            }, "DELETE");
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
 
         #endregion Faculty registration
 
@@ -511,7 +618,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 StudentID = model.StudentID,
                 StudentName = model.StudentName,
                 Password = model.Password,
-                Active=model.Active
+                Active = model.Active
             }, type);
 
             return Json(result, JsonRequestBehavior.AllowGet);
