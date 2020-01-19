@@ -33,7 +33,7 @@
                     <td>@item.SubjectCode</td>
                     <td>@item.SubjectName</td>
                     <td>@(item.Status)</td>
-                    
+
                     <td>
                         <a href="javascript:void(0);" onclick="fnViewSubject(@item.SubjectID)" title="View"><i class="fa fa-eye"></i></a> &nbsp;
                         <a href="javascript:void(0);" onclick="fnAddSubject(@item.SubjectID)" title="Edit"><i class="fa fa-edit"></i></a> &nbsp;
@@ -49,6 +49,7 @@
     </tbody>
 </table>
 <script>
- $(document).ready(function () {
-        $('#dataTables-example').dataTable();
-    });</script>
+    $('#dataTables-example').dataTable({
+        dom: 'Bfrtip', buttons: [
+       'copy', 'excel', 'pdf', 'print'
+        ]});</script>

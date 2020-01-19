@@ -47,8 +47,9 @@
     </tbody>
 </table>
 <script>
-     $(document).ready(function () {
-        $('#dataTables-example').dataTable();
-    });
+    $('#dataTables-example').dataTable({
+        dom: 'Bfrtip', buttons: [
+       'copy', 'excel', 'pdf', 'print'
+        ]});
 </script>
 
