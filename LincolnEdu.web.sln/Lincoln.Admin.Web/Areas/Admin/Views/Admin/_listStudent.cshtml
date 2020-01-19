@@ -8,6 +8,7 @@
     <thead>
         <tr>
             <th>SLNO</th>
+            <th>CHECK</th>
             <th>STUDENT CODE</th>
             <th>BATCH NAME</th>
             <th>STUDENT NAME</th>
@@ -27,6 +28,11 @@
             {
                 <tr>
                     <td>@sl</td>
+                    <td>
+                        <center>
+                            <input type="checkbox" onclick="fnChangeStatus(@item.StudentID,'@(item.Status=="A"?"I":"A")')" @(item.Status == "A" ? "checked" : "")>
+                        </center>
+                    </td>
                     <td>@item.StudentID</td>
                     <td>@item.BatchID</td>
                     <td>@item.StudentName</td>

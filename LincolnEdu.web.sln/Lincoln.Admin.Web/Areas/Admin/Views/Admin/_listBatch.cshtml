@@ -7,6 +7,7 @@
     <thead>
         <tr>
             <th>SLNO</th>
+            <th>Check</th>
             <th>Batch Name</th>
             <th>Batch Desc</th>
             <th>STATUS</th>
@@ -23,6 +24,11 @@
             {
                 <tr>
                     <td>@sl</td>
+                    <td>
+                        <center>
+                            <input type="checkbox" onclick="fnChangeStatus(@item.BatchID,'@(item.Status=="A"?"I":"A")')" @(item.Status=="A"?"checked":"") >
+                        </center>
+                    </td>
                     <td>@item.BatchName</td>
                     <td>@item.BatchDesc</td>
                     <td>@item.Status</td>

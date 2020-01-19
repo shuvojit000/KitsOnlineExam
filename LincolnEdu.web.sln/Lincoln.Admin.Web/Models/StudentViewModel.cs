@@ -22,5 +22,6 @@ namespace Lincoln.Admin.Web.Models
         public int? ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public List<SelectListItem> BatchList { get; set; }
+        public string Active { get; set; }
     }
 }

@@ -701,7 +701,6 @@
     <Content Include="Areas\Admin\Views\Admin\Dashboard.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\Batch.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\Course.cshtml" />
-    <Content Include="Areas\Admin\Views\Admin\StudentRegistration.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\Subject.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\FacultyRegistration.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />

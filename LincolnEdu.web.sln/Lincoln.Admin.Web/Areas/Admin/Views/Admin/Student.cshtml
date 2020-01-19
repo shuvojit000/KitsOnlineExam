@@ -83,6 +83,37 @@
     </div>
 </div>
 <script>
+    function fnChangeStatus(id, status) {
+        if (confirm("Are you sure?")) {
+            var model = {
+                StudentID: id,
+                Active: status
+            };
+
+            $.ajax({
+                url: '@Url.Action("SaveStudent", "Admin",new {area="Admin" })',
+                data: JSON.stringify(model),
+                type: 'POST',
+                cache: false,
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result > 0) {
+                        alert('Status has been changed Successfully.');
+                        fnLoadStudentList();
+                    }
+                    else {
+                        alert('Error in your requst.');
+                        $("#myModal").modal('hide');
+
+                    }
+                },
+                error: function (e) {
+                    alert('Error in your requst.');
+                }
+            });
+        }
+    }
     function fnAddStudent(id) {
         if (id!=null && id!='') {
             $('.modal-body').load('/Admin/Admin/AddStudent/' + id, function () { $("#myModal").modal('show'); });
@@ -121,7 +152,8 @@
                 RollNo: $('#RollNo').val(),
                 MobileNo: $('#MobileNo').val(),
                 StudentName: $('#StudentName').val(),
-                Password: $('#Password').val()
+                Password: $('#Password').val(),
+                Active: 'A'
             };
 
             $.ajax({

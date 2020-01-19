@@ -18,5 +18,6 @@ namespace Lincoln.Admin.Web.Models
         public int? ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public List<SelectListItem> CourseList { get; set; }
+        public string Active { get; set; }
     }
 }

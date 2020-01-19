@@ -85,6 +85,37 @@
 </div>
 
 <script>
+    function fnChangeStatus(id, status) {
+        if (confirm("Are you sure?")) {
+            var model = {
+                QuestionSectionID: id,
+                Active: status
+            };
+
+            $.ajax({
+                url: '@Url.Action("SaveQuestionSection", "Admin",new {area="Admin" })',
+                data: JSON.stringify(model),
+                type: 'POST',
+                cache: false,
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result > 0) {
+                        alert('Status has been changed Successfully.');
+                        fnLoadQuestionSectionList();
+                    }
+                    else {
+                        alert('Error in your requst.');
+                        $("#myModal").modal('hide');
+
+                    }
+                },
+                error: function (e) {
+                    alert('Error in your requst.');
+                }
+            });
+        }
+    }
     function fnAddQuestionSection(id) {
         if (id!=null && id!='') {
             $('.modal-body').load('/Admin/Admin/AddQuestionSection/'+id, function () { $("#myModal").modal('show'); });
@@ -108,7 +139,8 @@
             var model = {
                 QuestionSectionID: questionSectionId,
                 QuestionSectionName: $('#QuestionSectionName').val(),
-                QuestionSectionDesc: $('#QuestionSectionDesc').val()
+                QuestionSectionDesc: $('#QuestionSectionDesc').val(),
+                Active: 'A'
             };
 
             $.ajax({

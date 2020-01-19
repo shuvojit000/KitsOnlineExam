@@ -96,6 +96,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 CreatedBy = User.UserId,
                 BatchName = model.BatchName,
                 BatchDesc = model.BatchDesc,
+                Active=model.Active
 
             }, type);
 
@@ -190,7 +191,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 CreatedBy = User.UserId,
                 CourseCode = model.CourseCode,
                 CourseName = model.CourseName,
-                Active = model.CourseID > 0 ? "A" : string.Empty
+                Active = model.Active
             }, type);
 
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -213,11 +214,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
         #endregion Course
 
-        #region Student Registration
-
-        public ActionResult StudentRegistration() => View();
-
-        #endregion Student Registration
+       
 
         #region Subject
 
@@ -303,7 +300,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 SubjectCode = model.SubjectCode,
                 SubjectID = model.SubjectID,
                 SubjectName = model.SubjectName,
-                Active = model.SubjectID > 0 ? "A" : string.Empty
+                Active = model.Active
             }, type);
 
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -403,7 +400,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 CreatedBy = User.UserId,
                 QuestionSectionName = model.QuestionSectionName,
                 QuestionSectionDesc = model.QuestionSectionDesc,
-                Active = model.QuestionSectionID>0?"A":string.Empty
+                Active = model.Active
 
             }, type);
 
@@ -513,7 +510,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 MobileNo = model.MobileNo,
                 StudentID = model.StudentID,
                 StudentName = model.StudentName,
-                Password = model.Password
+                Password = model.Password,
+                Active=model.Active
             }, type);
 
             return Json(result, JsonRequestBehavior.AllowGet);

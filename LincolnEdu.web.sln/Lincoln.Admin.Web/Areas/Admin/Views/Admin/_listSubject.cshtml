@@ -8,10 +8,10 @@
         <tr>
 
             <th>#</th>
+            <th>Check</th>
             <th>Subject Code</th>
             <th>Subject Name</th>
             <th>Status</th>
-            <th>Created On</th>
             <th>Action</th>
 
         </tr>
@@ -24,10 +24,16 @@
             {
                 <tr>
                     <td>@sl</td>
+                    <td>
+                        <center>
+                            <input type="checkbox" onclick="fnChangeStatus(@item.SubjectID,'@(item.Status=="A"?"I":"A")')" @(item.Status == "A" ? "checked" : "")>
+                        </center>
+                    </td>
+
                     <td>@item.SubjectCode</td>
                     <td>@item.SubjectName</td>
                     <td>@(item.Status)</td>
-                    <td>@Convert.ToDateTime(item.CreatedOn).ToString("dd/MM/yyyy")</td>
+                    
                     <td>
                         <a href="javascript:void(0);" onclick="fnViewSubject(@item.SubjectID)" title="View"><i class="fa fa-eye"></i></a> &nbsp;
                         <a href="javascript:void(0);" onclick="fnAddSubject(@item.SubjectID)" title="Edit"><i class="fa fa-edit"></i></a> &nbsp;

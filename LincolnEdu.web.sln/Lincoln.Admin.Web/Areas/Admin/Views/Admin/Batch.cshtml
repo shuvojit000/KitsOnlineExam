@@ -3,7 +3,6 @@
     ViewBag.Title = "Batch";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayoutPage.cshtml";
 }
-
 <div class="content-wrapper">
     <div class="content-header row">
     </div>
@@ -61,7 +60,7 @@
                         </div>
                         <div class="card-content collapse show">
                             <div class="card-body card-dashboard listBatch">
-                               @{ Html.RenderAction("BatchList", "Admin", new {area="Admin" });}
+                                @{ Html.RenderAction("BatchList", "Admin", new { area = "Admin" });}
                             </div>
                         </div>
                     </div>
@@ -71,7 +70,6 @@
         <!--/ Base style table -->
     </div>
 </div>
-
 <div class="col-lg-12">
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog">
@@ -91,9 +89,41 @@
 </div>
 
 <script>
+    function fnChangeStatus(id, status) {
+        if (confirm("Are you sure?")) {
+            var model = {
+                BatchID: id,
+                Active: status
+            };
+
+            $.ajax({
+                url: '@Url.Action("SaveBatch", "Admin",new {area="Admin" })',
+                data: JSON.stringify(model),
+                type: 'POST',
+                cache: false,
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result > 0) {
+                        alert('Status has been changed Successfully.');                       
+                        fnLoadBatchList();
+                    }
+                    else {
+                        alert('Error in your requst.');
+                        $("#myModal").modal('hide');
+
+                    }
+                },
+                error: function (e) {
+                    alert('Error in your requst.');
+                }
+            });
+        }
+    }
+
     function fnAddBatch(id) {
-        if (id!=null && id!='') {
-            $('.modal-body').load('/Admin/Admin/AddBatch/'+id, function () { $("#myModal").modal('show'); });
+        if (id != null && id != '') {
+            $('.modal-body').load('/Admin/Admin/AddBatch/' + id, function () { $("#myModal").modal('show'); });
         }
         else {
             $('.modal-body').load('/Admin/Admin/AddBatch/', function () { $("#myModal").modal('show'); });
@@ -105,8 +135,8 @@
         if ($('#BatchName').val() == '') {
             alert('Batch Name is required.');
         }
-        else if ($('#BatchDesc').val()=='') {
-             alert('Batch Desc is required.');
+        else if ($('#BatchDesc').val() == '') {
+            alert('Batch Desc is required.');
         }
         else {
 
@@ -114,7 +144,8 @@
             var model = {
                 BatchID: batchId,
                 BatchName: $('#BatchName').val(),
-                BatchDesc: $('#BatchDesc').val()
+                BatchDesc: $('#BatchDesc').val(),
+                Active: 'A'
             };
 
             $.ajax({
@@ -143,26 +174,26 @@
         }
     }
     function fnViewBatch(id) {
-        $('.modal-body').load('/Admin/Admin/BatchView/'+id, function () { $("#myModal").modal('show'); });
+        $('.modal-body').load('/Admin/Admin/BatchView/' + id, function () { $("#myModal").modal('show'); });
     }
     function fnLoadBatchList() {
         $('.listBatch').load('/Admin/Admin/BatchList');
     }
-     function fnDeleteBatch(batchId) {
+    function fnDeleteBatch(batchId) {
 
-         if (confirm("Are you sure?")) {
-              var model = {
-            BatchID: batchId
-         };
-             $.ajax({
-            url: '@Url.Action("DeleteBatch", "Admin",new {area="Admin" })',
-            data: JSON.stringify(model),
+        if (confirm("Are you sure?")) {
+            var model = {
+                BatchID: batchId
+            };
+            $.ajax({
+                url: '@Url.Action("DeleteBatch", "Admin",new {area="Admin" })',
+                data: JSON.stringify(model),
                 type: 'POST',
                 cache: false,
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 success: function (result) {
-                    if (result>0) {
+                    if (result > 0) {
                         alert('Batch has been deleted Successfully.');
 
                         fnLoadBatchList();
@@ -172,7 +203,7 @@
                     alert(e);
                 }
             });
-         }
+        }
 
     }
 </script>

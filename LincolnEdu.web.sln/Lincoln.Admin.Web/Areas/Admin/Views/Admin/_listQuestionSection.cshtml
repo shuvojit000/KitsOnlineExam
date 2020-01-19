@@ -7,6 +7,7 @@
     <thead>
         <tr>
             <th>SLNO</th>
+            <th>Check</th>
             <th>Question Section Name</th>
             <th>Question Section Desc</th>
             <th>STATUS</th>
@@ -23,7 +24,12 @@
             {
                 <tr>
                     <td>@sl</td>
-                    <td>@item.QuestionSectionID</td>
+                    <td>
+                        <center>
+                            <input type="checkbox" onclick="fnChangeStatus(@item.QuestionSectionID,'@(item.Status=="A"?"I":"A")')" @(item.Status == "A" ? "checked" : "")>
+                        </center>
+                    </td>
+                    <td>@item.QuestionSectionName</td>
                     <td>@item.QuestionSectionDesc</td>
                     <td>@item.Status</td>
                     <td>
