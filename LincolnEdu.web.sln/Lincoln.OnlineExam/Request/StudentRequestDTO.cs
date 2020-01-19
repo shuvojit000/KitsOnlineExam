@@ -20,5 +20,7 @@ namespace Lincoln.OnlineExam.Request
         public int CreatedBy { get; set; }
         public string Type { get; set; }
         public int Status { get; set; }
+        public string UserType { get; set; }
+        public string UserName { get; set; }
     }
 }

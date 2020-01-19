@@ -1,1 +1,52 @@
-﻿
+﻿@model IEnumerable<Lincoln.Admin.Web.Models.FacultyViewModel>
+@{
+    int sl = 1;
+}
+<table class="cell-border stripe" id="dataTables-example" style="width:100%">
+    <thead>
+        <tr>
+            <th>SLNO</th>
+            <th>CHECK</th>
+            <th>EMPLOYEE CODE</th>
+            <th>EMPLOYEE NAME</th>
+            <th>MOBILE NO</th>
+            <th>EMAIL ID</th>
+            <th>STATUS</th>
+            <th>ACTION</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@sl</td>
+                    <td>
+                        <center>
+                            <input type="checkbox" onclick="fnChangeStatus(@item.FacultyID,'@(item.Status=="A"?"I":"A")')" @(item.Status == "A" ? "checked" : "")>
+                        </center>
+                    </td>
+                    <td>@item.EmployeeCode</td>
+                    <td>@item.EmployeeName</td>
+                    <td>@item.MobileNo</td>
+                    <td>@item.EmailID</td>
+                    <td>@item.Status</td>
+                    <td>
+                        <a href="javascript:void(0);" onclick="fnViewFaculty(@item.FacultyID)" title="View"><i class="fa fa-eye"></i></a> &nbsp;
+                        <a href="javascript:void(0);" onclick="fnAddFaculty(@item.FacultyID)" title="Edit"><i class="fa fa-edit"></i></a> &nbsp;
+                        <a href="javascript:void(0);" onclick="fnDeleteFaculty(@item.FacultyID)" title="Delete"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+            }
+        }
+
+
+
+    </tbody>
+</table>
+<script>
+     $(document).ready(function () {
+        $('#dataTables-example').dataTable();
+    });
+</script>

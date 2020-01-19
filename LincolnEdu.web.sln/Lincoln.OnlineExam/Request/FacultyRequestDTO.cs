@@ -15,7 +15,7 @@ namespace Lincoln.OnlineExam.Request
         public string EmployeeName { get; set; }
         public string MobileNo { get; set; }
         public string EmailID { get; set; }
-        public string Status { get; set; }
+        public int Status { get; set; }
 
         public int? CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }

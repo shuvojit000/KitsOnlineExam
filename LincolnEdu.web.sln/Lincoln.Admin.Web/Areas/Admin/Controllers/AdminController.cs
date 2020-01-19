@@ -386,7 +386,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
         }
         public PartialViewResult FacultyView(string id)
         {
-            return PartialView("_viewFaculty", SelectStudent(id));
+            return PartialView("_viewFaculty", SelectFaculty(id));
         }
         public PartialViewResult FacultyList()
         {
@@ -406,10 +406,10 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 FacultyID = model.FacultyID,
                 CreatedBy = User.UserId,
                 EmailID = model.EmailID,
-                EmployeeCode = "E"+DateTime.Now.Millisecond,
+                EmployeeCode = model.EmployeeCode,
                 MobileNo = model.MobileNo,
                 EmployeeName = model.EmployeeName,
-                UserName = model.UserName,
+                UserName = model.EmployeeCode,
                 Password = model.Password,
                 Active = model.Active,
                 UserType = "FACULTY"
@@ -575,7 +575,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.Status = item.Status;
             model.BatchID = item.BatchID;
             model.CreatedBy = item.CreatedBy;
-            model.CreatedOn = item.CreatedOn;
+            model.CreatedOn = item.CreatedOn;           
             model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
             return model;
 
@@ -618,7 +618,9 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 StudentID = model.StudentID,
                 StudentName = model.StudentName,
                 Password = model.Password,
-                Active = model.Active
+                Active = model.Active,
+                UserName=model.EmailID,
+                UserType="STUDENT"
             }, type);
 
             return Json(result, JsonRequestBehavior.AllowGet);
