@@ -20,11 +20,18 @@ namespace Lincoln.OnlineExam
             }
             return result;
         }
-        public List<DropdownResponseDTO> GetDropdownData(string Type)
+        public int UpdateStatus(UpdateStatusReuestDTO recordAttributer)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.CommonRepository.GetDropdownData(Type);
+                return unitOfWork.CommonRepository.UpdateStatus(recordAttributer);
+            }
+        }
+        public List<DropdownResponseDTO> GetDropdownData(string type)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.GetDropdownData(type);
             }
 
         }
@@ -145,7 +152,7 @@ namespace Lincoln.OnlineExam
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.UserRepository.SaveFaculty(recordAttributer,Operation);
+                return unitOfWork.UserRepository.SaveFaculty(recordAttributer, Operation);
             }
         }
         public List<FacultyResponseDTO> GetAllFaculty()

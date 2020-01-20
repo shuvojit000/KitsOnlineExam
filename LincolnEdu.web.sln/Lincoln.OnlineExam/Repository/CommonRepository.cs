@@ -14,6 +14,26 @@ namespace Lincoln.OnlineExam.Repository
     public class CommonRepository : ICommon
     {
 
+        #region Change Status
+        public int UpdateStatus(UpdateStatusReuestDTO recordAttributer)
+        {
+            SqlParameter iD = new SqlParameter("@ID", SqlDbType.VarChar);
+            iD.Value = recordAttributer.ID;
+            SqlParameter table = new SqlParameter("@Table", SqlDbType.VarChar);
+            table.Value = recordAttributer.Table;
+            SqlParameter active = new SqlParameter("@Active", SqlDbType.Char);
+            active.Value = recordAttributer.Active;
+            SqlParameter createdBy = new SqlParameter("@CreatedBy", SqlDbType.Int);
+            createdBy.Value = recordAttributer.CreatedBy;
+            SqlParameter status = new SqlParameter("@Status", SqlDbType.Int);
+            status.Value = 0;
+            status.Direction = ParameterDirection.InputOutput;
+            SqlServerHelper.ExecuteNonQueryProc("[ln.Master].[upUpdateStatus]", iD, table, active, createdBy, status);
+
+            return Convert.ToInt32(status.Value);
+        }
+        #endregion
+
         #region Dropdown Code
 
         public List<DropdownResponseDTO> GetDropdownData(string Type)

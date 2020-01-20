@@ -21,13 +21,40 @@
                 </div>
                 <div class="clearfix">
                     <div class="form-group pull-left" style="padding-left:22px; padding-top:10px;">
-                        <select class="custom-select block" id="ddlLanguage">
-                            <option selected>Action</option>
-                            <option value="1">Active</option>
-                            <option value="2">Inactive</option>
+                        <select class="custom-select block" id="ddlStatus">
+                            <option selected value="">Action</option>
+                            <option value="A">Active</option>
+                            <option value="I">Inactive</option>
                         </select>
                     </div>
-                    
+                    <div class="pull-right tableTools-container" style="padding-right:22px; padding-top:10px;">
+                        <div class="dt-buttons btn-overlap btn-group">
+                            <a class="dt-button buttons-copy buttons-html5 btn btn-white btn-primary btn-bold" onclick="fnAddQuestionSection()" title="Add Question Type">
+                                <span>
+                                    <i class="fa fa-plus bigger-110" style="color:#ffffff"></i>
+                                    <span class="hidden">Add</span>
+                                </span>
+                            </a>
+                            <a class="dt-button buttons-excel buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to Excel">
+                                <span>
+                                    <i class="fa fa-file-excel-o bigger-110"></i>
+                                    <span class="hidden">Export to Excel</span>
+                                </span>
+                            </a>
+                            <a class="dt-button buttons-pdf buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to PDF">
+                                <span>
+                                    <i class="fa fa-file-pdf-o bigger-110"></i>
+                                    <span class="hidden">Export to PDF</span>
+                                </span>
+                            </a>
+                            <a class="dt-button buttons-print btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Print">
+                                <span>
+                                    <i class="fa fa-print bigger-110"></i>
+                                    <span class="hidden">Print</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-content collapse show">
                     <div class="card-body card-dashboard  listQuestionSection">
@@ -45,7 +72,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">
-                        <label class="modal-title text-text-bold-600">Question Section Entry & Modify</label>
+                        <label class="modal-title text-text-bold-600">Question Section Entry & Modify/View</label>
                     </h4>
                     <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
@@ -58,6 +85,57 @@
 </div>
 
 <script>
+    $(function () {
+        $("#ddlStatus").change(function () {
+
+            if ($('#ddlStatus').val() != '' && $('#ddlStatus').val() != null) {
+
+                var statusIdstr = [];
+                $.each($(".statusCheck:checked"), function () {
+                    statusIdstr.push($(this).attr('data-id'));
+                });
+                if (statusIdstr.length > 0) {
+                    if (confirm('Are you sure?')) {
+                        var model = {
+                            ID: statusIdstr.join(','),
+                            Active: $('#ddlStatus').val(),
+                            Table: "QuestionSection"
+                        };
+
+                        $.ajax({
+                            url: '@Url.Action("ChangeAllStatus", "Admin",new {area="Admin" })',
+                            data: JSON.stringify(model),
+                            type: 'POST',
+                            cache: false,
+                            contentType: "application/json;charset=utf-8",
+                            dataType: "json",
+                            success: function (result) {
+                                if (result > 0) {
+                                    alert('Status has been changed Successfully.');
+                                    $('#ddlStatus').val('');
+                                    fnLoadQuestionSectionList();
+                                }
+                                else {
+                                    alert('Error in your request.');
+
+
+                                }
+                            },
+                            error: function (e) {
+                                alert('Error in your requst.');
+                            }
+                        });
+                    }
+
+
+                }
+                else {
+                    alert('Please select an Item.');
+                    $('#ddlStatus').val('');
+                }
+            }
+        });
+    });
     function fnChangeStatus(id, status) {
         if (confirm("Are you sure?")) {
             var model = {
@@ -168,7 +246,7 @@
                     }
                 },
                 error: function (e) {
-                    alert(e);
+                    alert('Error in your requst.');
                 }
             });
          }

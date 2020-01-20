@@ -23,6 +23,21 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             return View();
         }
 
+        [HttpPost]
+        public JsonResult ChangeAllStatus(UpdateStatusViewModel model)
+        {
+
+            return Json(onlineExamService.UpdateStatus(new OnlineExam.Request.UpdateStatusReuestDTO
+            {
+
+                Active = model.Active,
+                CreatedBy = User.UserId,
+                ID = model.ID,
+                Table = model.Table,
+
+            }), JsonRequestBehavior.AllowGet);
+        }
+
         #region Batch
 
         public ActionResult Batch() => View();

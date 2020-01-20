@@ -10,6 +10,7 @@ namespace Lincoln.OnlineExam.Repository
 {
     public interface ICommon
     {
+        int UpdateStatus(UpdateStatusReuestDTO recordAttributer);
         List<DropdownResponseDTO> GetDropdownData(string Type);
         int SaveSubject(SubjectRequestDTO recordAttributer, string Operation);
         List<SubjectResponseDTO> GetAllSubject();

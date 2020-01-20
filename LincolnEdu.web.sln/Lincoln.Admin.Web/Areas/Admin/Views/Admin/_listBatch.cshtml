@@ -26,7 +26,7 @@
                     <td>@sl</td>
                     <td>
                         <center>
-                            <input type="checkbox" onclick="fnChangeStatus(@item.BatchID,'@(item.Status=="A"?"I":"A")')" @(item.Status=="A"?"checked":"") >
+                            <input type="checkbox" class="statusCheck" data-id="@item.BatchID">
                         </center>
                     </td>
                     <td>@item.BatchName</td>
@@ -49,6 +49,21 @@
 <script>
     $('#dataTables-example').dataTable({
         dom: 'Bfrtip', buttons: [
-       'copy', 'excel', 'pdf', 'print'
-        ]});
-</script>
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [0, 2, 3, 4]
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: [0, 2, 3, 4]
+                }
+            },{
+                extend: 'print',
+                exportOptions: {
+                    columns: [0, 2, 3, 4]
+                }
+            }]
+    });</script>

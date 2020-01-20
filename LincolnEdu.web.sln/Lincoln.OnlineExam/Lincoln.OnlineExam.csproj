@@ -78,6 +78,7 @@
     <Compile Include="Request\QuestionSectionRequestDTO.cs" />
     <Compile Include="Request\StudentRequestDTO.cs" />
     <Compile Include="Request\SubjectRequestDTO.cs" />
+    <Compile Include="Request\UpdateStatusReuestDTO.cs" />
     <Compile Include="Response\BatchResponseDTO.cs" />
     <Compile Include="Response\CourseResponseDTO.cs" />
     <Compile Include="Response\DropdownResponseDTO.cs" />

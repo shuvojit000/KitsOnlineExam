@@ -9,6 +9,7 @@ namespace Lincoln.OnlineExam
         List<DropdownResponseDTO> GetDropdownData(string Type);
 
         LogInResponseDTO ValidateUser(LogInRequestDTO request, string Operation);
+        int UpdateStatus(UpdateStatusReuestDTO recordAttributer);
 
         int SaveStudent(StudentRequestDTO recordAttributer, string Operation);
         List<StudentResponseDTO> GetAllStudent();
