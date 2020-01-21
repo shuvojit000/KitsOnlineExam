@@ -138,9 +138,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AcademicViewModel.cs" />
     <Compile Include="Models\BatchViewModel.cs" />
     <Compile Include="Models\CourseViewModel.cs" />
     <Compile Include="Models\CustomPrincipalSerializeModel.cs" />
+    <Compile Include="Models\DepartmentViewModel.cs" />
     <Compile Include="Models\FacultyViewModel.cs" />
     <Compile Include="Models\LogInViewModel.cs" />
     <Compile Include="Models\QuestionSectionViewModel.cs" />
@@ -727,6 +729,14 @@
     <Content Include="Areas\Admin\Views\Admin\_addFaculty.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\_viewFaculty.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\_listFaculty.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\AcademicLevel.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_viewAcademicLevel.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_listAcademicLevel.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_addAcademicLevel.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Department.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_addDepartment.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_viewDepartment.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_listDepartment.cshtml" />
     <None Include="Properties\PublishProfiles\LinclnAdmin.pubxml" />
     <None Include="Properties\PublishProfiles\LincLonAdmin.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />

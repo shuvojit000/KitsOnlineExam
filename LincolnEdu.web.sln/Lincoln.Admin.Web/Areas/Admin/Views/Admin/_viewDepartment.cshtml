@@ -1,0 +1,64 @@
+﻿@model Lincoln.Admin.Web.Models.DepartmentViewModel
+
+<div class="panel-body">
+    <!--main content start-->
+    <div class="row">
+        <div class="col-lg-12">
+            <!--PAGE CONTENT BEGINS-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label><b>Academic Level:</b> </label>
+                        <div class="position-relative has-icon-left">
+                            @Html.DisplayFor(a => a.AcademicName, new { @class = "form-control" })
+                            <div class="form-control-position">
+                                <i class="ft-user"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label><b>Department Code: </b></label>
+                        @Html.DisplayFor(a => a.DepartmentCode, new { @class = "form-control" })
+
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-12">
+                        <label><b>Student Name: </b></label>
+                        <div class="position-relative has-icon-left gt">
+                            @Html.DisplayFor(a => a.DepartmentName, new { @class = "form-control" })
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label><b>HOD Name: </b></label>
+                        <div class="position-relative has-icon-left">
+                            @Html.DisplayFor(a => a.HODName, new { @class = "form-control" })
+                            <div class="form-control-position">
+                                <i class="icon-size-actual"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label><b>HOD Email:</b> </label>
+                        <div class="position-relative has-icon-left">
+                            @Html.DisplayFor(a => a.HODEmail, new { @placeholder = "Mobile No", @class = "form-control" })
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+            <!--PAGE CONTENT ENDS-->
+        </div>
+    </div>
+    <!--main contant end-->
+</div>
+
+

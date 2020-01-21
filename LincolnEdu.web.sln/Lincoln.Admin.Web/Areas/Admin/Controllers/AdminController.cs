@@ -590,7 +590,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.Status = item.Status;
             model.BatchID = item.BatchID;
             model.CreatedBy = item.CreatedBy;
-            model.CreatedOn = item.CreatedOn;           
+            model.CreatedOn = item.CreatedOn;
             model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
             return model;
 
@@ -634,8 +634,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 StudentName = model.StudentName,
                 Password = model.Password,
                 Active = model.Active,
-                UserName=model.EmailID,
-                UserType="STUDENT"
+                UserName = model.EmailID,
+                UserType = "STUDENT"
             }, type);
 
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -660,6 +660,210 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
         #endregion
 
+
+        #region Academic Level
+
+        public ActionResult AcademicLevel() => View();
+
+        private List<AcademicViewModel> GetAllAcademicLevel()
+        {
+            var itemSet = new List<AcademicViewModel>();
+            itemSet = onlineExamService.GetAllAcademicLevel().Select(a => new AcademicViewModel()
+            {
+                AcademicName = a.AcademicName,
+                AcademicCode = a.AcademicCode,
+                ModifiedOn = a.ModifiedOn?.Date,
+                Status = a.Status,
+                AcademicID = a.AcademicID,
+                CreatedBy = a.CreatedBy,
+                CreatedOn = a.CreatedOn,
+                ModifiedBy = Convert.ToInt32(a.ModifiedBy),
+            }).ToList();
+
+            return itemSet;
+        }
+        private AcademicViewModel SelectAcademicLevel(string academicId)
+        {
+            var model = new AcademicViewModel();
+            var item = onlineExamService.SelectAcademicLevel(new OnlineExam.Request.AcademicLevelRequestDTO
+            {
+                AcademicID = Convert.ToInt32(academicId)
+
+            });
+            model.AcademicName = item.AcademicName;
+            model.AcademicCode = item.AcademicCode;
+            model.ModifiedOn = item.ModifiedOn?.Date;
+            model.Status = item.Status;
+            model.AcademicID = item.AcademicID;
+            model.CreatedBy = item.CreatedBy;
+            model.CreatedOn = item.CreatedOn;
+            model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
+            return model;
+
+        }
+
+        public PartialViewResult AddAcademicLevel(string id)
+        {
+            var model = new AcademicViewModel();
+            if (!string.IsNullOrEmpty(id))
+            {
+                model = SelectAcademicLevel(id);
+            }
+            return PartialView("_addAcademicLevel", model);
+        }
+        public PartialViewResult AcademicLevelView(string id)
+        {
+            return PartialView("_viewAcademicLevel", SelectAcademicLevel(id));
+        }
+        public PartialViewResult AcademicLevelList()
+        {
+            return PartialView("_listAcademicLevel", GetAllAcademicLevel());
+        }
+        [HttpPost]
+        public JsonResult SaveAcademicLevel(AcademicViewModel model)
+        {
+            var type = "INSERT";
+            if (model.AcademicID > 0)
+            {
+                type = "UPDATE";
+            }
+
+            var result = onlineExamService.SaveAcademicLevel(new OnlineExam.Request.AcademicLevelRequestDTO()
+            {
+                AcademicID = model.AcademicID,
+                CreatedBy = User.UserId,
+                AcademicName = model.AcademicName,
+                AcademicCode = model.AcademicCode,
+                Active = model.Active
+
+            }, type);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult DeleteAcademicLevel(AcademicViewModel model)
+        {
+
+            var result = onlineExamService.SaveAcademicLevel(new OnlineExam.Request.AcademicLevelRequestDTO()
+            {
+                AcademicID = model.AcademicID,
+                CreatedBy = User.UserId,
+                AcademicName = model.AcademicName,
+                AcademicCode = model.AcademicCode,
+
+            }, "DELETE");
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region Department
+
+        public ActionResult Department() => View();
+
+        private List<DepartmentViewModel> GetAllDepartment()
+        {
+            var itemSet = new List<DepartmentViewModel>();
+            itemSet = onlineExamService.GetAllDepartment().Select(a => new DepartmentViewModel()
+            {
+                AcademicName = a.AcademicName,
+                DepartmentCode = a.DepartmentCode,
+                DepartmentName=a.DepartmentName,
+                DepartmentID = a.DepartmentID,
+                HODEmail = a.HODEmail,
+                HODName = a.HODName,
+                ModifiedOn = a.ModifiedOn?.Date,
+                Status = a.Status,
+                AcademicID = a.AcademicID,
+                CreatedBy = a.CreatedBy,
+                CreatedOn = a.CreatedOn,
+                ModifiedBy = Convert.ToInt32(a.ModifiedBy),
+            }).ToList();
+
+            return itemSet;
+        }
+        private DepartmentViewModel SelectDepartment(string departmentId)
+        {
+            var model = new DepartmentViewModel();
+            var item = onlineExamService.SelectDepartment(new OnlineExam.Request.DepartmentRequestDTO
+            {
+                DepartmentID = Convert.ToInt32(departmentId)
+
+            });
+            model.AcademicName = item.AcademicName;
+            model.DepartmentID = item.DepartmentID;
+            model.DepartmentName = item.DepartmentName;
+            model.DepartmentCode = item.DepartmentCode;
+            model.HODName = item.HODName;
+            model.HODEmail = item.HODEmail;
+            model.ModifiedOn = item.ModifiedOn?.Date;
+            model.Status = item.Status;
+            model.AcademicID = item.AcademicID;
+            model.CreatedBy = item.CreatedBy;
+            model.CreatedOn = item.CreatedOn;
+            model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
+            return model;
+
+        }
+
+        public PartialViewResult AddDepartment(string id)
+        {
+            var model = new DepartmentViewModel();
+            if (!string.IsNullOrEmpty(id))
+            {
+                model = SelectDepartment(id);
+            }
+            model.AcademicList=onlineExamService.GetDropdownData("Academic").Select(a => new SelectListItem { Text = a.CodeDesc, Value = a.CodeID }).ToList();
+            return PartialView("_addDepartment", model);
+        }
+        public PartialViewResult DepartmentView(string id)
+        {
+            return PartialView("_viewDepartment", SelectDepartment(id));
+        }
+        public PartialViewResult DepartmentList()
+        {
+            return PartialView("_listDepartment", GetAllDepartment());
+        }
+        [HttpPost]
+        public JsonResult SaveDepartment(DepartmentViewModel model)
+        {
+            var type = "INSERT";
+            if (model.DepartmentID > 0)
+            {
+                type = "UPDATE";
+            }
+
+            var result = onlineExamService.SaveDepartment(new OnlineExam.Request.DepartmentRequestDTO()
+            {
+                AcademicID = model.AcademicID,
+                CreatedBy = User.UserId,
+                DepartmentCode = model.DepartmentCode,
+                HODEmail = model.HODEmail,
+                HODName = model.HODName,
+                DepartmentName = model.DepartmentName,
+                DepartmentID = model.DepartmentID,
+                Active = model.Active
+
+            }, type);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult DeleteDepartment(DepartmentViewModel model)
+        {
+
+            var result = onlineExamService.SaveDepartment(new OnlineExam.Request.DepartmentRequestDTO()
+            {
+               
+                CreatedBy = User.UserId,
+                DepartmentID=model.DepartmentID
+                
+
+            }, "DELETE");
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
 
     }
 }

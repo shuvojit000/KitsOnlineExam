@@ -1,0 +1,74 @@
+﻿
+@model IEnumerable<Lincoln.Admin.Web.Models.DepartmentViewModel>
+@{
+
+    int sl = 1;
+}
+
+<table class="cell-border stripe" id="dataTables-example" style="width:100%">
+    <thead>
+        <tr>
+            <th>SlNo</th>
+            <th>Check</th>
+            <th>Academic Name</th>
+            <th>Department Code</th>
+            <th>Department Name</th>
+            <th>HOD Name</th>
+            <th>HOD Email</th>
+
+            <th>STATUS</th>
+            <th>ACTION</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count() > 0)
+        {
+
+
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@sl</td>
+                    <td>
+                        <center>
+                            <input type="checkbox" class="statusCheck" data-id="@item.DepartmentID">
+                        </center>
+                    </td>
+                    <td>@item.AcademicName</td>
+                    <td>@item.DepartmentCode</td>
+                    <td>@item.DepartmentName</td>
+                    <td>@item.HODName</td>
+                    <td>@item.HODEmail</td>
+
+                    <td>@item.Status</td>
+                    <td>
+                        <a href="javascript:void(0);" onclick="fnViewDepartment(@item.DepartmentID)" title="View"><i class="fa fa-eye"></i></a> &nbsp;
+                        <a href="javascript:void(0);" onclick="fnAddDepartment(@item.DepartmentID)" title="Edit"><i class="fa fa-edit"></i></a> &nbsp;
+                        <a href="javascript:void(0);" onclick="fnDeleteDepartment(@item.DepartmentID)" title="Delete"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<script>
+    $('#dataTables-example').dataTable({
+        dom: 'Bfrtip', buttons: [
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [0, 2, 3, 4, 5, 6, 7]
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: [0, 2, 3, 4, 5, 6, 7]
+                }
+            }, {
+                extend: 'print',
+                exportOptions: {
+                    columns: [0, 2, 3, 4, 5, 6, 7]
+                }
+            }]
+    });</script>

@@ -26,5 +26,14 @@ namespace Lincoln.OnlineExam.Repository
         int SaveQuestionSection(QuestionSectionRequestDTO recordAttributer, string Operation);
         List<QuestionSectionResponseDTO> GetAllQuestionSection();
         QuestionSectionResponseDTO SelectQuestionSection(QuestionSectionRequestDTO recordAttributer);
+
+
+        int SaveAcademicLevel(AcademicLevelRequestDTO recordAttributer, string Operation);
+        List<AcademicLevelResponseDTO> GetAllAcademicLevel();
+        AcademicLevelResponseDTO SelectAcademicLevel(AcademicLevelRequestDTO recordAttributer);
+
+        int SaveDepartment(DepartmentRequestDTO recordAttributer, string Operation);
+        List<DepartmentResponseDTO> GetAllDepartment();
+        DepartmentResponseDTO SelectDepartment(DepartmentRequestDTO recordAttributer);
     }
 }

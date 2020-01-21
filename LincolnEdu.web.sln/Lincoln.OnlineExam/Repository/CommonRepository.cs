@@ -501,5 +501,252 @@ namespace Lincoln.OnlineExam.Repository
 
 
         #endregion
+
+
+        #region AcademicLevel
+      
+
+        public int SaveAcademicLevel(AcademicLevelRequestDTO recordAttributer, string Operation)
+        {
+            SqlParameter academicID = new SqlParameter("@AcademicID", SqlDbType.Int);
+            academicID.Value = recordAttributer.AcademicID;
+
+            SqlParameter academicCode = new SqlParameter("@AcademicCode", SqlDbType.VarChar);
+            academicCode.Value = recordAttributer.AcademicCode;
+
+            SqlParameter academicName = new SqlParameter("@AcademicName", SqlDbType.VarChar);
+            academicName.Value = recordAttributer.AcademicName;
+
+            SqlParameter active = new SqlParameter("@Active", SqlDbType.Char);
+            active.Value = recordAttributer.Active;
+            SqlParameter createdBy = new SqlParameter("@CreatedBy", SqlDbType.Int);
+            createdBy.Value = recordAttributer.CreatedBy;
+
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = Operation;
+
+
+            SqlParameter status = new SqlParameter("@Status", SqlDbType.Int);
+            status.Value = 0;
+            status.Direction = ParameterDirection.InputOutput;
+
+            SqlServerHelper.ExecuteNonQueryProc("[ln.Master].[upSaveAcademic]", academicID, academicCode, academicName, active, createdBy, type, status);
+
+            return Convert.ToInt32(status.Value);
+
+        }
+        public List<AcademicLevelResponseDTO> GetAllAcademicLevel()
+        {
+            var itemSet = new List<AcademicLevelResponseDTO>();
+
+
+            SqlParameter academicID = new SqlParameter("@AcademicID", SqlDbType.Int);
+            academicID.Value = DBNull.Value;
+            SqlParameter academicCode = new SqlParameter("@AcademicCode", SqlDbType.VarChar);
+            academicCode.Value = DBNull.Value;
+            SqlParameter academicName = new SqlParameter("@AcademicName", SqlDbType.VarChar);
+            academicName.Value = DBNull.Value;
+            
+
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = "GET";
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Master].[upGetAcademic]", academicID, academicCode, academicName, type))
+            {
+                if (dr != null && dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        itemSet.Add(new AcademicLevelResponseDTO()
+                        {
+                            AcademicID = Convert.ToInt32(dr["AcademicID"]),
+
+                            AcademicName = object.ReferenceEquals(dr["AcademicName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AcademicName"]),
+                            AcademicCode = object.ReferenceEquals(dr["AcademicCode"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AcademicCode"]),
+                            Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
+                            CreatedBy = Convert.ToInt32(dr["CreatedBy"]),
+                            //CreatedOn = object.ReferenceEquals(dr["CreatedOn"], DBNull.Value) ? default(DateTime) : Convert.ToDateTime(dr["CreatedOn"]),
+                            // ModifiedBy = Convert.ToInt32(dr["ModifiedBy"]),
+                            // ModifiedOn = object.ReferenceEquals(dr["ModifiedOn"], DBNull.Value) ? default(DateTime) : Convert.ToDateTime(dr["ModifiedOn"])
+
+                        });
+
+                    }
+                }
+            }
+            return itemSet;
+
+        }
+
+        public AcademicLevelResponseDTO SelectAcademicLevel(AcademicLevelRequestDTO recordAttributer)
+        {
+            var item = new AcademicLevelResponseDTO();
+
+
+            SqlParameter academicID = new SqlParameter("@AcademicID", SqlDbType.Int);
+            academicID.Value = recordAttributer.AcademicID;
+            
+            SqlParameter academicCode = new SqlParameter("@AcademicCode", SqlDbType.VarChar);
+            academicCode.Value = recordAttributer.AcademicCode;
+            SqlParameter academicName = new SqlParameter("@AcademicName", SqlDbType.VarChar);
+            academicName.Value = recordAttributer.AcademicName;
+
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = "GET";
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Master].[upGetAcademic]", academicID, academicCode,
+                academicName, type))
+            {
+                if (dr != null && dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+
+                        item.AcademicID = Convert.ToInt32(dr["AcademicID"]);
+                        item.AcademicName = object.ReferenceEquals(dr["AcademicName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AcademicName"]);
+                        item.AcademicCode = object.ReferenceEquals(dr["AcademicCode"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AcademicCode"]);
+                        item.Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]);
+                        item.CreatedBy = Convert.ToInt32(dr["CreatedBy"]);
+                        //item.CreatedOn = object.ReferenceEquals(dr["CreatedOn"], DBNull.Value) ? default(DateTime) : Convert.ToDateTime(dr["CreatedOn"]);
+                        //item.ModifiedBy = Convert.ToInt32(dr["ModifiedBy"]);
+                        // item.ModifiedOn = object.ReferenceEquals(dr["ModifiedOn"], DBNull.Value) ? default(DateTime) : Convert.ToDateTime(dr["ModifiedOn"]);
+
+                    }
+                }
+            }
+            return item;
+
+        }
+
+
+
+        #endregion
+
+        #region Department
+
+        public int SaveDepartment(DepartmentRequestDTO recordAttributer, string Operation)
+        {
+            SqlParameter departmentID = new SqlParameter("@DepartmentID", SqlDbType.Int);
+            departmentID.Value = recordAttributer.DepartmentID;
+
+            SqlParameter academicID = new SqlParameter("@AcademicID", SqlDbType.Int);
+            academicID.Value = recordAttributer.AcademicID;
+
+            SqlParameter departmentCode = new SqlParameter("@DepartmentCode", SqlDbType.VarChar);
+            departmentCode.Value = recordAttributer.DepartmentCode;
+
+            SqlParameter departmentName = new SqlParameter("@DepartmentName", SqlDbType.VarChar);
+            departmentName.Value = recordAttributer.DepartmentName;
+            SqlParameter hODName = new SqlParameter("@HODName", SqlDbType.VarChar);
+            hODName.Value = recordAttributer.HODName;
+            SqlParameter hODEmail = new SqlParameter("@HODEmail", SqlDbType.VarChar);
+            hODEmail.Value = recordAttributer.HODEmail;
+
+            SqlParameter active = new SqlParameter("@Active", SqlDbType.Char);
+            active.Value = recordAttributer.Active;
+            SqlParameter createdBy = new SqlParameter("@CreatedBy", SqlDbType.Int);
+            createdBy.Value = recordAttributer.CreatedBy;
+
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = Operation;
+
+
+            SqlParameter status = new SqlParameter("@Status", SqlDbType.Int);
+            status.Value = 0;
+            status.Direction = ParameterDirection.InputOutput;
+
+            SqlServerHelper.ExecuteNonQueryProc("[ln.Master].[upSaveDepartment]",departmentID, academicID, departmentCode, departmentName,
+                hODName,hODEmail, active, createdBy, type, status);
+
+            return Convert.ToInt32(status.Value);
+
+        }
+        public List<DepartmentResponseDTO> GetAllDepartment()
+        {
+            var itemSet = new List<DepartmentResponseDTO>();
+
+            SqlParameter departmentID = new SqlParameter("@DepartmentID", SqlDbType.Int);
+            departmentID.Value = DBNull.Value;
+            SqlParameter academicID = new SqlParameter("@AcademicID", SqlDbType.Int);
+            academicID.Value = DBNull.Value;
+            SqlParameter departmentCode = new SqlParameter("@DepartmentCode", SqlDbType.VarChar);
+            departmentCode.Value = DBNull.Value;
+            SqlParameter departmentName = new SqlParameter("@DepartmentName", SqlDbType.VarChar);
+            departmentName.Value = DBNull.Value;
+
+
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = "GET";
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Master].[upGetDepartment]",departmentID, academicID, departmentCode, departmentName, type))
+            {
+                if (dr != null && dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        itemSet.Add(new DepartmentResponseDTO()
+                        {
+                            DepartmentID = Convert.ToInt32(dr["DepartmentID"]),
+                            AcademicID = Convert.ToInt32(dr["AcademicID"]),
+                            AcademicName = object.ReferenceEquals(dr["AcademicName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AcademicName"]),
+                            DepartmentCode = object.ReferenceEquals(dr["DepartmentCode"], DBNull.Value) ? string.Empty : Convert.ToString(dr["DepartmentCode"]),
+                            DepartmentName = object.ReferenceEquals(dr["DepartmentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["DepartmentName"]),
+                            HODName = object.ReferenceEquals(dr["HODName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["HODName"]),
+                            HODEmail = object.ReferenceEquals(dr["HODEmail"], DBNull.Value) ? string.Empty : Convert.ToString(dr["HODEmail"]),
+                            Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
+                            CreatedBy = Convert.ToInt32(dr["CreatedBy"]),
+                            //CreatedOn = object.ReferenceEquals(dr["CreatedOn"], DBNull.Value) ? default(DateTime) : Convert.ToDateTime(dr["CreatedOn"]),
+                            // ModifiedBy = Convert.ToInt32(dr["ModifiedBy"]),
+                            // ModifiedOn = object.ReferenceEquals(dr["ModifiedOn"], DBNull.Value) ? default(DateTime) : Convert.ToDateTime(dr["ModifiedOn"])
+
+                        });
+
+                    }
+                }
+            }
+            return itemSet;
+
+        }
+
+        public DepartmentResponseDTO SelectDepartment(DepartmentRequestDTO recordAttributer)
+        {
+            var item = new DepartmentResponseDTO();
+
+
+            SqlParameter departmentID = new SqlParameter("@DepartmentID", SqlDbType.Int);
+            departmentID.Value = recordAttributer.DepartmentID;
+            SqlParameter academicID = new SqlParameter("@AcademicID", SqlDbType.Int);
+            academicID.Value = DBNull.Value;
+            SqlParameter departmentCode = new SqlParameter("@DepartmentCode", SqlDbType.VarChar);
+            departmentCode.Value = recordAttributer.DepartmentCode;
+            SqlParameter departmentName = new SqlParameter("@DepartmentName", SqlDbType.VarChar);
+            departmentName.Value = recordAttributer.DepartmentName;
+
+
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = "GET";
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Master].[upGetDepartment]", departmentID, academicID, departmentCode, departmentName, type))
+            {
+                if (dr != null && dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        item.DepartmentID = Convert.ToInt32(dr["DepartmentID"]);
+                        item.AcademicID = Convert.ToInt32(dr["AcademicID"]);
+                        item.AcademicName = object.ReferenceEquals(dr["AcademicName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AcademicName"]);
+                        item.DepartmentName = object.ReferenceEquals(dr["DepartmentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["DepartmentName"]);
+                        item.DepartmentCode = object.ReferenceEquals(dr["DepartmentCode"], DBNull.Value) ? string.Empty : Convert.ToString(dr["DepartmentCode"]);
+                        item.HODName = object.ReferenceEquals(dr["HODName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["HODName"]);
+                        item.HODEmail = object.ReferenceEquals(dr["HODEmail"], DBNull.Value) ? string.Empty : Convert.ToString(dr["HODEmail"]);
+                        item.Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]);
+                        item.CreatedBy = Convert.ToInt32(dr["CreatedBy"]);
+                        //item.CreatedOn = object.ReferenceEquals(dr["CreatedOn"], DBNull.Value) ? default(DateTime) : Convert.ToDateTime(dr["CreatedOn"]);
+                        //item.ModifiedBy = Convert.ToInt32(dr["ModifiedBy"]);
+                        // item.ModifiedOn = object.ReferenceEquals(dr["ModifiedOn"], DBNull.Value) ? default(DateTime) : Convert.ToDateTime(dr["ModifiedOn"]);
+
+                    }
+                }
+            }
+            return item;
+
+        }
+        #endregion
     }
 }

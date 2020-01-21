@@ -169,5 +169,46 @@ namespace Lincoln.OnlineExam
                 return unitOfWork.UserRepository.SelectFaculty(recordAttributer);
             }
         }
+
+
+
+        public int SaveAcademicLevel(AcademicLevelRequestDTO recordAttributer, string Operation) {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.SaveAcademicLevel(recordAttributer, Operation);
+            }
+        }
+        public List<AcademicLevelResponseDTO> GetAllAcademicLevel() {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.GetAllAcademicLevel();
+            }
+        }
+        public AcademicLevelResponseDTO SelectAcademicLevel(AcademicLevelRequestDTO recordAttributer) {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.SelectAcademicLevel(recordAttributer);
+            }
+        }
+
+
+        public int SaveDepartment(DepartmentRequestDTO recordAttributer, string Operation) {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.SaveDepartment(recordAttributer, Operation);
+            }
+        }
+        public List<DepartmentResponseDTO> GetAllDepartment() {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.GetAllDepartment();
+            }
+        }
+        public DepartmentResponseDTO SelectDepartment(DepartmentRequestDTO recordAttributer) {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.SelectDepartment(recordAttributer);
+            }
+        }
     }
 }
