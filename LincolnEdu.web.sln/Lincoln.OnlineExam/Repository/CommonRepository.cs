@@ -959,9 +959,12 @@ namespace Lincoln.OnlineExam.Repository
                             ProgramVersioningID = Convert.ToInt32(dr["ProgrammeVersioningID"]),
                             DepartmentCode = Convert.ToInt32(dr["DepartmentID"]),
                             ProgramCode = Convert.ToInt32(dr["ProgrammeID"]),
+                            DepartmentName = object.ReferenceEquals(dr["DepartmentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["DepartmentName"]),
+                            ProgramName = object.ReferenceEquals(dr["ProgrammeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeName"]),
                             Version = object.ReferenceEquals(dr["Version"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Version"]),
                             PlaceHolder = object.ReferenceEquals(dr["SyllabusVersion"], DBNull.Value) ? string.Empty : Convert.ToString(dr["SyllabusVersion"]),
                             Credit = object.ReferenceEquals(dr["Credit"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Credit"]),
+                            Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
                             CreatedBy = Convert.ToInt32(dr["CreatedBy"]),
                         });
 
@@ -977,35 +980,35 @@ namespace Lincoln.OnlineExam.Repository
             var item = new ProgramVersioningResponseDTO();
 
 
-            SqlParameter programVersioningID = new SqlParameter("@ProgramVersioningID", SqlDbType.Int);
+            SqlParameter programVersioningID = new SqlParameter("@ProgrammeVersioningID", SqlDbType.Int);
             programVersioningID.Value = DBNull.Value;
-            SqlParameter departmentCode = new SqlParameter("@DepartmentCode", SqlDbType.VarChar);
+            SqlParameter departmentCode = new SqlParameter("@DepartmentID", SqlDbType.VarChar);
             departmentCode.Value = DBNull.Value;
-            SqlParameter programCode = new SqlParameter("@ProgramCode", SqlDbType.VarChar);
+            SqlParameter programCode = new SqlParameter("@ProgrammeID", SqlDbType.VarChar);
             programCode.Value = DBNull.Value;
             SqlParameter version = new SqlParameter("@Version", SqlDbType.VarChar);
             version.Value = DBNull.Value;
-            SqlParameter placeHolder = new SqlParameter("@PlaceHolder", SqlDbType.VarChar);
+            SqlParameter placeHolder = new SqlParameter("@SyllabusVersion", SqlDbType.VarChar);
             placeHolder.Value = DBNull.Value;
-            SqlParameter credit = new SqlParameter("@Credit", SqlDbType.VarChar);
-            credit.Value = DBNull.Value;
+            //SqlParameter credit = new SqlParameter("@Credit", SqlDbType.VarChar);
+            //credit.Value = DBNull.Value;
 
 
             SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
             type.Value = "GET";
-            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Master].[upGetProgramVersioning]", programVersioningID, programCode, departmentCode, version, placeHolder, credit, type))
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Master].[upGetProgrammeVersioning]", programVersioningID, programCode, departmentCode, version, placeHolder, type))
             {
                 if (dr != null && dr.HasRows)
                 {
                     while (dr.Read())
                     {
-                        item.ProgramVersioningID = Convert.ToInt32(dr["ProgramVersioningID"]);
-                        item.ProgramCode = Convert.ToInt32(dr["ProgramCode"]);
+                        item.ProgramVersioningID = Convert.ToInt32(dr["ProgrammeVersioningID"]);
+                        item.ProgramCode = Convert.ToInt32(dr["ProgrammeID"]);
                         item.Version = object.ReferenceEquals(dr["Version"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Version"]);
-                        item.PlaceHolder = object.ReferenceEquals(dr["PlaceHolder"], DBNull.Value) ? string.Empty : Convert.ToString(dr["PlaceHolder"]);
-                        item.DepartmentCode = Convert.ToInt32(dr["DepartmentCode"]);
+                        item.PlaceHolder = object.ReferenceEquals(dr["SyllabusVersion"], DBNull.Value) ? string.Empty : Convert.ToString(dr["SyllabusVersion"]);
+                        item.DepartmentCode = Convert.ToInt32(dr["DepartmentID"]);
                         item.Credit = object.ReferenceEquals(dr["Credit"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Credit"]);
-                        item.Status = Convert.ToInt32(dr["Status"]);
+                        item.Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]);
                         item.CreatedBy = Convert.ToInt32(dr["CreatedBy"]);
                     }
                 }
