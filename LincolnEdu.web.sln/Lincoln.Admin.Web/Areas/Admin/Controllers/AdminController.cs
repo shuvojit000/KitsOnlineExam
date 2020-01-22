@@ -1018,10 +1018,13 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             {
                 ProgramVersioningID = a.ProgramVersioningID,
                 DepartmentCode = a.DepartmentCode,
+                DepartmentName = a.DepartmentName,
                 Version = a.Version,
                 ProgramCode = a.ProgramCode,
+                ProgramName = a.ProgramName,
                 PlaceHolder = a.PlaceHolder,
                 Credit = a.Credit,
+                Active = a.Status,
                 ModifiedOn = a.ModifiedOn?.Date,
                 CreatedBy = a.CreatedBy,
                 CreatedOn = a.CreatedOn,
