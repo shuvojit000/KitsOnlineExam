@@ -4,7 +4,7 @@
     ViewBag.Title = "ProgramVersioning";
 }
 
-
+<h2>ProgramVersioning</h2>
 <div class="content-wrapper">
     <div class="content-header row">
     </div>
@@ -238,10 +238,10 @@
         }
     }
     function fnViewProgramVersioning(id) {
-        $('.modal-body').load('/Admin/Admin/ProgramVersioning/'+id, function () { $("#myModal").modal('show'); });
+        $('.modal-body').load('/Admin/Admin/ProgramVersioningView/'+id, function () { $("#myModal").modal('show'); });
     }
     function fnLoadCourseList() {
-        $('.listCourse').load('/Admin/Admin/ProgramVersioning');
+        $('.listCourse').load('/Admin/Admin/ProgramVersioningList');
     }
      function fnDeleteProgramVersioning(ProgramVersioningID) {
 
