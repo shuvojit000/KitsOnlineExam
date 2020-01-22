@@ -11,6 +11,8 @@ namespace Lincoln.Admin.Web.Models
         public int ProgramVersioningID { get; set; }
         public int DepartmentCode { get; set; }
         public int ProgramCode { get; set; }
+        public string DepartmentName { get; set; }
+        public string ProgramName { get; set; }
         public string Version { get; set; }
         public string PlaceHolder { get; set; }
         public string Credit { get; set; }
