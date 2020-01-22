@@ -210,5 +210,28 @@ namespace Lincoln.OnlineExam
                 return unitOfWork.CommonRepository.SelectDepartment(recordAttributer);
             }
         }
+
+
+        public int SaveProgramme(ProgrammeRequestDTO recordAttributer, string Operation)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.SaveProgramme(recordAttributer, Operation);
+            }
+        }
+        public List<ProgrammeResponseDTO> GetAllProgramme()
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.GetAllProgramme();
+            }
+        }
+        public ProgrammeResponseDTO SelectProgramme(ProgrammeRequestDTO recordAttributer)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.SelectProgramme(recordAttributer);
+            }
+        }
     }
 }
