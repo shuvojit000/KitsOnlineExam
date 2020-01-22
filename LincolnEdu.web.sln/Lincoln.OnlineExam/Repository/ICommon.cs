@@ -35,5 +35,9 @@ namespace Lincoln.OnlineExam.Repository
         int SaveDepartment(DepartmentRequestDTO recordAttributer, string Operation);
         List<DepartmentResponseDTO> GetAllDepartment();
         DepartmentResponseDTO SelectDepartment(DepartmentRequestDTO recordAttributer);
+
+        int SaveProgramme(ProgrammeRequestDTO recordAttributer, string Operation);
+        List<ProgrammeResponseDTO> GetAllProgramme();
+        ProgrammeResponseDTO SelectProgramme(ProgrammeRequestDTO recordAttributer);
     }
 }
