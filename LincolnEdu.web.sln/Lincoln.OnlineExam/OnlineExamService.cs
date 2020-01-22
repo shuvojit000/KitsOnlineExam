@@ -233,5 +233,58 @@ namespace Lincoln.OnlineExam
                 return unitOfWork.CommonRepository.SelectProgramme(recordAttributer);
             }
         }
+
+
+
+        public int SaveProgramVersioning(ProgramVersioningRequestDTO recordAttributer, string Operation)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.SaveProgramVersioning(recordAttributer, Operation);
+            }
+        }
+        public List<ProgramVersioningResponseDTO> GetAllProgramVersioning()
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.GetAllProgramVersioning();
+            }
+        }
+        public ProgramVersioningResponseDTO SelectProgramVersioning(ProgramVersioningRequestDTO recordAttributer)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.SelectProgramVersioning(recordAttributer);
+            }
+        }
+
+
+
+        public int SaveProgrammeSemester(ProgrammeSemesterRequestDTO recordAttributer, string Operation)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.SaveProgrammeSemester(recordAttributer, Operation);
+            }
+        }
+
+
+
+
+
+       public  List<ProgrammeSemesterResponseDTO> GetAllProgrammeSemester()
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.GetAllProgrammeSemester();
+            }
+        }
+        public  ProgrammeSemesterResponseDTO SelectProgrammeSemester(ProgrammeSemesterRequestDTO recordAttributer)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.SelectProgrammeSemester(recordAttributer);
+            }
+        }
     }
 }
