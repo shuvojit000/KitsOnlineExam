@@ -38,7 +38,7 @@
                                             <span class="hidden">Add</span>
                                         </span>
                                     </a>
-                                    <a class="dt-button buttons-excel buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to Excel">
+                                    @*<a class="dt-button buttons-excel buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to Excel">
                                         <span>
                                             <i class="fa fa-file-excel-o bigger-110"></i>
                                             <span class="hidden">Export to Excel</span>
@@ -55,7 +55,7 @@
                                             <i class="fa fa-print bigger-110"></i>
                                             <span class="hidden">Print</span>
                                         </span>
-                                    </a>
+                                    </a>*@
                                 </div>
                             </div>
                         </div>
@@ -141,37 +141,7 @@
             }
         });
     });
-    function fnChangeStatus(id, status) {
-        if (confirm("Are you sure?")) {
-            var model = {
-                CourseID: id,
-                Active: status
-            };
-
-            $.ajax({
-                url: '@Url.Action("SaveCourse", "Admin",new {area="Admin" })',
-                data: JSON.stringify(model),
-                type: 'POST',
-                cache: false,
-                contentType: "application/json;charset=utf-8",
-                dataType: "json",
-                success: function (result) {
-                    if (result > 0) {
-                        alert('Status has been changed Successfully.');
-                        fnLoadCourseList();
-                    }
-                    else {
-                        alert('Error in your requst.');
-                        $("#myModal").modal('hide');
-
-                    }
-                },
-                error: function (e) {
-                    alert('Error in your requst.');
-                }
-            });
-        }
-    }
+    
     function fnAddCourse(id) {
         if (id!=null && id!='') {
             $('.modal-body').load('/Admin/Admin/AddCourse/'+id, function () { $("#myModal").modal('show'); });
@@ -183,11 +153,35 @@
     }
     function fnSaveCourse(courseId) {
 
-        if ($('#CourseCode').val() == '') {
+        if ($('#DepartmentID').val() == '') {
+            alert('Please select Faculty.');
+        }
+        else if ($('#ProgrammeID').val() == '') {
+             alert('Please select programme.');
+        }
+        else if ($('#CountryID').val() == '') {
+            alert('Please select Country.');
+        }
+        else if ($('#ProgrammeYear').val() == '') {
+            alert('Please select Programme year.');
+        }
+        else if ($('#ProgrammeSemester').val() == '') {
+            alert('Please select Semester.');
+        }
+        else if ($('#SemesterType').val() == '') {
+            alert('Please select Semester Type');
+        }
+        else if ($('#CourseCode').val() == '') {
             alert('Course Code is required.');
         }
-        else if ($('#CourseName').val()=='') {
-             alert('Course Name is required.');
+        else if ($('#CourseName').val() == '') {
+            alert('Course Name is required.');
+        }
+        else if ($('#ApprovalNo').val() == '') {
+            alert('Approval No is required.');
+        }
+        else if ($('#Credit').val() == '') {
+            alert('Credit is required.');
         }
         else {
 
@@ -196,6 +190,14 @@
                 CourseID: courseId,
                 CourseCode: $('#CourseCode').val(),
                 CourseName: $('#CourseName').val(),
+                SemesterType:$('#SemesterType').val(),
+                ProgrammeYear: $('#ProgrammeYear').val(),
+                ProgrammeSemester: $('#ProgrammeSemester').val(),
+                ProgrammeID: $('#ProgrammeID').val(),
+                DepartmentID: $('#DepartmentID').val(),
+                ApprovalNo: $('#ApprovalNo').val(),
+                CountryID: $('#CountryID').val(),
+                Credit: $('#Credit').val(),
                 Active: 'A'
             };
 

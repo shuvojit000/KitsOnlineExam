@@ -150,6 +150,17 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 CreatedBy = a.CreatedBy,
                 CreatedOn = a.CreatedOn,
                 ModifiedBy = Convert.ToInt32(a.ModifiedBy),
+                AcademicID = a.AcademicID,
+                ApprovalNo = a.ApprovalNo,
+                Credit = a.Credit,
+                DepartmentID = a.DepartmentID,
+                DepartmentName = a.DepartmentName,
+                ProgrammeID = a.ProgrammeID,
+                ProgrammeName = a.ProgrammeName,
+                ProgrammeSemester = a.ProgrammeSemester,
+                ProgrammeYear = a.ProgrammeYear,
+                SemesterType = a.SemesterType,
+                CountryID=a.CountryId,
             }).ToList();
 
             return itemSet;
@@ -170,6 +181,17 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.CreatedBy = item.CreatedBy;
             model.CreatedOn = item.CreatedOn;
             model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
+            model.AcademicID = item.AcademicID;
+            model.ApprovalNo = item.ApprovalNo;
+            model.Credit = item.Credit;
+            model.DepartmentID = item.DepartmentID;
+            model.DepartmentName = item.DepartmentName;
+            model.ProgrammeID = item.ProgrammeID;
+            model.ProgrammeName = item.ProgrammeName;
+            model.ProgrammeSemester = item.ProgrammeSemester;
+            model.ProgrammeYear = item.ProgrammeYear;
+            model.SemesterType = item.SemesterType;
+            model.CountryID = item.CountryId;
             return model;
 
         }
@@ -180,7 +202,28 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             if (!string.IsNullOrEmpty(id))
             {
                 model = SelectCourse(id);
+                model.ProgrammeList = onlineExamService.GetAllProgramme().Where(a => a.DepartmentID == Convert.ToInt32(model.DepartmentID) && a.Status == "A")
+                   .Select(a => new SelectListItem
+                   {
+                       Text = a.ProgrammeName + "(" + a.ProgrammeCode + ")",
+                       Value = a.ProgrammeID.ToString()
+
+                   }).ToList();
             }
+            else
+            {
+                model.ProgrammeList = new List<SelectListItem>();
+            }
+            model.CountryList = new List<SelectListItem>
+                            {
+                                new SelectListItem{ Text="India", Value = "1" },
+                                new SelectListItem{ Text="Malaysia", Value = "2" },
+                                new SelectListItem{ Text="United States", Value = "3" },
+                             };
+            model.ProgYearList = Enumerable.Range((DateTime.Now.Year - 9), 10).Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }).ToList();
+            model.ProgSEMList = Enumerable.Range(1, 10).Select(x => new SelectListItem { Value = x.ToString(), Text = "SEM" + x.ToString() }).ToList();
+            model.DepartmentList = onlineExamService.GetDropdownData("Department").Select(a => new SelectListItem { Text = a.CodeDesc, Value = a.CodeID }).ToList();
+
             return PartialView("_addCourse", model);
         }
         public PartialViewResult CourseView(string id)
@@ -206,6 +249,14 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 CreatedBy = User.UserId,
                 CourseCode = model.CourseCode,
                 CourseName = model.CourseName,
+                SemesterType=model.SemesterType,
+                ProgrammeYear=model.ProgrammeYear,
+                ProgrammeSemester=model.ProgrammeSemester,
+                ProgrammeID=model.ProgrammeID,
+                DepartmentID=model.DepartmentID,
+                ApprovalNo=model.ApprovalNo,
+                CountryID=model.CountryID,
+                Credit=model.Credit,                
                 Active = model.Active
             }, type);
 
@@ -219,9 +270,6 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             {
                 CourseID = model.CourseID,
                 CreatedBy = User.UserId,
-                CourseCode = model.CourseCode,
-                CourseName = model.CourseName,
-
             }, "DELETE");
 
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -1116,6 +1164,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         #endregion
+
         #region Programme Semester
 
         public ActionResult ProgrammeSemester() => View();
@@ -1139,6 +1188,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 AcademicID = a.AcademicID,
                 CreatedBy = a.CreatedBy,
                 CreatedOn = a.CreatedOn,
+                CountryID=a.CountryID,
                 ModifiedBy = Convert.ToInt32(a.ModifiedBy),
             }).ToList();
 
@@ -1165,6 +1215,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.SemesterType = item.SemesterType;
             model.Status = item.Status;
             model.AcademicID = item.AcademicID;
+            model.CountryID = item.CountryID;
             model.CreatedBy = item.CreatedBy;
             model.CreatedOn = item.CreatedOn;
             model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
@@ -1193,9 +1244,9 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             }
             model.CountryList = new List<SelectListItem>
                             {
-                                new SelectListItem{ Text="Option 1", Value = "1" },
-                                new SelectListItem{ Text="Option 2", Value = "2" },
-                                new SelectListItem{ Text="Option 3", Value = "3" },
+                                new SelectListItem{ Text="India", Value = "1" },
+                                new SelectListItem{ Text="Malaysia", Value = "2" },
+                                new SelectListItem{ Text="United States", Value = "3" },
                              };
             model.ProgYearList = Enumerable.Range((DateTime.Now.Year - 9), 10).Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }).ToList();
             model.ProgSEMList = Enumerable.Range(1, 10).Select(x => new SelectListItem { Value = x.ToString(), Text = "SEM" + x.ToString() }).ToList();
@@ -1228,7 +1279,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 CountryID = model.CountryID,
                 ProgrammeYear = model.ProgrammeYear,
                 ProgrammeSemester = model.ProgrammeSemester,
-                SemesterType = model.SemesterType,                
+                SemesterType = model.SemesterType,
                 Active = model.Active
 
             }, type);

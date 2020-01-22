@@ -1,33 +1,101 @@
 ﻿@model Lincoln.Admin.Web.Models.CourseViewModel
-
 <div class="panel-body">
     <!--main content start-->
     <div class="row">
         <div class="col-lg-12">
             <!--PAGE CONTENT BEGINS-->
             <div class="modal-body">
-                <label>Course Code: </label>
-                <div class="form-group">
-                    <div class="position-relative has-icon-left">
-                        @Html.TextBoxFor(a => a.CourseCode, new { @class = "form-control" })
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label><b>Department: </b></label>
+                        <div class="position-relative has-icon-left">
+                            @Html.DropDownListFor(a => a.DepartmentID, Model.DepartmentList, "Select Department", new { @class = "custom-select block" })
 
-                        <div class="form-control-position">
-                            <i class="fa fa-book"></i>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label><b>Programme :</b> </label>
+                        @Html.DropDownListFor(a => a.ProgrammeID, Model.ProgrammeList, "Select Programme", new { @class = "custom-select block" })
+
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-12">
+                        <label><b>Country :</b> </label>
+                        <div class="position-relative has-icon-left gt">
+                            @Html.DropDownListFor(a => a.CountryID, Model.CountryList, "Select Country", new { @class = "custom-select block" })
+
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label><b>Programme Year:</b> </label>
+                        <div class="position-relative has-icon-left">
+                            @Html.DropDownListFor(a => a.ProgrammeYear, Model.ProgYearList, "Select Programme Year", new { @class = "custom-select block" })
+
                         </div>
                     </div>
                 </div>
-                <label>Course Name: </label>
-                <div class="form-group">
-                    <div class="position-relative has-icon-left">
-                        @Html.TextBoxFor(a => a.CourseName, new { @class = "form-control" })
-                        <div class="form-control-position">
-                            <i class="fa fa-book"></i>
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label><b>Programme Semester:</b> </label>
+                        <div class="position-relative has-icon-left">
+                            @Html.DropDownListFor(a => a.ProgrammeSemester, Model.ProgSEMList, "Select SEM", new { @class = "custom-select block" })
+
+                        </div>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label><b>Semester Type:</b> </label>
+                        <div class="position-relative has-icon-left">
+                            @Html.DropDownListFor(a => a.SemesterType, new List<SelectListItem>
+
+                 {
+                    new SelectListItem{ Text="Long", Value = "Long" },
+                    new SelectListItem{ Text="Short", Value = "Short" }
+                 }, "Select SEM Type", new { @class = "custom-select block" })
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label><b>Course code:</b> </label>
+                        <div class="position-relative has-icon-left">
+                            @Html.TextBoxFor(a => a.CourseCode, new { @class = "form-control" })
+
+                        </div>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label><b>Course Name:</b> </label>
+                        <div class="position-relative has-icon-left">
+                            @Html.TextBoxFor(a => a.CourseName, new { @class = "form-control" })
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label><b>Approval  No:</b> </label>
+                        <div class="position-relative has-icon-left">
+                            @Html.TextBoxFor(a => a.ApprovalNo, new { @class = "form-control" })
+
+                        </div>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label><b>Credit:</b> </label>
+                        <div class="position-relative has-icon-left">
+                            @Html.TextBoxFor(a => a.Credit, new { @class = "form-control" })
+
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="fnSaveCourse(@Model.CourseID)">
+                <button type="button" onclick="fnSaveCourse(@Model.CourseID)" class="btn btn-primary">
                     <i class="fa fa-check-square-o"></i> Save
                 </button>
             </div>
@@ -36,5 +104,33 @@
     </div>
     <!--main contant end-->
 </div>
+<script>
+    $(document).ready(function () {
+        //Dropdownlist Selectedchange event
+        $("#DepartmentID").change(function () {
+            $("#ProgrammeID").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetProgDrop","Admin",new { area="Admin"})', // we are calling json method
 
+                dataType: 'json',
 
+                data: { departmentID: $("#DepartmentID").val() },
+                success: function (res) {
+                    // states contains the JSON formatted list
+                    // of states passed from the controller
+
+                    $.each(res, function (i, state) {
+                        $("#ProgrammeID").append('<option value="' + state.Value + '">' +
+                             state.Text + '</option>');
+                        // here we are adding option for States
+
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve Faculty.' + ex);
+                }
+            });
+            return false;
+        })
+    });</script>

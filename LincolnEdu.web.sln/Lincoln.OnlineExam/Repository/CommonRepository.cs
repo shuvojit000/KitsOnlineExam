@@ -179,11 +179,27 @@ namespace Lincoln.OnlineExam.Repository
         {
             SqlParameter courseID = new SqlParameter("@CourseID", SqlDbType.Int);
             courseID.Value = recordAttributer.CourseID;
-
+            SqlParameter departmentID = new SqlParameter("@DepartmentID", SqlDbType.Int);
+            departmentID.Value = recordAttributer.DepartmentID;
+            SqlParameter programmeID = new SqlParameter("@ProgrammeID", SqlDbType.Int);
+            programmeID.Value = recordAttributer.ProgrammeID;
+            SqlParameter countryID = new SqlParameter("@CountryID", SqlDbType.Int);
+            countryID.Value = recordAttributer.CountryID;
+            SqlParameter programmeYear = new SqlParameter("@ProgrammeYear", SqlDbType.Int);
+            programmeYear.Value = recordAttributer.ProgrammeYear;
+            SqlParameter programmeSemester = new SqlParameter("@ProgrammeSemester", SqlDbType.Int);
+            programmeSemester.Value = recordAttributer.ProgrammeSemester;
+            SqlParameter semesterType = new SqlParameter("@SemesterType", SqlDbType.VarChar);
+            semesterType.Value = recordAttributer.SemesterType;
             SqlParameter courseCode = new SqlParameter("@CourseCode", SqlDbType.VarChar);
             courseCode.Value = recordAttributer.CourseCode;
             SqlParameter courseName = new SqlParameter("@CourseName", SqlDbType.VarChar);
             courseName.Value = recordAttributer.CourseName;
+            SqlParameter approvalNo = new SqlParameter("@ApprovalNo", SqlDbType.VarChar);
+            approvalNo.Value = recordAttributer.ApprovalNo;
+            SqlParameter credit = new SqlParameter("@Credit", SqlDbType.VarChar);
+            credit.Value = recordAttributer.Credit;
+
             SqlParameter active = new SqlParameter("@Active", SqlDbType.Char);
             active.Value = recordAttributer.Active;
             SqlParameter createdBy = new SqlParameter("@CreatedBy", SqlDbType.Int);
@@ -194,7 +210,8 @@ namespace Lincoln.OnlineExam.Repository
             status.Value = 0;
             status.Direction = ParameterDirection.InputOutput;
 
-            SqlServerHelper.ExecuteNonQueryProc("[ln.Master].[upSaveCourse]", courseID, courseCode, courseName, active, createdBy, type, status);
+            SqlServerHelper.ExecuteNonQueryProc("[ln.Master].[upSaveCourse]", courseID, departmentID, programmeID, countryID, programmeYear,
+                programmeSemester, semesterType, courseCode, courseName, approvalNo, credit, active, createdBy, type, status);
 
             return Convert.ToInt32(status.Value);
 
@@ -206,15 +223,32 @@ namespace Lincoln.OnlineExam.Repository
 
             SqlParameter courseID = new SqlParameter("@CourseID", SqlDbType.Int);
             courseID.Value = DBNull.Value;
+            SqlParameter academicID = new SqlParameter("@AcademicID", SqlDbType.Int);
+            academicID.Value = DBNull.Value;
+            SqlParameter departmentID = new SqlParameter("@DepartmentID", SqlDbType.Int);
+            departmentID.Value = DBNull.Value;
+            SqlParameter programmeID = new SqlParameter("@ProgrammeID", SqlDbType.Int);
+            programmeID.Value = DBNull.Value;
+            SqlParameter countryID = new SqlParameter("@CountryID", SqlDbType.Int);
+            countryID.Value = DBNull.Value;
+            SqlParameter programmeYear = new SqlParameter("@ProgrammeYear", SqlDbType.Int);
+            programmeYear.Value = DBNull.Value;
+            SqlParameter programmeSemester = new SqlParameter("@ProgrammeSemester", SqlDbType.Int);
+            programmeSemester.Value = DBNull.Value;
 
             SqlParameter courseCode = new SqlParameter("@CourseCode", SqlDbType.VarChar);
             courseCode.Value = DBNull.Value;
             SqlParameter courseName = new SqlParameter("@CourseName", SqlDbType.VarChar);
             courseName.Value = DBNull.Value;
+            SqlParameter approvalNo = new SqlParameter("@ApprovalNo", SqlDbType.VarChar);
+            approvalNo.Value = DBNull.Value;
+            SqlParameter credit = new SqlParameter("@Credit", SqlDbType.VarChar);
+            credit.Value = DBNull.Value;
 
             SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
             type.Value = "GET";
-            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Master].[upGetCourse]", courseID, courseCode, courseName, type))
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Master].[upGetCourse]", courseID, academicID, departmentID, programmeID,
+                countryID, programmeYear, programmeSemester, courseCode, courseName, approvalNo, credit, type))
             {
                 if (dr != null && dr.HasRows)
                 {
@@ -223,7 +257,16 @@ namespace Lincoln.OnlineExam.Repository
                         itemSet.Add(new CourseResponseDTO()
                         {
                             CourseID = Convert.ToInt32(dr["CourseID"]),
-
+                            CountryId = Convert.ToInt32(dr["CountryId"]),
+                            ApprovalNo = object.ReferenceEquals(dr["ApprovalNo"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ApprovalNo"]),
+                            Credit = object.ReferenceEquals(dr["Credit"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Credit"]),
+                            DepartmentID = Convert.ToInt32(dr["DepartmentID"]),
+                            DepartmentName = object.ReferenceEquals(dr["DepartmentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["DepartmentName"]),
+                            ProgrammeID = Convert.ToInt32(dr["ProgrammeID"]),
+                            ProgrammeName = object.ReferenceEquals(dr["ProgrammeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeName"]),
+                            ProgrammeSemester = Convert.ToInt32(dr["ProgrammeSemester"]),
+                            ProgrammeYear = Convert.ToInt32(dr["ProgrammeYear"]),
+                            SemesterType = object.ReferenceEquals(dr["SemesterType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["SemesterType"]),
                             CourseCode = object.ReferenceEquals(dr["CourseCode"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseCode"]),
                             CourseName = object.ReferenceEquals(dr["CourseName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseName"]),
                             Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
@@ -247,16 +290,33 @@ namespace Lincoln.OnlineExam.Repository
 
 
             SqlParameter courseID = new SqlParameter("@CourseID", SqlDbType.Int);
-            courseID.Value = recordAttributer.CourseID;
+            courseID.Value = DBNull.Value;
+            SqlParameter academicID = new SqlParameter("@AcademicID", SqlDbType.Int);
+            academicID.Value = DBNull.Value;
+            SqlParameter departmentID = new SqlParameter("@DepartmentID", SqlDbType.Int);
+            departmentID.Value = DBNull.Value;
+            SqlParameter programmeID = new SqlParameter("@ProgrammeID", SqlDbType.Int);
+            programmeID.Value = DBNull.Value;
+            SqlParameter countryID = new SqlParameter("@CountryID", SqlDbType.Int);
+            countryID.Value = DBNull.Value;
+            SqlParameter programmeYear = new SqlParameter("@ProgrammeYear", SqlDbType.Int);
+            programmeYear.Value = DBNull.Value;
+            SqlParameter programmeSemester = new SqlParameter("@ProgrammeSemester", SqlDbType.Int);
+            programmeSemester.Value = DBNull.Value;
 
             SqlParameter courseCode = new SqlParameter("@CourseCode", SqlDbType.VarChar);
-            courseCode.Value = recordAttributer.CourseCode;
+            courseCode.Value = DBNull.Value;
             SqlParameter courseName = new SqlParameter("@CourseName", SqlDbType.VarChar);
-            courseName.Value = recordAttributer.CourseName;
+            courseName.Value = DBNull.Value;
+            SqlParameter approvalNo = new SqlParameter("@ApprovalNo", SqlDbType.VarChar);
+            approvalNo.Value = DBNull.Value;
+            SqlParameter credit = new SqlParameter("@Credit", SqlDbType.VarChar);
+            credit.Value = DBNull.Value;
 
             SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
             type.Value = "GET";
-            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Master].[upGetCourse]", courseID, courseCode, courseName, type))
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Master].[upGetCourse]", courseID, academicID, departmentID, programmeID,
+                countryID, programmeYear, programmeSemester, courseCode, courseName, approvalNo, credit, type))
             {
                 if (dr != null && dr.HasRows)
                 {
@@ -264,6 +324,16 @@ namespace Lincoln.OnlineExam.Repository
                     {
 
                         item.CourseID = Convert.ToInt32(dr["CourseID"]);
+                        item.CountryId = Convert.ToInt32(dr["CountryId"]);
+                        item.ApprovalNo = object.ReferenceEquals(dr["ApprovalNo"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ApprovalNo"]);
+                        item.Credit = object.ReferenceEquals(dr["Credit"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Credit"]);
+                        item.DepartmentID = Convert.ToInt32(dr["DepartmentID"]);
+                        item.DepartmentName = object.ReferenceEquals(dr["DepartmentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["DepartmentName"]);
+                        item.ProgrammeID = Convert.ToInt32(dr["ProgrammeID"]);
+                        item.ProgrammeName = object.ReferenceEquals(dr["ProgrammeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeName"]);
+                        item.ProgrammeSemester = Convert.ToInt32(dr["ProgrammeSemester"]);
+                        item.ProgrammeYear = Convert.ToInt32(dr["ProgrammeYear"]);
+                        item.SemesterType = object.ReferenceEquals(dr["SemesterType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["SemesterType"]);
                         item.CourseCode = object.ReferenceEquals(dr["CourseCode"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseCode"]);
                         item.CourseName = object.ReferenceEquals(dr["CourseName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseName"]);
                         item.Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]);
@@ -279,6 +349,8 @@ namespace Lincoln.OnlineExam.Repository
 
         }
         #endregion
+
+
 
         #region Batch
 
@@ -1098,6 +1170,7 @@ namespace Lincoln.OnlineExam.Repository
                         itemSet.Add(new ProgrammeSemesterResponseDTO()
                         {
                             ProgrammeID = Convert.ToInt32(dr["ProgrammeID"]),
+                            CountryID = Convert.ToInt32(dr["CountryID"]),
                             DepartmentID = Convert.ToInt32(dr["DepartmentID"]),
                             AcademicID = Convert.ToInt32(dr["AcademicID"]),
                             ProgrammeName = object.ReferenceEquals(dr["ProgrammeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeName"]),
@@ -1156,6 +1229,7 @@ namespace Lincoln.OnlineExam.Repository
                         item.ProgrammeID = Convert.ToInt32(dr["ProgrammeID"]);
                         item.DepartmentID = Convert.ToInt32(dr["DepartmentID"]);
                         item.AcademicID = Convert.ToInt32(dr["AcademicID"]);
+                        item.CountryID = Convert.ToInt32(dr["CountryID"]);
                         item.ProgrammeName = object.ReferenceEquals(dr["ProgrammeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeName"]);
                         item.AcademicName = object.ReferenceEquals(dr["AcademicName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AcademicName"]);
                         item.SemesterType = object.ReferenceEquals(dr["SemesterType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["SemesterType"]);

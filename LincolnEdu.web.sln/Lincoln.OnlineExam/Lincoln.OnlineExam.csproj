@@ -77,6 +77,9 @@
     <Compile Include="Request\DepartmentRequestDTO.cs" />
     <Compile Include="Request\FacultyRequestDTO.cs" />
     <Compile Include="Request\LogInRequestDTO.cs" />
+    <Compile Include="Request\ProgrammeRequestDTO.cs" />
+    <Compile Include="Request\ProgrammeSemesterRequestDTO.cs" />
+    <Compile Include="Request\ProgramVersioningRequestDTO.cs" />
     <Compile Include="Request\QuestionSectionRequestDTO.cs" />
     <Compile Include="Request\StudentRequestDTO.cs" />
     <Compile Include="Request\SubjectRequestDTO.cs" />
@@ -88,6 +91,9 @@
     <Compile Include="Response\DropdownResponseDTO.cs" />
     <Compile Include="Response\FacultyResponseDTO.cs" />
     <Compile Include="Response\LogInResponseDTO.cs" />
+    <Compile Include="Response\ProgrammeResponseDTO.cs" />
+    <Compile Include="Response\ProgrammeSemesterResponseDTO.cs" />
+    <Compile Include="Response\ProgramVersioningResponseDTO.cs" />
     <Compile Include="Response\QuestionSectionResponseDTO.cs" />
     <Compile Include="Response\StudentResponseDTO.cs" />
     <Compile Include="Response\SubjectResponseDTO.cs" />

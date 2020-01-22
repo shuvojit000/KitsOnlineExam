@@ -39,7 +39,7 @@
                                             <span class="hidden">Add</span>
                                         </span>
                                     </a>
-                                    <a class="dt-button buttons-excel buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to Excel">
+                                    @*<a class="dt-button buttons-excel buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to Excel">
                                         <span>
                                             <i class="fa fa-file-excel-o bigger-110"></i>
                                             <span class="hidden">Export to Excel</span>
@@ -56,7 +56,7 @@
                                             <i class="fa fa-print bigger-110"></i>
                                             <span class="hidden">Print</span>
                                         </span>
-                                    </a>
+                                    </a>*@
                                 </div>
                             </div>
                         </div>
@@ -78,7 +78,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">
-                        <label class="modal-title text-text-bold-600">Department Entry & Modify/View</label>
+                        <label class="modal-title text-text-bold-600">Faculty Entry & Modify/View</label>
                     </h4>
                     <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
@@ -158,10 +158,10 @@
             alert('Please select Academic Level.');
         }
         else if ($('#DepartmentCode').val() == '') {
-            alert('Department Code is required.');
+            alert('Faculty Code is required.');
         }
         else if ($('#DepartmentName').val() == '') {
-            alert('Department Name is required.');
+            alert('Faculty Name is required.');
         }
         else if ($('#HODName').val() == '') {
             alert('HOD Name is required.');
