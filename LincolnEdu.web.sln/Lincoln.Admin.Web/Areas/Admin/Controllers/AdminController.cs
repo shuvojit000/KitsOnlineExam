@@ -768,7 +768,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             {
                 AcademicName = a.AcademicName,
                 DepartmentCode = a.DepartmentCode,
-                DepartmentName=a.DepartmentName,
+                DepartmentName = a.DepartmentName,
                 DepartmentID = a.DepartmentID,
                 HODEmail = a.HODEmail,
                 HODName = a.HODName,
@@ -787,7 +787,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             var model = new DepartmentViewModel();
             var item = onlineExamService.SelectDepartment(new OnlineExam.Request.DepartmentRequestDTO
             {
-                DepartmentID = Convert.ToInt32(departmentId)
+                DepartmentID = Convert.ToInt32(departmentId),
+                AcademicID = null
 
             });
             model.AcademicName = item.AcademicName;
@@ -813,7 +814,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             {
                 model = SelectDepartment(id);
             }
-            model.AcademicList=onlineExamService.GetDropdownData("Academic").Select(a => new SelectListItem { Text = a.CodeDesc, Value = a.CodeID }).ToList();
+            model.AcademicList = onlineExamService.GetDropdownData("Academic").Select(a => new SelectListItem { Text = a.CodeDesc, Value = a.CodeID }).ToList();
             return PartialView("_addDepartment", model);
         }
         public PartialViewResult DepartmentView(string id)
@@ -854,16 +855,157 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             var result = onlineExamService.SaveDepartment(new OnlineExam.Request.DepartmentRequestDTO()
             {
-               
+
                 CreatedBy = User.UserId,
-                DepartmentID=model.DepartmentID
-                
+                DepartmentID = model.DepartmentID
+
 
             }, "DELETE");
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         #endregion
+
+
+        #region Programme
+
+        public ActionResult Programme() => View();
+
+        private List<ProgrammeViewModel> GetAllProgramme()
+        {
+            var itemSet = new List<ProgrammeViewModel>();
+            itemSet = onlineExamService.GetAllProgramme().Select(a => new ProgrammeViewModel()
+            {
+                ProgrammeID = a.ProgrammeID,
+                ProgrammeName = a.ProgrammeName,
+                AcademicName = a.AcademicName,
+                ProgrammeCode = a.ProgrammeCode,
+                DepartmentName = a.DepartmentName,
+                DepartmentID = a.DepartmentID,
+                ApprovalNo = a.ApprovalNo,
+                Credit = a.Credit,
+                ModifiedOn = a.ModifiedOn?.Date,
+                Status = a.Status,
+                AcademicID = a.AcademicID,
+                CreatedBy = a.CreatedBy,
+                CreatedOn = a.CreatedOn,
+                ModifiedBy = Convert.ToInt32(a.ModifiedBy),
+            }).ToList();
+
+            return itemSet;
+        }
+        private ProgrammeViewModel SelectProgramme(string programmeId)
+        {
+            var model = new ProgrammeViewModel();
+            var item = onlineExamService.SelectProgramme(new OnlineExam.Request.ProgrammeRequestDTO
+            {
+                ProgrammeID = Convert.ToInt32(programmeId),
+
+
+            });
+            model.ProgrammeID = item.ProgrammeID;
+            model.ProgrammeName = item.ProgrammeName;
+            model.AcademicName = item.AcademicName;
+            model.DepartmentID = item.DepartmentID;
+            model.DepartmentName = item.DepartmentName;
+            model.ProgrammeCode = item.ProgrammeCode;
+            model.ApprovalNo = item.ApprovalNo;
+            model.Credit = item.Credit;
+            model.ModifiedOn = item.ModifiedOn?.Date;
+            model.Status = item.Status;
+            model.AcademicID = item.AcademicID;
+            model.CreatedBy = item.CreatedBy;
+            model.CreatedOn = item.CreatedOn;
+            model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
+            return model;
+
+        }
+
+        public PartialViewResult AddProgramme(string id)
+        {
+            var model = new ProgrammeViewModel();
+            if (!string.IsNullOrEmpty(id))
+            {
+                model = SelectProgramme(id);
+                model.DepartmentList = onlineExamService.GetAllDepartment().Where(a => a.AcademicID == model.AcademicID && a.Status == "A")
+                    .Select(a => new SelectListItem
+                    {
+                        Text = a.DepartmentName + "(" + a.DepartmentCode + ")",
+                        Value = a.DepartmentID.ToString()
+
+                    }).ToList();
+            }
+            else
+            {
+                model.DepartmentList = new List<SelectListItem>();
+            }
+            model.AcademicList = onlineExamService.GetDropdownData("Academic").Select(a => new SelectListItem { Text = a.CodeDesc, Value = a.CodeID }).ToList();
+
+            return PartialView("_addProgramme", model);
+        }
+        public PartialViewResult ProgrammeView(string id)
+        {
+            return PartialView("_viewProgramme", SelectProgramme(id));
+        }
+        public PartialViewResult ProgrammeList()
+        {
+            return PartialView("_listProgramme", GetAllProgramme());
+        }
+        [HttpPost]
+        public JsonResult SaveProgramme(ProgrammeViewModel model)
+        {
+            var type = "INSERT";
+            if (model.ProgrammeID > 0)
+            {
+                type = "UPDATE";
+            }
+
+            var result = onlineExamService.SaveProgramme(new OnlineExam.Request.ProgrammeRequestDTO()
+            {
+                AcademicID = model.AcademicID,
+                CreatedBy = User.UserId,
+                ProgrammeCode = model.ProgrammeCode,
+                ApprovalNo = model.ApprovalNo,
+                Credit = model.Credit,
+                ProgrammeName = model.ProgrammeName,
+                ProgrammeID = model.ProgrammeID,
+                DepartmentID = model.DepartmentID,
+                Active = model.Active
+
+            }, type);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult DeleteProgramme(ProgrammeViewModel model)
+        {
+
+            var result = onlineExamService.SaveProgramme(new OnlineExam.Request.ProgrammeRequestDTO()
+            {
+
+                CreatedBy = User.UserId,
+                ProgrammeID = model.ProgrammeID
+
+
+            }, "DELETE");
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult GetDepartmentDrop(string academicID)
+        {
+
+            return Json(onlineExamService.GetAllDepartment().Where(a => a.AcademicID == Convert.ToInt32(academicID) && a.Status == "A")
+                    .Select(a => new SelectListItem
+                    {
+                        Text = a.DepartmentName + "(" + a.DepartmentCode + ")",
+                        Value = a.DepartmentID.ToString()
+
+                    }).ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
+
 
     }
 }
