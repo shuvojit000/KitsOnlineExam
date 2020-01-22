@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Lincoln.Admin.Web.Models.ProgrammeViewModel>
+@{
+
+    int sl = 1;
+}
+<table class="cell-border stripe" id="dataTables-example" style="width:100%">
+    <thead>
+        <tr>
+            <th>Sl NO</th>
+            <th>Check</th>
+            <th>Academic</th>
+            <th>Department</th>
+            <th>Code</th>
+            <th>Name</th>
+            <th>ApprovalNO</th>
+            <th>Credit</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @if (Model != null && Model.Count() > 0)
+        {
+
+
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@sl</td>
+                    <td>
+                        <center>
+                            <input type="checkbox" class="statusCheck" data-id="@item.ProgrammeID">
+                        </center>
+                    </td>
+                    <td>@item.AcademicName</td>
+                    <td>@item.DepartmentName</td>
+                    <td>@item.ProgrammeCode</td>
+                    <td>@item.ProgrammeName</td>
+                    <td>@item.ApprovalNo</td>
+                    <td>@item.Credit</td>
+                    <td>@item.Status</td>
+                    <td>
+                        <a href="javascript:void(0);" onclick="fnViewProgramme(@item.ProgrammeID)" title="View"><i class="fa fa-eye"></i></a> &nbsp;
+                        <a href="javascript:void(0);" onclick="fnAddProgramme(@item.ProgrammeID)" title="Edit"><i class="fa fa-edit"></i></a> &nbsp;
+                        <a href="javascript:void(0);" onclick="fnDeleteProgramme(@item.ProgrammeID)" title="Delete"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+                sl++;
+            }
+        }
+
+
+
+    </tbody>
+</table>
+<script>
+    $('#dataTables-example').dataTable({
+        dom: 'Bfrtip', buttons: [
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [0, 2, 3, 4, 5, 6, 7, 8]
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: [0, 2, 3, 4, 5, 6, 7, 8]
+                }
+            }, {
+                extend: 'print',
+                exportOptions: {
+                    columns: [0, 2, 3, 4, 5, 6, 7, 8]
+                }
+            }]
+    });</script>

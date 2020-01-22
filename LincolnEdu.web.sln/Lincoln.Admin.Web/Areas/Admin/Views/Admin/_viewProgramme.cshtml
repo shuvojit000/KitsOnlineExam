@@ -1,0 +1,57 @@
+﻿@model Lincoln.Admin.Web.Models.ProgrammeViewModel
+<div class="panel-body">
+    <!--main content start-->
+    <div class="row">
+        <div class="col-lg-12">
+            <!--PAGE CONTENT BEGINS-->
+            <div class="modal-body">
+                <label><b>Academic Name: </b></label>
+                <div class="form-group">
+                    <div class="position-relative has-icon-left">
+                        @Html.DisplayFor(a => a.AcademicName, new { @class = "form-control" })
+
+
+                    </div>
+                </div>
+                <label><b>Department Name:</b> </label>
+                <div class="form-group">
+                    <div class="position-relative has-icon-left">
+                        @Html.DisplayFor(a => a.DepartmentName, new { @class = "form-control" })
+
+                    </div>
+                </div>
+                <label><b>Programme Code:</b> </label>
+                <div class="form-group">
+                    <div class="position-relative has-icon-left">
+                        @Html.DisplayFor(a => a.ProgrammeCode, new { @class = "form-control" })
+
+                    </div>
+                </div>
+                <label><b>Programme Name:</b> </label>
+                <div class="form-group">
+                    <div class="position-relative has-icon-left">
+                        @Html.DisplayFor(a => a.ProgrammeName, new { @class = "form-control" })
+
+                    </div>
+                </div>
+                <label><b>Approval No:</b> </label>
+                <div class="form-group">
+                    <div class="position-relative has-icon-left">
+                        @Html.DisplayFor(a => a.ApprovalNo, new { @class = "form-control" })
+
+                    </div>
+                </div>
+                <label><b>Credit:</b> </label>
+                <div class="form-group">
+                    <div class="position-relative has-icon-left">
+                        @Html.DisplayFor(a => a.Credit, new { @class = "form-control" })
+
+                    </div>
+                </div>
+            </div>
+
+            <!--PAGE CONTENT ENDS-->
+        </div>
+    </div>
+    <!--main contant end-->
+</div>
