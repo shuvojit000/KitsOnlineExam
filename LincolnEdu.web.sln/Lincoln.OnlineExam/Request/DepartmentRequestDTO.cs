@@ -8,8 +8,8 @@ namespace Lincoln.OnlineExam.Request
 {
     public class DepartmentRequestDTO
     {
-        public int DepartmentID { get; set; }
-        public int AcademicID { get; set; }
+        public int? DepartmentID { get; set; }
+        public int? AcademicID { get; set; }
         public string DepartmentCode { get; set; }
         public string DepartmentName { get; set; }
         public string HODName { get; set; }
