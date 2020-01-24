@@ -50,7 +50,7 @@
                     <div class="form-group col-lg-6">
                         <label><b>Credit:</b> </label>
                         <div class="position-relative has-icon-left">
-                            @Html.TextBoxFor(a => a.Credit, new { @class = "form-control" })
+                            @Html.TextBoxFor(a => a.Credit, new { @class = "form-control", @type = "number" })
 
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                 success: function (res) {
                     // states contains the JSON formatted list
                     // of states passed from the controller
-
+                    $("#DepartmentID").append('<option value="">Select Faculty</option>');
                     $.each(res, function (i, state) {
                     $("#DepartmentID").append('<option value="' + state.Value + '">' +
                          state.Text + '</option>');
@@ -94,7 +94,7 @@
                     });
                 },
                 error: function (ex) {
-                    alert('Failed to retrieve Department.' + ex);
+                    alert('Failed to retrieve Faculty.' + ex);
                 }
             });
             return false;

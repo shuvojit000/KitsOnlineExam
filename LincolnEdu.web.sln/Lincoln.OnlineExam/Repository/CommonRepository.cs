@@ -1010,17 +1010,18 @@ namespace Lincoln.OnlineExam.Repository
 
             SqlParameter ProgrammeVersioningID = new SqlParameter("@ProgrammeVersioningID", SqlDbType.Int);
             ProgrammeVersioningID.Value = DBNull.Value;
+            SqlParameter academicID = new SqlParameter("@AcademicID", SqlDbType.Int);
+            academicID.Value = DBNull.Value;
             SqlParameter departmentCode = new SqlParameter("@DepartmentID", SqlDbType.Int);
             departmentCode.Value = DBNull.Value;
             SqlParameter programCode = new SqlParameter("@ProgrammeID", SqlDbType.Int);
             programCode.Value = DBNull.Value;
             SqlParameter version = new SqlParameter("@Version", SqlDbType.VarChar);
             version.Value = DBNull.Value;
-            SqlParameter placeHolder = new SqlParameter("@SyllabusVersion", SqlDbType.VarChar);
-            placeHolder.Value = DBNull.Value;
+           
             SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
             type.Value = "GET";
-            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Master].[upGetProgrammeVersioning]", ProgrammeVersioningID, departmentCode, programCode, version, placeHolder, type))
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Master].[upGetProgrammeVersioning]", ProgrammeVersioningID,academicID, departmentCode, programCode, version, type))
             {
                 if (dr != null && dr.HasRows)
                 {
@@ -1052,23 +1053,20 @@ namespace Lincoln.OnlineExam.Repository
             var item = new ProgramVersioningResponseDTO();
 
 
-            SqlParameter programVersioningID = new SqlParameter("@ProgrammeVersioningID", SqlDbType.Int);
-            programVersioningID.Value = DBNull.Value;
-            SqlParameter departmentCode = new SqlParameter("@DepartmentID", SqlDbType.VarChar);
+            SqlParameter ProgrammeVersioningID = new SqlParameter("@ProgrammeVersioningID", SqlDbType.Int);
+            ProgrammeVersioningID.Value = recordAttributer.ProgramVersioningID;
+            SqlParameter academicID = new SqlParameter("@AcademicID", SqlDbType.Int);
+            academicID.Value = recordAttributer.AcademicID;
+            SqlParameter departmentCode = new SqlParameter("@DepartmentID", SqlDbType.Int);
             departmentCode.Value = DBNull.Value;
-            SqlParameter programCode = new SqlParameter("@ProgrammeID", SqlDbType.VarChar);
+            SqlParameter programCode = new SqlParameter("@ProgrammeID", SqlDbType.Int);
             programCode.Value = DBNull.Value;
             SqlParameter version = new SqlParameter("@Version", SqlDbType.VarChar);
             version.Value = DBNull.Value;
-            SqlParameter placeHolder = new SqlParameter("@SyllabusVersion", SqlDbType.VarChar);
-            placeHolder.Value = DBNull.Value;
-            //SqlParameter credit = new SqlParameter("@Credit", SqlDbType.VarChar);
-            //credit.Value = DBNull.Value;
-
 
             SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
             type.Value = "GET";
-            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Master].[upGetProgrammeVersioning]", programVersioningID, programCode, departmentCode, version, placeHolder, type))
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Master].[upGetProgrammeVersioning]", ProgrammeVersioningID, academicID, departmentCode, programCode, version, type))
             {
                 if (dr != null && dr.HasRows)
                 {

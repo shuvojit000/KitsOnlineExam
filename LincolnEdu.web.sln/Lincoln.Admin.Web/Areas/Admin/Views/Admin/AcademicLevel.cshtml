@@ -154,18 +154,18 @@
     function fnSaveAcademicLevel(academicID) {
 
         if ($('#AcademicName').val() == '') {
-            alert('Academic Name is required.');
+            alert('Academic Level is required.');
         }
-        else if ($('#AcademicCode').val() == '') {
-            alert('Academic Code is required.');
-        }
+        //else if ($('#AcademicCode').val() == '') {
+        //    alert('Academic Code is required.');
+        //}
         else {
 
 
             var model = {
                 AcademicID: academicID,
                 AcademicName: $('#AcademicName').val(),
-                AcademicCode: $('#AcademicCode').val(),
+               // AcademicCode: $('#AcademicCode').val(),
                 Active: 'A'
             };
 
@@ -177,8 +177,13 @@
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 success: function (result) {
-                    if (result > 0) {
+                    if (result==1) {
                         alert('Data Save Successfully.');
+                        $("#myModal").modal('hide');
+                        fnLoadAcademicLevelList();
+                    }
+                    else if (result==-1) {
+                        alert('Data already exist.');
                         $("#myModal").modal('hide');
                         fnLoadAcademicLevelList();
                     }
@@ -190,6 +195,7 @@
                 },
                 error: function (e) {
                     alert('Error in your requst.');
+                    $("#myModal").modal('hide');
                 }
             });
         }

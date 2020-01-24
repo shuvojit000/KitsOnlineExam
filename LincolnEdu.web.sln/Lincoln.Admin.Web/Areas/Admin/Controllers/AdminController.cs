@@ -220,8 +220,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                                 new SelectListItem{ Text="Malaysia", Value = "2" },
                                 new SelectListItem{ Text="United States", Value = "3" },
                              };
-            model.ProgYearList = Enumerable.Range((DateTime.Now.Year - 9), 10).Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }).ToList();
-            model.ProgSEMList = Enumerable.Range(1, 10).Select(x => new SelectListItem { Value = x.ToString(), Text = "SEM" + x.ToString() }).ToList();
+            model.ProgYearList = Enumerable.Range(1, 10).Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }).ToList();
+            model.ProgSEMList = Enumerable.Range(1, 10).Select(x => new SelectListItem { Value = x.ToString(), Text =  x.ToString() }).ToList();
             model.DepartmentList = onlineExamService.GetDropdownData("Department").Select(a => new SelectListItem { Text = a.CodeDesc, Value = a.CodeID }).ToList();
 
             return PartialView("_addCourse", model);
@@ -1039,18 +1039,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        [HttpPost]
-        public JsonResult GetDepartmentDrop(string academicID)
-        {
-
-            return Json(onlineExamService.GetAllDepartment().Where(a => a.AcademicID == Convert.ToInt32(academicID) && a.Status == "A")
-                    .Select(a => new SelectListItem
-                    {
-                        Text = a.DepartmentName + "(" + a.DepartmentCode + ")",
-                        Value = a.DepartmentID.ToString()
-
-                    }).ToList(), JsonRequestBehavior.AllowGet);
-        }
+        
 
         #endregion
 
@@ -1112,7 +1101,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             {
                 model = SelectProgramVersioning(id);
             }
-            model.ProgramList = onlineExamService.GetDropdownData("Programme").Select(a => new SelectListItem { Text = a.CodeDesc, Value = a.CodeID }).ToList();
+            model.ProgramList = new List<SelectListItem>(); 
             model.DepartmentList = onlineExamService.GetDropdownData("Department").Select(a => new SelectListItem { Text = a.CodeDesc, Value = a.CodeID }).ToList();
             return PartialView("_addProgramVersioning", model);
         }
@@ -1248,8 +1237,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                                 new SelectListItem{ Text="Malaysia", Value = "2" },
                                 new SelectListItem{ Text="United States", Value = "3" },
                              };
-            model.ProgYearList = Enumerable.Range((DateTime.Now.Year - 9), 10).Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }).ToList();
-            model.ProgSEMList = Enumerable.Range(1, 10).Select(x => new SelectListItem { Value = x.ToString(), Text = "SEM" + x.ToString() }).ToList();
+            model.ProgYearList = Enumerable.Range(1, 10).Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }).ToList();
+            model.ProgSEMList = Enumerable.Range(1, 10).Select(x => new SelectListItem { Value = x.ToString(), Text =  x.ToString() }).ToList();
             model.DepartmentList = onlineExamService.GetDropdownData("Department").Select(a => new SelectListItem { Text = a.CodeDesc, Value = a.CodeID }).ToList();
             return PartialView("_addProgrammeSemester", model);
         }
@@ -1301,6 +1290,11 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+
+        #endregion
+
+        #region Dropdown Code
         [HttpPost]
         public JsonResult GetProgDrop(string departmentID)
         {
@@ -1314,6 +1308,18 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                     }).ToList(), JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public JsonResult GetDepartmentDrop(string academicID)
+        {
+
+            return Json(onlineExamService.GetAllDepartment().Where(a => a.AcademicID == Convert.ToInt32(academicID) && a.Status == "A")
+                    .Select(a => new SelectListItem
+                    {
+                        Text = a.DepartmentName + "(" + a.DepartmentCode + ")",
+                        Value = a.DepartmentID.ToString()
+
+                    }).ToList(), JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
     }

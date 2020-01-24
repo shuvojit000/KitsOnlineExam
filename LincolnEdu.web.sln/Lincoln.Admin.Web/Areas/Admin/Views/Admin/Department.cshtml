@@ -166,7 +166,7 @@
         else if ($('#HODName').val() == '') {
             alert('HOD Name is required.');
         }
-        else if ($('#HODEmail').val() == '') {
+        else if ($('#HODEmail').val() == '' || !validateEmail($('#HODEmail').val())) {
             alert('HOD Email  is required.');
         }
         else {
@@ -190,10 +190,14 @@
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 success: function (result) {
-                    if (result > 0) {
+                    if (result ==1) {
                         alert('Data Save Successfully.');
                         $("#myModal").modal('hide');
                         fnLoadDepartmentList();
+                    } else if (result == -1) {
+                        alert('Data already exist.');
+                        $("#myModal").modal('hide');
+                        fnLoadAcademicLevelList();
                     }
                     else {
                         alert('Error in your requst.');
@@ -239,6 +243,11 @@
             });
         }
 
+    }
+
+    function validateEmail($email) {
+        var emailReg = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/;
+        return emailReg.test($email);
     }
 </script>
 

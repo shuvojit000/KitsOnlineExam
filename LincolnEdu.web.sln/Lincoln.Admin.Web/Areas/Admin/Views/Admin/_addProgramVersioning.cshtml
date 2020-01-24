@@ -8,13 +8,7 @@
             <!--PAGE CONTENT BEGINS-->
             <div class="modal-body">
                 <div class="row">
-                    <div class="form-group col-lg-6">
-                        <label><b>Academic Level: </b></label>
-                        <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.ProgramCode, Model.ProgramList, "Select Academic Level", new { @class = "custom-select block" })
-
-                        </div>
-                    </div>
+                    
                     <div class="form-group col-lg-6">
                         <label><b>Faculty: </b></label>
                         <div class="position-relative has-icon-left">
@@ -23,8 +17,15 @@
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
+                        <label><b>Program: </b></label>
+                        <div class="position-relative has-icon-left">
+                            @Html.DropDownListFor(a => a.ProgramCode, Model.ProgramList, "Select Program", new { @class = "custom-select block" })
+
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
                         <label><b>Version:</b> </label>
-                        @Html.TextBoxFor(a => a.Version, new { @class = "form-control" ,@Placeholder= "Please write syllabus version" })
+                        @Html.TextBoxFor(a => a.Version, new { @class = "form-control" ,@Placeholder= "Please write syllabus version",@maxlength="4" })
 
 
                     </div>
@@ -36,7 +37,7 @@
                     <div class="form-group col-lg-6">
                         <label><b>Credit:</b> </label>
                         <div class="position-relative has-icon-left">
-                            @Html.TextBoxFor(a => a.Credit, new { @class = "form-control" })
+                            @Html.TextBoxFor(a => a.Credit, new { @class = "form-control", @type = "number" })
 
                         </div>
                     </div>                    
@@ -53,3 +54,33 @@
     </div>
     <!--main contant end-->
 </div>
+<script>
+$(document).ready(function () {
+        //Dropdownlist Selectedchange event
+    $("#DepartmentCode").change(function () {
+        $("#ProgramCode").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetProgDrop","Admin",new { area="Admin"})', // we are calling json method
+
+                dataType: 'json',
+
+                data: { departmentID: $("#DepartmentCode").val() },
+                success: function (res) {
+                    // states contains the JSON formatted list
+                    // of states passed from the controller
+                    $("#ProgramCode").append('<option value="">Select Programme</option>');
+                    $.each(res, function (i, state) {
+                        $("#ProgramCode").append('<option value="' + state.Value + '">' +
+                         state.Text + '</option>');
+                    // here we are adding option for States
+
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve Faculty.' + ex);
+                }
+            });
+            return false;
+        })
+    });</script>

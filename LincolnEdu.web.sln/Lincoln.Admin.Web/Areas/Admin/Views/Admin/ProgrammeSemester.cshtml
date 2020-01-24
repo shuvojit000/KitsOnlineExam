@@ -115,10 +115,14 @@
                             contentType: "application/json;charset=utf-8",
                             dataType: "json",
                             success: function (result) {
-                                if (result > 0) {
+                                if (result ==1) {
                                     alert('Status has been changed Successfully.');
                                     $('#ddlStatus').val('');
                                     fnLoadProgrammeSemesterList();
+                                } else if (result == -1) {
+                                    alert('Data already exist.');
+                                    $("#myModal").modal('hide');
+                                    fnLoadAcademicLevelList();
                                 }
                                 else {
                                     alert('Error in your request.');
@@ -168,8 +172,8 @@
             else if ($('#ProgrammeSemester').val() == '') {
             alert('Please select Semester.');
         }
-        else if ($('#SemesterType').val() == '') {
-            alert('Semester Type  is required.');
+            else if (typeof $('input[name="SemesterType"]:checked').val() === 'undefined') {
+            alert('Select Semester Type.');
         }
         else {
 
@@ -181,7 +185,7 @@
                 CountryID: $('#CountryID').val(),
                 ProgrammeYear: $('#ProgrammeYear').val(),
                 ProgrammeSemester: $('#ProgrammeSemester').val(),
-                SemesterType: $('#SemesterType').val(),
+                SemesterType: $('input[name="SemesterType"]:checked').val(),
                 Active: 'A'
             };
 

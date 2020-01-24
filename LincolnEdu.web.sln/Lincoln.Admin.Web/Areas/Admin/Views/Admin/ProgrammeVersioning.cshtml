@@ -185,10 +185,14 @@
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 success: function (result) {
-                    if (result > 0) {
+                    if (result ==1) {
                         alert('Data Save Successfully.');
                         $("#myModal").modal('hide');
                         fnLoadCourseList();
+                    } else if (result == -1) {
+                        alert('Data already exist.');
+                        $("#myModal").modal('hide');
+                        fnLoadAcademicLevelList();
                     } else {
                         alert('Error in your requst.');
                         $("#myModal").modal('hide');

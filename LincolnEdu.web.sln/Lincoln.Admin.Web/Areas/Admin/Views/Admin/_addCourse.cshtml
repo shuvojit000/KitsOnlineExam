@@ -7,9 +7,9 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-lg-6">
-                        <label><b>Department: </b></label>
+                        <label><b>Faculty: </b></label>
                         <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.DepartmentID, Model.DepartmentList, "Select Department", new { @class = "custom-select block" })
+                            @Html.DropDownListFor(a => a.DepartmentID, Model.DepartmentList, "Select Faculty", new { @class = "custom-select block" })
 
                         </div>
                     </div>
@@ -48,14 +48,15 @@
                     <div class="form-group col-lg-6">
                         <label><b>Semester Type:</b> </label>
                         <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.SemesterType, new List<SelectListItem>
+                            @*@Html.DropDownListFor(a => a.SemesterType, new List<SelectListItem>
 
                  {
                     new SelectListItem{ Text="Long", Value = "Long" },
                     new SelectListItem{ Text="Short", Value = "Short" }
-                 }, "Select SEM Type", new { @class = "custom-select block" })
+                 }, "Select SEM Type", new { @class = "custom-select block" })*@
 
-
+                            <input type="radio" name="SemesterType" value="Short"> Short
+                            <input type="radio" name="SemesterType" value="Long"> Long
                         </div>
                     </div>
                 </div>
@@ -88,7 +89,7 @@
                     <div class="form-group col-lg-6">
                         <label><b>Credit:</b> </label>
                         <div class="position-relative has-icon-left">
-                            @Html.TextBoxFor(a => a.Credit, new { @class = "form-control" })
+                            @Html.TextBoxFor(a => a.Credit, new { @class = "form-control" , @type = "number" })
 
                         </div>
                     </div>
@@ -119,7 +120,7 @@
                 success: function (res) {
                     // states contains the JSON formatted list
                     // of states passed from the controller
-
+                    $("#ProgrammeID").append('<option value="">Select Programme</option>');
                     $.each(res, function (i, state) {
                         $("#ProgrammeID").append('<option value="' + state.Value + '">' +
                              state.Text + '</option>');
@@ -128,7 +129,7 @@
                     });
                 },
                 error: function (ex) {
-                    alert('Failed to retrieve Faculty.' + ex);
+                    alert('Failed to retrieve Programme.' + ex);
                 }
             });
             return false;
