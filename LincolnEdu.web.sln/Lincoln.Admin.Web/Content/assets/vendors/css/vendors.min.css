@@ -6052,7 +6052,9 @@
     background-color: #999;
     width: 11px;
 }
-
+.requiredstar {
+    color: red;
+}
 @supports (-ms-overflow-style:none) {
     .ps {
         overflow: auto !important;

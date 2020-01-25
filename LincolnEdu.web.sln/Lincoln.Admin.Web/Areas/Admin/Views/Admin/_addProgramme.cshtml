@@ -9,14 +9,14 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-lg-6">
-                        <label><b>Academic Level: </b></label>
+                        <label><b>Academic Level<span class="requiredstar">*</span></b></label>
                         <div class="position-relative has-icon-left">
                             @Html.DropDownListFor(a => a.AcademicID, Model.AcademicList, "Select Academic Level", new { @class = "custom-select block" })
 
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
-                        <label><b>Faculty :</b> </label>
+                        <label><b>Faculty <span class="requiredstar">*</span></b> </label>
                         @Html.DropDownListFor(a => a.DepartmentID, Model.DepartmentList, "Select Faculty", new { @class = "custom-select block" })
 
 
@@ -24,14 +24,14 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-lg-12">
-                        <label><b>Programme Code:</b> </label>
+                        <label><b>Programme Code<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left gt">
                             @Html.TextBoxFor(a => a.ProgrammeCode, new { @class = "form-control" })
 
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
-                        <label><b>Programme Name:</b> </label>
+                        <label><b>Programme Name<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
                             @Html.TextBoxFor(a => a.ProgrammeName, new { @class = "form-control" })
 
@@ -40,7 +40,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-lg-6">
-                        <label><b>Approval NO:</b> </label>
+                        <label><b>Approval NO<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
                             @Html.TextBoxFor(a => a.ApprovalNo, new { @class = "form-control" })
 
@@ -48,7 +48,7 @@
                     </div>
 
                     <div class="form-group col-lg-6">
-                        <label><b>Credit:</b> </label>
+                        <label><b>Credit<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
                             @Html.TextBoxFor(a => a.Credit, new { @class = "form-control", @type = "number" })
 

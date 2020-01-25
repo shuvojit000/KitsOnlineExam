@@ -7,14 +7,14 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-lg-6">
-                        <label><b>Faculty: </b></label>
+                        <label><b>Faculty<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
                             @Html.DropDownListFor(a => a.DepartmentID, Model.DepartmentList, "Select Faculty", new { @class = "custom-select block" })
 
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
-                        <label><b>Programme :</b> </label>
+                        <label><b>Programme<span class="requiredstar">*</span></b> </label>
                         @Html.DropDownListFor(a => a.ProgrammeID, Model.ProgrammeList, "Select Programme", new { @class = "custom-select block" })
 
 
@@ -22,14 +22,14 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-lg-12">
-                        <label><b>Country :</b> </label>
+                        <label><b>Country <span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left gt">
                             @Html.DropDownListFor(a => a.CountryID, Model.CountryList, "Select Country", new { @class = "custom-select block" })
 
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
-                        <label><b>Programme Year:</b> </label>
+                        <label><b>Programme Year<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
                             @Html.DropDownListFor(a => a.ProgrammeYear, Model.ProgYearList, "Select Programme Year", new { @class = "custom-select block" })
 
@@ -38,7 +38,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-lg-6">
-                        <label><b>Programme Semester:</b> </label>
+                        <label><b>Programme Semester<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
                             @Html.DropDownListFor(a => a.ProgrammeSemester, Model.ProgSEMList, "Select SEM", new { @class = "custom-select block" })
 
@@ -46,7 +46,7 @@
                     </div>
 
                     <div class="form-group col-lg-6">
-                        <label><b>Semester Type:</b> </label>
+                        <label><b>Semester Type<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
                             @*@Html.DropDownListFor(a => a.SemesterType, new List<SelectListItem>
 
@@ -62,7 +62,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-lg-6">
-                        <label><b>Course code:</b> </label>
+                        <label><b>Course code<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
                             @Html.TextBoxFor(a => a.CourseCode, new { @class = "form-control" })
 
@@ -70,7 +70,7 @@
                     </div>
 
                     <div class="form-group col-lg-6">
-                        <label><b>Course Name:</b> </label>
+                        <label><b>Course Name<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
                             @Html.TextBoxFor(a => a.CourseName, new { @class = "form-control" })
 
@@ -79,7 +79,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-lg-6">
-                        <label><b>Approval  No:</b> </label>
+                        <label><b>Approval  No<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
                             @Html.TextBoxFor(a => a.ApprovalNo, new { @class = "form-control" })
 
@@ -87,7 +87,7 @@
                     </div>
 
                     <div class="form-group col-lg-6">
-                        <label><b>Credit:</b> </label>
+                        <label><b>Credit<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
                             @Html.TextBoxFor(a => a.Credit, new { @class = "form-control" , @type = "number" })
 
