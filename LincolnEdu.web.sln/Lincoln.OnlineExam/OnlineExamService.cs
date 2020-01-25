@@ -35,29 +35,7 @@ namespace Lincoln.OnlineExam
             }
 
         }
-        public int SaveSubject(SubjectRequestDTO recordAttributer, string Operation)
-        {
-
-            using (var unitOfWork = new OnlineExamUnitOfWork())
-            {
-                return unitOfWork.CommonRepository.SaveSubject(recordAttributer, Operation);
-            }
-        }
-        public List<SubjectResponseDTO> GetAllSubject()
-        {
-
-            using (var unitOfWork = new OnlineExamUnitOfWork())
-            {
-                return unitOfWork.CommonRepository.GetAllSubject();
-            }
-        }
-        public SubjectResponseDTO SelectSubject(SubjectRequestDTO recordAttributer)
-        {
-            using (var unitOfWork = new OnlineExamUnitOfWork())
-            {
-                return unitOfWork.CommonRepository.SelectSubject(recordAttributer);
-            }
-        }
+       
 
         public int SaveCourse(CourseRequestDTO recordAttributer, string Operation)
         {
@@ -81,52 +59,7 @@ namespace Lincoln.OnlineExam
             }
         }
 
-        public int SaveBatche(BatchRequestDTO recordAttributer, string Operation)
-        {
-            using (var unitOfWork = new OnlineExamUnitOfWork())
-            {
-                return unitOfWork.CommonRepository.SaveBatche(recordAttributer, Operation);
-            }
-        }
-        public List<BatchResponseDTO> GetAllBatch()
-        {
-            using (var unitOfWork = new OnlineExamUnitOfWork())
-            {
-                return unitOfWork.CommonRepository.GetAllBatch();
-            }
-        }
-        public BatchResponseDTO SelectBatch(BatchRequestDTO recordAttributer)
-        {
-            using (var unitOfWork = new OnlineExamUnitOfWork())
-            {
-                return unitOfWork.CommonRepository.SelectBatch(recordAttributer);
-            }
-        }
-
-        public int SaveQuestionSection(QuestionSectionRequestDTO recordAttributer, string Operation)
-        {
-            using (var unitOfWork = new OnlineExamUnitOfWork())
-            {
-                return unitOfWork.CommonRepository.SaveQuestionSection(recordAttributer, Operation);
-            }
-        }
-        public List<QuestionSectionResponseDTO> GetAllQuestionSection()
-        {
-            using (var unitOfWork = new OnlineExamUnitOfWork())
-            {
-                return unitOfWork.CommonRepository.GetAllQuestionSection();
-            }
-        }
-        public QuestionSectionResponseDTO SelectQuestionSection(QuestionSectionRequestDTO recordAttributer)
-        {
-            using (var unitOfWork = new OnlineExamUnitOfWork())
-            {
-                return unitOfWork.CommonRepository.SelectQuestionSection(recordAttributer);
-            }
-        }
-
-
-
+       
         public int SaveStudent(StudentRequestDTO recordAttributer, string Operation)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
@@ -148,28 +81,7 @@ namespace Lincoln.OnlineExam
                 return unitOfWork.UserRepository.SelectStudent(recordAttributer);
             }
         }
-        public int SaveFaculty(FacultyRequestDTO recordAttributer, string Operation)
-        {
-            using (var unitOfWork = new OnlineExamUnitOfWork())
-            {
-                return unitOfWork.UserRepository.SaveFaculty(recordAttributer, Operation);
-            }
-        }
-        public List<FacultyResponseDTO> GetAllFaculty()
-        {
-            using (var unitOfWork = new OnlineExamUnitOfWork())
-            {
-                return unitOfWork.UserRepository.GetAllFaculty();
-            }
-        }
-        public FacultyResponseDTO SelectFaculty(FacultyRequestDTO recordAttributer)
-        {
-            using (var unitOfWork = new OnlineExamUnitOfWork())
-            {
-                return unitOfWork.UserRepository.SelectFaculty(recordAttributer);
-            }
-        }
-
+      
 
 
         public int SaveAcademicLevel(AcademicLevelRequestDTO recordAttributer, string Operation) {

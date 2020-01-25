@@ -29,8 +29,6 @@
     <link rel="stylesheet" type="text/css" href="~/Content/assets/css/core/colors/palette-gradient.min.css">
     <link rel="stylesheet" type="text/css" href="~/Content/assets/fonts/simple-line-icons/style.min.css">
     <link rel="stylesheet" type="text/css" href="~/Content/assets/css/pages/timeline.min.css">
-    <script src="~/Content/assets/vendors/js/vendors.min.js"></script>
-    <script src="~/Content/assets/vendors/js/tables/datatable/datatables.min.js"></script>
     <!-- BEGIN Vendor JS-->
     <!-- BEGIN: Page Vendor JS-->
     @*<script src="~/Content/assets/vendors/js/charts/raphael-min.js"></script>
@@ -39,6 +37,8 @@
         <script src="~/Content/assets/vendors/js/timeline/horizontal-timeline.js"></script>*@
     <!-- END: Page Vendor JS-->
     <!-- BEGIN: Theme JS-->
+    <script src="~/Content/assets/vendors/js/vendors.min.js"></script>
+    <script src="~/Content/assets/vendors/js/tables/datatable/datatables.min.js"></script>
     <script src="~/Content/assets/js/core/app-menu.min.js"></script>
     <script src="~/Content/assets/js/core/app.min.js"></script>
     @*<script src="~/Content/assets/js/scripts/customizer.min.js"></script>*@
@@ -181,7 +181,7 @@
                     <a href="adminDashboard.html"><i class="ft-home"></i><span class="menu-title" data-i18n="">Dashboard</span></a>
                 </li>
                 <li class="nav-item">
-                    <a href="#"><i class="ft-edit"></i><span class="menu-title" data-i18n="">Question Bank</span></a>
+                    <a href="#"><i class="ft-edit"></i><span class="menu-title" data-i18n="">Question Bank</span><i class="dropdown-toggle float-right"></i></a>
                     <ul class="menu-content">
                         <li>
                             <a class="menu-item" href="@Url.Action("AcademicLevel","Admin",new {area="Admin" })">Academic Level</a>
@@ -220,7 +220,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#"><i class="ft-users"></i><span class="menu-title" data-i18n="">Students</span></a>
+                    <a href="#"><i class="ft-users"></i><span class="menu-title" data-i18n="">Students</span><i class="dropdown-toggle float-right"></i></a>
                     <ul class="menu-content">
                         <li>
                             <a class="menu-item" href="@Url.Action("Batch","Admin",new {area="Admin" })">Batch</a>
@@ -240,7 +240,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#"><i class="ft-check"></i><span class="menu-title" data-i18n="">Results</span></a>
+                    <a href="#"><i class="ft-check"></i><span class="menu-title" data-i18n="">Results</span><i class="dropdown-toggle float-right"></i></a>
                     <ul class="menu-content">
                         <li>
                             <a class="menu-item" href="javascript:void(0);">Student Result</a>
@@ -248,7 +248,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#"><i class="icon-user"></i><span class="menu-title" data-i18n="">Employee</span></a>
+                    <a href="#"><i class="icon-user"></i><span class="menu-title" data-i18n="">Employee</span><i class="dropdown-toggle float-right"></i></a>
                     <ul class="menu-content">
                         <li>
                             <a class="menu-item" href="@Url.Action("FacultyRegistration","Admin",new {area="Admin" })">Faculty</a>
@@ -256,7 +256,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#"><i class="ft-layers"></i><span class="menu-title" data-i18n="">Communication</span></a>
+                    <a href="#"><i class="ft-layers"></i><span class="menu-title" data-i18n="">Communication</span><i class="dropdown-toggle float-right"></i></a>
                     <ul class="menu-content">
                         <li>
                             <a class="menu-item" href="javascript:void(0);">Send E-mail/SMS</a>
@@ -264,7 +264,7 @@
                     </ul>
                 </li>
                 <li class="" nav-item">
-                    <a href="#"><i class="fa fa-building"></i><span class="menu-title" data-i18n="">Organization</span></a>
+                    <a href="#"><i class="fa fa-building"></i><span class="menu-title" data-i18n="">Organization</span><i class="dropdown-toggle float-right"></i></a>
                     <ul class="menu-content">
                         <li>
                             <a class="menu-item" href="javascript:void(0);">Admin Logs</a>
@@ -324,8 +324,8 @@
     </div>*@
     <!---MyProfile POPUP end--->
     <!-- BEGIN: Vendor JS-->
-    <script src="~/Content/assets/vendors/js/vendors.min.js"></script>
-    <script src="~/Content/assets/vendors/js/tables/datatable/datatables.min.js"></script>
+    @*<script src="~/Content/assets/vendors/js/vendors.min.js"></script>
+    <script src="~/Content/assets/vendors/js/tables/datatable/datatables.min.js"></script>*@
     <!-- BEGIN Vendor JS-->
     <!-- BEGIN: Page Vendor JS-->
     @*<script src="~/Content/assets/vendors/js/charts/raphael-min.js"></script>
@@ -334,10 +334,10 @@
     <script src="~/Content/assets/vendors/js/timeline/horizontal-timeline.js"></script>*@
     <!-- END: Page Vendor JS-->
     <!-- BEGIN: Theme JS-->
-    <script src="~/Content/assets/js/core/app-menu.min.js"></script>
+    @*<script src="~/Content/assets/js/core/app-menu.min.js"></script>
     <script src="~/Content/assets/js/core/app.min.js"></script>
     <script src="~/Content/assets/js/scripts/customizer.min.js"></script>
-    <script src="~/Content/assets/js/scripts/tables/datatables/datatable-styling.min.js"></script>
+    <script src="~/Content/assets/js/scripts/tables/datatables/datatable-styling.min.js"></script>*@
     <!-- END: Theme JS-->
     <!-- BEGIN: Page JS-->
     @*<script src="~/Content/assets/js/scripts/pages/dashboard-ecommerce.min.js"></script>*@
