@@ -8,12 +8,9 @@
         <tr>
             <th>Sl NO</th>
             <th>Check</th>
-            <th>Faculty</th>
             <th>Programme</th>
-            <th>Year</th>
-            <th>SEM</th>
-            <th>Course</th>
             <th>Code</th>
+            <th>Course</th>
             <th>Status</th>
             <th>Action</th>
         </tr>
@@ -33,12 +30,9 @@
                             <input type="checkbox" class="statusCheck" data-id="@item.CourseID">
                         </center>
                     </td>
-                    <td>@item.DepartmentName</td>
                     <td>@item.ProgrammeName</td>
-                    <td>@item.ProgrammeYear</td>
-                    <td>@item.ProgrammeSemester</td>
-                    <td>@item.CourseName</td>
                     <td>@item.CourseCode</td>
+                    <td>@item.CourseName</td>
                     <td>@item.Status</td>
                     <td>
                         <a href="javascript:void(0);" onclick="fnViewCourse(@item.CourseID)" title="View"><i class="fa fa-eye"></i></a> &nbsp;
@@ -55,23 +49,24 @@
     </tbody>
 </table>
 <script>
-    $('#dataTables-example').dataTable({
-        dom: 'Bfrtip', buttons: [
-            {
-                extend: 'excelHtml5',
-                exportOptions: {
-                    columns: [0, 2, 3, 4, 5, 6, 7,8]
-                }
-            },
-            {
-                extend: 'pdfHtml5',
-                exportOptions: {
-                    columns: [0, 2, 3, 4, 5, 6, 7,8]
-                }
-            }, {
-                extend: 'print',
-                exportOptions: {
-                    columns: [0, 2, 3, 4, 5, 6, 7,8]
-                }
-            }]
-    });</script>
+    //$('#dataTables-example').dataTable({
+    //    dom: 'Bfrtip', buttons: [
+    //        {
+    //            extend: 'excelHtml5',
+    //            exportOptions: {
+    //                columns: [0, 2, 3, 4, 5, 6, 7,8]
+    //            }
+    //        },
+    //        {
+    //            extend: 'pdfHtml5',
+    //            exportOptions: {
+    //                columns: [0, 2, 3, 4, 5, 6, 7,8]
+    //            }
+    //        }, {
+    //            extend: 'print',
+    //            exportOptions: {
+    //                columns: [0, 2, 3, 4, 5, 6, 7,8]
+    //            }
+    //        }]
+    //});
+</script>

@@ -39,8 +39,7 @@
     <!-- BEGIN: Theme JS-->
     <script src="~/Content/assets/vendors/js/vendors.min.js"></script>
     <script src="~/Content/assets/vendors/js/tables/datatable/datatables.min.js"></script>
-    <script src="~/Content/assets/js/core/app-menu.min.js"></script>
-    <script src="~/Content/assets/js/core/app.min.js"></script>
+    
     @*<script src="~/Content/assets/js/scripts/customizer.min.js"></script>*@
     <script src="~/Content/assets/js/scripts/tables/datatables/datatable-styling.min.js"></script>
 </head>
@@ -181,7 +180,7 @@
                     <a href="adminDashboard.html"><i class="ft-home"></i><span class="menu-title" data-i18n="">Dashboard</span></a>
                 </li>
                 <li class="nav-item">
-                    <a href="#"><i class="ft-edit"></i><span class="menu-title" data-i18n="">Question Bank</span><i class="dropdown-toggle float-right"></i></a>
+                    <a href="#"><i class="ft-edit"></i><span class="menu-title" data-i18n="">Question Bank</span></a>
                     <ul class="menu-content">
                         <li>
                             <a class="menu-item" href="@Url.Action("AcademicLevel","Admin",new {area="Admin" })">Academic Level</a>
@@ -198,91 +197,22 @@
                         <li>
                             <a class="menu-item" href="@Url.Action("ProgrammeSemester","Admin",new {area="Admin" })">Programme Semester</a>
                         </li>
-                        <li>
+                        <li >
                             <a class="menu-item" href="@Url.Action("Course","Admin",new {area="Admin" })">Course</a>
                         </li>
                        
-                        @*<li>
-                            <a class="menu-item" href="@Url.Action("Course","Admin",new {area="Admin" })">Course</a>
-                        </li>
-                        <li>
-                            <a class="menu-item" href="@Url.Action("Subject","Admin",new {area="Admin" })">Subject</a>
-                        </li>
-                        <li>
-                            <a class="menu-item" href="@Url.Action("","Admin",new {area="Admin" })">Exam Management</a>
-                        </li>
-                        <li>
-                            <a class="menu-item" href="@Url.Action("QuestionSection","Admin",new {area="Admin" })">Question Type</a>
-                        </li>
-                        <li>
-                            <a class="menu-item" href="@Url.Action("","Admin",new {area="Admin" })">Questions</a>
-                        </li>*@
+                       
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="#"><i class="ft-users"></i><span class="menu-title" data-i18n="">Students</span><i class="dropdown-toggle float-right"></i></a>
-                    <ul class="menu-content">
-                        <li>
-                            <a class="menu-item" href="@Url.Action("Batch","Admin",new {area="Admin" })">Batch</a>
-                        </li>
-                        <li>
-                            <a class="menu-item" href="@Url.Action("Student","Admin",new {area="Admin" })">Students Data</a>
-                        </li>
-                        <li>
-                            <a class="menu-item" href="javascript:void(0);">Assign To Exam</a>
-                        </li>
-                        <li>
-                            <a class="menu-item" href="javascript:void(0);">End Exam</a>
-                        </li>
-                        <li>
-                            <a class="menu-item" href="javascript:void(0);">Resume Exam</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#"><i class="ft-check"></i><span class="menu-title" data-i18n="">Results</span><i class="dropdown-toggle float-right"></i></a>
-                    <ul class="menu-content">
-                        <li>
-                            <a class="menu-item" href="javascript:void(0);">Student Result</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#"><i class="icon-user"></i><span class="menu-title" data-i18n="">Employee</span><i class="dropdown-toggle float-right"></i></a>
-                    <ul class="menu-content">
-                        <li>
-                            <a class="menu-item" href="@Url.Action("FacultyRegistration","Admin",new {area="Admin" })">Faculty</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#"><i class="ft-layers"></i><span class="menu-title" data-i18n="">Communication</span><i class="dropdown-toggle float-right"></i></a>
-                    <ul class="menu-content">
-                        <li>
-                            <a class="menu-item" href="javascript:void(0);">Send E-mail/SMS</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="" nav-item">
-                    <a href="#"><i class="fa fa-building"></i><span class="menu-title" data-i18n="">Organization</span><i class="dropdown-toggle float-right"></i></a>
-                    <ul class="menu-content">
-                        <li>
-                            <a class="menu-item" href="javascript:void(0);">Admin Logs</a>
-                        </li>
-                        <li>
-                            <a class="menu-item" href="javascript:void(0);">Employee Logs</a>
-                        </li>
-                        <li>
-                            <a class="menu-item" href="javascript:void(0);">Student Logs</a>
-                        </li>
-                    </ul>
-                </li>
+                
                 <li class="nav-item">
                     <a href="@Url.Action("LogOut","Home",new {area="" })"><i class="ft-power"></i><span class="menu-title" data-i18n="">Logout</span></a>
                 </li>
             </ul>
         </div>
     </div>
+    <script src="~/Content/assets/js/core/app-menu.min.js"></script>
+    <script src="~/Content/assets/js/core/app.min.js"></script>
     <!-- END: Main Menu-->
     <!-- BEGIN: Content-->
     <div class="app-content content">
@@ -342,6 +272,6 @@
     <!-- BEGIN: Page JS-->
     @*<script src="~/Content/assets/js/scripts/pages/dashboard-ecommerce.min.js"></script>*@
     <!-- END: Page JS-->
-
+    
 </body>
 </html>

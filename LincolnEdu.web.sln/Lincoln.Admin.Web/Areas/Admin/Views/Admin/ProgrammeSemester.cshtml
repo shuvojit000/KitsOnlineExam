@@ -38,7 +38,7 @@
                                             <span class="hidden">Add</span>
                                         </span>
                                     </a>
-                                    @*<a class="dt-button buttons-excel buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to Excel">
+                                    <a class="dt-button buttons-excel buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to Excel">
                                         <span>
                                             <i class="fa fa-file-excel-o bigger-110"></i>
                                             <span class="hidden">Export to Excel</span>
@@ -55,7 +55,7 @@
                                             <i class="fa fa-print bigger-110"></i>
                                             <span class="hidden">Print</span>
                                         </span>
-                                    </a>*@
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -157,26 +157,26 @@
     }
     function fnSaveProgrammeSemester(programmeSemesterID) {
 
+        $('.valClass').css({ 'display': 'none' });
         if ($('#DepartmentID').val() == '') {
-            alert('Please select Faculty.');
+            $('#DepartmentIDVal').css({ 'display': 'block' });
         }
         else if ($('#ProgrammeID').val() == '') {
-            alert('Please select Programme.');
+            $('#ProgrammeIDVal').css({ 'display': 'block' });
         }
             else if ($('#CountryID').val() == '') {
-            alert('Please select Country.');
+                $('#CountryIDVal').css({ 'display': 'block' });
         }
             else if ($('#ProgrammeYear').val() == '') {
-            alert('Please select Programme Year.');
+                $('#ProgrammeYearVal').css({ 'display': 'block' });
         }
             else if ($('#ProgrammeSemester').val() == '') {
-            alert('Please select Semester.');
+                $('#ProgrammeSemesterVal').css({ 'display': 'block' });
         }
             else if (typeof $('input[name="SemesterType"]:checked').val() === 'undefined') {
-            alert('Select Semester Type.');
+                $('#SemesterTypeVal').css({ 'display': 'block' });
         }
         else {
-
 
             var model = {
                 ProgrammeSemesterID: programmeSemesterID,

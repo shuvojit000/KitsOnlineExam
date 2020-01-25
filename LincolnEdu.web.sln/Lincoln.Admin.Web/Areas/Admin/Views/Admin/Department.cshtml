@@ -39,7 +39,7 @@
                                             <span class="hidden">Add</span>
                                         </span>
                                     </a>
-                                    @*<a class="dt-button buttons-excel buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to Excel">
+                                    <a class="dt-button buttons-excel buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to Excel">
                                         <span>
                                             <i class="fa fa-file-excel-o bigger-110"></i>
                                             <span class="hidden">Export to Excel</span>
@@ -56,7 +56,7 @@
                                             <i class="fa fa-print bigger-110"></i>
                                             <span class="hidden">Print</span>
                                         </span>
-                                    </a>*@
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -153,21 +153,26 @@
 
     }
     function fnSaveDepartment(departmentID) {
-
-        if ($('#AcademicID').val() == '') {
-            alert('Please select Academic Level.');
+        $('.valClass').css({ 'display': 'none' });
+        if ($('#AcademicID').val() == '') {          
+            $('#AcademicIdVal').css({ 'display': 'block' });
+           
         }
         else if ($('#DepartmentCode').val() == '') {
-            alert('Faculty Code is required.');
+            $('#DepartmentCode').focus();
+            $('#DepartmentCodeVal').html('Faculty Code is required.');
+            $('#DepartmentCodeVal').css({ 'display': 'block' });
         }
         else if ($('#DepartmentName').val() == '') {
-            alert('Faculty Name is required.');
-        }
-        else if ($('#HODName').val() == '') {
-            alert('HOD Name is required.');
-        }
-        else if ($('#HODEmail').val() == '' || !validateEmail($('#HODEmail').val())) {
-            alert('HOD Email  is required.');
+            $('#DepartmentName').focus();
+            $('#DepartmentNameVal').html('Faculty Name is required.');
+            $('#DepartmentNameVal').css({ 'display': 'block' });
+        }        
+        else if (!validateEmail($('#HODEmail').val())) {
+            $('#HODEmail').focus();
+            $('#HODEmailVal').html('Not valid Email.');
+            $('#HODEmailVal').css({ 'display': 'block' });
+            
         }
         else {
 

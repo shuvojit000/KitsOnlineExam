@@ -38,148 +38,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             }), JsonRequestBehavior.AllowGet);
         }
         
-        #region Course
-
-        public ActionResult Course() => View();
-        private List<CourseViewModel> GetAllCourse()
-        {
-            var itemSet = new List<CourseViewModel>();
-            itemSet = onlineExamService.GetAllCourse().Select(a => new CourseViewModel()
-            {
-                CourseName = a.CourseName,
-                CourseCode = a.CourseCode,
-                ModifiedOn = a.ModifiedOn?.Date,
-                Status = a.Status,
-                CourseID = a.CourseID,
-                CreatedBy = a.CreatedBy,
-                CreatedOn = a.CreatedOn,
-                ModifiedBy = Convert.ToInt32(a.ModifiedBy),
-                AcademicID = a.AcademicID,
-                ApprovalNo = a.ApprovalNo,
-                Credit = a.Credit,
-                DepartmentID = a.DepartmentID,
-                DepartmentName = a.DepartmentName,
-                ProgrammeID = a.ProgrammeID,
-                ProgrammeName = a.ProgrammeName,
-                ProgrammeSemester = a.ProgrammeSemester,
-                ProgrammeYear = a.ProgrammeYear,
-                SemesterType = a.SemesterType,
-                CountryID=a.CountryId,
-            }).ToList();
-
-            return itemSet;
-        }
-        private CourseViewModel SelectCourse(string courseId)
-        {
-            var model = new CourseViewModel();
-            var item = onlineExamService.SelectCourse(new OnlineExam.Request.CourseRequestDTO
-            {
-                CourseID = Convert.ToInt32(courseId)
-
-            });
-            model.CourseName = item.CourseName;
-            model.CourseCode = item.CourseCode;
-            model.ModifiedOn = item.ModifiedOn?.Date;
-            model.Status = item.Status;
-            model.CourseID = item.CourseID;
-            model.CreatedBy = item.CreatedBy;
-            model.CreatedOn = item.CreatedOn;
-            model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
-            model.AcademicID = item.AcademicID;
-            model.ApprovalNo = item.ApprovalNo;
-            model.Credit = item.Credit;
-            model.DepartmentID = item.DepartmentID;
-            model.DepartmentName = item.DepartmentName;
-            model.ProgrammeID = item.ProgrammeID;
-            model.ProgrammeName = item.ProgrammeName;
-            model.ProgrammeSemester = item.ProgrammeSemester;
-            model.ProgrammeYear = item.ProgrammeYear;
-            model.SemesterType = item.SemesterType;
-            model.CountryID = item.CountryId;
-            return model;
-
-        }
-
-        public PartialViewResult AddCourse(string id)
-        {
-            var model = new CourseViewModel();
-            if (!string.IsNullOrEmpty(id))
-            {
-                model = SelectCourse(id);
-                model.ProgrammeList = onlineExamService.GetAllProgramme().Where(a => a.DepartmentID == Convert.ToInt32(model.DepartmentID) && a.Status == "A")
-                   .Select(a => new SelectListItem
-                   {
-                       Text = a.ProgrammeName + "(" + a.ProgrammeCode + ")",
-                       Value = a.ProgrammeID.ToString()
-
-                   }).ToList();
-            }
-            else
-            {
-                model.ProgrammeList = new List<SelectListItem>();
-            }
-            model.CountryList = new List<SelectListItem>
-                            {
-                                new SelectListItem{ Text="India", Value = "1" },
-                                new SelectListItem{ Text="Malaysia", Value = "2" },
-                                new SelectListItem{ Text="United States", Value = "3" },
-                             };
-            model.ProgYearList = Enumerable.Range(1, 10).Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }).ToList();
-            model.ProgSEMList = Enumerable.Range(1, 10).Select(x => new SelectListItem { Value = x.ToString(), Text =  x.ToString() }).ToList();
-            model.DepartmentList = onlineExamService.GetDropdownData("Department").Select(a => new SelectListItem { Text = a.CodeDesc, Value = a.CodeID }).ToList();
-
-            return PartialView("_addCourse", model);
-        }
-        public PartialViewResult CourseView(string id)
-        {
-            return PartialView("_viewCourse", SelectCourse(id));
-        }
-        public PartialViewResult CourseList()
-        {
-            return PartialView("_listCourse", GetAllCourse());
-        }
-        [HttpPost]
-        public JsonResult SaveCourse(CourseViewModel model)
-        {
-            var type = "INSERT";
-            if (model.CourseID > 0)
-            {
-                type = "UPDATE";
-            }
-
-            var result = onlineExamService.SaveCourse(new OnlineExam.Request.CourseRequestDTO()
-            {
-                CourseID = model.CourseID,
-                CreatedBy = User.UserId,
-                CourseCode = model.CourseCode,
-                CourseName = model.CourseName,
-                SemesterType=model.SemesterType,
-                ProgrammeYear=model.ProgrammeYear,
-                ProgrammeSemester=model.ProgrammeSemester,
-                ProgrammeID=model.ProgrammeID,
-                DepartmentID=model.DepartmentID,
-                ApprovalNo=model.ApprovalNo,
-                CountryID=model.CountryID,
-                Credit=model.Credit,                
-                Active = model.Active
-            }, type);
-
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-        [HttpPost]
-        public JsonResult DeleteCourse(CourseViewModel model)
-        {
-
-            var result = onlineExamService.SaveCourse(new OnlineExam.Request.CourseRequestDTO()
-            {
-                CourseID = model.CourseID,
-                CreatedBy = User.UserId,
-            }, "DELETE");
-
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
-        #endregion Course
+       
        
 
         #region Academic Level
@@ -766,6 +625,150 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
 
         #endregion
+
+        #region Course
+
+        public ActionResult Course() => View();
+        private List<CourseViewModel> GetAllCourse()
+        {
+            var itemSet = new List<CourseViewModel>();
+            itemSet = onlineExamService.GetAllCourse().Select(a => new CourseViewModel()
+            {
+                CourseName = a.CourseName,
+                CourseCode = a.CourseCode,
+                ModifiedOn = a.ModifiedOn?.Date,
+                Status = a.Status,
+                CourseID = a.CourseID,
+                CreatedBy = a.CreatedBy,
+                CreatedOn = a.CreatedOn,
+                ModifiedBy = Convert.ToInt32(a.ModifiedBy),
+                AcademicID = a.AcademicID,
+                ApprovalNo = a.ApprovalNo,
+                Credit = a.Credit,
+                DepartmentID = a.DepartmentID,
+                DepartmentName = a.DepartmentName,
+                ProgrammeID = a.ProgrammeID,
+                ProgrammeName = a.ProgrammeName,
+                ProgrammeSemester = a.ProgrammeSemester,
+                ProgrammeYear = a.ProgrammeYear,
+                SemesterType = a.SemesterType,
+                CountryID = a.CountryId,
+            }).ToList();
+
+            return itemSet;
+        }
+        private CourseViewModel SelectCourse(string courseId)
+        {
+            var model = new CourseViewModel();
+            var item = onlineExamService.SelectCourse(new OnlineExam.Request.CourseRequestDTO
+            {
+                CourseID = Convert.ToInt32(courseId)
+
+            });
+            model.CourseName = item.CourseName;
+            model.CourseCode = item.CourseCode;
+            model.ModifiedOn = item.ModifiedOn?.Date;
+            model.Status = item.Status;
+            model.CourseID = item.CourseID;
+            model.CreatedBy = item.CreatedBy;
+            model.CreatedOn = item.CreatedOn;
+            model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
+            model.AcademicID = item.AcademicID;
+            model.ApprovalNo = item.ApprovalNo;
+            model.Credit = item.Credit;
+            model.DepartmentID = item.DepartmentID;
+            model.DepartmentName = item.DepartmentName;
+            model.ProgrammeID = item.ProgrammeID;
+            model.ProgrammeName = item.ProgrammeName;
+            model.ProgrammeSemester = item.ProgrammeSemester;
+            model.ProgrammeYear = item.ProgrammeYear;
+            model.SemesterType = item.SemesterType;
+            model.CountryID = item.CountryId;
+            return model;
+
+        }
+
+        public PartialViewResult AddCourse(string id)
+        {
+            var model = new CourseViewModel();
+            if (!string.IsNullOrEmpty(id))
+            {
+                model = SelectCourse(id);
+                model.ProgrammeList = onlineExamService.GetAllProgramme().Where(a => a.DepartmentID == Convert.ToInt32(model.DepartmentID) && a.Status == "A")
+                   .Select(a => new SelectListItem
+                   {
+                       Text = a.ProgrammeName + "(" + a.ProgrammeCode + ")",
+                       Value = a.ProgrammeID.ToString()
+
+                   }).ToList();
+            }
+            else
+            {
+                model.ProgrammeList = new List<SelectListItem>();
+            }
+            model.CountryList = new List<SelectListItem>
+                            {
+                                new SelectListItem{ Text="India", Value = "1" },
+                                new SelectListItem{ Text="Malaysia", Value = "2" },
+                                new SelectListItem{ Text="United States", Value = "3" },
+                             };
+            model.ProgYearList = Enumerable.Range(1, 10).Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }).ToList();
+            model.ProgSEMList = Enumerable.Range(1, 10).Select(x => new SelectListItem { Value = x.ToString(), Text = x.ToString() }).ToList();
+            model.DepartmentList = onlineExamService.GetDropdownData("Department").Select(a => new SelectListItem { Text = a.CodeDesc, Value = a.CodeID }).ToList();
+
+            return PartialView("_addCourse", model);
+        }
+        public PartialViewResult CourseView(string id)
+        {
+            return PartialView("_viewCourse", SelectCourse(id));
+        }
+        public PartialViewResult CourseList()
+        {
+            return PartialView("_listCourse", GetAllCourse());
+        }
+        [HttpPost]
+        public JsonResult SaveCourse(CourseViewModel model)
+        {
+            var type = "INSERT";
+            if (model.CourseID > 0)
+            {
+                type = "UPDATE";
+            }
+
+            var result = onlineExamService.SaveCourse(new OnlineExam.Request.CourseRequestDTO()
+            {
+                CourseID = model.CourseID,
+                CreatedBy = User.UserId,
+                CourseCode = model.CourseCode,
+                CourseName = model.CourseName,
+                SemesterType = model.SemesterType,
+                ProgrammeYear = model.ProgrammeYear,
+                ProgrammeSemester = model.ProgrammeSemester,
+                ProgrammeID = model.ProgrammeID,
+                DepartmentID = model.DepartmentID,
+                ApprovalNo = model.ApprovalNo,
+                CountryID = model.CountryID,
+                Credit = model.Credit,
+                Active = model.Active
+            }, type);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult DeleteCourse(CourseViewModel model)
+        {
+
+            var result = onlineExamService.SaveCourse(new OnlineExam.Request.CourseRequestDTO()
+            {
+                CourseID = model.CourseID,
+                CreatedBy = User.UserId,
+            }, "DELETE");
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion Course
+
 
         #region Dropdown Code
         [HttpPost]

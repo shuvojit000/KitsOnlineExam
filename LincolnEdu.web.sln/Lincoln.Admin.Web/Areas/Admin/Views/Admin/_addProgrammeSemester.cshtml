@@ -10,13 +10,14 @@
                         <label><b>Faculty <span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
                             @Html.DropDownListFor(a => a.DepartmentID, Model.DepartmentList, "Select Faculty", new { @class = "custom-select block" })
+                            <span id="DepartmentIDVal" style="color:red;display:none" class="valClass">Please select Faculty.</span>
 
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
                         <label><b>Programme <span class="requiredstar">*</span></b> </label>
                         @Html.DropDownListFor(a => a.ProgrammeID, Model.ProgrammeList, "Select Programme", new { @class = "custom-select block" })
-
+                        <span id="ProgrammeIDVal" style="color:red;display:none" class="valClass">Please select Programme.</span>
 
                     </div>
                 </div>
@@ -25,14 +26,14 @@
                         <label><b>Country <span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left gt">
                             @Html.DropDownListFor(a => a.CountryID, Model.CountryList, "Select Country", new { @class = "custom-select block" })
-
+                            <span id="CountryIDVal" style="color:red;display:none" class="valClass">Please select Country.</span>
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
                         <label><b>Programme Year<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
                             @Html.DropDownListFor(a => a.ProgrammeYear, Model.ProgYearList, "Select Programme Year", new { @class = "custom-select block" })
-
+                            <span id="ProgrammeYearVal" style="color:red;display:none" class="valClass">Please select Programme Year.</span>
                         </div>
                     </div>
                 </div>
@@ -41,7 +42,7 @@
                         <label><b>Programme Semester<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
                             @Html.DropDownListFor(a => a.ProgrammeSemester, Model.ProgSEMList, "Select SEM", new { @class = "custom-select block" })
-
+                            <span id="ProgrammeSemesterVal" style="color:red;display:none" class="valClass">Please select Semester.</span>
                         </div>
                     </div>
 
@@ -50,7 +51,7 @@
                         <div class="position-relative has-icon-left">
                             <input type="radio" name="SemesterType" value="Short"> Short
                             <input type="radio" name="SemesterType" value="Long"> Long
-
+                            <span id="SemesterTypeVal" style="color:red;display:none" class="valClass">Please select Semester Type.</span>
                         </div>
                     </div>
                 </div>

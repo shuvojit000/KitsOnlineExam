@@ -37,7 +37,7 @@
                                             <span class="hidden">Add</span>
                                         </span>
                                     </a>
-                                    @*<a class="dt-button buttons-excel buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to Excel">
+                                    <a class="dt-button buttons-excel buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to Excel">
                                         <span>
                                             <i class="fa fa-file-excel-o bigger-110"></i>
                                             <span class="hidden">Export to Excel</span>
@@ -54,7 +54,7 @@
                                             <i class="fa fa-print bigger-110"></i>
                                             <span class="hidden">Print</span>
                                         </span>
-                                    </a>*@
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -151,24 +151,35 @@
 
     }
     function fnSaveProgramme(programmeID) {
-
+        $('.valClass').css({ 'display': 'none' });
         if ($('#AcademicID').val() == '') {
-            alert('Please select Academic Level.');
+            $('#AcademicIDVal').css({ 'display': 'block' });
+           
         }
         else if ($('#DepartmentID').val() == '') {
-            alert('Faculty is required.');
+            $('#DepartmentIDVal').css({ 'display': 'block' });
         }
         else if ($('#ProgrammeCode').val() == '') {
-            alert('Programme Code is required.');
+            $('#ProgrammeCode').focus();
+            $('#ProgrammeCodeVal').html('Programme Code is required.');
+            $('#ProgrammeCodeVal').css({ 'display': 'block' });
+           
         }
         else if ($('#ProgrammeName').val() == '') {
-            alert('Programme Name is required.');
+            $('#ProgrammeName').focus();
+            $('#ProgrammeNameVal').html('Programme Name is required.');
+            $('#ProgrammeNameVal').css({ 'display': 'block' });
         }
         else if ($('#ApprovalNo').val() == '') {
-            alert('Approval No  is required.');
+            $('#ApprovalNo').focus();
+            $('#ApprovalNoVal').html('Approval No  is required.');
+            $('#ApprovalNoVal').css({ 'display': 'block' });
+           
         }
         else if ($('#Credit').val() == '') {
-            alert('Credit  is required.');
+            $('#Credit').focus();
+            $('#CreditVal').html('Credit  is required.');
+            $('#CreditVal').css({ 'display': 'block' });
         }
         else {
 

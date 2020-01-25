@@ -38,7 +38,7 @@
                                             <span class="hidden">Add</span>
                                         </span>
                                     </a>
-                                    @*<a class="dt-button buttons-excel buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to Excel">
+                                    <a class="dt-button buttons-excel buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to Excel">
                                         <span>
                                             <i class="fa fa-file-excel-o bigger-110"></i>
                                             <span class="hidden">Export to Excel</span>
@@ -55,7 +55,7 @@
                                             <i class="fa fa-print bigger-110"></i>
                                             <span class="hidden">Print</span>
                                         </span>
-                                    </a>*@
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -88,7 +88,8 @@
         </div>
     </div>
 </div>
-
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script>
     $(function () {
         $("#ddlStatus").change(function () {
@@ -141,7 +142,7 @@
             }
         });
     });
-    
+
     function fnAddAcademicLevel(id) {
         if (id != null && id != '') {
             $('.modal-body').load('/Admin/Admin/AddAcademicLevel/' + id, function () { $("#myModal").modal('show'); });
@@ -151,21 +152,21 @@
         }
 
     }
+    // var isvalid = $('#myForm').valid();
     function fnSaveAcademicLevel(academicID) {
-
+        $('.valClass').css({ 'display': 'none' });
         if ($('#AcademicName').val() == '') {
-            alert('Academic Level is required.');
+            $('#AcademicName').focus();
+            $('#AcademicNameVal').html('Academic Level is required.');
+            $('#AcademicNameVal').css({ 'display': 'block' });
         }
-        //else if ($('#AcademicCode').val() == '') {
-        //    alert('Academic Code is required.');
-        //}
         else {
 
 
             var model = {
                 AcademicID: academicID,
                 AcademicName: $('#AcademicName').val(),
-               // AcademicCode: $('#AcademicCode').val(),
+                // AcademicCode: $('#AcademicCode').val(),
                 Active: 'A'
             };
 
@@ -177,12 +178,12 @@
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 success: function (result) {
-                    if (result==1) {
+                    if (result == 1) {
                         alert('Data Save Successfully.');
                         $("#myModal").modal('hide');
                         fnLoadAcademicLevelList();
                     }
-                    else if (result==-1) {
+                    else if (result == -1) {
                         alert('Data already exist.');
                         $("#myModal").modal('hide');
                         fnLoadAcademicLevelList();
@@ -234,4 +235,3 @@
 
     }
 </script>
-

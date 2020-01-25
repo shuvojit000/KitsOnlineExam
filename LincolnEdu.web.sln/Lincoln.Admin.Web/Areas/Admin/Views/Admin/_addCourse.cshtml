@@ -10,30 +10,14 @@
                         <label><b>Faculty<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
                             @Html.DropDownListFor(a => a.DepartmentID, Model.DepartmentList, "Select Faculty", new { @class = "custom-select block" })
-
+                            <span id="DepartmentIDVal" style="color:red;display:none" class="valClass">Please select Faculty.</span>
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
                         <label><b>Programme<span class="requiredstar">*</span></b> </label>
                         @Html.DropDownListFor(a => a.ProgrammeID, Model.ProgrammeList, "Select Programme", new { @class = "custom-select block" })
 
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-lg-12">
-                        <label><b>Country <span class="requiredstar">*</span></b> </label>
-                        <div class="position-relative has-icon-left gt">
-                            @Html.DropDownListFor(a => a.CountryID, Model.CountryList, "Select Country", new { @class = "custom-select block" })
-
-                        </div>
-                    </div>
-                    <div class="form-group col-lg-6">
-                        <label><b>Programme Year<span class="requiredstar">*</span></b> </label>
-                        <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.ProgrammeYear, Model.ProgYearList, "Select Programme Year", new { @class = "custom-select block" })
-
-                        </div>
+                        <span id="ProgrammeIDVal" style="color:red;display:none" class="valClass">Please select Programme.</span>
                     </div>
                 </div>
                 <div class="row">
@@ -41,22 +25,33 @@
                         <label><b>Programme Semester<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
                             @Html.DropDownListFor(a => a.ProgrammeSemester, Model.ProgSEMList, "Select SEM", new { @class = "custom-select block" })
+                            <span id="ProgrammeSemesterVal" style="color:red;display:none" class="valClass">Please select Semester.</span>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <label><b>Country <span class="requiredstar">*</span></b> </label>
+                        <div class="position-relative has-icon-left gt">
+                            @Html.DropDownListFor(a => a.CountryID, Model.CountryList, "Select Country", new { @class = "custom-select block" })
+                            <span id="CountryIDVal" style="color:red;display:none" class="valClass">Please select Country.</span>
+                        </div>
+                    </div>
 
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label><b>Programme Year<span class="requiredstar">*</span></b> </label>
+                        <div class="position-relative has-icon-left">
+                            @Html.DropDownListFor(a => a.ProgrammeYear, Model.ProgYearList, "Select Programme Year", new { @class = "custom-select block" })
+                            <span id="ProgrammeYearVal" style="color:red;display:none" class="valClass">Please select Programme Year.</span>
                         </div>
                     </div>
 
                     <div class="form-group col-lg-6">
                         <label><b>Semester Type<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
-                            @*@Html.DropDownListFor(a => a.SemesterType, new List<SelectListItem>
-
-                 {
-                    new SelectListItem{ Text="Long", Value = "Long" },
-                    new SelectListItem{ Text="Short", Value = "Short" }
-                 }, "Select SEM Type", new { @class = "custom-select block" })*@
-
                             <input type="radio" name="SemesterType" value="Short"> Short
                             <input type="radio" name="SemesterType" value="Long"> Long
+                            <span id="SemesterTypeVal" style="color:red;display:none" class="valClass">Please select Semester Type.</span>
                         </div>
                     </div>
                 </div>
@@ -68,6 +63,7 @@
                             <div class="form-control-position">
                                 <i class="fa fa-book"></i>
                             </div>
+                            <span id="CourseCodeVal" style="color:red;display:none" class="valClass"></span>
                         </div>
                     </div>
 
@@ -78,6 +74,7 @@
                             <div class="form-control-position">
                                 <i class="fa fa-book"></i>
                             </div>
+                            <span id="CourseNameVal" style="color:red;display:none" class="valClass"></span>
                         </div>
                     </div>
                 </div>
@@ -89,16 +86,18 @@
                             <div class="form-control-position">
                                 <i class="fa fa-book"></i>
                             </div>
+                            <span id="ApprovalNoVal" style="color:red;display:none" class="valClass"></span>
                         </div>
                     </div>
 
                     <div class="form-group col-lg-6">
                         <label><b>Credit<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
-                            @Html.TextBoxFor(a => a.Credit, new { @class = "form-control" , @type = "number" })
+                            @Html.TextBoxFor(a => a.Credit, new { @class = "form-control", @type = "number" })
                             <div class="form-control-position">
-                                <i class="fa fa-right"></i>
+                                <i class="fa fa-book"></i>
                             </div>
+                            <span id="CreditVal" style="color:red;display:none" class="valClass"></span>
                         </div>
                     </div>
                 </div>

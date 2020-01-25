@@ -38,7 +38,7 @@
                                             <span class="hidden">Add</span>
                                         </span>
                                     </a>
-                                    @*<a class="dt-button buttons-excel buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to Excel">
+                                    <a class="dt-button buttons-excel buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to Excel">
                                         <span>
                                             <i class="fa fa-file-excel-o bigger-110"></i>
                                             <span class="hidden">Export to Excel</span>
@@ -55,7 +55,7 @@
                                             <i class="fa fa-print bigger-110"></i>
                                             <span class="hidden">Print</span>
                                         </span>
-                                    </a>*@
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -152,36 +152,44 @@
 
     }
     function fnSaveCourse(courseId) {
-
+        $('.valClass').css({ 'display': 'none' });
         if ($('#DepartmentID').val() == '') {
-            alert('Please select Faculty.');
+            $('#DepartmentIDVal').css({ 'display': 'block' });
         }
         else if ($('#ProgrammeID').val() == '') {
-             alert('Please select programme.');
+            $('#ProgrammeIDVal').css({ 'display': 'block' });
         }
         else if ($('#CountryID').val() == '') {
-            alert('Please select Country.');
+            $('#CountryIDVal').css({ 'display': 'block' });
         }
         else if ($('#ProgrammeYear').val() == '') {
-            alert('Please select Programme year.');
+            $('#ProgrammeYearVal').css({ 'display': 'block' });
         }
         else if ($('#ProgrammeSemester').val() == '') {
-            alert('Please select Semester.');
+            $('#ProgrammeSemesterVal').css({ 'display': 'block' });
         }
         else if (typeof $('input[name="SemesterType"]:checked').val() === 'undefined') {
-            alert('Select Semester Type.');
+            $('#SemesterTypeVal').css({ 'display': 'block' });
         }
         else if ($('#CourseCode').val() == '') {
-            alert('Course Code is required.');
+            $('#CourseCode').focus();
+            $('#CourseCodeVal').html('Course Code  is required.');
+            $('#CourseCodeVal').css({ 'display': 'block' });
         }
         else if ($('#CourseName').val() == '') {
-            alert('Course Name is required.');
+            $('#CourseName').focus();
+            $('#CourseNameVal').html('Course Name  is required.');
+            $('#CourseNameVal').css({ 'display': 'block' });
         }
         else if ($('#ApprovalNo').val() == '') {
-            alert('Approval No is required.');
+            $('#ApprovalNo').focus();
+            $('#ApprovalNoVal').html('Approval No  is required.');
+            $('#ApprovalNoVal').css({ 'display': 'block' });
         }
         else if ($('#Credit').val() == '') {
-            alert('Credit is required.');
+            $('#Credit').focus();
+            $('#CreditVal').html('Credit  is required.');
+            $('#CreditVal').css({ 'display': 'block' });
         }
         else {
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -9,6 +10,7 @@ namespace Lincoln.Admin.Web.Models
     {
         public int AcademicID { get; set; }
         public string AcademicCode { get; set; }
+        [Required(ErrorMessage ="Academic level is required")]
         public string AcademicName { get; set; }
         public string Active { get; set; }
         public int CreatedBy { get; set; }
