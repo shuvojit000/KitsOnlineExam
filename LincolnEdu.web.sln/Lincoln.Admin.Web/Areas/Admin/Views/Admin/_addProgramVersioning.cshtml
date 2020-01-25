@@ -13,25 +13,35 @@
                         <label><b>Faculty<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
                             @Html.DropDownListFor(a => a.DepartmentCode, Model.DepartmentList, "Select Faculty", new { @class = "custom-select block" })
+                            <span id="DepartmentCodeVal" style="color:red;display:none" class="valClass">Please select Faculty.</span>
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
-                        <label><b>Program Level<span class="requiredstar">*</span> </b></label>
+                        <label><b>Program <span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
                             @Html.DropDownListFor(a => a.ProgramCode, Model.ProgramList, "Select Academic Level", new { @class = "custom-select block" })
+                            <span id="ProgramCodeVal" style="color:red;display:none" class="valClass">Please select Programme.</span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-lg-6">
                             <label><b>Version<span class="requiredstar">*</span></b> </label>
                             @Html.TextBoxFor(a => a.Version, new { @class = "form-control", @Placeholder = "Please write syllabus version" })
+                            <div class="form-control-position">
+                                <i class="fa fa-book"></i>
+                                <span id="VersionVal" style="color:red;display:none" class="valClass"></span>
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-group col-lg-6">
                         <label><b>Credit<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
-                            @Html.TextBoxFor(a => a.Credit, new { @class = "form-control" })
+                            @Html.TextBoxFor(a => a.Credit, new { @class = "form-control",@type="number" })
+                            <div class="form-control-position">
+                                <i class="fa fa-book"></i>
+                                <span id="CreditVal" style="color:red;display:none" class="valClass"></span>
+                            </div>
                         </div>
                     </div>
                 </div>

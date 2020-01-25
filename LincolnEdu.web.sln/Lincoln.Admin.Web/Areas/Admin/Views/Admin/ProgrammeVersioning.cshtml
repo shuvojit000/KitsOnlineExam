@@ -153,18 +153,22 @@
     }
     function fnSaveProgramVersioning(programVersioningID) {
 
-
+        $('.valClass').css({ 'display': 'none' });
         if ($('#DepartmentCode').val() == '') {
-            alert('Faculty is required.');
+            $('#DepartmentCodeVal').css({ 'display': 'block' });
         }
         else if ($('#ProgramCode').val() == '') {
-            alert('Program is required.');
+            $('#ProgramCodeVal').css({ 'display': 'block' });
         }
        else if ($('#Version').val() == '') {
-            alert('Version is required.');
+           $('#Version').focus();
+           $('#VersionVal').html('Version  is required.');
+           $('#VersionVal').css({ 'display': 'block' });
         }
         else if ($('#Credit').val() == '') {
-            alert('Credit Name is required.');
+            $('#Credit').focus();
+            $('#CreditVal').html('Credit  is required.');
+            $('#CreditVal').css({ 'display': 'block' });
         }
         else {
 
