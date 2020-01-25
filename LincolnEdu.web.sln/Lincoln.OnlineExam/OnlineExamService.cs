@@ -198,5 +198,94 @@ namespace Lincoln.OnlineExam
                 return unitOfWork.CommonRepository.SelectProgrammeSemester(recordAttributer);
             }
         }
+
+
+        public int SaveExaminationName(ExaminationNameRequestDTO recordAttributer, string Operation)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.SaveExaminationName(recordAttributer, Operation);
+            }
+        }
+        public List<ExaminationNameResponseDTO> GetAllExaminationName()
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.GetAllExaminationName();
+            }
+        }
+        public ExaminationNameResponseDTO SelectExaminationName(ExaminationNameRequestDTO recordAttributer)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.SelectExaminationName(recordAttributer);
+            }
+        }
+
+
+        public int SaveExaminationSection(ExaminationSectionRequestDTO recordAttributer, string Operation)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.SaveExaminationSection(recordAttributer, Operation);
+            }
+        }
+        public List<ExaminationSectionResponseDTO> GetAllExaminationSection()
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.GetAllExaminationSection();
+            }
+        }
+        public ExaminationSectionResponseDTO SelectExaminationSection(ExaminationSectionRequestDTO recordAttributer)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.SelectExaminationSection(recordAttributer);
+            }
+        }
+
+        public int SaveAssessment(AssessmentRequestDTO recordAttributer, string Operation)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.SaveAssessment(recordAttributer, Operation);
+            }
+        }
+        public List<AssessmentResponseDTO> GetAllAssessment()
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.GetAllAssessment();
+            }
+        }
+        public AssessmentResponseDTO SelectAssessment(AssessmentRequestDTO recordAttributer)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.SelectAssessment(recordAttributer);
+            }
+        }
+        public int SaveSubjectAssessment(SubjectAssessmentRequestDTO recordAttributer, string Operation)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.SaveSubjectAssessment(recordAttributer, Operation);
+            }
+        }
+        public List<SubjectAssessmentResponseDTO> GetAllSubjectAssessment()
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.GetAllSubjectAssessment();
+            }
+        }
+        public SubjectAssessmentResponseDTO SelectSubjectAssessment(SubjectAssessmentRequestDTO recordAttributer)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.SelectSubjectAssessment(recordAttributer);
+            }
+        }
     }
 }

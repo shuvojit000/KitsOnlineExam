@@ -38,29 +38,29 @@
                                             <span class="hidden">Add</span>
                                         </span>
                                     </a>
-                                    <a class="dt-button buttons-excel buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to Excel">
-                                        <span>
-                                            <i class="fa fa-file-excel-o bigger-110"></i>
-                                            <span class="hidden">Export to Excel</span>
-                                        </span>
-                                    </a>
-                                    <a class="dt-button buttons-pdf buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to PDF">
-                                        <span>
-                                            <i class="fa fa-file-pdf-o bigger-110"></i>
-                                            <span class="hidden">Export to PDF</span>
-                                        </span>
-                                    </a>
-                                    <a class="dt-button buttons-print btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Print">
-                                        <span>
-                                            <i class="fa fa-print bigger-110"></i>
-                                            <span class="hidden">Print</span>
-                                        </span>
-                                    </a>
+                                    @*<a class="dt-button buttons-excel buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to Excel">
+                                            <span>
+                                                <i class="fa fa-file-excel-o bigger-110"></i>
+                                                <span class="hidden">Export to Excel</span>
+                                            </span>
+                                        </a>
+                                        <a class="dt-button buttons-pdf buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to PDF">
+                                            <span>
+                                                <i class="fa fa-file-pdf-o bigger-110"></i>
+                                                <span class="hidden">Export to PDF</span>
+                                            </span>
+                                        </a>
+                                        <a class="dt-button buttons-print btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Print">
+                                            <span>
+                                                <i class="fa fa-print bigger-110"></i>
+                                                <span class="hidden">Print</span>
+                                            </span>
+                                        </a>*@
                                 </div>
                             </div>
                         </div>
                         <div class="card-content collapse show">
-                            <div class="card-body card-dashboard listCourse">
+                            <div class="card-body card-dashboard listProgramVersioning">
                                 @{ Html.RenderAction("ProgramVersioningList", "Admin", new { area = "Admin" });}
                             </div>
                         </div>
@@ -153,13 +153,14 @@
     }
     function fnSaveProgramVersioning(programVersioningID) {
 
-        if ($('#ProgramCode').val() == '') {
-            alert('Program is required.');
-        }
-        else if ($('#DepartmentCode').val() == '') {
+
+        if ($('#DepartmentCode').val() == '') {
             alert('Faculty is required.');
         }
-        if ($('#Version').val() == '') {
+        else if ($('#ProgramCode').val() == '') {
+            alert('Program is required.');
+        }
+       else if ($('#Version').val() == '') {
             alert('Version is required.');
         }
         else if ($('#Credit').val() == '') {
@@ -185,14 +186,10 @@
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 success: function (result) {
-                    if (result ==1) {
+                    if (result > 0) {
                         alert('Data Save Successfully.');
                         $("#myModal").modal('hide');
                         fnLoadCourseList();
-                    } else if (result == -1) {
-                        alert('Data already exist.');
-                        $("#myModal").modal('hide');
-                        fnLoadAcademicLevelList();
                     } else {
                         alert('Error in your requst.');
                         $("#myModal").modal('hide');
@@ -209,7 +206,7 @@
         $('.modal-body').load('/Admin/Admin/ProgramVersioningView/' + id, function () { $("#myModal").modal('show'); });
     }
     function fnLoadCourseList() {
-        $('.listCourse').load('/Admin/Admin/ProgramVersioningList');
+        $('.listProgramVersioning').load('/Admin/Admin/ProgramVersioningList');
     }
     function fnDeleteProgramVersioning(programVersioningID) {
 

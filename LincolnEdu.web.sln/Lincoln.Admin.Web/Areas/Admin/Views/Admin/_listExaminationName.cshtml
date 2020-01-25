@@ -1,0 +1,76 @@
+﻿
+
+
+@model IEnumerable<Lincoln.Admin.Web.Models.ExaminationNameViewModel>
+@{
+
+    int sl = 1;
+}
+
+<table class="cell-border stripe" id="dataTables-example" style="width:100%">
+    <thead>
+        <tr>
+            <th>SlNo</th>
+            <th>Check</th>
+            <th>ExaminationName</th>
+            <th>Start Date</th>
+            @*<th>Start Time</th>*@
+            <th>End Date</th>
+            @*<th>End Time</th>*@
+            <th>STATUS</th>
+            <th>ACTION</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count() > 0)
+        {
+
+
+            foreach (var item in Model)
+            {
+        <tr>
+            <td>@sl</td>
+            <td>
+                <center>
+                    <input type="checkbox" class="statusCheck" data-id="@item.ExaminationNameID">
+                </center>
+            </td>
+            <td>@item.ExaminationName</td>
+            <td>@item.StartDate</td>
+            @*<td>@item.StartTime</td>*@
+        <td>@item.EndDate </td>
+            @*<td>@item.EndTime</td>*@
+            <td>@item.Active</td>
+
+            <td>
+                <a href="javascript:void(0);" onclick="fnViewExaminationName(@item.ExaminationNameID)" title="View"><i class="fa fa-eye"></i></a> &nbsp;
+                <a href="javascript:void(0);" onclick="fnAddExaminationName(@item.ExaminationNameID)" title="Edit"><i class="fa fa-edit"></i></a> &nbsp;
+                <a href="javascript:void(0);" onclick="fnDeleteExaminationName(@item.ExaminationNameID)" title="Delete"><i class="fa fa-trash"></i></a>
+            </td>
+        </tr>
+                // @sl= @sl + 1;
+            }
+        }
+    </tbody>
+</table>
+<script>
+        $('#dataTables-example').dataTable({
+        dom: 'Bfrtip', buttons: [
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [0, 2, 3, 4, 5, 6, 7]
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: [0, 2, 3, 4, 5, 6, 7]
+                }
+            }, {
+                extend: 'print',
+                exportOptions: {
+                    columns: [0, 2, 3, 4, 5, 6, 7]
+                }
+            }]
+    });</script>

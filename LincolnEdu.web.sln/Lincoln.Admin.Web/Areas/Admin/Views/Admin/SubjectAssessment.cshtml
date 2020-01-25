@@ -1,0 +1,230 @@
+﻿
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayoutPage.cshtml";
+    ViewBag.Title = "SubjectAssessment";
+}
+
+<div class="content-wrapper">
+    <div class="content-header row">
+    </div>
+    <div class="content-body">
+        <!-- Base style table -->
+        <section id="base-style">
+            <div class="row">
+                <div class="col-12">
+                    <div class="cardk">
+                        <div class="card-header">
+                            <h4 class="card-title">Subject Assessment Configuration Records</h4>
+                            <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            <div class="form-group pull-left" style="padding-left:22px; padding-top:10px;">
+                                <select class="custom-select block" id="ddlStatus">
+                                    <option selected value="">Action</option>
+                                    <option value="A">Active</option>
+                                    <option value="I">Inactive</option>
+                                </select>
+                            </div>
+                            <div class="pull-right tableTools-container" style="padding-right:22px; padding-top:10px;">
+                                <div class="dt-buttons btn-overlap btn-group">
+                                    <a class="dt-button buttons-copy buttons-html5 btn btn-white btn-primary btn-bold" onclick="fnAddSubjectAssessment()" title="Add Subject Assessment">
+                                        <span>
+                                            <i class="fa fa-plus bigger-110" style="color:#ffffff"></i>
+                                            <span class="hidden">Add</span>
+                                        </span>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content collapse show">
+                            <div class="card-body card-dashboard fnLoadSubjectAssessmentList">
+                                @{ Html.RenderAction("SubjectAssessmentList", "Admin", new { area = "Admin" });}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--/ Base style table -->
+    </div>
+</div>
+<div class="col-lg-12">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <label class="modal-title text-text-bold-600">Subject Assessment Configuration Entry & Modify/View</label>
+                    </h4>
+                    <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body recoPas">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#ddlStatus").change(function () {
+
+            if ($('#ddlStatus').val() != '' && $('#ddlStatus').val() != null) {
+
+                var statusIdstr = [];
+                $.each($(".statusCheck:checked"), function () {
+                    statusIdstr.push($(this).attr('data-id'));
+                });
+                if (statusIdstr.length > 0) {
+                    if (confirm('Are you sure?')) {
+                        var model = {
+                            ID: statusIdstr.join(','),
+                            Active: $('#ddlStatus').val(),
+                            Table: "SubjectAssessment"
+                        };
+
+                        $.ajax({
+                            url: '@Url.Action("ChangeAllStatus", "Admin",new {area="Admin" })',
+                            data: JSON.stringify(model),
+                            type: 'POST',
+                            cache: false,
+                            contentType: "application/json;charset=utf-8",
+                            dataType: "json",
+                            success: function (result) {
+                                if (result > 0) {
+                                    alert('Status has been changed Successfully.');
+                                    $('#ddlStatus').val('');
+                                    fnLoadSubjectAssessmentList();
+                                }
+                                else {
+                                    alert('Error in your request.');
+
+
+                                }
+                            },
+                            error: function (e) {
+                                alert('Error in your requst.');
+                            }
+                        });
+                    }
+
+
+                }
+                else {
+                    alert('Please select an Item.');
+                    $('#ddlStatus').val('');
+                }
+            }
+        });
+    });
+
+    function fnAddSubjectAssessment(id) {
+        if (id != null && id != '') {
+            $('.modal-body').load('/Admin/Admin/AddSubjectAssessment/' + id, function () { $("#myModal").modal('show'); });
+        }
+        else {
+            $('.modal-body').load('/Admin/Admin/AddSubjectAssessment/', function () { $("#myModal").modal('show'); });
+        }
+
+    }
+    function fnSaveSubjectAssessment(SubjectAssessmentID) {
+
+        if ($('#ProgramCode').val() == '') {
+            alert('Program is required.');
+        }
+        else if ($('#DepartmentCode').val() == '') {
+            alert('Faculty is required.');
+        }
+        if ($('#SyllabusVersionCode').val() == '') {
+            alert('Version is required.');
+        }
+        else if ($('#SemisterCode').val() == '') {
+            alert('Semister Name is required.');
+        }
+            else if ($('#CourseCode').val() == '') {
+            alert('Course Name is required.');
+        }
+             else if ($('#Country').val() == '') {
+            alert('Country Name is required.');
+        }
+         else if ($('#AcademicYearCode').val() == '') {
+            alert('Academic Year is required.');
+        }
+                    else {
+
+
+            var model = {
+                SubjectAssessmentID: SubjectAssessmentID,
+                ProgramCode: $('#ProgramCode').val(),
+                DepartmentCode: $('#DepartmentCode').val(),
+                Version: $('#Version').val(),
+                Credit: $('#Credit').val(),
+                Active: 'A'
+            };
+
+            $.ajax({
+                url: '@Url.Action("SaveSubjectAssessment", "Admin",new {area="Admin" })',
+                data: JSON.stringify(model),
+                type: 'POST',
+                cache: false,
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result > 0) {
+                        alert('Data Save Successfully.');
+                        $("#myModal").modal('hide');
+                        fnLoadExaminationSectionList();
+                    } else {
+                        alert('Error in your requst.');
+                        $("#myModal").modal('hide');
+
+                    }
+                },
+                error: function (e) {
+                    alert('Error in your requst.');
+                }
+            });
+        }
+    }
+    function fnViewSubjectAssessment(id) {
+        $('.modal-body').load('/Admin/Admin/SubjectAssessmentView/' + id, function () { $("#myModal").modal('show'); });
+    }
+    function fnLoadSubjectAssessmentList() {
+        $('.listSubjectAssessment').load('/Admin/Admin/SubjectAssessmentList');
+    }
+    function fnDeleteSubjectAssessment(SubjectAssessmentID) {
+
+        if (confirm("Are you sure?")) {
+            var model = {
+                SubjectAssessmentID: SubjectAssessmentID
+            };
+            $.ajax({
+                url: '@Url.Action("DeleteSubjectAssessment", "Admin",new {area="Admin" })',
+                data: JSON.stringify(model),
+                type: 'POST',
+                cache: false,
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result > 0) {
+                        alert('Program Versioning has been deleted Successfully.');
+
+                        fnLoadSubjectAssessmentList();
+                    }
+                },
+                error: function (e) {
+                    alert('Error in your requst.');
+                }
+            });
+        }
+
+    }
+</script>
+

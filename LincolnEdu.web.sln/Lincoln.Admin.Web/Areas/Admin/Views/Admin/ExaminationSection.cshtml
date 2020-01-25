@@ -1,0 +1,220 @@
+﻿
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayoutPage.cshtml";
+    ViewBag.Title = "ExaminationSection";
+}
+
+<div class="content-wrapper">
+    <div class="content-header row">
+    </div>
+    <div class="content-body">
+        <!-- Base style table -->
+        <section id="base-style">
+            <div class="row">
+                <div class="col-12">
+                    <div class="cardk">
+                        <div class="card-header">
+                            <h4 class="card-title">Examination Section Records</h4>
+                            <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            <div class="form-group pull-left" style="padding-left:22px; padding-top:10px;">
+                                <select class="custom-select block" id="ddlStatus">
+                                    <option selected value="">Action</option>
+                                    <option value="A">Active</option>
+                                    <option value="I">Inactive</option>
+                                </select>
+                            </div>
+                            <div class="pull-right tableTools-container" style="padding-right:22px; padding-top:10px;">
+                                <div class="dt-buttons btn-overlap btn-group">
+                                    <a class="dt-button buttons-copy buttons-html5 btn btn-white btn-primary btn-bold" onclick="fnAddExaminationSection()" title="Add Examination Section">
+                                        <span>
+                                            <i class="fa fa-plus bigger-110" style="color:#ffffff"></i>
+                                            <span class="hidden">Add</span>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content collapse show">
+                            <div class="card-body card-dashboard listCourse">
+                                @{ Html.RenderAction("ExaminationSectionList", "Admin", new { area = "Admin" });}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--/ Base style table -->
+    </div>
+</div>
+<div class="col-lg-12">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <label class="modal-title text-text-bold-600">Examination Section Entry & Modify/View</label>
+                    </h4>
+                    <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body recoPas">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#ddlStatus").change(function () {
+
+            if ($('#ddlStatus').val() != '' && $('#ddlStatus').val() != null) {
+
+                var statusIdstr = [];
+                $.each($(".statusCheck:checked"), function () {
+                    statusIdstr.push($(this).attr('data-id'));
+                });
+                if (statusIdstr.length > 0) {
+                    if (confirm('Are you sure?')) {
+                        var model = {
+                            ID: statusIdstr.join(','),
+                            Active: $('#ddlStatus').val(),
+                            Table: "ExaminationSection"
+                        };
+
+                        $.ajax({
+                            url: '@Url.Action("ChangeAllStatus", "Admin",new {area="Admin" })',
+                            data: JSON.stringify(model),
+                            type: 'POST',
+                            cache: false,
+                            contentType: "application/json;charset=utf-8",
+                            dataType: "json",
+                            success: function (result) {
+                                if (result > 0) {
+                                    alert('Status has been changed Successfully.');
+                                    $('#ddlStatus').val('');
+                                    fnLoadCourseList();
+                                }
+                                else {
+                                    alert('Error in your request.');
+
+
+                                }
+                            },
+                            error: function (e) {
+                                alert('Error in your requst.');
+                            }
+                        });
+                    }
+
+
+                }
+                else {
+                    alert('Please select an Item.');
+                    $('#ddlStatus').val('');
+                }
+            }
+        });
+    });
+
+    function fnAddExaminationSection(id) {
+        if (id != null && id != '') {
+            $('.modal-body').load('/Admin/Admin/AddExaminationSection/' + id, function () { $("#myModal").modal('show'); });
+        }
+        else {
+            $('.modal-body').load('/Admin/Admin/AddExaminationSection/', function () { $("#myModal").modal('show'); });
+        }
+
+    }
+    function fnSaveExaminationSection(ExaminationSectionID) {
+
+        if ($('#ProgramCode').val() == '') {
+            alert('Program is required.');
+        }
+        else if ($('#DepartmentCode').val() == '') {
+            alert('Faculty is required.');
+        }
+        if ($('#Version').val() == '') {
+            alert('Version is required.');
+        }
+        else if ($('#Credit').val() == '') {
+            alert('Credit Name is required.');
+        }
+        else {
+
+
+            var model = {
+                ExaminationSectionID: ExaminationSectionID,
+                ProgramCode: $('#ProgramCode').val(),
+                DepartmentCode: $('#DepartmentCode').val(),
+                Version: $('#Version').val(),
+                Credit: $('#Credit').val(),
+                Active: 'A'
+            };
+
+            $.ajax({
+                url: '@Url.Action("SaveExaminationSection", "Admin",new {area="Admin" })',
+                data: JSON.stringify(model),
+                type: 'POST',
+                cache: false,
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result > 0) {
+                        alert('Data Save Successfully.');
+                        $("#myModal").modal('hide');
+                        fnLoadCourseList();
+                    } else {
+                        alert('Error in your requst.');
+                        $("#myModal").modal('hide');
+
+                    }
+                },
+                error: function (e) {
+                    alert('Error in your requst.');
+                }
+            });
+        }
+    }
+    function fnViewExaminationSection(id) {
+        $('.modal-body').load('/Admin/Admin/ExaminationSectionView/' + id, function () { $("#myModal").modal('show'); });
+    }
+    function fnLoadExaminationSectionList() {
+        $('.listExaminationSection').load('/Admin/Admin/ExaminationSectionList');
+    }
+    function fnDeleteExaminationSection(ExaminationSectionID) {
+
+        if (confirm("Are you sure?")) {
+            var model = {
+                ExaminationSectionID: ExaminationSectionID
+            };
+            $.ajax({
+                url: '@Url.Action("DeleteExaminationSection", "Admin",new {area="Admin" })',
+                data: JSON.stringify(model),
+                type: 'POST',
+                cache: false,
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result > 0) {
+                        alert('Examination Section has been deleted Successfully.');
+
+                        fnLoadExaminationSectionList();
+                    }
+                },
+                error: function (e) {
+                    alert('Error in your requst.');
+                }
+            });
+        }
+
+    }
+</script>
+

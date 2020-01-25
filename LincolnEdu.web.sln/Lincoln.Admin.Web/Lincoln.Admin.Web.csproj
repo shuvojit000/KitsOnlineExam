@@ -139,10 +139,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AcademicViewModel.cs" />
+    <Compile Include="Models\AssessmentViewModel.cs" />
     <Compile Include="Models\BatchViewModel.cs" />
     <Compile Include="Models\CourseViewModel.cs" />
     <Compile Include="Models\CustomPrincipalSerializeModel.cs" />
     <Compile Include="Models\DepartmentViewModel.cs" />
+    <Compile Include="Models\ExaminationNameViewModel.cs" />
+    <Compile Include="Models\ExaminationSectionViewModel.cs" />
     <Compile Include="Models\FacultyViewModel.cs" />
     <Compile Include="Models\LogInViewModel.cs" />
     <Compile Include="Models\ProgrammeSemesterViewModel.cs" />
@@ -150,6 +153,7 @@
     <Compile Include="Models\ProgramVersioningViewModel.cs" />
     <Compile Include="Models\QuestionSectionViewModel.cs" />
     <Compile Include="Models\StudentViewModel.cs" />
+    <Compile Include="Models\SubjectAssessmentViewModel.cs" />
     <Compile Include="Models\SubjectViewModel.cs" />
     <Compile Include="Models\UpdateStatusViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -732,6 +736,22 @@
     <Content Include="Areas\Admin\Views\Admin\Programme.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\ProgrammeSemester.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\ProgrammeVersioning.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Assessment.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\ExaminationName.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\ExaminationSection.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\SubjectAssessment.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_addAssessment.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_addExaminationName.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_addExaminationSection.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_addSubjectAssessment.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_listAssessment.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_listExaminationName.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_listExaminationSection.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_listSubjectAssessment.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_viewAssessment.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_viewExaminationName.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_viewExaminationSection.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_viewSubjectAssessment.cshtml" />
     <None Include="Properties\PublishProfiles\LinclnAdmin.pubxml" />
     <None Include="Properties\PublishProfiles\LincLonAdmin.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />

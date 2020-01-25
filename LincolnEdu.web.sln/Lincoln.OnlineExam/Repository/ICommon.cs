@@ -40,5 +40,22 @@ namespace Lincoln.OnlineExam.Repository
         int SaveProgrammeSemester(ProgrammeSemesterRequestDTO recordAttributer, string Operation);
         List<ProgrammeSemesterResponseDTO> GetAllProgrammeSemester();
         ProgrammeSemesterResponseDTO SelectProgrammeSemester(ProgrammeSemesterRequestDTO recordAttributer);
+
+        int SaveSubjectAssessment(SubjectAssessmentRequestDTO recordAttributer, string Operation);
+        List<SubjectAssessmentResponseDTO> GetAllSubjectAssessment();
+        SubjectAssessmentResponseDTO SelectSubjectAssessment(SubjectAssessmentRequestDTO recordAttributer);
+
+        int SaveAssessment(AssessmentRequestDTO recordAttributer, string Operation);
+        List<AssessmentResponseDTO> GetAllAssessment();
+        AssessmentResponseDTO SelectAssessment(AssessmentRequestDTO recordAttributer);
+
+
+        int SaveExaminationName(ExaminationNameRequestDTO recordAttributer, string Operation);
+        List<ExaminationNameResponseDTO> GetAllExaminationName();
+        ExaminationNameResponseDTO SelectExaminationName(ExaminationNameRequestDTO recordAttributer);
+
+        int SaveExaminationSection(ExaminationSectionRequestDTO recordAttributer, string Operation);
+        List<ExaminationSectionResponseDTO> GetAllExaminationSection();
+        ExaminationSectionResponseDTO SelectExaminationSection(ExaminationSectionRequestDTO recordAttributer);
     }
 }

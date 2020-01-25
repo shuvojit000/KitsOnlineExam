@@ -1,0 +1,125 @@
+﻿
+@model Lincoln.Admin.Web.Models.AssessmentViewModel
+
+<div class="panel-body">
+    <!--main content start-->
+    <div class="row">
+        <div class="col-lg-12">
+            <!--PAGE CONTENT BEGINS-->
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="form-group col-lg-6">
+                        <label><b>Faculty<span class="requiredstar">*</span></b></label>
+                        <div class="position-relative has-icon-left">
+                            @Html.DropDownListFor(a => a.FacultyCode, Model.FacultyList, "Select Faculty", new { @class = "custom-select block" })
+
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label><b>Program <span class="requiredstar">*</span> </b></label>
+                        <div class="position-relative has-icon-left">
+                            @Html.DropDownListFor(a => a.ProgramCode, Model.ProgramList, "Select Program ", new { @class = "custom-select block" })
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label><b>Syllabus Version<span class="requiredstar">*</span></b></label>
+                        <div class="position-relative has-icon-left">
+                            @Html.DropDownListFor(a => a.SyllabusVersion, Model.SyllabusVersionList, "Syllabus Version", new { @class = "custom-select block" })
+
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label><b>Assessment Name<span class="requiredstar">*</span></b> </label>
+                        @Html.TextBoxFor(a => a.AssessmentName, new { @class = "form-control", @Placeholder = "Please write Assessment Name" })
+
+
+                    </div>
+                </div>
+                <div class="row">
+
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label><b>Assessment Type<span class="requiredstar">*</span></b> </label>
+                        <div class="position-relative has-icon-left">
+                            @Html.TextBoxFor(a => a.AssessmentType, new { @class = "form-control" })
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="fnSaveAssessment(@Model.AssessmentID)" class="btn btn-primary">
+                    <i class="fa fa-check-square-o"></i> Save
+                </button>
+            </div>
+            <!--PAGE CONTENT ENDS-->
+        </div>
+    </div>
+    <!--main contant end-->
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#FacultyCode").change(function () {
+            $("#ProgramCode").empty();
+            debugger;
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetProgDrop","Admin",new { area="Admin"})',
+                dataType: 'json',
+                data: { departmentID: $("#FacultyCode").val() },
+                success: function (res) {
+                     $("#ProgramCode").append('<option value="">Select Programme Version</option>');
+                    $.each(res, function (i, state) {
+                        $("#ProgramCode").append('<option value="' + state.Value + '">' +
+                            state.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve Faculty.' + ex);
+                }
+            });
+            return false;
+        });
+
+
+        $("#ProgramCode").change(function () {
+            $("#SyllabusVersion").empty();
+            //if ($("#ProgramCode").val() != "") {
+
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetProgrammeVersionDDL","Admin",new { area="Admin"})',
+                    dataType: 'json',
+                    data: { ProgramVID: $("#ProgramCode").val() },
+                    success: function (res) {
+                        $("#syllabusversion").append('<option value="">Select Programme</option>');
+                        $.each(res, function (i, state) {
+                            $("#SyllabusVersion").append('<option value="' + state.Value + '">' +
+                                state.Text + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve Version.' + ex);
+                    }
+                });
+           // }
+            //else {
+            //    alert('Failed to retrieve Version.' + ex);
+            //}
+            return false;
+        });
+
+
+
+
+
+
+
+    });
+</script>
+

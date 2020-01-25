@@ -1,0 +1,75 @@
+﻿
+
+@model Lincoln.Admin.Web.Models.ExaminationSectionViewModel
+
+<div class="panel-body">
+    <!--main content start-->
+    <div class="row">
+        <div class="col-lg-12">
+            <!--PAGE CONTENT BEGINS-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label><b>Version:</b> </label>
+                        <div class="position-relative has-icon-left">
+                            @Html.DisplayFor(a => a.SemisterName, new { @class = "form-control" })
+
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label><b>Faculty: </b></label>
+                        @Html.DisplayFor(a => a.FacultyName, new { @class = "form-control" })
+
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-12">
+                        <label><b>Program: </b></label>
+                        <div class="position-relative has-icon-left gt">
+                            @Html.DisplayFor(a => a.ProgramName, new { @class = "form-control" })
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label><b>Place Holder: </b></label>
+                        <div class="position-relative has-icon-left">
+                            @Html.DisplayFor(a => a.SyllabusVersionName, new { @class = "form-control" })
+
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label><b>Credit:</b> </label>
+                        <div class="position-relative has-icon-left">
+                            @Html.DisplayFor(a => a.CourseName, new { @placeholder = "Mobile No", @class = "form-control" })
+
+                        </div>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label><b>Credit:</b> </label>
+                        <div class="position-relative has-icon-left">
+                            @Html.DisplayFor(a => a.YearName, new { @placeholder = "Mobile No", @class = "form-control" })
+
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label><b>Credit:</b> </label>
+                        <div class="position-relative has-icon-left">
+                            @Html.DisplayFor(a => a.CountryName, new { @placeholder = "Mobile No", @class = "form-control" })
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+            <!--PAGE CONTENT ENDS-->
+        </div>
+    </div>
+    <!--main contant end-->
+</div>

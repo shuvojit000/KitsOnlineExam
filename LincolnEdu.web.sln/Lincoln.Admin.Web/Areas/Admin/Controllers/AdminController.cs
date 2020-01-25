@@ -371,7 +371,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        
+
 
         #endregion
 
@@ -391,7 +391,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 Version = a.Version,
                 ProgramCode = a.ProgramCode,
                 ProgramName = a.ProgramName,
-                PlaceHolder = a.PlaceHolder,
+                //PlaceHolder = a.PlaceHolder,
                 Credit = a.Credit,
                 Active = a.Status,
                 ModifiedOn = a.ModifiedOn?.Date,
@@ -414,11 +414,11 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.ProgramCode = item.ProgramCode;
             model.DepartmentCode = item.DepartmentCode;
             model.Version = item.Version;
-            model.PlaceHolder = item.PlaceHolder;
+            //model.PlaceHolder = item.PlaceHolder;
             model.Credit = item.Credit;
             model.ModifiedOn = item.ModifiedOn?.Date;
-            //model.Status = item.Status;
-            //model.AcademicID = item.AcademicID;
+            model.ProgramName = item.ProgramName;
+            model.DepartmentName = item.DepartmentName;
             model.CreatedBy = item.CreatedBy;
             model.CreatedOn = item.CreatedOn;
             model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
@@ -433,7 +433,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             {
                 model = SelectProgramVersioning(id);
             }
-            model.ProgramList = new List<SelectListItem>(); 
+            model.ProgramList = onlineExamService.GetDropdownData("Programme").Select(a => new SelectListItem { Text = a.CodeDesc, Value = a.CodeID }).ToList();
             model.DepartmentList = onlineExamService.GetDropdownData("Department").Select(a => new SelectListItem { Text = a.CodeDesc, Value = a.CodeID }).ToList();
             return PartialView("_addProgramVersioning", model);
         }
@@ -460,11 +460,10 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 CreatedBy = User.UserId,
                 DepartmentCode = model.DepartmentCode,
                 Credit = model.Credit,
-                PlaceHolder = model.PlaceHolder,
+                //PlaceHolder = model.PlaceHolder,
                 Version = model.Version,
                 ProgramCode = model.ProgramCode,
                 Active = model.Active
-
             }, type);
 
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -485,6 +484,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         #endregion
+
 
         #region Programme Semester
 
@@ -796,7 +796,653 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
                     }).ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult GetProgrammeVersionDDL(string ProgramVID)
+        {
+            return Json(onlineExamService.GetAllProgramVersioning().Where(a => a.ProgramCode == Convert.ToInt32(ProgramVID) && a.Status == "A")
+                      .Select(a => new SelectListItem
+                      {
+                          Text = a.Version,
+                          Value = a.ProgramVersioningID.ToString()
+
+                      }).ToList(), JsonRequestBehavior.AllowGet);
+
+        }
+        public JsonResult GetCourseDDL(string SemisterID)
+        {
+
+            return Json(onlineExamService.GetAllCourse().Where(a => a.CourseID == Convert.ToInt32(SemisterID))
+                    .Select(a => new SelectListItem
+                    {
+                        Text = a.CourseName,
+                        Value = a.CourseID.ToString()
+
+                    }).ToList(), JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
+
+        #region Examination Name 
+
+        public ActionResult ExaminationName() => View();
+
+        private List<ExaminationNameViewModel> GetAllExaminationName()
+        {
+            string d = DateTime.Now.Date.ToShortDateString();
+            var itemSet = new List<ExaminationNameViewModel>();
+            itemSet = onlineExamService.GetAllExaminationName().Select(a => new ExaminationNameViewModel()
+            {
+                ExaminationNameID = a.ExaminationNameID,
+                ExaminationName = a.ExaminationName,
+                StartDate = a.StartDate.Value.ToShortDateString(),
+                EndDate = a.EndDate.Value.ToShortDateString(),
+                Active = a.Status,
+                ModifiedOn = a.ModifiedOn?.Date,
+                CreatedBy = a.CreatedBy,
+                CreatedOn = a.CreatedOn,
+                ModifiedBy = Convert.ToInt32(a.ModifiedBy),
+            }).ToList();
+
+            return itemSet;
+        }
+        private ExaminationNameViewModel SelectExaminationName(string ExaminationNameId)
+        {
+            var model = new ExaminationNameViewModel();
+            var item = onlineExamService.SelectExaminationName(new OnlineExam.Request.ExaminationNameRequestDTO
+            {
+                ExaminationNameID = Convert.ToInt32(ExaminationNameId)
+
+            });
+            model.ExaminationNameID = item.ExaminationNameID;
+            model.ExaminationName = item.ExaminationName;
+            model.StartDate = item.StartDate.Value.ToShortDateString();
+            model.EndDate = item.EndDate.Value.ToShortDateString();
+            model.ModifiedOn = item.ModifiedOn?.Date;
+            model.Status = item.Status;
+            //model.AcademicID = item.AcademicID;
+            model.CreatedBy = item.CreatedBy;
+            model.CreatedOn = item.CreatedOn;
+            model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
+            return model;
+
+        }
+
+        public PartialViewResult AddExaminationName(string id)
+        {
+            var model = new ExaminationNameViewModel();
+            if (!string.IsNullOrEmpty(id))
+            {
+                model = SelectExaminationName(id);
+            }
+            return PartialView("_addExaminationName", model);
+        }
+        public PartialViewResult ExaminationNameView(string id)
+        {
+            return PartialView("_viewExaminationName", SelectExaminationName(id));
+        }
+        public PartialViewResult ExaminationNameList()
+        {
+            return PartialView("_listExaminationName", GetAllExaminationName());
+        }
+        [HttpPost]
+        public JsonResult SaveExaminationName(ExaminationNameViewModel model)
+        {
+            var type = "INSERT";
+            if (model.ExaminationNameID > 0)
+            {
+                type = "UPDATE";
+            }
+
+            var result = onlineExamService.SaveExaminationName(new OnlineExam.Request.ExaminationNameRequestDTO()
+            {
+                ExaminationNameID = model.ExaminationNameID,
+                ExaminationName = model.ExaminationName,
+                CreatedBy = User.UserId,
+                StartDate = model.StartDate,
+                EndDate = model.EndDate,
+                Active = model.Active
+
+            }, type);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult DeleteExaminationName(ExaminationNameViewModel model)
+        {
+
+            var result = onlineExamService.SaveExaminationName(new OnlineExam.Request.ExaminationNameRequestDTO()
+            {
+
+                CreatedBy = User.UserId,
+                ExaminationNameID = model.ExaminationNameID
+
+
+            }, "DELETE");
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region Examination Section 
+
+        public ActionResult ExaminationSection() => View();
+
+        private List<ExaminationSectionViewModel> GetAllExaminationSection()
+        {
+            var itemSet = new List<ExaminationSectionViewModel>();
+            itemSet = onlineExamService.GetAllExaminationSection().Select(a => new ExaminationSectionViewModel()
+            {
+                ExaminationSectionID = a.ExaminationSectionID,
+                ProgramCode = a.ProgramCode,
+                ProgramName = a.ProgramName,
+                CourseCode = a.CourseCode,
+                CountryName = a.CountryName,
+                SemisterCode = a.SemisterCode,
+                SemisterName = a.SemisterName,
+                SyllabusVersionCode = a.SyllabusVersionCode,
+                SyllabusVersionName = a.SyllabusVersionName,
+                CourseName = a.CourseName,
+                FacultyCode = a.FacultyCode,
+                FacultyName = a.FacultyName,
+                AcademicYearCode = a.AcademicYearCode,
+                YearName = a.YearName,
+                Active = a.Status,
+                ModifiedOn = a.ModifiedOn?.Date,
+                CreatedBy = a.CreatedBy,
+                CreatedOn = a.CreatedOn,
+                ModifiedBy = Convert.ToInt32(a.ModifiedBy),
+            }).ToList();
+
+            return itemSet;
+        }
+        private ExaminationSectionViewModel SelectExaminationSection(string ExaminationSectionId)
+        {
+            var model = new ExaminationSectionViewModel();
+            var item = onlineExamService.SelectExaminationSection(new OnlineExam.Request.ExaminationSectionRequestDTO
+            {
+                ExaminationSectionID = Convert.ToInt32(ExaminationSectionId)
+
+            });
+            model.ExaminationSectionID = item.ExaminationSectionID;
+            model.ProgramCode = item.ProgramCode;
+            model.CourseCode = item.CourseCode;
+            model.SemisterCode = item.SemisterCode;
+            model.SyllabusVersionCode = item.SyllabusVersionCode;
+            model.CountryCode = item.CountryCode;
+            model.FacultyCode = item.FacultyCode;
+            model.AcademicYearCode = item.AcademicYearCode;
+
+            model.ProgramName = item.ProgramName;
+            model.CourseName = item.CourseName;
+            model.SemisterName = item.SemisterName;
+            model.SyllabusVersionName = item.SyllabusVersionName;
+            model.CountryName = item.CountryName;
+            model.FacultyName = item.FacultyName;
+            model.YearName = item.YearName;
+
+            model.ModifiedOn = item.ModifiedOn?.Date;
+            //model.Status = item.Status;
+            //model.AcademicID = item.AcademicID;
+            model.CreatedBy = item.CreatedBy;
+            model.CreatedOn = item.CreatedOn;
+            model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
+            return model;
+
+        }
+
+        public PartialViewResult AddExaminationSection(string id)
+        {
+            var model = new ExaminationSectionViewModel();
+
+            if (!string.IsNullOrEmpty(id))
+            {
+                model = SelectExaminationSection(id);
+
+                //model.FacultyList = onlineExamService.GetAllDepartment().Where(a => a.DepartmentID == Convert.ToInt32(model.FacultyCode) && a.Status == "A")
+                //     .Select(a => new SelectListItem
+                //     {
+                //         Text = a.DepartmentName,
+                //         Value = a.DepartmentID.ToString()
+
+                //     }).ToList();
+
+                model.ProgramList = onlineExamService.GetAllProgramme().Where(a => a.DepartmentID == Convert.ToInt32(model.FacultyCode) && a.Status == "A")
+                       .Select(a => new SelectListItem
+                       {
+                           Text = a.ProgrammeName + "(" + a.ProgrammeCode + ")",
+                           Value = a.ProgrammeID.ToString()
+
+                       }).ToList();
+                model.SyllabusVersionList = onlineExamService.GetAllProgramVersioning().Where(a => a.ProgramVersioningID == Convert.ToInt32(model.ProgramCode) && a.Status == "A")
+                       .Select(a => new SelectListItem
+                       {
+                           Text = a.Version + "(" + a.ProgramVersioningID + ")",
+                           Value = a.ProgramVersioningID.ToString()
+
+                       }).ToList();
+
+                model.SemisterList = onlineExamService.GetAllProgrammeSemester().Where(a => a.ProgrammeSemesterID == Convert.ToInt32(model.ProgramCode) && a.Status == "A")
+                      .Select(a => new SelectListItem
+                      {
+                          Text = a.SemesterType,
+                          Value = a.ProgrammeSemesterID.ToString()
+
+                      }).ToList();
+                model.CourseList = onlineExamService.GetAllCourse().Where(a => a.CourseID == Convert.ToInt32(model.SemisterCode) && a.Status == "A")
+                      .Select(a => new SelectListItem
+                      {
+                          Text = a.CourseName,
+                          Value = a.CourseID.ToString()
+
+                      }).ToList();
+
+                model.CountryList = new List<SelectListItem>
+                            {
+                                new SelectListItem{ Text="India", Value = "1" },
+                                new SelectListItem{ Text="Malaysia", Value = "2" },
+                                new SelectListItem{ Text="United States", Value = "3" },
+                             };
+                model.AcademicYearList = Enumerable.Range((DateTime.Now.Year - 9), 10).Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }).ToList();
+
+            }
+            else
+            {
+                model.FacultyList = onlineExamService.GetAllDepartment().Select(a => new SelectListItem { Text = a.DepartmentName, Value = a.DepartmentID.ToString() }).ToList();
+                model.ProgramList = new List<SelectListItem>();
+                model.SyllabusVersionList = new List<SelectListItem>();
+                model.SemisterList = onlineExamService.GetAllProgrammeSemester().Select(a => new SelectListItem { Text = a.ProgrammeSemester.ToString(), Value = a.ProgrammeSemesterID.ToString() }).ToList();
+                model.CourseList = new List<SelectListItem>();
+                model.CountryList = new List<SelectListItem>
+                            {
+                                new SelectListItem{ Text="India", Value = "1" },
+                                new SelectListItem{ Text="Malaysia", Value = "2" },
+                                new SelectListItem{ Text="United States", Value = "3" },
+                             };
+                model.AcademicYearList = Enumerable.Range((DateTime.Now.Year - 9), 10).Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }).ToList();
+            }
+            return PartialView("_addExaminationSection", model);
+        }
+        public PartialViewResult ExaminationSectionView(string id)
+        {
+            return PartialView("_viewExaminationSection", SelectExaminationSection(id));
+        }
+        public PartialViewResult ExaminationSectionList()
+        {
+            return PartialView("_listExaminationSection", GetAllExaminationSection());
+        }
+        [HttpPost]
+        public JsonResult SaveExaminationSection(ExaminationSectionViewModel model)
+        {
+            var type = "INSERT";
+            if (model.ExaminationSectionID > 0)
+            {
+                type = "UPDATE";
+            }
+
+            var result = onlineExamService.SaveExaminationSection(new OnlineExam.Request.ExaminationSectionRequestDTO()
+            {
+                ExaminationSectionID = model.ExaminationSectionID,
+                CreatedBy = User.UserId,
+                ProgramCode = model.ProgramCode,
+                CourseCode = model.CourseCode,
+                SemisterCode = model.SemisterCode,
+                SyllabusVersionCode = model.SyllabusVersionCode,
+                CountryCode = model.CountryCode,
+                FacultyCode = model.FacultyCode,
+                AcademicYearCode = model.AcademicYearCode,
+                Active = model.Active
+
+
+            }, type);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult DeleteExaminationSection(ExaminationSectionViewModel model)
+        {
+
+            var result = onlineExamService.SaveExaminationSection(new OnlineExam.Request.ExaminationSectionRequestDTO()
+            {
+
+                CreatedBy = User.UserId,
+                ExaminationSectionID = model.ExaminationSectionID
+
+
+            }, "DELETE");
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region Assesssment 
+
+        public ActionResult Assessment() => View();
+
+        private List<AssessmentViewModel> GetAllAssessment()
+        {
+            var itemSet = new List<AssessmentViewModel>();
+            itemSet = onlineExamService.GetAllAssessment().Select(a => new AssessmentViewModel()
+            {
+                AssessmentID = a.AssessmentID,
+                FacultyCode = a.FacultyCode,
+                FacultyName = a.FacultyName,
+                SyllabusVersion = a.SyllabusVersionCode,
+                SyllabusVersionName = a.SyllabusVersionName,
+                ProgramCode = a.ProgramCode,
+                ProgramName = a.ProgramName,
+                AssessmentName = a.AssessmentName,
+                AssessmentType = a.AssessmentType,
+                Active = a.Status,
+                ModifiedOn = a.ModifiedOn?.Date,
+                CreatedBy = a.CreatedBy,
+                CreatedOn = a.CreatedOn,
+                ModifiedBy = Convert.ToInt32(a.ModifiedBy),
+            }).ToList();
+
+            return itemSet;
+        }
+        private AssessmentViewModel SelectAssessment(string AssesssmentId)
+        {
+            var model = new AssessmentViewModel();
+            var item = onlineExamService.SelectAssessment(new OnlineExam.Request.AssessmentRequestDTO
+            {
+                AssessmentID = Convert.ToInt32(AssesssmentId)
+
+            });
+            model.AssessmentID = item.AssessmentID;
+            model.ProgramCode = item.ProgramCode;
+            model.FacultyCode = item.FacultyCode;
+            model.SyllabusVersion = item.SyllabusVersionCode;
+            model.ProgramName = item.ProgramName;
+            model.FacultyName = item.FacultyName;
+            model.SyllabusVersionName = item.SyllabusVersionName;
+            model.AssessmentType = item.AssessmentType;
+            model.AssessmentName = item.AssessmentName;
+            model.ModifiedOn = item.ModifiedOn?.Date;
+            //model.Status = item.Status;
+            //model.AcademicID = item.AcademicID;
+            model.CreatedBy = item.CreatedBy;
+            model.CreatedOn = item.CreatedOn;
+            model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
+            return model;
+
+        }
+
+        public PartialViewResult AddAssessment(string id)
+        {
+            var model = new AssessmentViewModel();
+            model.FacultyList = onlineExamService.GetAllDepartment().Select(a => new SelectListItem { Text = a.DepartmentName, Value = a.DepartmentID.ToString() }).ToList();
+            if (!string.IsNullOrEmpty(id))
+            {
+                model = SelectAssessment(id);
+
+                //model.ProgramList = onlineExamService.GetDropdownData("Programme").Select(a => new SelectListItem { Text = a.CodeDesc, Value = a.CodeID }).ToList();
+                //model.FacultyList = onlineExamService.GetDropdownData("Department").Select(a => new SelectListItem { Text = a.CodeDesc, Value = a.CodeID }).ToList();
+                //model.SyllabusVersionList = onlineExamService.GetDropdownData("ProgrammeVersioning").Select(a => new SelectListItem { Text = a.CodeDesc, Value = a.CodeID }).ToList();
+                model.FacultyList = onlineExamService.GetAllDepartment().Where(a => a.DepartmentID == Convert.ToInt32(model.FacultyCode) && a.Status == "A")
+                       .Select(a => new SelectListItem
+                       {
+                           Text = a.DepartmentName,
+                           Value = a.DepartmentID.ToString()
+
+                       }).ToList();
+
+                model.ProgramList = onlineExamService.GetAllProgramme().Where(a => a.DepartmentID == Convert.ToInt32(model.FacultyCode) && a.Status == "A")
+                       .Select(a => new SelectListItem
+                       {
+                           Text = a.ProgrammeName + "(" + a.ProgrammeCode + ")",
+                           Value = a.ProgrammeID.ToString()
+
+                       }).ToList();
+                model.SyllabusVersionList = onlineExamService.GetAllProgramVersioning().Where(a => a.ProgramVersioningID == Convert.ToInt32(model.ProgramCode) && a.Status == "A")
+                       .Select(a => new SelectListItem
+                       {
+                           Text = a.Version + "(" + a.ProgramVersioningID + ")",
+                           Value = a.ProgramVersioningID.ToString()
+
+                       }).ToList();
+            }
+            else
+            {
+                model.ProgramList = new List<SelectListItem>();
+                model.SyllabusVersionList = new List<SelectListItem>();
+            }
+            return PartialView("_addAssessment", model);
+        }
+        public PartialViewResult AssessmentView(string id)
+        {
+            return PartialView("_viewAssessment", SelectAssessment(id));
+        }
+        public PartialViewResult AssessmentList()
+        {
+            return PartialView("_listAssessment", GetAllAssessment());
+        }
+        [HttpPost]
+        public JsonResult SaveAssessment(AssessmentViewModel model)
+        {
+            var type = "INSERT";
+            if (model.AssessmentID > 0)
+            {
+                type = "UPDATE";
+            }
+
+            var result = onlineExamService.SaveAssessment(new OnlineExam.Request.AssessmentRequestDTO()
+            {
+                AssessmentID = model.AssessmentID,
+                CreatedBy = User.UserId,
+                FacultyCode = model.FacultyCode,
+                ProgramCode = model.ProgramCode,
+                AssessmentType = model.AssessmentType,
+                AssessmentName = model.AssessmentName,
+                SyllabusVersion = model.SyllabusVersion,
+                Active = model.Active
+
+            }, type);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult DeleteAssessment(AssessmentViewModel model)
+        {
+
+            var result = onlineExamService.SaveAssessment(new OnlineExam.Request.AssessmentRequestDTO()
+            {
+
+                CreatedBy = User.UserId,
+                AssessmentID = model.AssessmentID
+
+
+            }, "DELETE");
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region Subject Assesssment 
+
+        public ActionResult SubjectAssessment() => View();
+
+        private List<SubjectAssessmentViewModel> GetAllSubjectAssessment()
+        {
+            var itemSet = new List<SubjectAssessmentViewModel>();
+            itemSet = onlineExamService.GetAllSubjectAssessment().Select(a => new SubjectAssessmentViewModel()
+            {
+                SubjectAssessmentID = a.SubjectAssessmentID,
+                ProgramCode = a.ProgramCode,
+                ProgramName = a.ProgramName,
+                CourseCode = a.CourseCode,
+                CountryName = a.CountryName,
+                SemisterCode = a.SemisterCode,
+                SemisterName = a.SemisterName,
+                SyllabusVersionCode = a.SyllabusVersionCode,
+                SyllabusVersionName = a.SyllabusVersionName,
+                CourseName = a.CourseName,
+                FacultyCode = a.FacultyCode,
+                FacultyName = a.FacultyName,
+                AcademicYearCode = a.AcademicYearCode,
+                YearName = a.YearName,
+                Active = a.Status,
+                ModifiedOn = a.ModifiedOn?.Date,
+                CreatedBy = a.CreatedBy,
+                CreatedOn = a.CreatedOn,
+                ModifiedBy = Convert.ToInt32(a.ModifiedBy),
+            }).ToList();
+
+            return itemSet;
+        }
+        private SubjectAssessmentViewModel SelectSubjectAssessment(string SubjectAssessmentId)
+        {
+            var model = new SubjectAssessmentViewModel();
+            var item = onlineExamService.SelectSubjectAssessment(new OnlineExam.Request.SubjectAssessmentRequestDTO
+            {
+                SubjectAssessmentID = Convert.ToInt32(SubjectAssessmentId)
+
+            });
+            model.SubjectAssessmentID = item.SubjectAssessmentID;
+            model.ProgramCode = item.ProgramCode;
+            model.CourseCode = item.CourseCode;
+            model.SemisterCode = item.SemisterCode;
+            model.SyllabusVersionCode = item.SyllabusVersionCode;
+            model.CountryCode = item.CountryCode;
+            model.FacultyCode = item.FacultyCode;
+            model.AcademicYearCode = item.AcademicYearCode;
+
+            model.ProgramName = item.ProgramName;
+            model.CourseName = item.CourseName;
+            model.SemisterName = item.SemisterName;
+            model.SyllabusVersionName = item.SyllabusVersionName;
+            model.CountryName = item.CountryName;
+            model.FacultyName = item.FacultyName;
+            model.YearName = item.YearName;
+            model.ModifiedOn = item.ModifiedOn?.Date;
+            //model.Status = item.Status;
+            //model.AcademicID = item.AcademicID;
+            model.CreatedBy = item.CreatedBy;
+            model.CreatedOn = item.CreatedOn;
+            model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
+            return model;
+
+        }
+
+        public PartialViewResult AddSubjectAssessment(string id)
+        {
+            var model = new SubjectAssessmentViewModel();
+            if (!string.IsNullOrEmpty(id))
+            {
+                model = SelectSubjectAssessment(id);
+                //model.FacultyList = onlineExamService.GetAllDepartment().Where(a => a.DepartmentID == Convert.ToInt32(model.FacultyCode) && a.Status == "A")
+                //         .Select(a => new SelectListItem
+                //         {
+                //             Text = a.DepartmentName,
+                //             Value = a.DepartmentID.ToString()
+
+                //         }).ToList();
+
+                model.ProgramList = onlineExamService.GetAllProgramme().Where(a => a.DepartmentID == Convert.ToInt32(model.FacultyCode) && a.Status == "A")
+                       .Select(a => new SelectListItem
+                       {
+                           Text = a.ProgrammeName + "(" + a.ProgrammeCode + ")",
+                           Value = a.ProgrammeID.ToString()
+
+                       }).ToList();
+                model.SyllabusVersionList = onlineExamService.GetAllProgramVersioning().Where(a => a.ProgramVersioningID == Convert.ToInt32(model.ProgramCode) && a.Status == "A")
+                       .Select(a => new SelectListItem
+                       {
+                           Text = a.Version + "(" + a.ProgramVersioningID + ")",
+                           Value = a.ProgramVersioningID.ToString()
+
+                       }).ToList();
+
+                model.SemisterList = onlineExamService.GetAllProgrammeSemester().Where(a => a.ProgrammeSemesterID == Convert.ToInt32(model.ProgramCode) && a.Status == "A")
+                      .Select(a => new SelectListItem
+                      {
+                          Text = a.SemesterType,
+                          Value = a.ProgrammeSemesterID.ToString()
+
+                      }).ToList();
+                model.CourseList = onlineExamService.GetAllCourse().Where(a => a.CourseID == Convert.ToInt32(model.SemisterCode) && a.Status == "A")
+                      .Select(a => new SelectListItem
+                      {
+                          Text = a.CourseName,
+                          Value = a.CourseID.ToString()
+
+                      }).ToList();
+
+                model.CountryList = new List<SelectListItem>
+                            {
+                                new SelectListItem{ Text="India", Value = "1" },
+                                new SelectListItem{ Text="Malaysia", Value = "2" },
+                                new SelectListItem{ Text="United States", Value = "3" },
+                             };
+                model.AcademicYearList = Enumerable.Range((DateTime.Now.Year - 9), 10).Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }).ToList();
+            }
+            else
+            {
+                model.FacultyList = onlineExamService.GetAllDepartment().Select(a => new SelectListItem { Text = a.DepartmentName, Value = a.DepartmentCode }).ToList();
+                model.ProgramList = new List<SelectListItem>();
+                model.SyllabusVersionList = new List<SelectListItem>();
+                model.SemisterList = new List<SelectListItem>();
+                model.CourseList = new List<SelectListItem>();
+                model.CountryList = new List<SelectListItem>
+                            {
+                                new SelectListItem{ Text="India", Value = "1" },
+                                new SelectListItem{ Text="Malaysia", Value = "2" },
+                                new SelectListItem{ Text="United States", Value = "3" },
+                             };
+                model.AcademicYearList = Enumerable.Range((DateTime.Now.Year - 9), 10).Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }).ToList();
+            }
+            return PartialView("_addSubjectAssessment", model);
+        }
+        public PartialViewResult SubjectAssessmentView(string id)
+        {
+            return PartialView("_viewSubjectAssessment", SelectSubjectAssessment(id));
+        }
+        public PartialViewResult SubjectAssessmentList()
+        {
+            return PartialView("_listSubjectAssessment", GetAllSubjectAssessment());
+        }
+        [HttpPost]
+        public JsonResult SaveSubjectAssessment(SubjectAssessmentViewModel model)
+        {
+            var type = "INSERT";
+            if (model.SubjectAssessmentID > 0)
+            {
+                type = "UPDATE";
+            }
+
+            var result = onlineExamService.SaveSubjectAssessment(new OnlineExam.Request.SubjectAssessmentRequestDTO()
+            {
+                SubjectAssessmentID = model.SubjectAssessmentID,
+                CreatedBy = User.UserId,
+                ProgramCode = model.ProgramCode,
+                CourseCode = model.CourseCode,
+                SemisterCode = model.SemisterCode,
+                SyllabusVersionCode = model.SyllabusVersionCode,
+                CountryCode = model.CountryCode,
+                FacultyCode = model.FacultyCode,
+                AcademicYearCode = model.AcademicYearCode,
+                Active = model.Active
+
+            }, type);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult DeleteSubjectAssesssment(SubjectAssessmentViewModel model)
+        {
+
+            var result = onlineExamService.SaveSubjectAssessment(new OnlineExam.Request.SubjectAssessmentRequestDTO()
+            {
+
+                CreatedBy = User.UserId,
+                SubjectAssessmentID = model.SubjectAssessmentID
+
+
+            }, "DELETE");
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
     }
 }
