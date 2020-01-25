@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-lg-12">
+                    <div class="form-group col-lg-6">
                         <label><b>Programme Code<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left gt">
                             @Html.TextBoxFor(a => a.ProgrammeCode, new { @class = "form-control" })
@@ -85,7 +85,7 @@
 
      $(document).ready(function () {
         //Dropdownlist Selectedchange event
-        $("#AcademicID").change(function () {
+         $(document).on("change","#AcademicID",function () {
             $("#DepartmentID").empty();
             $.ajax({
                 type: 'POST',

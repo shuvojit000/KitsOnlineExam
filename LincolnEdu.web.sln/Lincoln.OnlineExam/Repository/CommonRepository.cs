@@ -691,14 +691,14 @@ namespace Lincoln.OnlineExam.Repository
             var item = new ProgrammeSemesterResponseDTO();
 
             SqlParameter programmeSemesterID = new SqlParameter("@ProgrammeSemesterID", SqlDbType.Int);
-            programmeSemesterID.Value = DBNull.Value;
+            programmeSemesterID.Value = recordAttributer.ProgrammeSemesterID;
             SqlParameter academicID = new SqlParameter("@AcademicID", SqlDbType.Int);
             academicID.Value = DBNull.Value;
             SqlParameter departmentID = new SqlParameter("@DepartmentID", SqlDbType.Int);
-            departmentID.Value = DBNull.Value;
+            departmentID.Value = recordAttributer.DepartmentID;
 
             SqlParameter programmeID = new SqlParameter("@ProgrammeID", SqlDbType.Int);
-            programmeID.Value = DBNull.Value;
+            programmeID.Value = recordAttributer.ProgrammeID;
             SqlParameter countryID = new SqlParameter("@CountryID", SqlDbType.Int);
             countryID.Value = DBNull.Value;
             SqlParameter programmeYear = new SqlParameter("@ProgrammeYear", SqlDbType.Int);

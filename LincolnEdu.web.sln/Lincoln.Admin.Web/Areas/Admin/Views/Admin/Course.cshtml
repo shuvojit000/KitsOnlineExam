@@ -159,14 +159,15 @@
         else if ($('#ProgrammeID').val() == '') {
             $('#ProgrammeIDVal').css({ 'display': 'block' });
         }
+        
+        else if ($('#ProgrammeSemester').val() == '') {
+            $('#ProgrammeSemesterVal').css({ 'display': 'block' });
+        }
         else if ($('#CountryID').val() == '') {
             $('#CountryIDVal').css({ 'display': 'block' });
         }
         else if ($('#ProgrammeYear').val() == '') {
             $('#ProgrammeYearVal').css({ 'display': 'block' });
-        }
-        else if ($('#ProgrammeSemester').val() == '') {
-            $('#ProgrammeSemesterVal').css({ 'display': 'block' });
         }
         else if (typeof $('input[name="SemesterType"]:checked').val() === 'undefined') {
             $('#SemesterTypeVal').css({ 'display': 'block' });

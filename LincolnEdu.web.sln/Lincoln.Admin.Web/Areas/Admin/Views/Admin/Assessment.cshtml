@@ -38,7 +38,7 @@
                                             <span class="hidden">Add</span>
                                         </span>
                                     </a>
-                                    @*<a class="dt-button buttons-excel buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to Excel">
+                                    <a class="dt-button buttons-excel buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to Excel">
                                             <span>
                                                 <i class="fa fa-file-excel-o bigger-110"></i>
                                                 <span class="hidden">Export to Excel</span>
@@ -55,7 +55,7 @@
                                                 <i class="fa fa-print bigger-110"></i>
                                                 <span class="hidden">Print</span>
                                             </span>
-                                        </a>*@
+                                        </a>
                                 </div>
                             </div>
                         </div>
@@ -92,9 +92,7 @@
 <script>
     $(function () {
         $("#ddlStatus").change(function () {
-
             if ($('#ddlStatus').val() != '' && $('#ddlStatus').val() != null) {
-
                 var statusIdstr = [];
                 $.each($(".statusCheck:checked"), function () {
                     statusIdstr.push($(this).attr('data-id'));
@@ -152,18 +150,25 @@
 
     }
     function fnSaveAssessment(AssessmentID) {
-
-        if ($('#ProgramCode').val() == '') {
-            alert('Program is required.');
+        $('.valClass').css({ 'display': 'none' });
+        if ($('#FacultyCode').val() == '') {
+            $('#FacultyCodeVal').css({ 'display': 'block' });
         }
-        else if ($('#CourseCode').val() == '') {
-            alert('Course is required.');
+        else if ($('#ProgramCode').val() == '') {
+            $('#ProgramCodeVal').css({ 'display': 'block' });
         }
-        if ($('#SyllabusVersionCode').val() == '') {
-            alert('Version is required.');
+        else if ($('#SyllabusVersion').val() == '') {
+            $('#SyllabusVersionVal').css({ 'display': 'block' });
         }
-        else if ($('#Credit').val() == '') {
-            alert('Credit Name is required.');
+        else if ($('#AssessmentName').val() == '') {
+            $('#AssessmentName').focus();
+            $('#AssessmentNameVal').html('Assessment Name is required.');
+            $('#AssessmentNameVal').css({ 'display': 'block' });
+        }
+        else if ($('#AssessmentType').val() == '') {
+            $('#AssessmentType').focus();
+            $('#AssessmentTypeVal').html('Assessment Type is required.');
+            $('#AssessmentTypeVal').css({ 'display': 'block' });
         }
         else {
 

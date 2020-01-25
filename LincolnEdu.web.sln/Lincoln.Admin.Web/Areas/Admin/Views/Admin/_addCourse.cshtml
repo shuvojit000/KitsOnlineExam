@@ -24,14 +24,14 @@
                     <div class="form-group col-lg-6">
                         <label><b>Programme Semester<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.ProgrammeSemester, Model.ProgSEMList, "Select SEM", new { @class = "custom-select block" })
+                            @Html.DropDownListFor(a => a.ProgrammeSemester, Model.ProgSEMList, "Select SEM", new { @class = "custom-select block", @disabled = "disabled" })
                             <span id="ProgrammeSemesterVal" style="color:red;display:none" class="valClass">Please select Semester.</span>
                         </div>
                     </div>
-                    <div class="form-group col-lg-12">
+                    <div class="form-group col-lg-6">
                         <label><b>Country <span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left gt">
-                            @Html.DropDownListFor(a => a.CountryID, Model.CountryList, "Select Country", new { @class = "custom-select block" })
+                            @Html.DropDownListFor(a => a.CountryID, Model.CountryList, "Select Country", new { @class = "custom-select block", @disabled = "disabled" })
                             <span id="CountryIDVal" style="color:red;display:none" class="valClass">Please select Country.</span>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                     <div class="form-group col-lg-6">
                         <label><b>Programme Year<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.ProgrammeYear, Model.ProgYearList, "Select Programme Year", new { @class = "custom-select block" })
+                            @Html.DropDownListFor(a => a.ProgrammeYear, Model.ProgYearList, "Select Programme Year", new { @class = "custom-select block" , @disabled = "disabled" })
                             <span id="ProgrammeYearVal" style="color:red;display:none" class="valClass">Please select Programme Year.</span>
                         </div>
                     </div>
@@ -113,9 +113,9 @@
     <!--main contant end-->
 </div>
 <script>
-    $(document).ready(function () {
+   
         //Dropdownlist Selectedchange event
-        $("#DepartmentID").change(function () {
+    $(document).on("change","#DepartmentID",function () {
             $("#ProgrammeID").empty();
             $.ajax({
                 type: 'POST',
@@ -141,4 +141,33 @@
             });
             return false;
         })
-    });</script>
+    $(document).on("change","#ProgrammeID",function () {
+           
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("ChangeProgramSelection", "Admin",new { area="Admin"})', // we are calling json method
+
+                dataType: 'json',
+
+                data: { programmeID: $("#ProgrammeID").val() },
+                success: function (res) {
+                    if (res!=null) {
+                        $('#ProgrammeYear').val(res.ProgrammeYear);
+                        $('#ProgrammeSemester').val(res.ProgrammeSemester);
+                        $('#CountryID').val(res.CountryID);
+                        $('input[name="SemesterType"][value='+res.SemesterType+']').prop('checked', true);
+                    }
+                    else {
+                        $('#ProgrammeYear').val('');
+                        $('#ProgrammeSemester').val('');
+                        $('#CountryID').val('');
+                        $('input[name="SemesterType"]').prop('checked',false)
+                    }
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve Programme.' + ex);
+                }
+            });
+            return false;
+        })
+    </script>

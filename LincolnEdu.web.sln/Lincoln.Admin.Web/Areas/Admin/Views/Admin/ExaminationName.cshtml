@@ -38,7 +38,7 @@
                                             <span class="hidden">Add</span>
                                         </span>
                                     </a>
-                                    @*<a class="dt-button buttons-excel buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to Excel">
+                                    <a class="dt-button buttons-excel buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to Excel">
                                             <span>
                                                 <i class="fa fa-file-excel-o bigger-110"></i>
                                                 <span class="hidden">Export to Excel</span>
@@ -55,7 +55,7 @@
                                                 <i class="fa fa-print bigger-110"></i>
                                                 <span class="hidden">Print</span>
                                             </span>
-                                        </a>*@
+                                        </a>
                                 </div>
                             </div>
                         </div>
@@ -152,18 +152,19 @@
 
     }
     function fnSaveExaminationName(ExaminationNameID) {
-
-        if ($('#ProgramCode').val() == '') {
-            alert('Program is required.');
+        $('.valClass').css({ 'display': 'none' });
+        if ($('#ExaminationName').val() == '') {
+            $('#ExaminationName').focus();
+            $('#ExaminationNameVal').html('Examination Name is required.');
+            $('#ExaminationNameVal').css({ 'display': 'block' });
         }
-        else if ($('#DepartmentCode').val() == '') {
-            alert('Faculty is required.');
+        else if ($('#StartDate').val() == '') {           
+            $('#StartDateVal').html('Start Date is required.');
+            $('#StartDateVal').css({ 'display': 'block' });
         }
-        if ($('#Version').val() == '') {
-            alert('Version is required.');
-        }
-        else if ($('#Credit').val() == '') {
-            alert('Credit Name is required.');
+        else if ($('#EndDate').val() == '') {            
+            $('#EndDateVal').html('End Date is required.');
+            $('#EndDateVal').css({ 'display': 'block' });
         }
         else {
 
