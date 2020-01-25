@@ -27,14 +27,18 @@
                         <label><b>Programme Code<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left gt">
                             @Html.TextBoxFor(a => a.ProgrammeCode, new { @class = "form-control" })
-
+                            <div class="form-control-position">
+                                <i class="fa fa-book"></i>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
                         <label><b>Programme Name<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
                             @Html.TextBoxFor(a => a.ProgrammeName, new { @class = "form-control" })
-
+                            <div class="form-control-position">
+                                <i class="fa fa-book"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -43,7 +47,9 @@
                         <label><b>Approval NO<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
                             @Html.TextBoxFor(a => a.ApprovalNo, new { @class = "form-control" })
-
+                            <div class="form-control-position">
+                                <i class="fa fa-book"></i>
+                            </div>
                         </div>
                     </div>
 
@@ -51,7 +57,9 @@
                         <label><b>Credit<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
                             @Html.TextBoxFor(a => a.Credit, new { @class = "form-control", @type = "number" })
-
+                            <div class="form-control-position">
+                                <i class="fa fa-right"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
