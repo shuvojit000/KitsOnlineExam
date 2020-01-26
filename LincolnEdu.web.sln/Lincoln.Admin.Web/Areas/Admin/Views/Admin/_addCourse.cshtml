@@ -151,11 +151,33 @@
 
                 data: { programmeID: $("#ProgrammeID").val() },
                 success: function (res) {
-                    if (res!=null) {
-                        $('#ProgrammeYear').val(res.ProgrammeYear);
-                        $('#ProgrammeSemester').val(res.ProgrammeSemester);
-                        $('#CountryID').val(res.CountryID);
-                        $('input[name="SemesterType"][value='+res.SemesterType+']').prop('checked', true);
+                    if (res != null) {
+                        $("#ProgrammeYear").empty();
+                        $("#ProgrammeSemester").empty();
+                        $("#CountryID").empty();
+
+                        $("#ProgrammeYear").append('<option value="">Select Programme Year</option>');
+                        $.each(res.ProgYearList, function (i, state) {
+                            $("#ProgrammeYear").append('<option value="' + state.Value + '">' +
+                                 state.Text + '</option>');
+                            // here we are adding option for States
+
+                        });
+                        $("#ProgrammeSemester").append('<option value="">Select Semester</option>');
+                        $.each(res.ProgSEMList, function (i, state) {
+                            $("#ProgrammeSemester").append('<option value="' + state.Value + '">' +
+                                 state.Text + '</option>');
+                            // here we are adding option for States
+
+                        });
+                        $("#CountryID").append('<option value="">Select Country</option>');
+                        $.each(res.CountryList, function (i, state) {
+                            $("#CountryID").append('<option value="' + state.Value + '">' +
+                                 state.Text + '</option>');
+                            // here we are adding option for States
+
+                        });
+
                     }
                     else {
                         $('#ProgrammeYear').val('');
@@ -169,5 +191,18 @@
                 }
             });
             return false;
-        })
+    })
+    function distinct(myArray) {
+        var newArray = [];
+
+        $.each(myArray, function (key, value) {
+            var exists = false;
+            $.each(newArray, function (k, val2) {
+                if (value.Value == val2.Value) { exists = true };
+            });
+            if (exists == false && value.Value != "") { newArray.push(value); }
+        });
+
+        return newArray;
+    }
     </script>
