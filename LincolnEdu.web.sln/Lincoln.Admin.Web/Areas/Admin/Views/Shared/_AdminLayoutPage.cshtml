@@ -1,5 +1,4 @@
 ﻿
-
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <head>
@@ -43,7 +42,7 @@
     <script src="~/Content/assets/vendors/js/pickers/dateTime/bootstrap-datetimepicker.min.js"></script>
     <script src="~/Content/assets/js/scripts/pickers/dateTime/bootstrap-datetime.min.js"></script>
     <script src="~/Content/assets/vendors/js/tables/datatable/datatables.min.js"></script>
-    
+
     @*<script src="~/Content/assets/js/scripts/customizer.min.js"></script>*@
     <script src="~/Content/assets/js/scripts/tables/datatables/datatable-styling.min.js"></script>
 </head>
@@ -201,39 +200,35 @@
                         <li>
                             <a class="menu-item" href="@Url.Action("ProgrammeSemester","Admin",new {area="Admin" })">Programme Semester</a>
                         </li>
-                        <li >
+                        <li>
                             <a class="menu-item" href="@Url.Action("Course","Admin",new {area="Admin" })">Course</a>
                         </li>
-                       
-                       
-                    </ul>
-                </li>
-                
-                <li class="nav-item">
-                    <a href="#"><i class="ft-edit"></i><span class="menu-title" data-i18n="">Question Bank</span></a>
-                    <ul class="menu-content">
-                       
-                        <li>
-                            <a class="menu-item" href="javascript:void(0);">Examination</a>
-                            <ul class="menu-content">
-                                <li>
-                                    <a class="menu-item" href="@Url.Action("ExaminationName","Admin",new {area="Admin" })">Examination Name</a>
-                                </li>
-                                <li>
-                                    <a class="menu-item" href="@Url.Action("Assessment","Admin",new {area="Admin" })">Assessment</a>
-                                </li>
-                                <li>
-                                    <a class="menu-item" href="@Url.Action("SubjectAssessment","Admin",new {area="Admin" })">Subject Assessment</a>
-                                </li>
-                                <li>
-                                    <a class="menu-item" href="@Url.Action("ExaminationSection","Admin",new {area="Admin" })">Examination Section</a>
-                                </li>
-                            </ul>
-                        </li>
-                       
+
+
                     </ul>
                 </li>
 
+                <li class="nav-item">
+                    <a href="#"><i class="ft-edit"></i><span class="menu-title" data-i18n="">Question Bank</span></a>
+                    <ul class="menu-content">
+
+
+                        <li>
+                            <a class="menu-item" href="@Url.Action("ExaminationName","Admin",new {area="Admin" })">Examination Name</a>
+                        </li>
+                        <li>
+                            <a class="menu-item" href="@Url.Action("Assessment","Admin",new {area="Admin" })">Assessment</a>
+                        </li>
+                        <li>
+                            <a class="menu-item" href="@Url.Action("SubjectAssessment","Admin",new {area="Admin" })">Subject Assessment</a>
+                        </li>
+                        <li>
+                            <a class="menu-item" href="@Url.Action("ExaminationSection","Admin",new {area="Admin" })">Examination Section</a>
+                        </li>
+
+
+                    </ul>
+                </li>
 
                 <li class="nav-item">
                     <a href="@Url.Action("LogOut","Home",new {area="" })"><i class="ft-power"></i><span class="menu-title" data-i18n="">Logout</span></a>
@@ -247,7 +242,6 @@
     <!-- BEGIN: Content-->
     <div class="app-content content">
         @RenderBody()
-
     </div>
     <!-- END: Content-->
     <!-- BEGIN: Footer-->
@@ -262,46 +256,45 @@
     </footer>
     <!-- END: Footer-->
     <!---Password POPUP start--->
-   
     <!---Password POPUP end--->
     <!---MyProfile POPUP start--->
     @*<div class="col-lg-12">
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">
-                            <label class="modal-title text-text-bold-600"></label>
-                        </h4>
-                        <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    </div>
-                    <div class="modal-body recoPas">
-                       
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">
+                                <label class="modal-title text-text-bold-600"></label>
+                            </h4>
+                            <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body recoPas">
+
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>*@
+        </div>*@
     <!---MyProfile POPUP end--->
     <!-- BEGIN: Vendor JS-->
     @*<script src="~/Content/assets/vendors/js/vendors.min.js"></script>
-    <script src="~/Content/assets/vendors/js/tables/datatable/datatables.min.js"></script>*@
+        <script src="~/Content/assets/vendors/js/tables/datatable/datatables.min.js"></script>*@
     <!-- BEGIN Vendor JS-->
     <!-- BEGIN: Page Vendor JS-->
     @*<script src="~/Content/assets/vendors/js/charts/raphael-min.js"></script>
-    <script src="~/Content/assets/vendors/js/charts/morris.min.js"></script>
-    <script src="~/Content/assets/vendors/js/extensions/unslider-min.js"></script>
-    <script src="~/Content/assets/vendors/js/timeline/horizontal-timeline.js"></script>*@
+        <script src="~/Content/assets/vendors/js/charts/morris.min.js"></script>
+        <script src="~/Content/assets/vendors/js/extensions/unslider-min.js"></script>
+        <script src="~/Content/assets/vendors/js/timeline/horizontal-timeline.js"></script>*@
     <!-- END: Page Vendor JS-->
     <!-- BEGIN: Theme JS-->
     @*<script src="~/Content/assets/js/core/app-menu.min.js"></script>
-    <script src="~/Content/assets/js/core/app.min.js"></script>
-    <script src="~/Content/assets/js/scripts/customizer.min.js"></script>
-    <script src="~/Content/assets/js/scripts/tables/datatables/datatable-styling.min.js"></script>*@
+        <script src="~/Content/assets/js/core/app.min.js"></script>
+        <script src="~/Content/assets/js/scripts/customizer.min.js"></script>
+        <script src="~/Content/assets/js/scripts/tables/datatables/datatable-styling.min.js"></script>*@
     <!-- END: Theme JS-->
     <!-- BEGIN: Page JS-->
     @*<script src="~/Content/assets/js/scripts/pages/dashboard-ecommerce.min.js"></script>*@
     <!-- END: Page JS-->
-    
+
 </body>
 </html>
