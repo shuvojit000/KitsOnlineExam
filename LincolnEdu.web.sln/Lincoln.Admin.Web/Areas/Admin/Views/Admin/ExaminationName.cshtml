@@ -1,7 +1,7 @@
 ﻿
 @{
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayoutPage.cshtml";
-    ViewBag.Title = "ExaminationName";
+    ViewBag.Title = "Examination Name";
 }
 
 <div class="content-wrapper">
@@ -91,8 +91,9 @@
 
 <script>
     $(function () {
+        $('li a[href*="ExaminationName"]').parent('li').addClass('active');
         $("#ddlStatus").change(function () {
-
+           
             if ($('#ddlStatus').val() != '' && $('#ddlStatus').val() != null) {
 
                 var statusIdstr = [];

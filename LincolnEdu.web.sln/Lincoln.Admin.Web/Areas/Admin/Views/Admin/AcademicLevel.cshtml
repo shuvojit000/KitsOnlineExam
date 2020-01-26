@@ -92,6 +92,7 @@
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script>
     $(function () {
+        $('li a[href*="AcademicLevel"]').parent('li').addClass('active');
         $("#ddlStatus").change(function () {
 
             if ($('#ddlStatus').val() != '' && $('#ddlStatus').val() != null) {

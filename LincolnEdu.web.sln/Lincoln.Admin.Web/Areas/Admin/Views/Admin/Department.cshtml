@@ -92,6 +92,7 @@
 
 <script>
     $(function () {
+        $('li a[href*="Department"]').parent('li').addClass('active')
         $("#ddlStatus").change(function () {
 
             if ($('#ddlStatus').val() != '' && $('#ddlStatus').val() != null) {
@@ -167,7 +168,12 @@
             $('#DepartmentName').focus();
             $('#DepartmentNameVal').html('Faculty Name is required.');
             $('#DepartmentNameVal').css({ 'display': 'block' });
-        }        
+        }
+        else if ($('#HODName').val() == '') {
+            $('#HODName').focus();
+            $('#HODNameVal').html('HOD Name is required.');
+            $('#HODNameVal').css({ 'display': 'block' });
+        }
         else if (!validateEmail($('#HODEmail').val())) {
             $('#HODEmail').focus();
             $('#HODEmailVal').html('Not valid Email.');

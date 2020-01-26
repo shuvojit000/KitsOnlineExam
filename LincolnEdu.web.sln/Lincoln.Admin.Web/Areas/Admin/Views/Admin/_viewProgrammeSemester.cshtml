@@ -8,53 +8,55 @@
                 <div class="row">
                     <div class="form-group col-lg-6">
                         <label><b>Faculty: </b></label>
-                      
-                            @Html.DisplayFor(a => a.DepartmentName, new {  @class = "form-control"  })
 
-                       
-                    </div>
-                    <div class="form-group col-lg-6">
-                        <label><b>Programme :</b> </label>
-                     
-                            @Html.DisplayFor(a => a.ProgrammeName, new { @class = "form-control" })
-                     
-                        </div>
+                        @Html.DisplayFor(a => a.DepartmentName, new { @class = "form-control" })
 
-                        </div>
                     </div>
+
+                </div>
                 <div class="row">
-                    
-                    <div class="form-group col-lg-6">
-                        <label><b>Programme year:</b> </label>
-                     
-                            @Html.DisplayFor(a => a.ProgrammeYear,  new {  @class = "form-control" })
+                    <div class="form-group col-lg-12">
+                        <label><b>Programme :</b> </label>
 
-                       
+                        @Html.DisplayFor(a => a.ProgrammeName, new { @class = "form-control" })
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="form-group col-lg-12">
+                        <label><b>Programme year:</b> </label>
+
+                        @Html.DisplayFor(a => a.ProgrammeYear, new { @class = "form-control" })
+
+
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-lg-6">
                         <label><b>Programme Semester:</b> </label>
-                       
-                            @Html.DisplayFor(a => a.ProgrammeSemester, new { @class = "form-control" })
 
-                       
+                        @Html.DisplayFor(a => a.ProgrammeSemester, new { @class = "form-control" })
+
+
                     </div>
 
                     <div class="form-group col-lg-6">
                         <label><b>Semester Type:</b> </label>
-                      
-                            @Html.DisplayFor(a => a.SemesterType, new { @class = "form-control" })
+
+                        @Html.DisplayFor(a => a.SemesterType, new { @class = "form-control" })
 
                     </div>
                 </div>
-
             </div>
-           
-            <!--PAGE CONTENT ENDS-->
         </div>
+
+        <!--PAGE CONTENT ENDS-->
     </div>
-    <!--main contant end-->
+</div>
+<!--main contant end-->
 </div>
 
 
