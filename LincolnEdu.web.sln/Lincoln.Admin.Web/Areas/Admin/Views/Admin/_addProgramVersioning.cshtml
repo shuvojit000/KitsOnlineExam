@@ -28,11 +28,14 @@
                     <div class="form-group col-lg-8">
                             <label><b>Version<span class="requiredstar">*</span></b> </label>
                             <div class="position-relative has-icon-left">
-                                @Html.TextBoxFor(a => a.Version, new { @class = "form-control", @Placeholder = "Please write syllabus version" })
+                                @Html.TextBoxFor(a => a.Version, new { @class = "form-control",@type = "number",
+                                                   @oninput ="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength)",
+                                                   @Placeholder = "Please write syllabus version", @maxlength = "4" })
+                                
                                 <div class="form-control-position">
-                                    <i class="fa fa-book"></i>
-                                    <span id="VersionVal" style="color:red;display:none" class="valClass"></span>
+                                    <i class="fa fa-book"></i>                                    
                                 </div>
+                                <span id="VersionVal" style="color:red;display:none" class="valClass"></span>
                             </div>
                         </div>
 
@@ -42,8 +45,9 @@
                             @Html.TextBoxFor(a => a.Credit, new { @class = "form-control", @type = "number" })
                             <div class="form-control-position">
                                 <i class="fa fa-book"></i>
-                                <span id="CreditVal" style="color:red;display:none" class="valClass"></span>
+                               
                             </div>
+                            <span id="CreditVal" style="color:red;display:none" class="valClass"></span>
                         </div>
                     </div>
                 </div>

@@ -15,7 +15,7 @@
                 <div class="col-12">
                     <div class="cardk">
                         <div class="card-header">
-                            <h4 class="card-title">Faculty</h4>
+                            <h4 class="card-title">Faculty Records</h4>
                             <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
                                 <ul class="list-inline mb-0">
@@ -173,6 +173,11 @@
             $('#HODName').focus();
             $('#HODNameVal').html('HOD Name is required.');
             $('#HODNameVal').css({ 'display': 'block' });
+        }
+        else if ($('#HODEmail').val()=='') {
+            $('#HODEmail').focus();
+            $('#HODEmailVal').html('Email is required.');
+            $('#HODEmailVal').css({ 'display': 'block' });
         }
         else if (!validateEmail($('#HODEmail').val())) {
             $('#HODEmail').focus();

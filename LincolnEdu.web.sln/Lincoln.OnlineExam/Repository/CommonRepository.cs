@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Lincoln.OnlineExam.Request;
 using Lincoln.OnlineExam.Response;
 using Lincoln.OnlineExam.Utility;
+using System.Globalization;
 
 namespace Lincoln.OnlineExam.Repository
 {
@@ -925,14 +926,15 @@ namespace Lincoln.OnlineExam.Repository
 
         public int SaveExaminationName(ExaminationNameRequestDTO recordAttributer, string Operation)
         {
+            CultureInfo culture = new CultureInfo("en-US");
             SqlParameter ExaminationID = new SqlParameter("@ExaminationID", SqlDbType.Int);
             ExaminationID.Value = recordAttributer.ExaminationNameID;
             SqlParameter ExaminationName = new SqlParameter("@ExaminationName", SqlDbType.VarChar);
             ExaminationName.Value = recordAttributer.ExaminationName;
             SqlParameter StartDate = new SqlParameter("@StartDate", SqlDbType.Date);
-            StartDate.Value = recordAttributer.StartDate;
+            StartDate.Value =Convert.ToDateTime(recordAttributer.StartDate, culture);
             SqlParameter EndDate = new SqlParameter("@EndDate", SqlDbType.Date);
-            EndDate.Value = recordAttributer.EndDate;
+            EndDate.Value = Convert.ToDateTime(recordAttributer.EndDate, culture);
             //SqlParameter StartTime = new SqlParameter("@StartTime", SqlDbType.VarChar);
             //StartTime.Value = recordAttributer.StartTime;
             //SqlParameter EndTime = new SqlParameter("@EndTime", SqlDbType.VarChar);
@@ -1002,7 +1004,7 @@ namespace Lincoln.OnlineExam.Repository
 
 
             SqlParameter ExaminationNameID = new SqlParameter("@ExaminationID", SqlDbType.Int);
-            ExaminationNameID.Value = DBNull.Value;
+            ExaminationNameID.Value = recordAttributer.ExaminationNameID;
             SqlParameter ExaminationName = new SqlParameter("@ExaminationName", SqlDbType.VarChar);
             ExaminationName.Value = DBNull.Value;
             SqlParameter StartDate = new SqlParameter("@StartDate", SqlDbType.Date);
@@ -1254,7 +1256,7 @@ namespace Lincoln.OnlineExam.Repository
             var item = new AssessmentResponseDTO();
 
             SqlParameter AssessmentID = new SqlParameter("@AssessmentID", SqlDbType.Int);
-            AssessmentID.Value = DBNull.Value;
+            AssessmentID.Value = recordAttributer.AssessmentID;
             SqlParameter FacultyCode = new SqlParameter("@DepartmentID", SqlDbType.Int);
             FacultyCode.Value = DBNull.Value;
             SqlParameter programCode = new SqlParameter("@ProgrammeID", SqlDbType.Int);

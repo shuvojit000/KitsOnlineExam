@@ -41,7 +41,7 @@
                     <div class="form-group col-lg-6">
                         <label><b>Programme Semester<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.ProgrammeSemester, Model.ProgSEMList, "Select SEM", new { @class = "custom-select block" })
+                            @Html.DropDownListFor(a => a.ProgrammeSemester, Model.ProgSEMList, "Select Semester", new { @class = "custom-select block" })
                             <span id="ProgrammeSemesterVal" style="color:red;display:none" class="valClass">Please select Semester.</span>
                         </div>
                     </div>
@@ -49,8 +49,8 @@
                     <div class="form-group col-lg-6">
                         <label><b>Semester Type<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
-                            <input type="radio" name="SemesterType" value="Short"> Short
-                            <input type="radio" name="SemesterType" value="Long"> Long
+                            <input type="radio" name="SemesterType" value="Short"  @(Model.SemesterType=="Short" ?"checked":"")> Short
+                            <input type="radio" name="SemesterType" value="Long"  @(Model.SemesterType== "Long" ? "checked":"")> Long
                             <span id="SemesterTypeVal" style="color:red;display:none" class="valClass">Please select Semester Type.</span>
                         </div>
                     </div>

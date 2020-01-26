@@ -15,7 +15,7 @@
                             <div class="position-relative has-icon-left">
                                 @Html.TextBoxFor(a => a.ExaminationName, new { @class = "form-control", @Placeholder = "Please write syllabus version" })
                                 <div class="form-control-position">
-                                    <i class="fa fa-book"></i>                                   
+                                    <i class="fa fa-book"></i>
                                 </div>
                                 <span id="ExaminationNameVal" style="color:red;display:none" class="valClass"></span>
                             </div>
@@ -28,7 +28,7 @@
                     <div class="form-group col-lg-6">
                         <label>Examination Start Date<span class="requiredstar">*</span> </label>
                         <div class="position-relative has-icon-left">
-                            @Html.TextBoxFor(a => a.StartDate, new { @type = "date", @class = "form-control" })
+                            @Html.TextBoxFor(a => a.StartDate, new { @class = "form-control" })
                             <div class="form-control-position">
                                 <i class="fa fa-calendar"></i>
                             </div>
@@ -38,7 +38,7 @@
                     <div class="form-group col-lg-6">
                         <label>Examination End Date<span class="requiredstar">*</span> </label>
                         <div class="position-relative has-icon-left">
-                            @Html.TextBoxFor(a => a.EndDate, new { @type = "date", @class = "form-control" })
+                            @Html.TextBoxFor(a => a.EndDate, new { @class = "form-control" })
                             <div class="form-control-position">
                                 <i class="fa fa-calendar"></i>
                             </div>
@@ -86,3 +86,10 @@
     </div>
     <!--main contant end-->
 </div>
+<script>
+    
+    $(document).on("focus","#StartDate,#EndDate",function(){
+        $('#StartDate').datetimepicker({ format: 'MM/DD/YYYY', minDate: moment() });
+        $('#EndDate').datetimepicker({ format: 'MM/DD/YYYY', minDate: moment() });
+    });
+</script>

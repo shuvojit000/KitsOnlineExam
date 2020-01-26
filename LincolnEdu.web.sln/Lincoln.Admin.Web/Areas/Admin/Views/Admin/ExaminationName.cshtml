@@ -90,6 +90,7 @@
 </div>
 
 <script>
+   
     $(function () {
         $('li a[href*="ExaminationName"]').parent('li').addClass('active');
         $("#ddlStatus").change(function () {
@@ -165,6 +166,10 @@
         }
         else if ($('#EndDate').val() == '') {            
             $('#EndDateVal').html('End Date is required.');
+            $('#EndDateVal').css({ 'display': 'block' });
+        }
+        else if (new Date($('#StartDate').val()) > new Date($('#EndDate').val())) {
+            $('#EndDateVal').html('End Date Should be greater than Start date.');
             $('#EndDateVal').css({ 'display': 'block' });
         }
         else {

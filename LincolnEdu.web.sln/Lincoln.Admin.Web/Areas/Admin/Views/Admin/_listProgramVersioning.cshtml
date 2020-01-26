@@ -11,7 +11,7 @@
         <tr>
             <th>SlNo</th>
             <th>Check</th>
-           
+
             <th>Faculty</th>
             <th>Program</th>
             <th>Version</th>
@@ -34,7 +34,7 @@
                             <input type="checkbox" class="statusCheck" data-id="@item.ProgramVersioningID">
                         </center>
                     </td>
-                    
+
                     <td>@item.DepartmentName</td>
                     <td>@item.ProgramName</td>
                     <td>@item.Version</td>
@@ -52,6 +52,7 @@
     </tbody>
 </table>
 <script>
+    $('#dataTables-example').dataTable();
     //    $('#dataTables-example').dataTable({
     //    dom: 'Bfrtip', buttons: [
     //        {
