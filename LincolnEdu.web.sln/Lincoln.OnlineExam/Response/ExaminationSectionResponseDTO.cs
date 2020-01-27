@@ -16,12 +16,16 @@ namespace Lincoln.OnlineExam.Response
         public int SyllabusVersionCode { get; set; }
         public string SyllabusVersionName { get; set; }
         public int CountryCode { get; set; }
+        public int CourseID { get; set; }
         public string CountryName { get; set; }
         public int AcademicYearCode { get; set; }
         public string YearName { get; set; }
         public int SemisterCode { get; set; }
         public string SemisterName { get; set; }
-        public int CourseCode { get; set; }
+
+        public int SectionID { get; set; }
+        public string SectionName { get; set; }
+        public string CourseCode { get; set; }
         public string CourseName { get; set; }
         public string Active { get; set; }
         public int CreatedBy { get; set; }
