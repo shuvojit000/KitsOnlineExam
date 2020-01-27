@@ -1449,5 +1449,295 @@ namespace Lincoln.OnlineExam.Repository
 
         }
         #endregion
+        #region Examination Section
+
+        public int SaveExaminationSection(ExaminationSectionRequestDTO recordAttributer, string Operation)
+        {
+            SqlParameter ExaminationSectionID = new SqlParameter("@ExaminationSectionID", SqlDbType.Int);
+            ExaminationSectionID.Value = recordAttributer.ExaminationSectionID;
+            SqlParameter ProgramCode = new SqlParameter("@ProgrammeID", SqlDbType.Int);
+            ProgramCode.Value = recordAttributer.ProgramCode;
+            SqlParameter FacultyCode = new SqlParameter("@DepartmentID", SqlDbType.Int);
+            FacultyCode.Value = recordAttributer.FacultyCode;
+            SqlParameter SyllabusVersionCode = new SqlParameter("@ProgrammeVersioningID", SqlDbType.Int);
+            SyllabusVersionCode.Value = recordAttributer.SyllabusVersionCode;
+            SqlParameter CountryCode = new SqlParameter("@CountryID", SqlDbType.Int);
+            CountryCode.Value = recordAttributer.CountryCode;
+            SqlParameter AcademicYearCode = new SqlParameter("@ProgrammeYear", SqlDbType.Int);
+            AcademicYearCode.Value = recordAttributer.AcademicYearCode;
+            SqlParameter SemisterCode = new SqlParameter("@ProgrammeSemester", SqlDbType.Int);
+            SemisterCode.Value = recordAttributer.SemisterCode;
+            SqlParameter SectionName = new SqlParameter("@SectionName", SqlDbType.VarChar);
+            SectionName.Value = recordAttributer.SectionName;
+            SqlParameter CourseCode = new SqlParameter("@CourseID", SqlDbType.Int);
+            CourseCode.Value = recordAttributer.CourseCode;
+            SqlParameter active = new SqlParameter("@Active", SqlDbType.Char);
+            active.Value = recordAttributer.Active;
+            SqlParameter createdBy = new SqlParameter("@CreatedBy", SqlDbType.Int);
+            createdBy.Value = recordAttributer.CreatedBy;
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = Operation;
+            SqlParameter status = new SqlParameter("@Status", SqlDbType.Int);
+            status.Value = 0;
+            status.Direction = ParameterDirection.InputOutput;
+
+            SqlServerHelper.ExecuteNonQueryProc("[ln.Examination].[upSaveExaminationSection]", ExaminationSectionID, ProgramCode, FacultyCode, SyllabusVersionCode,
+                CountryCode, AcademicYearCode, SemisterCode, SectionName, CourseCode, active, createdBy, type, status);
+
+            return Convert.ToInt32(status.Value);
+
+        }
+        public List<ExaminationSectionResponseDTO> GetAllExaminationSection()
+        {
+            var itemSet = new List<ExaminationSectionResponseDTO>();
+
+            SqlParameter ExaminationSectionID = new SqlParameter("@ExaminationSectionID", SqlDbType.Int);
+            ExaminationSectionID.Value = DBNull.Value;
+            SqlParameter ProgramCode = new SqlParameter("@ProgrammeID", SqlDbType.Int);
+            ProgramCode.Value = DBNull.Value;
+            SqlParameter FacultyCode = new SqlParameter("@DepartmentID", SqlDbType.Int);
+            FacultyCode.Value = DBNull.Value;
+            //SqlParameter SyllabusVersionCode = new SqlParameter("@ProgrammeVersioningID", SqlDbType.Int);
+            //SyllabusVersionCode.Value = DBNull.Value;
+            SqlParameter CountryCode = new SqlParameter("@CountryID", SqlDbType.Int);
+            CountryCode.Value = DBNull.Value;
+            SqlParameter AcademicYearCode = new SqlParameter("@ProgrammeYear", SqlDbType.Int);
+            AcademicYearCode.Value = DBNull.Value;
+            SqlParameter SemisterCode = new SqlParameter("@ProgrammeSemester", SqlDbType.Int);
+            SemisterCode.Value = DBNull.Value;
+            SqlParameter CourseCode = new SqlParameter("@CourseID", SqlDbType.Int);
+            CourseCode.Value = DBNull.Value;
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = "GET";
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Examination].[upGetExaminationSection]", ExaminationSectionID, ProgramCode, FacultyCode, CountryCode, AcademicYearCode, SemisterCode, CourseCode, type))
+            {
+                if (dr != null && dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        itemSet.Add(new ExaminationSectionResponseDTO()
+                        {
+                            ExaminationSectionID = Convert.ToInt32(dr["ExaminationSectionID"]),
+                            ProgramCode = Convert.ToInt32(dr["ProgrammeID"]),
+                            FacultyCode = Convert.ToInt32(dr["DepartmentID"]),
+                            SyllabusVersionCode = Convert.ToInt32(dr["ProgrammeVersioningID"]),
+                            CountryCode = Convert.ToInt32(dr["CountryID"]),
+                            CourseName = object.ReferenceEquals(dr["CourseName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseName"]),
+                            ProgramName = object.ReferenceEquals(dr["ProgrammeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeName"]),
+                            FacultyName = object.ReferenceEquals(dr["DepartmentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["DepartmentName"]),
+                            SyllabusVersionName = object.ReferenceEquals(dr["Version"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Version"]),
+                            //CountryName = object.ReferenceEquals(dr["CountryID"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseCode"]),
+                            SectionName= object.ReferenceEquals(dr["SectionName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["SectionName"]),
+                            AcademicYearCode = Convert.ToInt32(dr["ProgrammeYear"]),
+                            SemisterCode = Convert.ToInt32(dr["ProgrammeSemester"]),
+                            //SemisterName= object.ReferenceEquals(dr["SemesterType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["SemesterType"]),
+                            CourseID = Convert.ToInt32(dr["CourseID"]),
+                            //CourseCode = object.ReferenceEquals(dr["CourseCode"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseCode"]),                          
+                            Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
+                            CreatedBy = Convert.ToInt32(dr["CreatedBy"]),
+                        });
+
+                    }
+                }
+            }
+            return itemSet;
+
+        }
+
+        public ExaminationSectionResponseDTO SelectExaminationSection(ExaminationSectionRequestDTO recordAttributer)
+        {
+            var item = new ExaminationSectionResponseDTO();
+
+
+            SqlParameter ExaminationSectionID = new SqlParameter("@ExaminationSectionID", SqlDbType.Int);
+            ExaminationSectionID.Value = recordAttributer.ExaminationSectionID;
+            SqlParameter ProgramCode = new SqlParameter("@ProgrammeID", SqlDbType.Int);
+            ProgramCode.Value = recordAttributer.ProgramCode;
+            SqlParameter FacultyCode = new SqlParameter("@DepartmentID", SqlDbType.Int);
+            FacultyCode.Value = recordAttributer.FacultyCode;
+            //SqlParameter SyllabusVersionCode = new SqlParameter("@ProgrammeVersioningID", SqlDbType.Int);
+            //SyllabusVersionCode.Value = DBNull.Value;
+            SqlParameter CountryCode = new SqlParameter("@CountryID", SqlDbType.Int);
+            CountryCode.Value = recordAttributer.CountryCode;
+            SqlParameter AcademicYearCode = new SqlParameter("@ProgrammeYear", SqlDbType.Int);
+            AcademicYearCode.Value = recordAttributer.AcademicYearCode;
+            SqlParameter SemisterCode = new SqlParameter("@ProgrammeSemester", SqlDbType.Int);
+            SemisterCode.Value = recordAttributer.SemisterCode;
+            SqlParameter CourseCode = new SqlParameter("@CourseID", SqlDbType.Int);
+            CourseCode.Value = recordAttributer.CourseCode;
+
+
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = "GET";
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Examination].[upGetExaminationSection]", ExaminationSectionID, ProgramCode, FacultyCode, CountryCode, AcademicYearCode, SemisterCode, CourseCode, type))
+            {
+                if (dr != null && dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        item.ExaminationSectionID = Convert.ToInt32(dr["ExaminationSectionID"]);
+                        item.ProgramCode = Convert.ToInt32(dr["ProgrammeID"]);
+                        item.FacultyCode = Convert.ToInt32(dr["DepartmentID"]);
+                        item.SyllabusVersionCode = Convert.ToInt32(dr["ProgrammeVersioningID"]);
+                        item.CountryCode = Convert.ToInt32(dr["CountryID"]);
+                        item.AcademicYearCode = Convert.ToInt32(dr["ProgrammeYear"]);
+                        item.SemisterCode = Convert.ToInt32(dr["ProgrammeSemester"]);
+                        item.SectionName = object.ReferenceEquals(dr["SectionName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["SectionName"]);
+                        item.SyllabusVersionName = object.ReferenceEquals(dr["Version"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Version"]);
+                        item.ProgramName = object.ReferenceEquals(dr["ProgrammeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeName"]);
+                        item.FacultyName = object.ReferenceEquals(dr["DepartmentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["DepartmentName"]);
+                        item.CourseName = object.ReferenceEquals(dr["CourseName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseName"]);
+                        item.SemisterName = object.ReferenceEquals(dr["CourseName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseName"]);
+                        item.CourseID = Convert.ToInt32(dr["CourseID"]);
+                        item.Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]);
+                        item.CreatedBy = Convert.ToInt32(dr["CreatedBy"]);
+                    }
+                }
+            }
+            return item;
+
+        }
+        #endregion
+#region Subject Assessment
+
+        public int SaveSubjectAssessment(SubjectAssessmentRequestDTO recordAttributer, string Operation)
+        {
+            SqlParameter SubjectAssessmentID = new SqlParameter("@AssessmentConfigurationID", SqlDbType.Int);
+            SubjectAssessmentID.Value = recordAttributer.SubjectAssessmentID;
+
+            SqlParameter ProgramCode = new SqlParameter("@ProgrammeID", SqlDbType.Int);
+            ProgramCode.Value = recordAttributer.ProgramCode;
+            SqlParameter FacultyCode = new SqlParameter("@DepartmentID", SqlDbType.Int);
+            FacultyCode.Value = recordAttributer.FacultyCode;
+            SqlParameter SyllabusVersionCode = new SqlParameter("@ProgrammeVersioningID", SqlDbType.Int);
+            SyllabusVersionCode.Value = recordAttributer.SyllabusVersionCode;
+            SqlParameter CountryCode = new SqlParameter("@CountryID", SqlDbType.Int);
+            CountryCode.Value = recordAttributer.CountryCode;
+            SqlParameter AcademicYearCode = new SqlParameter("@ProgrammeYear", SqlDbType.Int);
+            AcademicYearCode.Value = recordAttributer.AcademicYearCode;
+            SqlParameter SemisterCode = new SqlParameter("@ProgrammeSemester", SqlDbType.Int);
+            SemisterCode.Value = recordAttributer.SemisterCode;
+            SqlParameter CourseCode = new SqlParameter("@CourseID", SqlDbType.Int);
+            CourseCode.Value = recordAttributer.CourseCode;
+            SqlParameter AssessmentXML = new SqlParameter("@AssessmentXML", SqlDbType.Xml);
+            AssessmentXML.Value = DBNull.Value;
+            SqlParameter active = new SqlParameter("@Active", SqlDbType.Char);
+            active.Value = recordAttributer.Active;
+            SqlParameter createdBy = new SqlParameter("@CreatedBy", SqlDbType.Int);
+            createdBy.Value = recordAttributer.CreatedBy;
+
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = Operation;
+
+
+            SqlParameter status = new SqlParameter("@Status", SqlDbType.Int);
+            status.Value = 0;
+            status.Direction = ParameterDirection.InputOutput;
+
+            SqlServerHelper.ExecuteNonQueryProc("[ln.Examination].[upSaveAssessmentConfiguration]", SubjectAssessmentID, ProgramCode, FacultyCode, SyllabusVersionCode,
+                CountryCode, AcademicYearCode, SemisterCode, CourseCode, AssessmentXML, active, createdBy, type, status);
+
+            return Convert.ToInt32(status.Value);
+
+        }
+        public List<SubjectAssessmentResponseDTO> GetAllSubjectAssessment()
+        {
+            var itemSet = new List<SubjectAssessmentResponseDTO>();
+
+            SqlParameter SubjectAssessmentID = new SqlParameter("@AssessmentConfigurationID", SqlDbType.Int);
+            SubjectAssessmentID.Value = DBNull.Value;
+
+            SqlParameter ProgramCode = new SqlParameter("@ProgrammeID", SqlDbType.Int);
+            ProgramCode.Value = DBNull.Value;
+            SqlParameter FacultyCode = new SqlParameter("@DepartmentID", SqlDbType.Int);
+            FacultyCode.Value = DBNull.Value;
+            SqlParameter AssessmentName = new SqlParameter("@AssessmentName", SqlDbType.VarChar);
+            AssessmentName.Value = DBNull.Value;
+            SqlParameter CountryCode = new SqlParameter("@CountryID", SqlDbType.Int);
+            CountryCode.Value = DBNull.Value;
+            SqlParameter AcademicYearCode = new SqlParameter("@ProgrammeYear", SqlDbType.Int);
+            AcademicYearCode.Value = DBNull.Value;
+            SqlParameter SemisterCode = new SqlParameter("@ProgrammeSemester", SqlDbType.Int);
+            SemisterCode.Value = DBNull.Value;
+            SqlParameter CourseCode = new SqlParameter("@CourseID", SqlDbType.Int);
+            CourseCode.Value = DBNull.Value;
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = "GET";
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Examination].[upGetAssessmentConfiguration]", SubjectAssessmentID, ProgramCode, FacultyCode, AssessmentName,
+                CountryCode, AcademicYearCode, SemisterCode, CourseCode, type))
+            {
+                if (dr != null && dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        itemSet.Add(new SubjectAssessmentResponseDTO()
+                        {
+                            SubjectAssessmentID = Convert.ToInt32(dr["SubjectAssessmentID"]),
+                            ProgramCode = Convert.ToInt32(dr["ProgrammeID"]),
+                            FacultyCode = Convert.ToInt32(dr["DepartmentID"]),
+                            SyllabusVersionCode = Convert.ToInt32(dr["ProgrammeVersioningID"]),
+                            CountryCode = Convert.ToInt32(dr["CountryID"]),
+                            AcademicYearCode = Convert.ToInt32(dr["AcademiYearID"]),
+                            SemisterCode = Convert.ToInt32(dr["SemisterID"]),
+                            CourseCode = Convert.ToInt32(dr["CourseID"]),
+                            Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
+                            CreatedBy = Convert.ToInt32(dr["CreatedBy"]),
+                        });
+
+                    }
+                }
+            }
+            return itemSet;
+
+        }
+
+        public SubjectAssessmentResponseDTO SelectSubjectAssessment(SubjectAssessmentRequestDTO recordAttributer)
+        {
+            var item = new SubjectAssessmentResponseDTO();
+
+
+            SqlParameter SubjectAssessmentID = new SqlParameter("@SubjectAssessmentID", SqlDbType.Int);
+            SubjectAssessmentID.Value = DBNull.Value;
+
+            SqlParameter ProgramCode = new SqlParameter("@ProgrammeID", SqlDbType.Int);
+            ProgramCode.Value = DBNull.Value;
+            SqlParameter FacultyCode = new SqlParameter("@DepartmentID", SqlDbType.Int);
+            FacultyCode.Value = DBNull.Value;
+            SqlParameter SyllabusVersionCode = new SqlParameter("@ProgrammeVersioningID", SqlDbType.Int);
+            SyllabusVersionCode.Value = DBNull.Value;
+            SqlParameter CountryCode = new SqlParameter("@CountryID", SqlDbType.Int);
+            CountryCode.Value = DBNull.Value;
+            SqlParameter AcademicYearCode = new SqlParameter("@AcademiYearID", SqlDbType.Int);
+            AcademicYearCode.Value = DBNull.Value;
+            SqlParameter SemisterCode = new SqlParameter("@SemisterID", SqlDbType.Int);
+            SemisterCode.Value = DBNull.Value;
+            SqlParameter CourseCode = new SqlParameter("@CourseID", SqlDbType.Int);
+            CourseCode.Value = DBNull.Value;
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = "GET";
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Examination].[upGetAssessmentConfiguration]", SubjectAssessmentID, ProgramCode, FacultyCode, SyllabusVersionCode,
+                CountryCode, AcademicYearCode, SemisterCode, CourseCode, type))
+            {
+                if (dr != null && dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        item.SubjectAssessmentID = Convert.ToInt32(dr["SubjectAssessmentID"]);
+                        item.ProgramCode = Convert.ToInt32(dr["ProgrammeID"]);
+                        item.FacultyCode = Convert.ToInt32(dr["DepartmentID"]);
+                        item.SyllabusVersionCode = Convert.ToInt32(dr["ProgrammeVersioningID"]);
+                        item.CountryCode = Convert.ToInt32(dr["CountryID"]);
+                        item.AcademicYearCode = Convert.ToInt32(dr["AcademiYearID"]);
+                        item.SemisterCode = Convert.ToInt32(dr["SemisterID"]);
+                        item.CourseCode = Convert.ToInt32(dr["CourseID"]);
+                        item.Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]);
+                        item.CreatedBy = Convert.ToInt32(dr["CreatedBy"]);
+                    }
+                }
+            }
+            return item;
+
+        }
+        #endregion
     }
 }
