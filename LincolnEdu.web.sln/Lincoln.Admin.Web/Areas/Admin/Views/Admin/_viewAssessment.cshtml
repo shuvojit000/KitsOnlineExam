@@ -8,51 +8,30 @@
         <div class="col-lg-12">
             <!--PAGE CONTENT BEGINS-->
             <div class="modal-body">
-                <div class="row">
-                    <div class="form-group col-lg-6">
-                        <label><b>Version:</b> </label>
-                       
-                            @Html.DisplayFor(a => a.SyllabusVersion, new { @class = "form-control" })
-
-                    </div>
-                    <div class="form-group col-lg-6">
+                <div class="row">                    
+                    <div class="form-group col-lg-12">
                         <label><b>Faculty: </b></label>
                         @Html.DisplayFor(a => a.FacultyName, new { @class = "form-control" })
-
-
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-lg-12">
+                    <div class="form-group col-lg-6">
                         <label><b>Program: </b></label>
-                       
-                            @Html.DisplayFor(a => a.ProgramName, new { @class = "form-control" })
-
-                       
+                        @Html.DisplayFor(a => a.ProgramName, new { @class = "form-control" })
                     </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-lg-12">
-                        <label><b>Assessment Type: </b></label>
-
-                        @Html.DisplayFor(a => a.AssessmentType, new { @class = "form-control" })
-
-
+                    <div class="form-group col-lg-6">
+                        <label><b>Program Version:</b> </label>
+                        @Html.DisplayFor(a => a.SyllabusVersionName, new { @placeholder = "Mobile No", @class = "form-control" })
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-lg-6">
-                        <label><b>Assessment Name: </b></label>
-                       
+                        <label><b>Assessment Name: </b></label>                       
                             @Html.DisplayFor(a => a.AssessmentName, new { @class = "form-control" })
-
                     </div>
                     <div class="form-group col-lg-6">
-                        <label><b>Credit:</b> </label>
-                       
-                            @Html.DisplayFor(a => a.SyllabusVersionName, new { @placeholder = "Mobile No", @class = "form-control" })
-
-                     
+                        <label><b>Assessment Type: </b></label>
+                        @Html.DisplayFor(a => a.AssessmentType, new { @class = "form-control" })
                     </div>
                 </div>
 
