@@ -39,6 +39,7 @@ namespace Lincoln.Admin.Web.Models
         public List<SelectListItem> CountryList { get; set; }
         public List<SelectListItem> SyllabusVersionList { get; set; }
         public List<SelectListItem> FacultyList { get; set; }
+        public SubjectAssessmentDetails TabulalConfigurationDetails { get; set; }
         public List<SubjectAssessmentDetails> SubAssessmentDetails { get; set; }
     }
 
@@ -46,7 +47,7 @@ namespace Lincoln.Admin.Web.Models
     {
         public int SlNo { get; set; }
         public string AssessmentName { get; set; }
-        public string Assessment { get; set; }
+        public string AssessmentPercentage { get; set; }
         public string AssessmentType { get; set; }
         public string FullMarks { get; set; }
         public bool OpenClose { get; set; }

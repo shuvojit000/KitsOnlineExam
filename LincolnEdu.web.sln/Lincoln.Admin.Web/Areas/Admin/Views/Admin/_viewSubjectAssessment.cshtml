@@ -10,64 +10,90 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-lg-6">
-                        <label><b>Version:</b> </label>
-                       
-                            @Html.DisplayFor(a => a.SemisterName, new { @class = "form-control" })
+                        <label><b>Faculty Name: </b></label>
+                        @Html.DisplayFor(a => a.FacultyName, new { @class = "form-control" })
+                    </div>
 
-                       
+                    <div class="form-group col-lg-6">
+                        <label><b>Program: </b></label>
+                        @Html.DisplayFor(a => a.ProgramName, new { @class = "form-control" })
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label><b>Programme Version:</b> </label>
+                        @Html.DisplayFor(a => a.SyllabusVersionName, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label><b>Programme Year:</b> </label>
+                        @Html.DisplayFor(a => a.AcademicYearCode, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label><b>Country Name:</b> </label>
+                        @Html.DisplayFor(a => a.CountryName, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label><b>Semister:</b> </label>
+                        @Html.DisplayFor(a => a.SemisterName, new { @class = "form-control" })
                     </div>
                     <div class="form-group col-lg-6">
                         <label><b>Faculty: </b></label>
                         @Html.DisplayFor(a => a.CourseName, new { @class = "form-control" })
-
-
                     </div>
                 </div>
-                <div class="row">
-                    <div class="form-group col-lg-12">
-                        <label><b>Program: </b></label>
-                        
-                            @Html.DisplayFor(a => a.ProgramName, new { @class = "form-control" })
 
+
+                @foreach (var item in Model.SubAssessmentDetails)
+                {
+                    <div class="row">
+                        <div class="form-group col-lg-3">
+                            <label><b>Assessment Name <span class="requiredstar">*</span> </b></label>
+                            <div class="position-relative has-icon-left">
+                                <label>@item.AssessmentName</label>
+
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label><b>Assessment %<span class="requiredstar">*</span> </b></label>
+                            <div class="position-relative has-icon-left">
+                                <label>@item.AssessmentPercentage</label>
+
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label><b>Full Marks<span class="requiredstar">*</span> </b></label>
+                            <div class="position-relative has-icon-left">
+                                <label>@item.FullMarks</label>
+
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label><b>Assessment Type <span class="requiredstar">*</span> </b></label>
+                            <div class="position-relative has-icon-left">
+                                <label>@item.AssessmentType</label>
+
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-2">
+                            <label><b>Open/Close<span class="requiredstar">*</span> </b></label>
+                            <div class="position-relative has-icon-left">
+                                <label>@item.OpenClose</label>
+
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-lg-6">
-                        <label><b>Place Holder: </b></label>
-                      
-                            @Html.DisplayFor(a => a.FacultyName, new { @class = "form-control" })
-
-                       
-                    </div>
-                    <div class="form-group col-lg-6">
-                        <label><b>Credit:</b> </label>
-                      
-                            @Html.DisplayFor(a => a.SyllabusVersionName, new { @placeholder = "Syllabus Version", @class = "form-control" })
-
-                      
-                    </div>
-                    <div class="form-group col-lg-6">
-                        <label><b>Credit:</b> </label>
-                      
-                            @Html.DisplayFor(a => a.YearName, new { @placeholder = "Syllabus Version", @class = "form-control" })
-
-                    </div>
-                    <div class="form-group col-lg-6">
-                        <label><b>Credit:</b> </label>
-                       
-                            @Html.DisplayFor(a => a.CountryName, new { @placeholder = "Syllabus Version", @class = "form-control" })
-
-                      
-                    </div>
-                </div>
-
+                }
             </div>
-            <div class="modal-footer">
 
-            </div>
-            <!--PAGE CONTENT ENDS-->
+
         </div>
+        <div class="modal-footer">
+
+        </div>
+        <!--PAGE CONTENT ENDS-->
     </div>
-    <!--main contant end-->
 </div>
+<!--main contant end-->

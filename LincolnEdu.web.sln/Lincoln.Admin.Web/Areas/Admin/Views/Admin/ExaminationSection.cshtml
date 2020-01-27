@@ -38,6 +38,24 @@
                                             <span class="hidden">Add</span>
                                         </span>
                                     </a>
+                                    <a class="dt-button buttons-excel buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to Excel">
+                                        <span>
+                                            <i class="fa fa-file-excel-o bigger-110"></i>
+                                            <span class="hidden">Export to Excel</span>
+                                        </span>
+                                    </a>
+                                    <a class="dt-button buttons-pdf buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to PDF">
+                                        <span>
+                                            <i class="fa fa-file-pdf-o bigger-110"></i>
+                                            <span class="hidden">Export to PDF</span>
+                                        </span>
+                                    </a>
+                                    <a class="dt-button buttons-print btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Print">
+                                        <span>
+                                            <i class="fa fa-print bigger-110"></i>
+                                            <span class="hidden">Print</span>
+                                        </span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -135,22 +153,32 @@
 
     }
     function fnSaveExaminationSection(ExaminationSectionID) {
-
-        if ($('#ProgramCode').val() == '') {
-            alert('Program is required.');
+        $('.valClass').css({ 'display': 'none' });
+        if ($('#FacultyCode').val() == '') {
+            $('#FacultyCodeVal').css({ 'display': 'block' });
         }
-        else if ($('#DepartmentCode').val() == '') {
-            alert('Faculty is required.');
+        else if ($('#ProgramCode').val() == '') {
+            $('#ProgramCodeVal').css({ 'display': 'block' });
         }
-        if ($('#Version').val() == '') {
-            alert('Version is required.');
+        else if ($('#SyllabusVersionCode').val() == '') {
+            $('#SyllabusVersionCodeVal').css({ 'display': 'block' });
         }
-        else if ($('#Credit').val() == '') {
-            alert('Credit Name is required.');
+        else if ($('#CountryCode').val() == '') {
+            $('#CountryCodeVal').css({ 'display': 'block' });
+        }
+        else if ($('#AcademicYearCode').val() == '') {
+            $('#AcademicYearCodeVal').css({ 'display': 'block' });
+        }
+        else if ($('#SemisterCode').val() == '') {
+            $('#SemisterCodeVal').css({ 'display': 'block' });
+        }
+        else if ($('#CourseID').val() == '') {
+            $('#CourseIDVal').css({ 'display': 'block' });
+        }
+        else if ($('#SectionID').val() == '') {
+            $('#SectionIDVal').css({ 'display': 'block' });
         }
         else {
-
-
             var model = {
                 ExaminationSectionID: ExaminationSectionID,
                 ProgramCode: $('#ProgramCode').val(),
@@ -194,11 +222,11 @@
     function fnLoadExaminationSectionList() {
         $('.listExaminationSection').load('/Admin/Admin/ExaminationSectionList');
     }
-    function fnDeleteExaminationSection(ExaminationSectionID) {
+    function fnDeleteExaminationSection(examinationSectionID) {
 
-        if (confirm("Are you sure?")) {
+        if (confirm("Are you sure want to delete?")) {
             var model = {
-                ExaminationSectionID: ExaminationSectionID
+                ExaminationSectionID: examinationSectionID
             };
             $.ajax({
                 url: '@Url.Action("DeleteExaminationSection", "Admin",new {area="Admin" })',
@@ -210,7 +238,6 @@
                 success: function (result) {
                     if (result > 0) {
                         alert('Examination Section has been deleted Successfully.');
-
                         fnLoadExaminationSectionList();
                     }
                 },

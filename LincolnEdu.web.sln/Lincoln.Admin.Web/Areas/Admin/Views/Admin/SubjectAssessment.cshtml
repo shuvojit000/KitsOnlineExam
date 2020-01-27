@@ -38,12 +38,30 @@
                                             <span class="hidden">Add</span>
                                         </span>
                                     </a>
+                                    <a class="dt-button buttons-excel buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to Excel">
+                                        <span>
+                                            <i class="fa fa-file-excel-o bigger-110"></i>
+                                            <span class="hidden">Export to Excel</span>
+                                        </span>
+                                    </a>
+                                    <a class="dt-button buttons-pdf buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to PDF">
+                                        <span>
+                                            <i class="fa fa-file-pdf-o bigger-110"></i>
+                                            <span class="hidden">Export to PDF</span>
+                                        </span>
+                                    </a>
+                                    <a class="dt-button buttons-print btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Print">
+                                        <span>
+                                            <i class="fa fa-print bigger-110"></i>
+                                            <span class="hidden">Print</span>
+                                        </span>
+                                    </a>
 
                                 </div>
                             </div>
                         </div>
                         <div class="card-content collapse show">
-                            <div class="card-body card-dashboard fnLoadSubjectAssessmentList">
+                            <div class="card-body card-dashboard listSubjectAssessment">
                                 @{ Html.RenderAction("SubjectAssessmentList", "Admin", new { area = "Admin" });}
                             </div>
                         </div>
@@ -172,7 +190,18 @@
                  AcademicYearCode: $('#AcademicYearCode').val(),
                 Active: 'A'
             };
-
+            var SubAssessmentDetails =[];
+            var tabular = {
+                AssessmentName: $('#TabulalConfigurationDetails_AssessmentName').val(),
+                AssessmentType: $('#TabulalConfigurationDetails_AssessmentType').val(),
+                FullMarks: $('#TabulalConfigurationDetails_FullMarks').val(),
+                AssessmentPercentage: $('#TabulalConfigurationDetails_AssessmentPercentage').val(),
+                OpenClose: $('#TabulalConfigurationDetails_OpenClose').val(),
+            };
+            
+            SubAssessmentDetails.push(tabular);
+            model.SubAssessmentDetails = SubAssessmentDetails;
+            debugger;
             $.ajax({
                 url: '@Url.Action("SaveSubjectAssessment", "Admin",new {area="Admin" })',
                 data: JSON.stringify(model),
@@ -205,7 +234,7 @@
     }
     function fnDeleteSubjectAssessment(SubjectAssessmentID) {
 
-        if (confirm("Are you sure?")) {
+        if (confirm("Are you sure want to delete?")) {
             var model = {
                 SubjectAssessmentID: SubjectAssessmentID
             };
