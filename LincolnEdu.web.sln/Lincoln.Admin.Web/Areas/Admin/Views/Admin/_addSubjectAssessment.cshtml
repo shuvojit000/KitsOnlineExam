@@ -19,7 +19,7 @@
                     <div class="form-group col-lg-6">
                         <label><b>Program Level<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.ProgramCode, Model.ProgramList, "Select Academic Level", new { @class = "custom-select block" })
+                            @Html.DropDownListFor(a => a.ProgramCode, Model.ProgramList, "Select Program Level", new { @class = "custom-select block" })
 
                         </div>
                     </div>
@@ -33,36 +33,36 @@
                     <div class="form-group col-lg-6">
                         <label><b>Semister<span class="requiredstar">*</span></b></label>
                         <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.SemisterCode, Model.SemisterList, "Select Faculty", new { @class = "custom-select block" })
+                            @Html.DropDownListFor(a => a.SemisterCode, Model.SemisterList, "Select Semister", new { @class = "custom-select block" })
 
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
                         <label><b>Course<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.CourseCode, Model.CourseList, "Select Faculty", new { @class = "custom-select block" })
+                            @Html.DropDownListFor(a => a.CourseID, Model.CourseList, "Select Course", new { @class = "custom-select block" })
 
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
                         <label><b>Country<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.CountryCode, Model.CountryList, "Select Faculty", new { @class = "custom-select block" })
+                            @Html.DropDownListFor(a => a.CountryCode, Model.CountryList, "Select Country", new { @class = "custom-select block" })
 
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
                         <label><b>Academic Year<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.AcademicYearCode, Model.AcademicYearList, "Select Faculty", new { @class = "custom-select block" })
+                            @Html.DropDownListFor(a => a.AcademicYearCode, Model.AcademicYearList, "Select Academic Year", new { @class = "custom-select block" })
 
                         </div>
                     </div>
-                </div>               
+                </div>
 
             </div>
             <div class="modal-footer">
-                <button type="button" onclick="fnSaveProgramVersioning(@Model.SubjectAssessmentID)" class="btn btn-primary">
+                <button type="button" onclick="fnSaveSubjectAssessment(@Model.SubjectAssessmentID)" class="btn btn-primary">
                     <i class="fa fa-check-square-o"></i> Save
                 </button>
             </div>
@@ -71,3 +71,77 @@
     </div>
     <!--main contant end-->
 </div>
+<script>
+    $(document).ready(function () {
+        $("#FacultyCode").change(function () {
+            $("#ProgramCode").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetProgDrop","Admin",new { area="Admin"})', // we are calling json method
+
+                dataType: 'json',
+
+                data: { departmentID: $("#FacultyCode").val() },
+                success: function (res) {
+                    $('#ProgramCode').append(new Option("Select Programme Level", 0))
+                    $.each(res, function (i, state) {
+                        $("#ProgramCode").append('<option value="' + state.Value + '">' +
+                            state.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve Faculty.' + ex);
+                }
+            });
+            return false;
+        });
+
+
+        $("#ProgramCode").change(function () {
+            $("#SyllabusVersionCode").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetProgrammeVersionDDL","Admin",new { area="Admin"})', // we are calling json method
+
+                dataType: 'json',
+
+                data: { ProgramVID: $("#ProgramCode").val() },
+                success: function (res) {
+                     $('#SyllabusVersionCode').append(new Option("Select Programme Version", 0))
+                    $.each(res, function (i, state) {
+                        $("#SyllabusVersionCode").append('<option value="' + state.Value + '">' +
+                            state.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve Version.' + ex);
+                }
+            });
+            return false;
+        });
+
+
+         $("#SemisterCode").change(function () {
+            $("#CourseID").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetCourseDDL","Admin",new { area="Admin"})',
+                dataType: 'json',
+                data: { SemisterID: 5 },
+                success: function (res) {
+                    debugger;
+                     $('#CourseID').append(new Option("Select Course", 0))
+                    $.each(res, function (i, state) {
+                        debugger;
+                        $("#CourseID").append('<option value="' + state.Value + '">' +
+                            state.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve Course.' + ex);
+                }
+            });
+            return false;
+        });
+    });
+</script>

@@ -163,10 +163,13 @@
 
             var model = {
                 SubjectAssessmentID: SubjectAssessmentID,
-                ProgramCode: $('#ProgramCode').val(),
-                DepartmentCode: $('#DepartmentCode').val(),
-                Version: $('#Version').val(),
-                Credit: $('#Credit').val(),
+               ProgramCode: $('#ProgramCode').val(),
+                FacultyCode: $('#FacultyCode').val(),
+                SyllabusVersionCode: $('#SyllabusVersionCode').val(),
+                SemisterCode: $('#SemisterCode').val(),
+                CountryCode: $('#CountryCode').val(),
+                CourseCode: $('#CourseID').val(),
+                 AcademicYearCode: $('#AcademicYearCode').val(),
                 Active: 'A'
             };
 
@@ -181,7 +184,7 @@
                     if (result > 0) {
                         alert('Data Save Successfully.');
                         $("#myModal").modal('hide');
-                        fnLoadExaminationSectionList();
+                        fnLoadSubjectAssessmentList();
                     } else {
                         alert('Error in your requst.');
                         $("#myModal").modal('hide');

@@ -30,16 +30,9 @@
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
-                        <label><b>Semister<span class="requiredstar">*</span> </b></label>
+                        <label><b>Country: </b></label>
                         <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.SemisterCode, Model.SemisterList, "Select Semister", new { @class = "custom-select block" })
-
-                        </div>
-                    </div>
-                    <div class="form-group col-lg-6">
-                        <label><b>Course<span class="requiredstar">*</span> </b></label>
-                        <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.CourseCode, Model.CourseList, "Select Course", new { @class = "custom-select block" })
+                            @Html.DropDownListFor(a => a.CountryCode, Model.CountryList, "Select Country", new { @class = "custom-select block" })
 
                         </div>
                     </div>
@@ -50,10 +43,25 @@
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
-                        <label><b>Country: </b></label>
+                        <label><b>Semister<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.CountryCode, Model.CountryList, "Select Country", new { @class = "custom-select block" })
+                            @Html.DropDownListFor(a => a.SemisterCode, Model.SemisterList, "Select Semister", new { @class = "custom-select block" })
 
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label><b>Course<span class="requiredstar">*</span> </b></label>
+                        <div class="position-relative has-icon-left">
+                            @Html.DropDownListFor(a => a.CourseID, Model.CourseList, "Select Course", new { @class = "custom-select block" })
+
+                        </div>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label><b>Section<span class="requiredstar">*</span> </b></label>
+                        <div class="position-relative has-icon-left">
+                            @Html.DropDownListFor(a => a.SectionID, Model.SectionList, "Select Section", new { @class = "custom-select block" })
+                            <input type="hidden" id="Section" value="" />
                         </div>
                     </div>
                 </div>
@@ -125,12 +133,13 @@
                 type: 'POST',
                 url: '@Url.Action("GetCourseDDL","Admin",new { area="Admin"})', 
                 dataType: 'json',
-                data: { SemisterID: $("#SemisterCode").val() },
+                data: { SemisterID: 5 },
                 success: function (res) {
-                     $('#CourseCode').append(new Option("Select Course", 0))
+                    debugger;
+                     $('#CourseID').append(new Option("Select Course", 0))
                     $.each(res, function (i, state) {
                         debugger;
-                        $("#CourseCode").append('<option value="' + state.Value + '">' +
+                        $("#CourseID").append('<option value="' + state.Value + '">' +
                             state.Text + '</option>');
                     });
                 },

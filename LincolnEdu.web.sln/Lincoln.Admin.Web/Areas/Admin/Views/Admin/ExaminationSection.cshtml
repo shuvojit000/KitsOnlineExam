@@ -42,7 +42,7 @@
                             </div>
                         </div>
                         <div class="card-content collapse show">
-                            <div class="card-body card-dashboard listCourse">
+                            <div class="card-body card-dashboard listExaminationSection">
                                 @{ Html.RenderAction("ExaminationSectionList", "Admin", new { area = "Admin" });}
                             </div>
                         </div>
@@ -75,7 +75,7 @@
     $(function () {
         $('li a[href*="ExaminationSection"]').parent('li').addClass('active')
         $("#ddlStatus").change(function () {
-           
+
             if ($('#ddlStatus').val() != '' && $('#ddlStatus').val() != null) {
 
                 var statusIdstr = [];
@@ -154,9 +154,13 @@
             var model = {
                 ExaminationSectionID: ExaminationSectionID,
                 ProgramCode: $('#ProgramCode').val(),
-                DepartmentCode: $('#DepartmentCode').val(),
-                Version: $('#Version').val(),
-                Credit: $('#Credit').val(),
+                FacultyCode: $('#FacultyCode').val(),
+                SyllabusVersionCode: $('#SyllabusVersionCode').val(),
+                SemisterCode: $('#SemisterCode').val(),
+                CountryCode: $('#CountryCode').val(),
+                CourseCode: $('#CourseID').val(),
+                SectionName:$("#SectionID option:selected").text(),
+                 AcademicYearCode: $('#AcademicYearCode').val(),
                 Active: 'A'
             };
 
@@ -171,7 +175,7 @@
                     if (result > 0) {
                         alert('Data Save Successfully.');
                         $("#myModal").modal('hide');
-                        fnLoadCourseList();
+                        fnLoadExaminationSectionList();
                     } else {
                         alert('Error in your requst.');
                         $("#myModal").modal('hide');
