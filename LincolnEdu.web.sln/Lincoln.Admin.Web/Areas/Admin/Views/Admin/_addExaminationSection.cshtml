@@ -18,7 +18,7 @@
                     <div class="form-group col-lg-6">
                         <label><b>Programme <span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.ProgramCode, Model.ProgramList, "Select Programme Level", new { @class = "custom-select block" })
+                            @Html.DropDownListFor(a => a.ProgramCode, Model.ProgramList, "Select Programme", new { @class = "custom-select block" })
                             <span id="ProgramCodeVal" style="color:red;display:none" class="valClass">Please select Programme.</span>
                         </div>
                     </div>
@@ -37,9 +37,9 @@
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
-                        <label><b>Academic Year<span class="requiredstar">*</span> </b></label>
+                        <label><b>Programme Year<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.AcademicYearCode, Model.AcademicYearList, "Select Academic Year", new { @class = "custom-select block" })
+                            @Html.DropDownListFor(a => a.AcademicYearCode, Model.AcademicYearList, "Select Programme Year", new { @class = "custom-select block" })
                             <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
                         </div>
                     </div>
@@ -91,7 +91,7 @@
 
             data: { departmentID: $("#FacultyCode").val() },
             success: function (res) {
-                $('#ProgramCode').append(new Option("Select Programme Level", 0))
+                $("#ProgramCode").append('<option value="">Select Programme</option>');
                 $.each(res, function (i, state) {
                     $("#ProgramCode").append('<option value="' + state.Value + '">' +
                         state.Text + '</option>');
@@ -115,7 +115,8 @@
 
             data: { ProgramVID: $("#ProgramCode").val() },
             success: function (res) {
-                $('#SyllabusVersionCode').append(new Option("Select Programme Version", 0))
+                $("#SyllabusVersionCode").append('<option value="">Select Programme Version</option>');
+              
                 $.each(res, function (i, state) {
                     $("#SyllabusVersionCode").append('<option value="' + state.Value + '">' +
                         state.Text + '</option>');
@@ -125,20 +126,115 @@
                 alert('Failed to retrieve Version.' + ex);
             }
         });
+        $("#CountryCode").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("ChangeProgramSelection", "Admin",new { area="Admin"})', // we are calling json method
+            dataType: 'json',
+            data: { programmeID: $("#ProgramCode").val() },
+            success: function (res) {
+                if (res != null) {
+
+                    $("#CountryCode").append('<option value="">Select Country</option>');
+                    $.each(res.CountryList, function (i, state) {
+                        $("#CountryCode").append('<option value="' + state.Value + '">' +
+                             state.Text + '</option>');
+                        // here we are adding option for States
+
+                    });
+                }
+                else {
+
+                    $("#CountryCode").append('<option value="">Select Country</option>');
+                }
+            },
+            error: function (ex) {
+                alert('Failed to retrieve country.' + ex);
+            }
+        });
+
+
+        return false;
+    });
+
+    $(document).on("change", "#CountryCode", function () {
+        $("#AcademicYearCode").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("ChangeCountrySelection", "Admin",new { area="Admin"})', // we are calling json method
+
+            dataType: 'json',
+
+            data: { programmeID: $("#ProgramCode").val(), countryID: $('#CountryCode').val() },
+            success: function (res) {
+                if (res != null) {
+
+                    $("#AcademicYearCode").append('<option value="">Select Programme Year</option>');
+                    $.each(res.ProgYearList, function (i, state) {
+                        $("#AcademicYearCode").append('<option value="' + state.Value + '">' +
+                             state.Text + '</option>');
+                        // here we are adding option for States
+
+                    });
+                }
+                else {
+
+                    $("#AcademicYearCode").append('<option value="">Select Programme Year</option>');
+
+                }
+            },
+            error: function (ex) {
+                alert('Failed to retrieve Programme year.' + ex);
+            }
+        });
+        return false;
+    });
+
+    $(document).on("change", "#AcademicYearCode", function () {
+        $("#SemisterCode").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("ChangeProgramYearSelection", "Admin",new { area="Admin"})', // we are calling json method
+
+            dataType: 'json',
+
+            data: { programmeID: $("#ProgramCode").val(), countryID: $('#CountryCode').val(), programYear: $('#AcademicYearCode').val() },
+            success: function (res) {
+                if (res != null) {
+                    
+                    $("#SemisterCode").append('<option value="">Select Semester</option>');
+                    $.each(res.ProgSEMList, function (i, state) {
+                        $("#SemisterCode").append('<option value="' + state.Value + '">' +
+                             state.Text + '</option>');
+                        // here we are adding option for States
+
+                    });
+                }
+                else {
+
+                    $("#SemisterCode").append('<option value="">Select Semester</option>');
+
+                }
+            },
+            error: function (ex) {
+                alert('Failed to retrieve Semester.' + ex);
+            }
+        });
         return false;
     });
 
 
     $(document).on("change","#SemisterCode",function () {
-        $("#CourseCode").empty();
+        $("#CourseID").empty();
         $.ajax({
             type: 'POST',
-            url: '@Url.Action("GetCourseDDL","Admin",new { area="Admin"})',
+            url: '@Url.Action("GetCourseExam", "Admin",new { area="Admin"})',
             dataType: 'json',
-            data: { SemisterID: 5 },
-            success: function (res) {
+            data: { programmeId: $("#ProgramCode").val(), countryId: $('#CountryCode').val(), 
+                programmeYear: $('#AcademicYearCode').val(),programmeSem: $('#SemisterCode').val() },
+              success: function (res) {
                 debugger;
-                $('#CourseID').append(new Option("Select Course", 0))
+                $("#CourseID").append('<option value="">Select Course</option>');
                 $.each(res, function (i, state) {
                     debugger;
                     $("#CourseID").append('<option value="' + state.Value + '">' +

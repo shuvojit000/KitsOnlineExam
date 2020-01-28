@@ -22,6 +22,24 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-lg-6">
+                        <label><b>Country <span class="requiredstar">*</span></b> </label>
+                        <div class="position-relative has-icon-left gt">
+                            @Html.DropDownListFor(a => a.CountryID, Model.CountryList, "Select Country", new { @class = "custom-select block" })
+                            <span id="CountryIDVal" style="color:red;display:none" class="valClass">Please select Country.</span>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label><b>Programme Year<span class="requiredstar">*</span></b> </label>
+                        <div class="position-relative has-icon-left">
+                            @Html.DropDownListFor(a => a.ProgrammeYear, Model.ProgYearList, "Select Programme Year", new { @class = "custom-select block" })
+                            <span id="ProgrammeYearVal" style="color:red;display:none" class="valClass">Please select Programme Year.</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+
+                    <div class="form-group col-lg-6">
                         <label><b>Programme Semester<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
                             @Html.DropDownListFor(a => a.ProgrammeSemester, Model.ProgSEMList, "Select Semester", new { @class = "custom-select block" })
@@ -29,28 +47,10 @@
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
-                        <label><b>Country <span class="requiredstar">*</span></b> </label>
-                        <div class="position-relative has-icon-left gt">
-                            @Html.DropDownListFor(a => a.CountryID, Model.CountryList, "Select Country", new { @class = "custom-select block" })
-                            <span id="CountryIDVal" style="color:red;display:none" class="valClass">Please select Country.</span>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="form-group col-lg-6">
-                        <label><b>Programme Year<span class="requiredstar">*</span></b> </label>
-                        <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.ProgrammeYear, Model.ProgYearList, "Select Programme Year", new { @class = "custom-select block"  })
-                            <span id="ProgrammeYearVal" style="color:red;display:none" class="valClass">Please select Programme Year.</span>
-                        </div>
-                    </div>
-
-                    <div class="form-group col-lg-6">
                         <label><b>Semester Type<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
-                            <input type="radio" name="SemesterType" value="Short" @(Model.SemesterType=="Short" ?"checked":"")> Short
-                            <input type="radio" name="SemesterType" value="Long" @(Model.SemesterType== "Long" ? "checked":"")> Long
+                            <input type="radio" name="SemesterType" value="Short" @(Model.SemesterType == "Short" ? "checked" : "")> Short
+                            <input type="radio" name="SemesterType" value="Long" @(Model.SemesterType == "Long" ? "checked" : "")> Long
                             <span id="SemesterTypeVal" style="color:red;display:none" class="valClass">Please select Semester Type.</span>
                         </div>
                     </div>
@@ -113,85 +113,133 @@
     <!--main contant end-->
 </div>
 <script>
-   
-        //Dropdownlist Selectedchange event
-    $(document).on("change","#DepartmentID",function () {
-            $("#ProgrammeID").empty();
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("GetProgDrop","Admin",new { area="Admin"})', // we are calling json method
 
-                dataType: 'json',
+    //Dropdownlist Selectedchange event
+    $(document).on("change", "#DepartmentID", function () {
+        $("#ProgrammeID").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetProgDrop","Admin",new { area="Admin"})', // we are calling json method
 
-                data: { departmentID: $("#DepartmentID").val() },
-                success: function (res) {
-                    // states contains the JSON formatted list
-                    // of states passed from the controller
-                    $("#ProgrammeID").append('<option value="">Select Programme</option>');
-                    $.each(res, function (i, state) {
-                        $("#ProgrammeID").append('<option value="' + state.Value + '">' +
+            dataType: 'json',
+
+            data: { departmentID: $("#DepartmentID").val() },
+            success: function (res) {
+                // states contains the JSON formatted list
+                // of states passed from the controller
+                $("#ProgrammeID").append('<option value="">Select Programme</option>');
+                $.each(res, function (i, state) {
+                    $("#ProgrammeID").append('<option value="' + state.Value + '">' +
+                         state.Text + '</option>');
+                    // here we are adding option for States
+
+                });
+            },
+            error: function (ex) {
+                alert('Failed to retrieve Programme.' + ex);
+            }
+        });
+        return false;
+    })
+    $(document).on("change", "#ProgrammeID", function () {
+        $("#CountryID").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("ChangeProgramSelection", "Admin",new { area="Admin"})', // we are calling json method
+
+            dataType: 'json',
+
+            data: { programmeID: $("#ProgrammeID").val() },
+            success: function (res) {
+                if (res != null) {
+                   
+                    $("#CountryID").append('<option value="">Select Country</option>');
+                    $.each(res.CountryList, function (i, state) {
+                        $("#CountryID").append('<option value="' + state.Value + '">' +
                              state.Text + '</option>');
                         // here we are adding option for States
 
                     });
-                },
-                error: function (ex) {
-                    alert('Failed to retrieve Programme.' + ex);
                 }
-            });
-            return false;
-        })
-    $(document).on("change","#ProgrammeID",function () {
-           
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("ChangeProgramSelection", "Admin",new { area="Admin"})', // we are calling json method
+                else {
+                    $("#CountryID").append('<option value="">Select Country</option>');
 
-                dataType: 'json',
-
-                data: { programmeID: $("#ProgrammeID").val() },
-                success: function (res) {
-                    if (res != null) {
-                        $("#ProgrammeYear").empty();
-                        $("#ProgrammeSemester").empty();
-                        $("#CountryID").empty();
-
-                        $("#ProgrammeYear").append('<option value="">Select Programme Year</option>');
-                        $.each(res.ProgYearList, function (i, state) {
-                            $("#ProgrammeYear").append('<option value="' + state.Value + '">' +
-                                 state.Text + '</option>');
-                            // here we are adding option for States
-
-                        });
-                        $("#ProgrammeSemester").append('<option value="">Select Semester</option>');
-                        $.each(res.ProgSEMList, function (i, state) {
-                            $("#ProgrammeSemester").append('<option value="' + state.Value + '">' +
-                                 state.Text + '</option>');
-                            // here we are adding option for States
-
-                        });
-                        $("#CountryID").append('<option value="">Select Country</option>');
-                        $.each(res.CountryList, function (i, state) {
-                            $("#CountryID").append('<option value="' + state.Value + '">' +
-                                 state.Text + '</option>');
-                            // here we are adding option for States
-
-                        });
-
-                    }
-                    else {
-                        $('#ProgrammeYear').val('');
-                        $('#ProgrammeSemester').val('');
-                        $('#CountryID').val('');
-                        $('input[name="SemesterType"]').prop('checked',false)
-                    }
-                },
-                error: function (ex) {
-                    alert('Failed to retrieve Programme.' + ex);
                 }
-            });
-            return false;
-    })
+            },
+            error: function (ex) {
+                alert('Failed to retrieve country.' + ex);
+            }
+        });
+        return false;
+    });
+    $(document).on("change", "#CountryID", function () {
+        $("#ProgrammeYear").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("ChangeCountrySelection", "Admin",new { area="Admin"})', // we are calling json method
+
+            dataType: 'json',
+
+            data: { programmeID: $("#ProgrammeID").val(), countryID: $('#CountryID').val() },
+            success: function (res) {
+                if (res != null) {
+                   
+                    $("#ProgrammeYear").append('<option value="">Select Programme Year</option>');
+                    $.each(res.ProgYearList, function (i, state) {
+                        $("#ProgrammeYear").append('<option value="' + state.Value + '">' +
+                             state.Text + '</option>');
+                        // here we are adding option for States
+
+                    });
+                }
+                else {
+
+                    $("#ProgrammeYear").append('<option value="">Select Programme Year</option>');
+
+                }
+            },
+            error: function (ex) {
+                alert('Failed to retrieve Programme year.' + ex);
+            }
+        });
+        return false;
+    });
+    $(document).on("change", "#ProgrammeYear", function () {
+        $("#ProgrammeSemester").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("ChangeProgramYearSelection", "Admin",new { area="Admin"})', // we are calling json method
+
+            dataType: 'json',
+
+            data: { programmeID: $("#ProgrammeID").val(), countryID: $('#CountryID').val(), programYear: $('#ProgrammeYear').val() },
+            success: function (res) {
+                if (res != null) {
+                    
+                    $("#ProgrammeSemester").append('<option value="">Select Semester</option>');
+                    $.each(res.ProgSEMList, function (i, state) {
+                        $("#ProgrammeSemester").append('<option value="' + state.Value + '">' +
+                             state.Text + '</option>');
+                        // here we are adding option for States
+
+                    });
+                }
+                else {
+
+                    $("#ProgrammeSemester").append('<option value="">Select Semester</option>');
+
+                }
+            },
+            error: function (ex) {
+                alert('Failed to retrieve Semester.' + ex);
+            }
+        });
+        return false;
+    });
+
+
+
+
     function distinct(myArray) {
         var newArray = [];
 
@@ -205,4 +253,4 @@
 
         return newArray;
     }
-    </script>
+</script>
