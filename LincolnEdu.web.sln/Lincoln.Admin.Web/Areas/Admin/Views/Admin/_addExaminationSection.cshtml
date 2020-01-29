@@ -233,10 +233,8 @@
             data: { programmeId: $("#ProgramCode").val(), countryId: $('#CountryCode').val(), 
                 programmeYear: $('#AcademicYearCode').val(),programmeSem: $('#SemisterCode').val() },
               success: function (res) {
-                debugger;
                 $("#CourseID").append('<option value="">Select Course</option>');
                 $.each(res, function (i, state) {
-                    debugger;
                     $("#CourseID").append('<option value="' + state.Value + '">' +
                         state.Text + '</option>');
                 });

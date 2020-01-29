@@ -29,15 +29,17 @@ namespace Lincoln.OnlineExam.Response
         public DateTime? CreatedOn { get; set; }
         public int? ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
+        public  SubjectAssessmentDetails TabularDetails { get; set; }
         public List<SubjectAssessmentDetails> SubAssessmentDetails { get; set; }
     }
     public class SubjectAssessmentDetails
     {
+        public int AssessmentConfigurationDetailsID { get; set; }
         public int SlNo { get; set; }
         public string AssessmentName { get; set; }
-        public string Assessment { get; set; }
+        public decimal AssessmentPercentage { get; set; }
         public string AssessmentType { get; set; }
-        public string FullMarks { get; set; }
-        public bool OpenClose { get; set; }
+        public decimal FullMarks { get; set; }
+        public string OpenClose { get; set; }
     }
 }

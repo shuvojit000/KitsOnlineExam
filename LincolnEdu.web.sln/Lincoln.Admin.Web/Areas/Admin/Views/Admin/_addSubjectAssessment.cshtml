@@ -1,4 +1,4 @@
-﻿
+﻿<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 @model Lincoln.Admin.Web.Models.SubjectAssessmentViewModel
 
@@ -13,96 +13,122 @@
                         <label><b>Faculty<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
                             @Html.DropDownListFor(a => a.FacultyCode, Model.FacultyList, "Select Faculty", new { @class = "custom-select block" })
-
+                            <span id="FacultyCodeVal" style="color:red;display:none" class="valClass">Please select Faculty.</span>
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
-                        <label><b>Program Level<span class="requiredstar">*</span> </b></label>
+                        <label><b>Programme Level<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.ProgramCode, Model.ProgramList, "Select Program Level", new { @class = "custom-select block" })
-
+                            @Html.DropDownListFor(a => a.ProgramCode, Model.ProgramList, "Select Programme", new { @class = "custom-select block" })
+                            <span id="ProgramCodeVal" style="color:red;display:none" class="valClass">Please select Programme.</span>
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
                         <label><b>Programme Version<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.SyllabusVersionCode, Model.SyllabusVersionList, "Select Faculty", new { @class = "custom-select block" })
-
-                        </div>
-                    </div>
-                    <div class="form-group col-lg-6">
-                        <label><b>Semister<span class="requiredstar">*</span></b></label>
-                        <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.SemisterCode, Model.SemisterList, "Select Semister", new { @class = "custom-select block" })
-
-                        </div>
-                    </div>
-                    <div class="form-group col-lg-6">
-                        <label><b>Course<span class="requiredstar">*</span> </b></label>
-                        <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.CourseID, Model.CourseList, "Select Course", new { @class = "custom-select block" })
-
+                            @Html.DropDownListFor(a => a.SyllabusVersionCode, Model.SyllabusVersionList, "Select Programme Version", new { @class = "custom-select block" })
+                            <span id="SyllabusVersionCodeVal" style="color:red;display:none" class="valClass">Please select Version.</span>
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
                         <label><b>Country<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
                             @Html.DropDownListFor(a => a.CountryCode, Model.CountryList, "Select Country", new { @class = "custom-select block" })
-
+                            <span id="CountryCodeVal" style="color:red;display:none" class="valClass">Please select Country.</span>
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
                         <label><b>Academic Year<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.AcademicYearCode, Model.AcademicYearList, "Select Academic Year", new { @class = "custom-select block" })
-
+                            @Html.DropDownListFor(a => a.AcademicYearCode, Model.AcademicYearList, "Select Programme Year", new { @class = "custom-select block" })
+                            <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
                         </div>
                     </div>
-                </div>
+                    <div class="form-group col-lg-6">
+                        <label><b>Semister<span class="requiredstar">*</span></b></label>
+                        <div class="position-relative has-icon-left">
+                            @Html.DropDownListFor(a => a.SemisterCode, Model.SemisterList, "Select Semester", new { @class = "custom-select block" })
+                            <span id="SemisterCodeVal" style="color:red;display:none" class="valClass">Please select Semester.</span>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label><b>Course<span class="requiredstar">*</span> </b></label>
+                        <div class="position-relative has-icon-left">
+                            @Html.DropDownListFor(a => a.CourseID, Model.CourseList, "Select Course", new { @class = "custom-select block" })
+                            <span id="CourseIDVal" style="color:red;display:none" class="valClass">Please select Course.</span>
+                        </div>
+                    </div>
 
-                <table  border="1" >
-                    <thead>
-                        <tr>
-                            <th>Assessment Name</th>
-                            <th>Assessment %</th>
-                            <th>Full Marks</th>
-                            <th>Assessment Type</th>
-                            <th>Status</th>
+                </div>
+                <table class="form-table" id="customFields">
+                    <tr>
+                        <th scope="row"><label for="customFieldName">Assessment</label></th>
+                        <th scope="row"><label for="customFieldName">Percentage(%)</label></th>
+                        <th scope="row"><label for="customFieldName">Full Marks</label></th>
+                        <th scope="row"><label for="customFieldName">Type</label></th>
+                        <th scope="row"><label for="customFieldName">Open/Close</label></th>
+                    </tr>
+                    @if (Model.SubjectAssessmentID > 0)
+                    {
+                        foreach (var item in Model.SubAssessmentDetails)
+                        {
+                            <tr valign="top">
+                                <td>
+                                    <input type="text" class="form-control" id="AssessmentName" name="AssessmentName[]" value=@item.AssessmentName placeholder="Name" /> &nbsp;
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" id="AssessmentPercentage" name="AssessmentPercentage[]" value=@item.AssessmentPercentage placeholder="Percentage" /> &nbsp;
+
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" id="FullMarks" name="FullMarks[]" value=@item.FullMarks placeholder="Full Marks" /> &nbsp;
+
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" id="AssessmentType" name="AssessmentType[]" value=@item.AssessmentType placeholder="Type" /> &nbsp;
+
+                                </td>
+                                <td>
+                                    <input type="radio" class="form-control" id="OpenClose" name="OpenClose[]" value=@item.OpenClose  /> &nbsp;
+
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0);" id="addCF">Add</a>
+                                </td>
+                            </tr>
+
+                        }
+                    }
+                    else
+                    {
+
+                        <tr valign="top">
+                            <td>
+                                <input type="text" class="form-control" id="AssessmentName" name="AssessmentName[]" value="" placeholder="Name" /> &nbsp;
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" id="AssessmentPercentage" name="AssessmentPercentage[]" value="" placeholder="Percentage" /> &nbsp;
+
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" id="FullMarks" name="FullMarks[]" value="" placeholder="Full Marks" /> &nbsp;
+
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" id="AssessmentType" name="AssessmentType[]" value="" placeholder="Type" /> &nbsp;
+
+                            </td>
+                            <td>
+                                <input type="radio" class="form-control" id="OpenClose" name="OpenClose[]" value=""  /> &nbsp;
+
+                            </td>
+                            <td>
+                                <a href="javascript:void(0);" id="addCF">Add</a>
+                            </td>
                         </tr>
 
-                    </thead>
-                    <tbody>
-
-                        @if (Model.SubjectAssessmentID > 0)
-                        {
-                            foreach (var item in Model.SubAssessmentDetails)
-                            {
-                                <tr class="trow">
-                                    <td>@Html.TextBoxFor(a => item.AssessmentName, new { @class = "form-control" })</td>
-                                    <td>@Html.TextBoxFor(a => item.AssessmentPercentage, new { @class = "form-control" })</td>
-                                    <td>@Html.TextBoxFor(a => item.FullMarks, new { @class = "form-control" })</td>
-                                    <td>@Html.TextBoxFor(a => item.AssessmentType, new { @class = "form-control" })</td>
-                                    <td>@Html.RadioButtonFor(a => item.OpenClose, "")</td>
-                                </tr>
-
-                            }
-                        }
-                        else
-                        {
-                            <tr class="trow">
-                                <td>@Html.TextBoxFor(a => a.TabulalConfigurationDetails.AssessmentName, new { @class = "form-control"})</td>
-                                <td>@Html.TextBoxFor(a => a.TabulalConfigurationDetails.AssessmentPercentage, new { @class = "form-control" })</td>
-                                <td>@Html.TextBoxFor(a => a.TabulalConfigurationDetails.FullMarks, new { @class = "form-control" })</td>
-                                <td>@Html.TextBoxFor(a => a.TabulalConfigurationDetails.AssessmentType, new { @class = "form-control" })</td>
-                                <td>@Html.RadioButtonFor(a => a.TabulalConfigurationDetails.OpenClose, "")</td>
-                            </tr>
-                        }
-
-                    </tbody>
-
+                    }
                 </table>
-
-                
                 <div class="modal-footer">
                     <button type="button" onclick="fnSaveSubjectAssessment(@Model.SubjectAssessmentID)" class="btn btn-primary">
                         <i class="fa fa-check-square-o"></i> Save
@@ -115,76 +141,196 @@
     </div>
 </div>
 <script>
-    $(document).ready(function () {
-        $("#FacultyCode").change(function () {
-            $("#ProgramCode").empty();
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("GetProgDrop","Admin",new { area="Admin"})', // we are calling json method
 
-                dataType: 'json',
+    $(document).on("click", "#addCF", function () {
+        $("#customFields")
+            .append('<tr><td><input type="text" class="form-control" id="AssessmentName" name="AssessmentName[]" value="" placeholder="Name"  /></td> &nbsp;' +
+            ' <td><input type="text" class="form-control" id="AssessmentPercentage" name="AssessmentPercentage[]" value="" placeholder="Percentage" /></td> &nbsp;' +
+            ' <td><input type="text" class="form-control" id="FullMarks" name="FullMarks[]" value="" placeholder="Full Marks" /></td>   &nbsp;' +
+            ' <td><input type="text" class="form-control" id="AssessmentType" name="AssessmentType[]" value="" placeholder="Type" /></td> &nbsp;' +
+            ' <td><input type="radio" class="form-control" id="OpenClose" name="OpenClose[]" value="" placeholder="Input Value" /></td>&nbsp; ' +
+            '<td><a href="javascript:void(0);" id="remCF">Remove</a></td ></tr > ');
 
-                data: { departmentID: $("#FacultyCode").val() },
-                success: function (res) {
-                    $('#ProgramCode').append(new Option("Select Programme Level", 0))
-                    $.each(res, function (i, state) {
-                        $("#ProgramCode").append('<option value="' + state.Value + '">' +
-                            state.Text + '</option>');
-                    });
-                },
-                error: function (ex) {
-                    alert('Failed to retrieve Faculty.' + ex);
-                }
-            });
-            return false;
-        });
-
-
-        $("#ProgramCode").change(function () {
-            $("#SyllabusVersionCode").empty();
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("GetProgrammeVersionDDL","Admin",new { area="Admin"})', // we are calling json method
-
-                dataType: 'json',
-
-                data: { ProgramVID: $("#ProgramCode").val() },
-                success: function (res) {
-                    $('#SyllabusVersionCode').append(new Option("Select Programme Version", 0))
-                    $.each(res, function (i, state) {
-                        $("#SyllabusVersionCode").append('<option value="' + state.Value + '">' +
-                            state.Text + '</option>');
-                    });
-                },
-                error: function (ex) {
-                    alert('Failed to retrieve Version.' + ex);
-                }
-            });
-            return false;
-        });
-
-
-        $("#SemisterCode").change(function () {
-            $("#CourseID").empty();
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("GetCourseDDL","Admin",new { area="Admin"})',
-                dataType: 'json',
-                data: { SemisterID: 5 },
-                success: function (res) {
-                    debugger;
-                    $('#CourseID').append(new Option("Select Course", 0))
-                    $.each(res, function (i, state) {
-                        debugger;
-                        $("#CourseID").append('<option value="' + state.Value + '">' +
-                            state.Text + '</option>');
-                    });
-                },
-                error: function (ex) {
-                    alert('Failed to retrieve Course.' + ex);
-                }
-            });
-            return false;
-        });
     });
+    $(document).on("click", "#remCF", function () {
+        $(this).parent().parent().remove();
+    });
+
+    //var list = [];
+    //    $(document).ready(function () {
+    //        $('#test').click(function () {
+    //            var oRows = $('#MainContent_Table1 tr').length;
+    //            $('#MainContent_Table1 tr').each(function (index) {
+    //                list.push(this.cells[0].innerHTML);
+    //            });
+    //        });
+    //    });
+
+    $(document).on("change", "#FacultyCode", function () {
+        $("#ProgramCode").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetProgDrop","Admin",new { area="Admin"})', // we are calling json method
+
+            dataType: 'json',
+
+            data: { departmentID: $("#FacultyCode").val() },
+            success: function (res) {
+                $("#ProgramCode").append('<option value="">Select Programme</option>');
+                $.each(res, function (i, state) {
+                    $("#ProgramCode").append('<option value="' + state.Value + '">' +
+                        state.Text + '</option>');
+                });
+            },
+            error: function (ex) {
+                alert('Failed to retrieve Faculty.' + ex);
+            }
+        });
+        return false;
+    });
+
+
+    $(document).on("change", "#ProgramCode", function () {
+        $("#SyllabusVersionCode").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetProgrammeVersionDDL","Admin",new { area="Admin"})', // we are calling json method
+
+            dataType: 'json',
+
+            data: { ProgramVID: $("#ProgramCode").val() },
+            success: function (res) {
+                $("#SyllabusVersionCode").append('<option value="">Select Programme Version</option>');
+
+                $.each(res, function (i, state) {
+                    $("#SyllabusVersionCode").append('<option value="' + state.Value + '">' +
+                        state.Text + '</option>');
+                });
+            },
+            error: function (ex) {
+                alert('Failed to retrieve Version.' + ex);
+            }
+        });
+        $("#CountryCode").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("ChangeProgramSelection", "Admin",new { area="Admin"})', // we are calling json method
+            dataType: 'json',
+            data: { programmeID: $("#ProgramCode").val() },
+            success: function (res) {
+                if (res != null) {
+
+                    $("#CountryCode").append('<option value="">Select Country</option>');
+                    $.each(res.CountryList, function (i, state) {
+                        $("#CountryCode").append('<option value="' + state.Value + '">' +
+                             state.Text + '</option>');
+                        // here we are adding option for States
+
+                    });
+                }
+                else {
+
+                    $("#CountryCode").append('<option value="">Select Country</option>');
+                }
+            },
+            error: function (ex) {
+                alert('Failed to retrieve country.' + ex);
+            }
+        });
+
+
+        return false;
+    });
+
+    $(document).on("change", "#CountryCode", function () {
+        $("#AcademicYearCode").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("ChangeCountrySelection", "Admin",new { area="Admin"})', // we are calling json method
+
+            dataType: 'json',
+
+            data: { programmeID: $("#ProgramCode").val(), countryID: $('#CountryCode').val() },
+            success: function (res) {
+                if (res != null) {
+
+                    $("#AcademicYearCode").append('<option value="">Select Programme Year</option>');
+                    $.each(res.ProgYearList, function (i, state) {
+                        $("#AcademicYearCode").append('<option value="' + state.Value + '">' +
+                             state.Text + '</option>');
+                        // here we are adding option for States
+
+                    });
+                }
+                else {
+
+                    $("#AcademicYearCode").append('<option value="">Select Programme Year</option>');
+
+                }
+            },
+            error: function (ex) {
+                alert('Failed to retrieve Programme year.' + ex);
+            }
+        });
+        return false;
+    });
+
+    $(document).on("change", "#AcademicYearCode", function () {
+        $("#SemisterCode").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("ChangeProgramYearSelection", "Admin",new { area="Admin"})', // we are calling json method
+
+            dataType: 'json',
+
+            data: { programmeID: $("#ProgramCode").val(), countryID: $('#CountryCode').val(), programYear: $('#AcademicYearCode').val() },
+            success: function (res) {
+                if (res != null) {
+
+                    $("#SemisterCode").append('<option value="">Select Semester</option>');
+                    $.each(res.ProgSEMList, function (i, state) {
+                        $("#SemisterCode").append('<option value="' + state.Value + '">' +
+                             state.Text + '</option>');
+                        // here we are adding option for States
+
+                    });
+                }
+                else {
+
+                    $("#SemisterCode").append('<option value="">Select Semester</option>');
+
+                }
+            },
+            error: function (ex) {
+                alert('Failed to retrieve Semester.' + ex);
+            }
+        });
+        return false;
+    });
+
+
+    $(document).on("change", "#SemisterCode", function () {
+        $("#CourseID").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetCourseExam", "Admin",new { area="Admin"})',
+            dataType: 'json',
+            data: {
+                programmeId: $("#ProgramCode").val(), countryId: $('#CountryCode').val(),
+                programmeYear: $('#AcademicYearCode').val(), programmeSem: $('#SemisterCode').val()
+            },
+            success: function (res) {
+                $("#CourseID").append('<option value="">Select Course</option>');
+                $.each(res, function (i, state) {
+                    $("#CourseID").append('<option value="' + state.Value + '">' +
+                        state.Text + '</option>');
+                });
+            },
+            error: function (ex) {
+                alert('Failed to retrieve Course.' + ex);
+            }
+        });
+        return false;
+    });
+
 </script>

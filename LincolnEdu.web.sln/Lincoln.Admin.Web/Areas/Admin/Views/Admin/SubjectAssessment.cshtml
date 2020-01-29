@@ -56,7 +56,6 @@
                                             <span class="hidden">Print</span>
                                         </span>
                                     </a>
-
                                 </div>
                             </div>
                         </div>
@@ -154,54 +153,62 @@
 
     }
     function fnSaveSubjectAssessment(SubjectAssessmentID) {
+        debugger;
+        var SubAssessmentDetails = [];
+        $('#customFields tr[valign="top"]').each(function () {
+            var currentRow = $(this).closest("tr");
+            var tabular = {
+                AssessmentName: currentRow.find("#AssessmentName").val(),
+                AssessmentType: currentRow.find("#AssessmentType").val(),
+                FullMarks: currentRow.find("#FullMarks").val(),
+                AssessmentPercentage: currentRow.find("#AssessmentPercentage").val(),
+                OpenClose: currentRow.find("#OpenClose").val(),
+            };
+            SubAssessmentDetails.push(tabular);
+        });
 
-        if ($('#ProgramCode').val() == '') {
-            alert('Program is required.');
+
+        $('.valClass').css({ 'display': 'none' });
+        if ($('#FacultyCode').val() == '') {
+            $('#FacultyCodeVal').css({ 'display': 'block' });
         }
-        else if ($('#DepartmentCode').val() == '') {
-            alert('Faculty is required.');
+        else if ($('#ProgramCode').val() == '') {
+            $('#ProgramCodeVal').css({ 'display': 'block' });
         }
-        if ($('#SyllabusVersionCode').val() == '') {
-            alert('Version is required.');
+        else if ($('#SyllabusVersionCode').val() == '') {
+            $('#SyllabusVersionCodeVal').css({ 'display': 'block' });
+        }
+        else if ($('#CountryCode').val() == '') {
+            $('#CountryCodeVal').css({ 'display': 'block' });
+        }
+        else if ($('#AcademicYearCode').val() == '') {
+            $('#AcademicYearCodeVal').css({ 'display': 'block' });
         }
         else if ($('#SemisterCode').val() == '') {
-            alert('Semister Name is required.');
+            $('#SemisterCodeVal').css({ 'display': 'block' });
         }
-            else if ($('#CourseCode').val() == '') {
-            alert('Course Name is required.');
+        else if ($('#CourseID').val() == '') {
+            $('#CourseIDVal').css({ 'display': 'block' });
         }
-             else if ($('#Country').val() == '') {
-            alert('Country Name is required.');
+        else if ($('#SectionID').val() == '') {
+            $('#SectionIDVal').css({ 'display': 'block' });
         }
-         else if ($('#AcademicYearCode').val() == '') {
-            alert('Academic Year is required.');
+        else if (SubAssessmentDetails.length == 0) {
+            alert('Assessment is required.');
         }
-                    else {
-
-
+        else {
             var model = {
                 SubjectAssessmentID: SubjectAssessmentID,
-               ProgramCode: $('#ProgramCode').val(),
+                ProgramCode: $('#ProgramCode').val(),
                 FacultyCode: $('#FacultyCode').val(),
                 SyllabusVersionCode: $('#SyllabusVersionCode').val(),
                 SemisterCode: $('#SemisterCode').val(),
                 CountryCode: $('#CountryCode').val(),
                 CourseCode: $('#CourseID').val(),
-                 AcademicYearCode: $('#AcademicYearCode').val(),
+                AcademicYearCode: $('#AcademicYearCode').val(),
+                SubAssessmentDetails: SubAssessmentDetails,
                 Active: 'A'
             };
-            var SubAssessmentDetails =[];
-            var tabular = {
-                AssessmentName: $('#TabulalConfigurationDetails_AssessmentName').val(),
-                AssessmentType: $('#TabulalConfigurationDetails_AssessmentType').val(),
-                FullMarks: $('#TabulalConfigurationDetails_FullMarks').val(),
-                AssessmentPercentage: $('#TabulalConfigurationDetails_AssessmentPercentage').val(),
-                OpenClose: $('#TabulalConfigurationDetails_OpenClose').val(),
-            };
-            
-            SubAssessmentDetails.push(tabular);
-            model.SubAssessmentDetails = SubAssessmentDetails;
-            debugger;
             $.ajax({
                 url: '@Url.Action("SaveSubjectAssessment", "Admin",new {area="Admin" })',
                 data: JSON.stringify(model),
@@ -234,7 +241,7 @@
     }
     function fnDeleteSubjectAssessment(SubjectAssessmentID) {
 
-        if (confirm("Are you sure want to delete?")) {
+        if (confirm("Are you sure?")) {
             var model = {
                 SubjectAssessmentID: SubjectAssessmentID
             };
@@ -247,7 +254,7 @@
                 dataType: "json",
                 success: function (result) {
                     if (result > 0) {
-                        alert('Subject Assessment has been deleted Successfully.');
+                        alert('Program Versioning has been deleted Successfully.');
 
                         fnLoadSubjectAssessmentList();
                     }
@@ -260,4 +267,3 @@
 
     }
 </script>
-

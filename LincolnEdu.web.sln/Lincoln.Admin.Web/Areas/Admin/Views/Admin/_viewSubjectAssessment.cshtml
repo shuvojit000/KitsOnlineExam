@@ -1,6 +1,7 @@
-﻿
+﻿@using Lincoln.OnlineExam.Response;
 
-@model Lincoln.Admin.Web.Models.SubjectAssessmentViewModel
+@*@model Lincoln.Admin.Web.Models.SubjectAssessmentViewModel*@
+@model Lincoln.OnlineExam.Response.SubjectAssessmentResponseDTO
 
 <div class="panel-body">
     <!--main content start-->
@@ -15,7 +16,7 @@
                     </div>
 
                     <div class="form-group col-lg-6">
-                        <label><b>Program: </b></label>
+                        <label><b>Programme: </b></label>
                         @Html.DisplayFor(a => a.ProgramName, new { @class = "form-control" })
                     </div>
 
@@ -26,72 +27,57 @@
                         @Html.DisplayFor(a => a.SyllabusVersionName, new { @class = "form-control" })
                     </div>
                     <div class="form-group col-lg-6">
-                        <label><b>Programme Year:</b> </label>
-                        @Html.DisplayFor(a => a.AcademicYearCode, new { @class = "form-control" })
+                        <label><b>Country:</b> </label>
+                        @Html.DisplayFor(a => a.CountryName, new { @class = "form-control" })
                     </div>
+
                 </div>
                 <div class="row">
                     <div class="form-group col-lg-6">
-                        <label><b>Country Name:</b> </label>
-                        @Html.DisplayFor(a => a.CountryName, new { @class = "form-control" })
+                        <label><b>Programme Year:</b> </label>
+                        @Html.DisplayFor(a => a.AcademicYearCode, new { @class = "form-control" })
                     </div>
                     <div class="form-group col-lg-6">
-                        <label><b>Semister:</b> </label>
+                        <label><b>Semester:</b> </label>
                         @Html.DisplayFor(a => a.SemisterName, new { @class = "form-control" })
                     </div>
                     <div class="form-group col-lg-6">
-                        <label><b>Faculty: </b></label>
+                        <label><b>Course: </b></label>
                         @Html.DisplayFor(a => a.CourseName, new { @class = "form-control" })
                     </div>
                 </div>
 
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Assessment</th>
+                            <th>Percentage %</th>
+                            <th>Full Marks</th>
+                            <th>Type</th>
+                            <th>Open/Close</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.SubAssessmentDetails.Any())
+                        {
+                            foreach (var item in Model.SubAssessmentDetails)
+                            {
+                                <tr>
+                                    <td>@item.AssessmentName</td>
+                                    <td>@item.AssessmentPercentage</td>
+                                    <td>@item.FullMarks</td>
+                                    <td>@item.AssessmentType</td>
+                                    <td>@item.OpenClose</td>
 
-                @foreach (var item in Model.SubAssessmentDetails)
-                {
-                    <div class="row">
-                        <div class="form-group col-lg-3">
-                            <label><b>Assessment Name <span class="requiredstar">*</span> </b></label>
-                            <div class="position-relative has-icon-left">
-                                <label>@item.AssessmentName</label>
+                                </tr>
+                            }
+                        }
 
-                            </div>
-                        </div>
-                        <div class="form-group col-lg-3">
-                            <label><b>Assessment %<span class="requiredstar">*</span> </b></label>
-                            <div class="position-relative has-icon-left">
-                                <label>@item.AssessmentPercentage</label>
+                    </tbody>
+                </table>
 
-                            </div>
-                        </div>
-                        <div class="form-group col-lg-3">
-                            <label><b>Full Marks<span class="requiredstar">*</span> </b></label>
-                            <div class="position-relative has-icon-left">
-                                <label>@item.FullMarks</label>
 
-                            </div>
-                        </div>
-                        <div class="form-group col-lg-3">
-                            <label><b>Assessment Type <span class="requiredstar">*</span> </b></label>
-                            <div class="position-relative has-icon-left">
-                                <label>@item.AssessmentType</label>
-
-                            </div>
-                        </div>
-                        <div class="form-group col-lg-2">
-                            <label><b>Open/Close<span class="requiredstar">*</span> </b></label>
-                            <div class="position-relative has-icon-left">
-                                <label>@item.OpenClose</label>
-
-                            </div>
-                        </div>
-                    </div>
-                }
             </div>
-
-
-        </div>
-        <div class="modal-footer">
-
         </div>
         <!--PAGE CONTENT ENDS-->
     </div>

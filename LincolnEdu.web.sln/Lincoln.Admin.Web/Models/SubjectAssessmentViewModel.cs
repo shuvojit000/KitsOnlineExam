@@ -47,9 +47,9 @@ namespace Lincoln.Admin.Web.Models
     {
         public int SlNo { get; set; }
         public string AssessmentName { get; set; }
-        public string AssessmentPercentage { get; set; }
+        public decimal AssessmentPercentage { get; set; }
         public string AssessmentType { get; set; }
-        public string FullMarks { get; set; }
-        public bool OpenClose { get; set; }
+        public decimal FullMarks { get; set; }
+        public int OpenClose { get; set; }
     }
 }
