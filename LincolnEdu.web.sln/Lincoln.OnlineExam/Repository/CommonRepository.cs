@@ -1430,18 +1430,19 @@ namespace Lincoln.OnlineExam.Repository
             using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Examination].[upGetAssessmentConfigurationDetails]", AssessmentConfigurationDetailsID, SubjectAssessmentID, AssessmentName, type))
             {
                 item.SubAssessmentDetails = new List<Response.SubjectAssessmentDetails>();
-                item.TabularDetails = new Response.SubjectAssessmentDetails();
+
                 if (dr != null && dr.HasRows)
                 {
                     while (dr.Read())
                     {
-                        item.TabularDetails.AssessmentName = object.ReferenceEquals(dr["AssessmentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AssessmentName"]); ;
-                        item.TabularDetails.AssessmentType = object.ReferenceEquals(dr["AssessmentType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AssessmentType"]); ;
-                        item.TabularDetails.FullMarks = Convert.ToDecimal(dr["FullMarks"]);
-                        item.TabularDetails.AssessmentPercentage = Convert.ToDecimal(dr["AssessmentPercentage"]);
-                        item.TabularDetails.OpenClose = object.ReferenceEquals(dr["OpenClose"], "1") ? "" : "Close";
+                        item.TabulalConfigurationDetails = new Response.SubjectAssessmentDetails();
+                        item.TabulalConfigurationDetails.AssessmentName = object.ReferenceEquals(dr["AssessmentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AssessmentName"]); ;
+                        item.TabulalConfigurationDetails.AssessmentType = object.ReferenceEquals(dr["AssessmentType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AssessmentType"]); ;
+                        item.TabulalConfigurationDetails.FullMarks = Convert.ToDecimal(dr["FullMarks"]);
+                        item.TabulalConfigurationDetails.AssessmentPercentage = Convert.ToDecimal(dr["AssessmentPercentage"]);
+                        item.TabulalConfigurationDetails.OpenClose = object.ReferenceEquals(dr["OpenClose"], 1) ? "Open" : "Close";
                         //item.CreatedBy = Convert.ToInt32(dr["CreatedBy"]);
-                        item.SubAssessmentDetails.Add(item.TabularDetails);
+                        item.SubAssessmentDetails.Add(item.TabulalConfigurationDetails);
                     }
                 }
             }

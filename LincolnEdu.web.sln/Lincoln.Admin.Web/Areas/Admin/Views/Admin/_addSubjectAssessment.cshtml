@@ -68,7 +68,7 @@
                         <th scope="row"><label for="customFieldName">Type</label></th>
                         <th scope="row"><label for="customFieldName">Open/Close</label></th>
                     </tr>
-                    @if (Model.SubjectAssessmentID > 0)
+                    @if (Model.SubAssessmentDetails!=null && Model.SubAssessmentDetails.Count() > 0)
                     {
                         foreach (var item in Model.SubAssessmentDetails)
                         {
