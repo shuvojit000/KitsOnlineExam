@@ -90,11 +90,14 @@
                                     <input type="text" class="form-control" id="AssessmentType" name="AssessmentType[]" value=@item.AssessmentType placeholder="Type" /> &nbsp;
                                 </td>
                                 <td>
-                                    <input type="radio" class="form-control" id="OpenClose" name="OpenClose[]" value=@item.OpenClose /> &nbsp;
+                                    
 
+
+                                        <input type="checkbox" id="OpenClose" name="OpenClose" value="OpenClose" @(item.OpenClose == 1?"checked":"") />
+                                   
                                 </td>
                                 <td>
-                                    @*<a href="javascript:void(0);" id="addCF">Add</a>*@
+                                   
                                     <a href="javascript:void(0);" id="remCF">Remove</a>
                                 </td>
                             </tr>
@@ -124,7 +127,7 @@
                                 @*<span style="color:red;display:none" class="valClass AssessmentTypeCol">Enter Assessment Type.</span>*@
                             </td>
                             <td>
-                                <input type="radio" class="form-control" id="OpenClose" name="OpenClose[]" value="" checked /> &nbsp;
+                                <input type="checkbox" id="OpenClose" name="OpenClose" value="OpenClose" />@*<input type="radio" class="form-control" id="OpenClose" name="OpenClose[]" value="" checked />*@ &nbsp;
                             </td>
                             <td>
                                 <a href="javascript:void(0);" id="addCF">Add</a>
@@ -175,7 +178,7 @@
                             ' <td><input type="text" class="form-control" id="AssessmentPercentage" name="AssessmentPercentage[]" value="" placeholder="Percentage" /></td> &nbsp;' +
                             ' <td><input type="text" class="form-control" id="FullMarks" name="FullMarks[]" value="" placeholder="Full Marks" /></td>   &nbsp;' +
                             ' <td><input type="text" class="form-control" id="AssessmentType" name="AssessmentType[]" value="" placeholder="Type" /></td> &nbsp;' +
-                            ' <td><input type="radio" class="form-control" id="OpenClose" name="OpenClose[]" value="" placeholder="Input Value" /></td>&nbsp; ' +
+                            ' <td><input type="checkbox" id="OpenClose" name="OpenClose" value="OpenClose"/></td>&nbsp; ' +
                             '<td><a href="javascript:void(0);" id="remCF">Remove</a></td ></tr > ');
 
                 }

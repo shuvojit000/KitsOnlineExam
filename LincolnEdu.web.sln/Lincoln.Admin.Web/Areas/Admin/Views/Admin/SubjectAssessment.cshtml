@@ -105,7 +105,7 @@
                         var model = {
                             ID: statusIdstr.join(','),
                             Active: $('#ddlStatus').val(),
-                            Table: "SubjectAssessment"
+                            Table: "AssessmentConfiguration"
                         };
 
                         $.ajax({
@@ -172,14 +172,14 @@
              debugger;
          var currentRow=$(this).closest("tr");
             if (i > 0) {
-             // var bty=  $("input[name='OpenClose[]']:checked").val();
+
              var tabular = {
                 AssessmentName: currentRow.find("#AssessmentName").val(),
                 AssessmentType:currentRow.find("#AssessmentType").val(),
                 FullMarks:  currentRow.find("#FullMarks").val(),
                 AssessmentPercentage: currentRow.find("#AssessmentPercentage").val(),
-                OpenClose: currentRow.find("#OpenClose").val(),
-            };
+                 OpenClose: currentRow.find(("#OpenClose")).is(':checked')?1:0,
+                    };
                 SubAssessmentDetails.push(tabular);
             }
             i = i + 1;
@@ -272,7 +272,7 @@
                 dataType: "json",
                 success: function (result) {
                     if (result > 0) {
-                        alert('Program Versioning has been deleted Successfully.');
+                        alert('Assessment Configuration has been deleted Successfully.');
 
                         fnLoadSubjectAssessmentList();
                     }
