@@ -202,6 +202,10 @@
                         alert('Data Save Successfully.');
                         $("#myModal").modal('hide');
                         fnLoadProgrammeSemesterList();
+                    } else if (result == -1) {
+                        alert('Data already exist.');
+                        $("#myModal").modal('hide');
+                        fnLoadProgrammeSemesterList();
                     }
                     else {
                         alert('Error in your requst.');

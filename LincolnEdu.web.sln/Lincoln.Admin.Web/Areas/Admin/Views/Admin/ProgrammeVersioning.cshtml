@@ -120,6 +120,10 @@
                                     alert('Status has been changed Successfully.');
                                     $('#ddlStatus').val('');
                                     fnLoadCourseList();
+                                } else if (result == -1) {
+                                    alert('Data already exist.');
+                                    $("#myModal").modal('hide');
+                                    fnLoadCourseList();
                                 }
                                 else {
                                     alert('Error in your request.');

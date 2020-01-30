@@ -239,6 +239,10 @@
                         alert('Data Save Successfully.');
                         $("#myModal").modal('hide');
                         fnLoadSubjectAssessmentList();
+                    } else if (result == -1) {
+                        alert('Data already exist.');
+                        $("#myModal").modal('hide');
+                        fnLoadSubjectAssessmentList();
                     } else {
                         alert('Error in your requst.');
                         $("#myModal").modal('hide');

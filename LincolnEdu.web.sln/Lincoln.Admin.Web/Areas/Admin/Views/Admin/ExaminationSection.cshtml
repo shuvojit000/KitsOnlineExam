@@ -119,7 +119,7 @@
                                 if (result > 0) {
                                     alert('Status has been changed Successfully.');
                                     $('#ddlStatus').val('');
-                                    fnLoadCourseList();
+                                    fnLoadExaminationSectionList();
                                 }
                                 else {
                                     alert('Error in your request.');
@@ -203,6 +203,10 @@
                 success: function (result) {
                     if (result > 0) {
                         alert('Data Save Successfully.');
+                        $("#myModal").modal('hide');
+                        fnLoadExaminationSectionList();
+                    } else if (result == -1) {
+                        alert('Data already exist.');
                         $("#myModal").modal('hide');
                         fnLoadExaminationSectionList();
                     } else {

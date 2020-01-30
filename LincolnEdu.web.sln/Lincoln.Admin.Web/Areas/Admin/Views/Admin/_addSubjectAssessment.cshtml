@@ -1,4 +1,4 @@
-﻿<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+﻿@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>*@
 @using Lincoln.OnlineExam.Response;
 
 @*@model Lincoln.Admin.Web.Models.SubjectAssessmentViewModel*@
@@ -90,9 +90,6 @@
                                     <input type="text" class="form-control" id="AssessmentType" name="AssessmentType[]" value=@item.AssessmentType placeholder="Type" /> &nbsp;
                                 </td>
                                 <td>
-                                    
-
-
                                         <input type="checkbox" id="OpenClose" name="OpenClose" value="OpenClose" @(item.OpenClose == 1?"checked":"") />
                                    
                                 </td>

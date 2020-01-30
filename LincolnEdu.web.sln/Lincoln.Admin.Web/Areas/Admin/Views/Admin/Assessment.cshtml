@@ -196,6 +196,10 @@
                         alert('Data Save Successfully.');
                         $("#myModal").modal('hide');
                         fnLoadAssessmentList();
+                    } else if (result == -1) {
+                        alert('Data already exist.');
+                        $("#myModal").modal('hide');
+                        fnLoadAssessmentList();
                     } else {
                         alert('Error in your requst.');
                         $("#myModal").modal('hide');

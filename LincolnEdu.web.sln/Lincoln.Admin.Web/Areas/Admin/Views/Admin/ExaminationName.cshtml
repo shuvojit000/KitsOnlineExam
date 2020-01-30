@@ -195,6 +195,10 @@
                         alert('Data Save Successfully.');
                         $("#myModal").modal('hide');
                         fnLoadExaminationNameList();
+                    } else if (result == -1) {
+                        alert('Data already exist.');
+                        $("#myModal").modal('hide');
+                        fnLoadExaminationNameList();
                     } else {
                         alert('Error in your requst.');
                         $("#myModal").modal('hide');
