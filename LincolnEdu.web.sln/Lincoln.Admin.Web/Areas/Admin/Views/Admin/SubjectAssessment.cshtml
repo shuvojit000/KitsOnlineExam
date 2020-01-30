@@ -211,7 +211,7 @@
         else if ($('#SectionID').val() == '') {
             $('#SectionIDVal').css({ 'display': 'block' });
         }
-        else if (SubAssessmentDetails.length == 0) {
+        else if (SubAssessmentDetails.length == 0 ||SubAssessmentDetails == null) {
             alert('Assessment is required.');
         }
         else {
