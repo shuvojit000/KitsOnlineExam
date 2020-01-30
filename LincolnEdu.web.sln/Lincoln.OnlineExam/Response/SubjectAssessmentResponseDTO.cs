@@ -89,6 +89,6 @@ namespace Lincoln.OnlineExam.Response
         public decimal AssessmentPercentage { get; set; }
         public string AssessmentType { get; set; }
         public decimal FullMarks { get; set; }
-        public string OpenClose { get; set; }
+        public int OpenClose { get; set; }
     }
 }
