@@ -1,6 +1,8 @@
 ﻿<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+@using Lincoln.OnlineExam.Response;
 
-@model Lincoln.Admin.Web.Models.SubjectAssessmentViewModel
+@*@model Lincoln.Admin.Web.Models.SubjectAssessmentViewModel*@
+@model Lincoln.OnlineExam.Response.SubjectAssessmentResponseDTO
 
 <div class="panel-body">
     <!--main content start-->
@@ -54,7 +56,7 @@
                     <div class="form-group col-lg-6">
                         <label><b>Course<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.CourseID, Model.CourseList, "Select Course", new { @class = "custom-select block" })
+                            @Html.DropDownListFor(a => a.CourseCode, Model.CourseList, "Select Course", new { @class = "custom-select block" })
                             <span id="CourseIDVal" style="color:red;display:none" class="valClass">Please select Course.</span>
                         </div>
                     </div>
@@ -68,7 +70,7 @@
                         <th scope="row"><label for="customFieldName">Type</label></th>
                         <th scope="row"><label for="customFieldName">Open/Close</label></th>
                     </tr>
-                    @if (Model.SubAssessmentDetails!=null && Model.SubAssessmentDetails.Count() > 0)
+                    @if (Model.SubjectAssessmentID > 0)
                     {
                         foreach (var item in Model.SubAssessmentDetails)
                         {
@@ -89,7 +91,7 @@
 
                                 </td>
                                 <td>
-                                    <input type="radio" class="form-control" id="OpenClose" name="OpenClose[]" value=@item.OpenClose  /> &nbsp;
+                                    <input type="radio" class="form-control" id="OpenClose" name="OpenClose[]" value=@item.OpenClose /> &nbsp;
 
                                 </td>
                                 <td>
@@ -119,7 +121,7 @@
 
                             </td>
                             <td>
-                                <input type="radio" class="form-control" id="OpenClose" name="OpenClose[]" value=""  /> &nbsp;
+                                <input type="radio" class="form-control" id="OpenClose" name="OpenClose[]" value="" checked /> &nbsp;
 
                             </td>
                             <td>
@@ -310,7 +312,7 @@
 
 
     $(document).on("change", "#SemisterCode", function () {
-        $("#CourseID").empty();
+        $("#CourseCode").empty();
         $.ajax({
             type: 'POST',
             url: '@Url.Action("GetCourseExam", "Admin",new { area="Admin"})',
@@ -320,9 +322,9 @@
                 programmeYear: $('#AcademicYearCode').val(), programmeSem: $('#SemisterCode').val()
             },
             success: function (res) {
-                $("#CourseID").append('<option value="">Select Course</option>');
+                $("#CourseCode").append('<option value="">Select Course</option>');
                 $.each(res, function (i, state) {
-                    $("#CourseID").append('<option value="' + state.Value + '">' +
+                    $("#CourseCode").append('<option value="' + state.Value + '">' +
                         state.Text + '</option>');
                 });
             },

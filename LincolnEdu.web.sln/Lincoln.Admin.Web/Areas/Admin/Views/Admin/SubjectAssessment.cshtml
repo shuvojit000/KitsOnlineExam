@@ -155,17 +155,35 @@
     function fnSaveSubjectAssessment(SubjectAssessmentID) {
         debugger;
         var SubAssessmentDetails = [];
-        $('#customFields tr[valign="top"]').each(function () {
-            var currentRow = $(this).closest("tr");
-            var tabular = {
+        //$('#customFields tr[valign="top"]').each(function () {
+        //    var currentRow = $(this).closest("tr");
+        //    var tabular = {
+        //        AssessmentName: currentRow.find("#AssessmentName").val(),
+        //        AssessmentType: currentRow.find("#AssessmentType").val(),
+        //        FullMarks: currentRow.find("#FullMarks").val(),
+        //        AssessmentPercentage: currentRow.find("#AssessmentPercentage").val(),
+        //        OpenClose: currentRow.find("#OpenClose").val(),
+        //    };
+        //    SubAssessmentDetails.push(tabular);
+        //});
+
+         var i = 0;
+        $('#customFields tr').each(function () {
+             debugger;
+         var currentRow=$(this).closest("tr");
+            if (i > 0) {
+             // var bty=  $("input[name='OpenClose[]']:checked").val();
+             var tabular = {
                 AssessmentName: currentRow.find("#AssessmentName").val(),
-                AssessmentType: currentRow.find("#AssessmentType").val(),
-                FullMarks: currentRow.find("#FullMarks").val(),
+                AssessmentType:currentRow.find("#AssessmentType").val(),
+                FullMarks:  currentRow.find("#FullMarks").val(),
                 AssessmentPercentage: currentRow.find("#AssessmentPercentage").val(),
                 OpenClose: currentRow.find("#OpenClose").val(),
             };
-            SubAssessmentDetails.push(tabular);
-        });
+                SubAssessmentDetails.push(tabular);
+            }
+            i = i + 1;
+ });
 
 
         $('.valClass').css({ 'display': 'none' });
@@ -187,7 +205,7 @@
         else if ($('#SemisterCode').val() == '') {
             $('#SemisterCodeVal').css({ 'display': 'block' });
         }
-        else if ($('#CourseID').val() == '') {
+        else if ($('#CourseCode').val() == '') {
             $('#CourseIDVal').css({ 'display': 'block' });
         }
         else if ($('#SectionID').val() == '') {
@@ -204,7 +222,7 @@
                 SyllabusVersionCode: $('#SyllabusVersionCode').val(),
                 SemisterCode: $('#SemisterCode').val(),
                 CountryCode: $('#CountryCode').val(),
-                CourseCode: $('#CourseID').val(),
+                CourseCode: $('#CourseCode').val(),
                 AcademicYearCode: $('#AcademicYearCode').val(),
                 SubAssessmentDetails: SubAssessmentDetails,
                 Active: 'A'
