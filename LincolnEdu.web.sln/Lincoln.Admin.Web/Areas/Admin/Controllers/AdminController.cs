@@ -1393,7 +1393,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 SemisterCode = a.SemisterCode,
                 SemisterName = a.SemisterName,
                 SyllabusVersionCode = a.SyllabusVersionCode,
-                SyllabusVersionName = onlineExamService.GetAllProgramVersioning().Where(x => x.ProgramVersioningID == Convert.ToInt32(a.ProgramCode) && a.Status == "A").Select(x => x.Version).SingleOrDefault(),
+                SyllabusVersionName = onlineExamService.GetAllProgramVersioning().Where(x => x.ProgramVersioningID == Convert.ToInt32(a.ProgramCode) && a.Status == "A").Select(x=>x.Version).SingleOrDefault() ,
                 CourseName = a.CourseName,
                 FacultyCode = a.FacultyCode,
                 FacultyName = a.FacultyName,
@@ -1428,10 +1428,10 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 CountryName = a.CountryName,
                 CountryCode = a.CountryCode,
                 SemisterCode = a.SemisterCode,
-                SemisterName = onlineExamService.GetAllProgrammeSemester().Where(x => x.ProgrammeSemesterID == Convert.ToInt32(a.ProgramCode) && a.Status == "A").Select(x => x.SemesterType).SingleOrDefault(),
+                SemisterName = onlineExamService.GetAllProgrammeSemester().Where(x => x.ProgrammeSemesterID == Convert.ToInt32(a.ProgramCode) && a.Status == "A").Select(x => x.SemesterType).Single(),
                 SyllabusVersionCode = a.SyllabusVersionCode,
-                SyllabusVersionName = onlineExamService.GetAllProgramVersioning().Where(x => x.ProgramVersioningID == Convert.ToInt32(a.ProgramCode) && a.Status == "A").Select(x => x.Version).SingleOrDefault(),
-                CourseName = onlineExamService.GetAllCourse().Where(x => x.CourseID == Convert.ToInt32(a.ProgramCode) && a.Status == "A").Select(x => x.CourseName).SingleOrDefault(),
+                SyllabusVersionName = onlineExamService.GetAllProgramVersioning().Where(x => x.ProgramVersioningID == Convert.ToInt32(a.ProgramCode) && a.Status == "A").Select(x => x.Version).Single(),
+                CourseName = onlineExamService.GetAllCourse().Where(x => x.CourseID == Convert.ToInt32(a.ProgramCode) && a.Status == "A").Select(x => x.CourseName).Single(),
                 FacultyCode = a.FacultyCode,
                 FacultyName = a.FacultyName,
                 AcademicYearCode = a.AcademicYearCode,
@@ -1476,7 +1476,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             var model = new SubjectAssessmentResponseDTO();
             if (!string.IsNullOrEmpty(id))
             {
-                model = SelectSubjectAssessment(id);
+                 model = SelectSubjectAssessment(id);
                 //model.FacultyList = onlineExamService.GetAllDepartment().Where(a => a.DepartmentID == Convert.ToInt32(model.FacultyCode) && a.Status == "A")
                 //         .Select(a => new SelectListItem
                 //         {
@@ -1595,7 +1595,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 model.FacultyList = onlineExamService.GetAllDepartment().Select(a => new SelectListItem { Text = a.DepartmentName, Value = a.DepartmentID.ToString() }).ToList();
                 model.ProgramList = new List<SelectListItem>();
                 model.SyllabusVersionList = new List<SelectListItem>();
-                model.SemisterList = new List<SelectListItem>();// onlineExamService.GetAllProgrammeSemester().Select(a => new SelectListItem { Text = a.ProgrammeSemester.ToString(), Value = a.ProgrammeSemesterID.ToString() }).ToList();
+                model.SemisterList = new List<SelectListItem>() ;// onlineExamService.GetAllProgrammeSemester().Select(a => new SelectListItem { Text = a.ProgrammeSemester.ToString(), Value = a.ProgrammeSemesterID.ToString() }).ToList();
                 model.CourseList = new List<SelectListItem>();
                 model.CountryList = new List<SelectListItem>
                             {
@@ -1656,7 +1656,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public JsonResult DeleteSubjectAssesssment(SubjectAssessmentViewModel model)
+        public JsonResult DeleteSubjectAssessment(SubjectAssessmentViewModel model)
         {
 
             var result = onlineExamService.SaveSubjectAssessment(new OnlineExam.Request.SubjectAssessmentRequestDTO()
