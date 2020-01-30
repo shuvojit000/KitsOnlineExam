@@ -1430,7 +1430,7 @@ namespace Lincoln.OnlineExam.Repository
             using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Examination].[upGetAssessmentConfigurationDetails]", AssessmentConfigurationDetailsID, SubjectAssessmentID, AssessmentName, type))
             {
                 item.SubAssessmentDetails = new List<Response.SubjectAssessmentDetails>();
-
+                
                 if (dr != null && dr.HasRows)
                 {
                     while (dr.Read())
@@ -1440,7 +1440,7 @@ namespace Lincoln.OnlineExam.Repository
                         item.TabulalConfigurationDetails.AssessmentType = object.ReferenceEquals(dr["AssessmentType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AssessmentType"]); ;
                         item.TabulalConfigurationDetails.FullMarks = Convert.ToDecimal(dr["FullMarks"]);
                         item.TabulalConfigurationDetails.AssessmentPercentage = Convert.ToDecimal(dr["AssessmentPercentage"]);
-                        item.TabulalConfigurationDetails.OpenClose = object.ReferenceEquals(dr["OpenClose"], 1) ? "Open" : "Close";
+                        item.TabulalConfigurationDetails.OpenClose = Convert.ToInt32(dr["OpenClose"]);
                         //item.CreatedBy = Convert.ToInt32(dr["CreatedBy"]);
                         item.SubAssessmentDetails.Add(item.TabulalConfigurationDetails);
                     }
