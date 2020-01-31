@@ -40,9 +40,6 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             }), JsonRequestBehavior.AllowGet);
         }
 
-
-
-
         #region Academic Level
 
         public ActionResult AcademicLevel() => View();
@@ -248,7 +245,6 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
         }
         #endregion
 
-
         #region Programme
 
         public ActionResult Programme() => View();
@@ -377,7 +373,6 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
         #endregion
 
-
         #region Programme Versioning
 
         public ActionResult ProgrammeVersioning() => View();
@@ -486,7 +481,6 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         #endregion
-
 
         #region Programme Semester
 
@@ -839,7 +833,6 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
         }
         #endregion Course
 
-
         #region Dropdown Code
         [HttpPost]
         public JsonResult GetProgDrop(string departmentID)
@@ -891,7 +884,6 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                     }).ToList(), JsonRequestBehavior.AllowGet);
         }
         #endregion
-
 
         #region Examination Name 
 
@@ -993,8 +985,6 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         #endregion
-
-
 
         #region Assesssment 
 
@@ -1136,9 +1126,6 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         #endregion
-
-
-
 
         #region Examination Section 
 
@@ -1477,62 +1464,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             if (!string.IsNullOrEmpty(id))
             {
                  model = SelectSubjectAssessment(id);
-                //model.FacultyList = onlineExamService.GetAllDepartment().Where(a => a.DepartmentID == Convert.ToInt32(model.FacultyCode) && a.Status == "A")
-                //         .Select(a => new SelectListItem
-                //         {
-                //             Text = a.DepartmentName,
-                //             Value = a.DepartmentID.ToString()
-
-                //         }).ToList();
-
-                //model.ProgramList = onlineExamService.GetAllProgramme().Where(a => a.DepartmentID == Convert.ToInt32(model.FacultyCode) && a.Status == "A")
-                //       .Select(a => new SelectListItem
-                //       {
-                //           Text = a.ProgrammeName + "(" + a.ProgrammeCode + ")",
-                //           Value = a.ProgrammeID.ToString()
-
-                //       }).ToList();
-                //model.SyllabusVersionList = onlineExamService.GetAllProgramVersioning().Where(a => a.ProgramVersioningID == Convert.ToInt32(model.ProgramCode) && a.Status == "A")
-                //       .Select(a => new SelectListItem
-                //       {
-                //           Text = a.Version + "(" + a.ProgramVersioningID + ")",
-                //           Value = a.ProgramVersioningID.ToString()
-
-                //       }).ToList();
-
-                //model.SemisterList = onlineExamService.GetAllProgrammeSemester().Where(a => a.ProgrammeSemesterID == Convert.ToInt32(model.ProgramCode) && a.Status == "A")
-                //      .Select(a => new SelectListItem
-                //      {
-                //          Text = a.SemesterType,
-                //          Value = a.ProgrammeSemesterID.ToString()
-
-                //      }).ToList();
-                //model.CourseList = onlineExamService.GetAllCourse().Where(a => a.CourseID == Convert.ToInt32(model.CourseID) && a.Status == "A")
-                //      .Select(a => new SelectListItem
-                //      {
-                //          Text = a.CourseName,
-                //          Value = a.CourseID.ToString()
-
-                //      }).ToList();
-
-                //model.CountryList = new List<SelectListItem>
-                //            {
-                //                new SelectListItem{ Text="India", Value = "1" },
-                //                new SelectListItem{ Text="Malaysia", Value = "2" },
-                //                new SelectListItem{ Text="United States", Value = "3" },
-                //             };
-                ////var itemList = onlineExamService.GetAllProgrammeSemester().Where(a => a.ProgrammeID == Convert.ToInt32(model.ProgramCode)).ToList();
-                ////model.CountryList = itemList?.Select(a => new SelectListItem() { Text = (a.CountryID == 1) ? "India" : (a.CountryID == 2) ? "Malaysia" : "United States", Value = a.CountryID.ToString() }).ToList().GroupBy(n => new { n.Text, n.Value })
-                ////                           .Select(g => g.FirstOrDefault())
-                ////                           .ToList();
-                ////model.SemisterList = itemList?.Select(a => new SelectListItem() { Text = a.ProgrammeSemester.ToString(), Value = a.ProgrammeSemester.ToString() }).ToList().GroupBy(n => new { n.Text, n.Value })
-                ////                           .Select(g => g.FirstOrDefault())
-                ////                           .ToList();
-                ////model.AcademicYearList = itemList?.Select(a => new SelectListItem() { Text = a.ProgrammeYear.ToString(), Value = a.ProgrammeYear.ToString() }).ToList().GroupBy(n => new { n.Text, n.Value })
-                ////                           .Select(g => g.FirstOrDefault())
-                ////                           .ToList();
-                //model.AcademicYearList = Enumerable.Range((DateTime.Now.Year - 9), 10).Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }).ToList();
-
+                
                 model.FacultyList = onlineExamService.GetAllDepartment().Where(a => a.DepartmentID == Convert.ToInt32(model.FacultyCode) && a.Status == "A")
                         .Select(a => new SelectListItem
                         {
@@ -1584,11 +1516,6 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 a.CountryID == model.CountryCode).Select(a => new SelectListItem() { Text = a.ProgrammeYear.ToString(), Value = a.ProgrammeYear.ToString() }).ToList().GroupBy(n => new { n.Text, n.Value })
                                            .Select(g => g.FirstOrDefault())
                                            .ToList();
-
-
-
-
-
             }
             else
             {
