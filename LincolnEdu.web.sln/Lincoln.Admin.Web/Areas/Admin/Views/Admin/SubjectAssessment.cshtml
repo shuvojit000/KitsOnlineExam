@@ -3,9 +3,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayoutPage.cshtml";
     ViewBag.Title = "SubjectAssessment";
 }
-<style>.modal-body {
-  overflow-x: auto;
-}</style>
+
 <div class="content-wrapper">
     <div class="content-header row">
     </div>
@@ -248,7 +246,7 @@
 
     function fnDeleteSubjectAssessment(SubjectAssessmentID) {
 
-        if (confirm("Are you sure?")) {
+        if (confirm("Are you sure want to delete?")) {
             var model = {
                 SubjectAssessmentID: SubjectAssessmentID
             };
