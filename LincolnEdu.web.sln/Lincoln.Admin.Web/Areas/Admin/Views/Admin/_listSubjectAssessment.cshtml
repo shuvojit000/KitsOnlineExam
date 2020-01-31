@@ -22,8 +22,6 @@
     <tbody>
         @if (Model != null && Model.Count() > 0)
         {
-
-
             foreach (var item in Model)
             {
                 <tr>
@@ -33,12 +31,10 @@
                             <input type="checkbox" class="statusCheck" data-id="@item.SubjectAssessmentID">
                         </center>
                     </td>
-
                     <td>@item.FacultyName</td>
                     <td>@item.ProgramName</td>
                     <td>@item.SyllabusVersionName</td>
                     <td>@item.Active</td>
-
                     <td>
                         <a href="javascript:void(0);" onclick="fnViewSubjectAssessment(@item.SubjectAssessmentID)" title="View"><i class="fa fa-eye"></i></a> &nbsp;
                         <a href="javascript:void(0);" onclick="fnAddSubjectAssessment(@item.SubjectAssessmentID)" title="Edit"><i class="fa fa-edit"></i></a> &nbsp;
@@ -50,26 +46,9 @@
         }
     </tbody>
 </table>
+
+
 <script>
     $('#dataTables-example').dataTable();
-    //    $('#dataTables-example').dataTable({
-    //    dom: 'Bfrtip', buttons: [
-    //        {
-    //            extend: 'excelHtml5',
-    //            exportOptions: {
-    //                columns: [0, 2, 3, 4, 5, 6, 7]
-    //            }
-    //        },
-    //        {
-    //            extend: 'pdfHtml5',
-    //            exportOptions: {
-    //                columns: [0, 2, 3, 4, 5, 6, 7]
-    //            }
-    //        }, {
-    //            extend: 'print',
-    //            exportOptions: {
-    //                columns: [0, 2, 3, 4, 5, 6, 7]
-    //            }
-    //        }]
-    //});
+   
 </script>

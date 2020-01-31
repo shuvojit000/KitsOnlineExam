@@ -64,14 +64,15 @@
                 </div>
                 <table class="form-table" id="customFields">
                     <tr>
-                        <th scope="row"><label for="customFieldName">Assessment<span class="requiredstar">*</span></label></th>
-                        <th scope="row"><label for="customFieldName">Percentage(%)<span class="requiredstar">*</span></label></th>
-                        <th scope="row"><label for="customFieldName">Full Marks<span class="requiredstar">*</span></label></th>
-                        <th scope="row"><label for="customFieldName">Type<span class="requiredstar">*</span></label></th>
+                        <th scope="row"><label for="customFieldName">Assessment</label></th>
+                        <th scope="row"><label for="customFieldName">Percentage(%)</label></th>
+                        <th scope="row"><label for="customFieldName">Full Marks</label></th>
+                        <th scope="row"><label for="customFieldName">Type</label></th>
                         <th scope="row"><label for="customFieldName">Open/Close</label></th>
                     </tr>
-                    @if (Model.SubjectAssessmentID > 0)
+                    @if (Model.SubAssessmentDetails != null && Model.SubAssessmentDetails.Count() > 0)
                     {
+                        var last = Model.SubAssessmentDetails.Last();
                         foreach (var item in Model.SubAssessmentDetails)
                         {
                             <tr valign="top">
@@ -81,7 +82,6 @@
                                 </td>
                                 <td>
                                     <input type="text" class="form-control" id="AssessmentPercentage" name="AssessmentPercentage[]" value=@item.AssessmentPercentage placeholder="Percentage" /> &nbsp;
-
                                 </td>
                                 <td>
                                     <input type="text" class="form-control" id="FullMarks" name="FullMarks[]" value=@item.FullMarks placeholder="Full Marks" /> &nbsp;
@@ -90,20 +90,25 @@
                                     <input type="text" class="form-control" id="AssessmentType" name="AssessmentType[]" value=@item.AssessmentType placeholder="Type" /> &nbsp;
                                 </td>
                                 <td>
-                                        <input type="checkbox" id="OpenClose" name="OpenClose" value="OpenClose" @(item.OpenClose == 1?"checked":"") />
-                                   
+                                    <input type="checkbox" id="OpenClose" name="OpenClose" value="OpenClose" @(item.OpenClose == 1 ? "checked" : "") />
                                 </td>
-                                <td>
-                                   
-                                    <a href="javascript:void(0);" id="remCF">Remove</a>
-                                </td>
+                                @if (item.Equals(last))
+                                {
+                                    <td>
+                                        <a href="javascript:void(0);" class="btn btn-success btn-sm" id="addCF">Add</a>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <a href="javascript:void(0);" class="btn btn-danger btn-sm" id="remCF">Remove</a>
+                                    </td>
+                                }
+
+
                             </tr>
                         }
-                        <tr>
-                            <td>
-                                <a href="javascript:void(0);" id="addCF">Add</a>
-                            </td>
-                        </tr>
+
                     }
                     else
                     {
@@ -121,13 +126,13 @@
                             </td>
                             <td>
                                 <input type="text" class="form-control" id="AssessmentType" maxlength="25" name="AssessmentType[]" value="" placeholder="Type" /> &nbsp;
-                                @*<span style="color:red;display:none" class="valClass AssessmentTypeCol">Enter Assessment Type.</span>*@
+
                             </td>
                             <td>
-                                <input type="checkbox" id="OpenClose" name="OpenClose" value="OpenClose" />@*<input type="radio" class="form-control" id="OpenClose" name="OpenClose[]" value="" checked />*@ &nbsp;
+                                <input type="checkbox" id="OpenClose" name="OpenClose" value="OpenClose" /> &nbsp;
                             </td>
                             <td>
-                                <a href="javascript:void(0);" id="addCF">Add</a>
+                                <a href="javascript:void(0);" class="btn btn-success btn-sm" id="addCF">Add</a>
                             </td>
                         </tr>
 
@@ -144,8 +149,10 @@
         <!--main contant end-->
     </div>
 </div>
-<script>
 
+
+
+<script>
     $(document).on("click", "#addCF", function () {
          var i = 0;
         $('#customFields tr').each(function () {
@@ -157,17 +164,17 @@
                     alert("Please Enter Assessment Name ");
                     currentRow.find("#AssessmentName").focus();
                 }
-                else if (currentRow.find("#AssessmentType").val() == '') {
-                    alert("Please Enter Assessment Type ");
-                    currentRow.find("#AssessmentType").focus();
-                }
-                else if (currentRow.find("#FullMarks").val() == '') {
-                    alert("Please Enter Full Marks ");
-                    currentRow.find("#FullMarks").focus();
-                }
                 else if (currentRow.find("#AssessmentPercentage").val() == '') {
                     alert("Please Enter Assessment Percentage ");
                     currentRow.find("#AssessmentPercentage").focus();
+                }
+                    else if (currentRow.find("#FullMarks").val() == '') {
+                    alert("Please Enter Full Marks ");
+                    currentRow.find("#FullMarks").focus();
+                }
+                else if (currentRow.find("#AssessmentType").val() == '') {
+                    alert("Please Enter Assessment Type ");
+                    currentRow.find("#AssessmentType").focus();
                 }
                 else {
                     $("#customFields")
@@ -176,8 +183,9 @@
                             ' <td><input type="text" class="form-control" id="FullMarks" name="FullMarks[]" value="" placeholder="Full Marks" /></td>   &nbsp;' +
                             ' <td><input type="text" class="form-control" id="AssessmentType" name="AssessmentType[]" value="" placeholder="Type" /></td> &nbsp;' +
                             ' <td><input type="checkbox" id="OpenClose" name="OpenClose" value="OpenClose"/></td>&nbsp; ' +
-                            '<td><a href="javascript:void(0);" id="remCF">Remove</a></td ></tr > ');
+                            '<td><a href="javascript:void(0);" id="addCF" class="btn btn-success btn-sm" >Add</a></td ></tr > ');
 
+                    $(this).closest("tr").find("td:eq(5)").html('<td><a href="javascript:void(0);" class="btn btn-danger btn-sm" id="remCF">Remove</a></td >');
                 }
                  }
                 i = i + 1;
@@ -185,53 +193,15 @@
  });
         });
 
-
-
-        // $('.valClass').css({ 'display': 'none' });
-        //if ($('#AssessmentName').val() == '') {
-        //    $('.AssessmentNameCol').css({ 'display': 'block' });
-        //}
-        //else if ($('#AssessmentPercentage').val() == '') {
-        //    $('.AssessmentPercentageCol').css({ 'display': 'block' });
-        //}
-        //else if ($('#FullMarks').val() == '') {
-        //    $('.FullMarksCol').css({ 'display': 'block' });
-        //}
-        //else if ($('#AssessmentType').val() == '') {
-        //    $('.AssessmentTypeCol').css({ 'display': 'block' });
-        //}
-        //else {
-        //$("#customFields")
-        //    .append('<tr><td><input type="text" class="form-control" id="AssessmentName" name="AssessmentName[]" value="" placeholder="Name"  /><span  style="color:red;display:none" class="valClass AssessmentNameCol">Enter Assessment Name .</span></td> &nbsp;' +
-        //    ' <td><input type="text" class="form-control" id="AssessmentPercentage" name="AssessmentPercentage[]" value="" placeholder="Percentage" /></td> &nbsp;' +
-        //    ' <td><input type="text" class="form-control" id="FullMarks" name="FullMarks[]" value="" placeholder="Full Marks" /></td>   &nbsp;' +
-        //    ' <td><input type="text" class="form-control" id="AssessmentType" name="AssessmentType[]" value="" placeholder="Type" /></td> &nbsp;' +
-        //    ' <td><input type="radio" class="form-control" id="OpenClose" name="OpenClose[]" value="" placeholder="Input Value" /></td>&nbsp; ' +
-        //    '<td><a href="javascript:void(0);" id="remCF">Remove</a></td ></tr > ');
-//}
-    //});
     $(document).on("click", "#remCF", function () {
-        $(this).parent().parent().remove();
+        $(this).closest("tr").remove();
     });
-
-    //var list = [];
-    //    $(document).ready(function () {
-    //        $('#test').click(function () {
-    //            var oRows = $('#MainContent_Table1 tr').length;
-    //            $('#MainContent_Table1 tr').each(function (index) {
-    //                list.push(this.cells[0].innerHTML);
-    //            });
-    //        });
-    //    });
-
     $(document).on("change", "#FacultyCode", function () {
         $("#ProgramCode").empty();
         $.ajax({
             type: 'POST',
-            url: '@Url.Action("GetProgDrop","Admin",new { area="Admin"})', // we are calling json method
-
+            url: '@Url.Action("GetProgDrop","Admin",new { area="Admin"})',
             dataType: 'json',
-
             data: { departmentID: $("#FacultyCode").val() },
             success: function (res) {
                 $("#ProgramCode").append('<option value="">Select Programme</option>');
@@ -252,14 +222,11 @@
         $("#SyllabusVersionCode").empty();
         $.ajax({
             type: 'POST',
-            url: '@Url.Action("GetProgrammeVersionDDL","Admin",new { area="Admin"})', // we are calling json method
-
+            url: '@Url.Action("GetProgrammeVersionDDL","Admin",new { area="Admin"})',
             dataType: 'json',
-
-            data: { ProgramVID: $("#ProgramCode").val() },
+           data: { ProgramVID: $("#ProgramCode").val() },
             success: function (res) {
                 $("#SyllabusVersionCode").append('<option value="">Select Programme Version</option>');
-
                 $.each(res, function (i, state) {
                     $("#SyllabusVersionCode").append('<option value="' + state.Value + '">' +
                         state.Text + '</option>');
@@ -269,6 +236,7 @@
                 alert('Failed to retrieve Version.' + ex);
             }
         });
+
         $("#CountryCode").empty();
         $.ajax({
             type: 'POST',
@@ -277,13 +245,10 @@
             data: { programmeID: $("#ProgramCode").val() },
             success: function (res) {
                 if (res != null) {
-
                     $("#CountryCode").append('<option value="">Select Country</option>');
                     $.each(res.CountryList, function (i, state) {
                         $("#CountryCode").append('<option value="' + state.Value + '">' +
                              state.Text + '</option>');
-                        // here we are adding option for States
-
                     });
                 }
                 else {
@@ -295,8 +260,6 @@
                 alert('Failed to retrieve country.' + ex);
             }
         });
-
-
         return false;
     });
 
@@ -304,24 +267,18 @@
         $("#AcademicYearCode").empty();
         $.ajax({
             type: 'POST',
-            url: '@Url.Action("ChangeCountrySelection", "Admin",new { area="Admin"})', // we are calling json method
-
+            url: '@Url.Action("ChangeCountrySelection", "Admin",new { area="Admin"})',
             dataType: 'json',
-
             data: { programmeID: $("#ProgramCode").val(), countryID: $('#CountryCode').val() },
             success: function (res) {
                 if (res != null) {
-
                     $("#AcademicYearCode").append('<option value="">Select Programme Year</option>');
                     $.each(res.ProgYearList, function (i, state) {
                         $("#AcademicYearCode").append('<option value="' + state.Value + '">' +
                              state.Text + '</option>');
-                        // here we are adding option for States
-
                     });
                 }
                 else {
-
                     $("#AcademicYearCode").append('<option value="">Select Programme Year</option>');
 
                 }
@@ -337,20 +294,15 @@
         $("#SemisterCode").empty();
         $.ajax({
             type: 'POST',
-            url: '@Url.Action("ChangeProgramYearSelection", "Admin",new { area="Admin"})', // we are calling json method
-
+            url: '@Url.Action("ChangeProgramYearSelection", "Admin",new { area="Admin"})',
             dataType: 'json',
-
             data: { programmeID: $("#ProgramCode").val(), countryID: $('#CountryCode').val(), programYear: $('#AcademicYearCode').val() },
             success: function (res) {
                 if (res != null) {
-
                     $("#SemisterCode").append('<option value="">Select Semester</option>');
                     $.each(res.ProgSEMList, function (i, state) {
                         $("#SemisterCode").append('<option value="' + state.Value + '">' +
                              state.Text + '</option>');
-                        // here we are adding option for States
-
                     });
                 }
                 else {
@@ -399,17 +351,13 @@
             return isNumber(event, this)
         });
     });
-    // THE SCRIPT THAT CHECKS IF THE KEY PRESSED IS A NUMERIC OR DECIMAL VALUE.
+
     function isNumber(evt, element) {
-
         var charCode = (evt.which) ? evt.which : event.keyCode
-
         if (
-           // (charCode != 45 || $(element).val().indexOf('-') != -1) &&      // “-” CHECK MINUS, AND ONLY ONE.
-            (charCode != 46 || $(element).val().indexOf('.') != -1) &&      // “.” CHECK DOT, AND ONLY ONE.
+            (charCode != 46 || $(element).val().indexOf('.') != -1) &&
             (charCode < 48 || charCode > 57))
             return false;
-
         return true;
     }
 

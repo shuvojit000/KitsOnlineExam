@@ -3,7 +3,9 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayoutPage.cshtml";
     ViewBag.Title = "SubjectAssessment";
 }
-
+<style>.modal-body {
+  overflow-x: auto;
+}</style>
 <div class="content-wrapper">
     <div class="content-header row">
     </div>
@@ -93,9 +95,7 @@
     $(function () {
         $('li a[href*="Subject"]').parent('li').addClass('active')
         $("#ddlStatus").change(function () {
-
             if ($('#ddlStatus').val() != '' && $('#ddlStatus').val() != null) {
-
                 var statusIdstr = [];
                 $.each($(".statusCheck:checked"), function () {
                     statusIdstr.push($(this).attr('data-id'));
@@ -123,8 +123,6 @@
                                 }
                                 else {
                                     alert('Error in your request.');
-
-
                                 }
                             },
                             error: function (e) {
@@ -132,8 +130,6 @@
                             }
                         });
                     }
-
-
                 }
                 else {
                     alert('Please select an Item.');
@@ -150,40 +146,27 @@
         else {
             $('.modal-body').load('/Admin/Admin/AddSubjectAssessment/', function () { $("#myModal").modal('show'); });
         }
-
     }
+
     function fnSaveSubjectAssessment(SubjectAssessmentID) {
         debugger;
         var SubAssessmentDetails = [];
-        //$('#customFields tr[valign="top"]').each(function () {
-        //    var currentRow = $(this).closest("tr");
-        //    var tabular = {
-        //        AssessmentName: currentRow.find("#AssessmentName").val(),
-        //        AssessmentType: currentRow.find("#AssessmentType").val(),
-        //        FullMarks: currentRow.find("#FullMarks").val(),
-        //        AssessmentPercentage: currentRow.find("#AssessmentPercentage").val(),
-        //        OpenClose: currentRow.find("#OpenClose").val(),
-        //    };
-        //    SubAssessmentDetails.push(tabular);
-        //});
-
          var i = 0;
         $('#customFields tr').each(function () {
              debugger;
          var currentRow=$(this).closest("tr");
             if (i > 0) {
-
              var tabular = {
-                AssessmentName: currentRow.find("#AssessmentName").val(),
-                AssessmentType:currentRow.find("#AssessmentType").val(),
-                FullMarks:  currentRow.find("#FullMarks").val(),
-                AssessmentPercentage: currentRow.find("#AssessmentPercentage").val(),
-                 OpenClose: currentRow.find(("#OpenClose")).is(':checked')?1:0,
-                    };
-                SubAssessmentDetails.push(tabular);
-            }
-            i = i + 1;
- });
+                                AssessmentName: currentRow.find("#AssessmentName").val(),
+                                AssessmentType:currentRow.find("#AssessmentType").val(),
+                                FullMarks:  currentRow.find("#FullMarks").val(),
+                                AssessmentPercentage: currentRow.find("#AssessmentPercentage").val(),
+                                OpenClose: currentRow.find(("#OpenClose")).is(':checked')?1:0,
+                            };
+                            SubAssessmentDetails.push(tabular);
+                    }
+                    i = i + 1;
+            });
 
 
         $('.valClass').css({ 'display': 'none' });
@@ -246,7 +229,6 @@
                     } else {
                         alert('Error in your requst.');
                         $("#myModal").modal('hide');
-
                     }
                 },
                 error: function (e) {
@@ -255,12 +237,15 @@
             });
         }
     }
+
     function fnViewSubjectAssessment(id) {
         $('.modal-body').load('/Admin/Admin/SubjectAssessmentView/' + id, function () { $("#myModal").modal('show'); });
     }
+
     function fnLoadSubjectAssessmentList() {
         $('.listSubjectAssessment').load('/Admin/Admin/SubjectAssessmentList');
     }
+
     function fnDeleteSubjectAssessment(SubjectAssessmentID) {
 
         if (confirm("Are you sure?")) {
@@ -286,6 +271,5 @@
                 }
             });
         }
-
     }
 </script>
