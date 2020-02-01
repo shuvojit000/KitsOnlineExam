@@ -49,8 +49,8 @@
                     <div class="form-group col-lg-6">
                         <label><b>Semester Type<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
-                            <input type="radio" name="SemesterType" value="Short"  @(Model.SemesterType=="Short" ?"checked":"")> Short
-                            <input type="radio" name="SemesterType" value="Long"  @(Model.SemesterType== "Long" ? "checked":"")> Long
+                            <input type="radio" name="SemesterType" value="Short" @(Model.SemesterType == "Short" ? "checked" : "")> Short
+                            <input type="radio" name="SemesterType" value="Long" @(Model.SemesterType == "Long" ? "checked" : "")> Long
                             <span id="SemesterTypeVal" style="color:red;display:none" class="valClass">Please select Semester Type.</span>
                         </div>
                     </div>
@@ -68,33 +68,32 @@
     <!--main contant end-->
 </div>
 
-<script>$(document).ready(function () {
-        //Dropdownlist Selectedchange event
-    $(document).on("change","#DepartmentID",function () {
-            $("#ProgrammeID").empty();
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("GetProgDrop","Admin",new { area="Admin"})', // we are calling json method
+<script>
+    $(document).on("change", "#DepartmentID", function () {
+        $("#ProgrammeID").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetProgDrop","Admin",new { area="Admin"})', // we are calling json method
 
-                dataType: 'json',
+            dataType: 'json',
 
-                data: { departmentID: $("#DepartmentID").val() },
-                success: function (res) {
-                    // states contains the JSON formatted list
-                    // of states passed from the controller
-                    $("#ProgrammeID").append('<option value="">Select Programme</option>');
-                    $.each(res, function (i, state) {
+            data: { departmentID: $("#DepartmentID").val() },
+            success: function (res) {
+                // states contains the JSON formatted list
+                // of states passed from the controller
+                $("#ProgrammeID").append('<option value="">Select Programme</option>');
+                $.each(res, function (i, state) {
                     $("#ProgrammeID").append('<option value="' + state.Value + '">' +
                          state.Text + '</option>');
                     // here we are adding option for States
 
-                    });
-                },
-                error: function (ex) {
-                    alert('Failed to retrieve Programme.' + ex);
-                }
-            });
-            return false;
-        })
-    });</script>
+                });
+            },
+            error: function (ex) {
+                alert('Failed to retrieve Programme.' + ex);
+            }
+        });
+        return false;
+    })
+</script>
 

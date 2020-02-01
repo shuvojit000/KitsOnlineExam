@@ -24,20 +24,25 @@
                         </div>
                     </div>
                 </div>
-                    <div class="row">
+                <div class="row">
                     <div class="form-group col-lg-8">
-                            <label><b>Version<span class="requiredstar">*</span></b> </label>
-                            <div class="position-relative has-icon-left">
-                                @Html.TextBoxFor(a => a.Version, new { @class = "form-control",@type = "number",
-                                                   @oninput ="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength)",
-                                                   @Placeholder = "Please write syllabus version", @maxlength = "4" })
-                                
-                                <div class="form-control-position">
-                                    <i class="fa fa-book"></i>                                    
-                                </div>
-                                <span id="VersionVal" style="color:red;display:none" class="valClass"></span>
+                        <label><b>Version<span class="requiredstar">*</span></b> </label>
+                        <div class="position-relative has-icon-left">
+                            @Html.TextBoxFor(a => a.Version, new
+                           {
+                               @class = "form-control",
+                               @type = "number",
+                               //@oninput ="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength)",
+                               @Placeholder = "Please write syllabus version",
+                               @maxlength = "4"
+                           })
+
+                            <div class="form-control-position">
+                                <i class="fa fa-book"></i>
                             </div>
+                            <span id="VersionVal" style="color:red;display:none" class="valClass"></span>
                         </div>
+                    </div>
 
                     <div class="form-group col-lg-4">
                         <label><b>Credit<span class="requiredstar">*</span></b> </label>
@@ -45,20 +50,54 @@
                             @Html.TextBoxFor(a => a.Credit, new { @class = "form-control", @type = "number" })
                             <div class="form-control-position">
                                 <i class="fa fa-book"></i>
-                               
+
                             </div>
                             <span id="CreditVal" style="color:red;display:none" class="valClass"></span>
                         </div>
                     </div>
                 </div>
-           
-            <div class="modal-footer">
-                <button type="button" onclick="fnSaveProgramVersioning(@Model.ProgramVersioningID)" class="btn btn-primary">
-                    <i class="fa fa-check-square-o"></i> Save
-                </button>
+
+                <div class="modal-footer">
+                    <button type="button" onclick="fnSaveProgramVersioning(@Model.ProgramVersioningID)" class="btn btn-primary">
+                        <i class="fa fa-check-square-o"></i> Save
+                    </button>
+                </div>
+                <!--PAGE CONTENT ENDS-->
             </div>
-            <!--PAGE CONTENT ENDS-->
         </div>
+        <!--main contant end-->
     </div>
-    <!--main contant end-->
-</div>
+    <script>
+
+        $(document).on("keypress", "#Version", function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                return false;
+            }
+        });
+
+        //Dropdownlist Selectedchange event
+        $(document).on("change", "#DepartmentCode", function () {
+            $("#ProgramCode").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetProgDrop","Admin",new { area="Admin"})', // we are calling json method
+                dataType: 'json',
+                data: { departmentID: $("#DepartmentCode").val() },
+                success: function (res) {
+                    // states contains the JSON formatted list
+                    // of states passed from the controller
+                    $("#ProgramCode").append('<option value="">Select Programme</option>');
+                    $.each(res, function (i, state) {
+                        $("#ProgramCode").append('<option value="' + state.Value + '">' +
+                         state.Text + '</option>');
+                        // here we are adding option for States
+
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve Programme.' + ex);
+                }
+            });
+            return false;
+        })
+    </script>

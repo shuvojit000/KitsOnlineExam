@@ -22,7 +22,7 @@ namespace Lincoln.Admin.Web.Models
         public int SemisterCode { get; set; }
         public string SemisterName { get; set; }
         public string SectionName { get; set; }
-        public int SectionID { get; set; }
+        public string SectionID { get; set; }
         public string CourseCode { get; set; }
         public int CourseID { get; set; }
         public string CourseName { get; set; }
