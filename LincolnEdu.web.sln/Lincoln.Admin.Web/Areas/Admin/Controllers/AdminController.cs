@@ -632,7 +632,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.ProgSEMList = new List<SelectListItem>();
             if (itemList != null && itemList.Count() > 0)
             {
-
+               
                 model.ProgSEMList = itemList.Select(a => new SelectListItem() { Text = a.ProgrammeSemester.ToString(), Value = a.ProgrammeSemester.ToString() }).ToList().GroupBy(n => new { n.Text, n.Value })
                                            .Select(g => g.FirstOrDefault())
                                            .ToList();
@@ -643,9 +643,16 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
 
         }
+        [HttpPost]
+        public JsonResult ChangeProgramSemSelection(string progSemId)
+        {
+            return Json(onlineExamService.SelectProgrammeSemester(new OnlineExam.Request.ProgrammeSemesterRequestDTO {
+                ProgrammeSemesterID=Convert.ToInt32(progSemId)
+            }).SemesterType, JsonRequestBehavior.AllowGet);
+        }
         #endregion Course
 
-        #region Dropdown Code
+            #region Dropdown Code
         [HttpPost]
         public JsonResult GetProgDrop(string departmentID)
         {

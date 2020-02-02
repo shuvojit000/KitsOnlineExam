@@ -152,7 +152,7 @@
             data: { programmeID: $("#ProgrammeID").val() },
             success: function (res) {
                 if (res != null) {
-                   
+
                     $("#CountryID").append('<option value="">Select Country</option>');
                     $.each(res.CountryList, function (i, state) {
                         $("#CountryID").append('<option value="' + state.Value + '">' +
@@ -183,7 +183,7 @@
             data: { programmeID: $("#ProgrammeID").val(), countryID: $('#CountryID').val() },
             success: function (res) {
                 if (res != null) {
-                   
+
                     $("#ProgrammeYear").append('<option value="">Select Programme Year</option>');
                     $.each(res.ProgYearList, function (i, state) {
                         $("#ProgrammeYear").append('<option value="' + state.Value + '">' +
@@ -215,7 +215,7 @@
             data: { programmeID: $("#ProgrammeID").val(), countryID: $('#CountryID').val(), programYear: $('#ProgrammeYear').val() },
             success: function (res) {
                 if (res != null) {
-                    
+
                     $("#ProgrammeSemester").append('<option value="">Select Semester</option>');
                     $.each(res.ProgSEMList, function (i, state) {
                         $("#ProgrammeSemester").append('<option value="' + state.Value + '">' +
@@ -237,7 +237,30 @@
         return false;
     });
 
+    $(document).on("change", "#ProgrammeSemester", function () {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("ChangeProgramSemSelection", "Admin",new { area="Admin"})', // we are calling json method
+            dataType: 'json',
+            data: {
+                programmeID: $("#ProgrammeID").val(), countryID: $('#CountryID').val(), programYear: $('#ProgrammeYear').val(),
+                progSemId: $("#ProgrammeSemester").val()
+            },
+            success: function (res) {
+                if (res=="Short") {
+                    $('input[name="SemesterType"][value="Short"]').prop('checked', true);
+                }
+                else if (res == "Long") {
+                    $('input[name="SemesterType"][value="Long"]').prop('checked', true);
+                }
 
+                
+            },
+            error: function (ex) {
+
+            }
+        });
+    });
 
 
     function distinct(myArray) {
