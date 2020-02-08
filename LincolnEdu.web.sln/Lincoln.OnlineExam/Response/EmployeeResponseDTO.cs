@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Lincoln.OnlineExam.Response
 {
-    public class FacultyResponseDTO
+    public class EmployeeResponseDTO
     {
-        public int FacultyID { get; set; }
+        public int EmployeeID { get; set; }
         public int LoginID { get; set; }
         public string EmployeeCode { get; set; }
         public string EmployeeName { get; set; }

@@ -146,6 +146,7 @@
     <Compile Include="Models\CourseViewModel.cs" />
     <Compile Include="Models\CustomPrincipalSerializeModel.cs" />
     <Compile Include="Models\DepartmentViewModel.cs" />
+    <Compile Include="Models\EmployeeViewModel.cs" />
     <Compile Include="Models\ExaminationNameViewModel.cs" />
     <Compile Include="Models\ExaminationSectionViewModel.cs" />
     <Compile Include="Models\FacultyViewModel.cs" />
@@ -754,6 +755,10 @@
     <Content Include="Areas\Admin\Views\Admin\_viewExaminationName.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\_viewExaminationSection.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\_viewSubjectAssessment.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\EmployeeRegisration.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_addEmployee.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_viewEmployee.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_listEmployee.cshtml" />
     <None Include="Properties\PublishProfiles\LinclnAdmin.pubxml" />
     <None Include="Properties\PublishProfiles\LincLonAdmin.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />

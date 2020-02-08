@@ -229,7 +229,22 @@
 
                     </ul>
                 </li>
+                <li class="nav-item">
+                    <a href="#"><i class="ft-edit"></i><span class="menu-title" data-i18n="">Faculty Management</span></a>
+                    <ul class="menu-content">
 
+
+                        <li>
+                            <a class="menu-item" href="@Url.Action("EmployeeRegisration","Admin",new {area="Admin" })">Faculty Registration</a>
+                        </li>
+                        <li>
+                            <a class="menu-item" href="@Url.Action("SubjectAllocation","Admin",new {area="Admin" })">Subject Allocation</a>
+                        </li>
+                        
+
+
+                    </ul>
+                </li>
                 <li class="nav-item">
                     <a href="@Url.Action("LogOut","Home",new {area="" })"><i class="ft-power"></i><span class="menu-title" data-i18n="">Logout</span></a>
                 </li>

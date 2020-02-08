@@ -35,7 +35,7 @@ namespace Lincoln.OnlineExam
             }
 
         }
-       
+
 
         public int SaveCourse(CourseRequestDTO recordAttributer, string Operation)
         {
@@ -59,7 +59,7 @@ namespace Lincoln.OnlineExam
             }
         }
 
-       
+
         public int SaveStudent(StudentRequestDTO recordAttributer, string Operation)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
@@ -81,22 +81,25 @@ namespace Lincoln.OnlineExam
                 return unitOfWork.UserRepository.SelectStudent(recordAttributer);
             }
         }
-      
 
 
-        public int SaveAcademicLevel(AcademicLevelRequestDTO recordAttributer, string Operation) {
+
+        public int SaveAcademicLevel(AcademicLevelRequestDTO recordAttributer, string Operation)
+        {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
                 return unitOfWork.CommonRepository.SaveAcademicLevel(recordAttributer, Operation);
             }
         }
-        public List<AcademicLevelResponseDTO> GetAllAcademicLevel() {
+        public List<AcademicLevelResponseDTO> GetAllAcademicLevel()
+        {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
                 return unitOfWork.CommonRepository.GetAllAcademicLevel();
             }
         }
-        public AcademicLevelResponseDTO SelectAcademicLevel(AcademicLevelRequestDTO recordAttributer) {
+        public AcademicLevelResponseDTO SelectAcademicLevel(AcademicLevelRequestDTO recordAttributer)
+        {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
                 return unitOfWork.CommonRepository.SelectAcademicLevel(recordAttributer);
@@ -104,19 +107,22 @@ namespace Lincoln.OnlineExam
         }
 
 
-        public int SaveDepartment(DepartmentRequestDTO recordAttributer, string Operation) {
+        public int SaveDepartment(DepartmentRequestDTO recordAttributer, string Operation)
+        {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
                 return unitOfWork.CommonRepository.SaveDepartment(recordAttributer, Operation);
             }
         }
-        public List<DepartmentResponseDTO> GetAllDepartment() {
+        public List<DepartmentResponseDTO> GetAllDepartment()
+        {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
                 return unitOfWork.CommonRepository.GetAllDepartment();
             }
         }
-        public DepartmentResponseDTO SelectDepartment(DepartmentRequestDTO recordAttributer) {
+        public DepartmentResponseDTO SelectDepartment(DepartmentRequestDTO recordAttributer)
+        {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
                 return unitOfWork.CommonRepository.SelectDepartment(recordAttributer);
@@ -184,14 +190,14 @@ namespace Lincoln.OnlineExam
 
 
 
-       public  List<ProgrammeSemesterResponseDTO> GetAllProgrammeSemester()
+        public List<ProgrammeSemesterResponseDTO> GetAllProgrammeSemester()
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
                 return unitOfWork.CommonRepository.GetAllProgrammeSemester();
             }
         }
-        public  ProgrammeSemesterResponseDTO SelectProgrammeSemester(ProgrammeSemesterRequestDTO recordAttributer)
+        public ProgrammeSemesterResponseDTO SelectProgrammeSemester(ProgrammeSemesterRequestDTO recordAttributer)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
@@ -287,5 +293,29 @@ namespace Lincoln.OnlineExam
                 return unitOfWork.CommonRepository.SelectSubjectAssessment(recordAttributer);
             }
         }
+
+        public int SaveEmployee(EmployeeRequestDTO recordAttributer, string Operation)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.UserRepository.SaveEmployee(recordAttributer, Operation);
+            }
+        }
+        public List<EmployeeResponseDTO> GetAllEmployee()
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.UserRepository.GetAllEmployee();
+            }
+        }
+        public EmployeeResponseDTO SelectEmployee(EmployeeRequestDTO recordAttributer)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.UserRepository.SelectEmployee(recordAttributer);
+            }
+        }
+
+
     }
 }

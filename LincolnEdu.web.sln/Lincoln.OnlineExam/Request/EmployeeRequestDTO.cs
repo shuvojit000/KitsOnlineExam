@@ -6,17 +6,15 @@ using System.Threading.Tasks;
 
 namespace Lincoln.OnlineExam.Request
 {
-    public class FacultyRequestDTO
+    public class EmployeeRequestDTO
     {
-        public int FacultyID { get; set; }
-        public int LoginID { get; set; }
-        public string UserName { get; set; }
+        public int? LoginID { get; set; }
+        public int EmployeeID { get; set; }
         public string EmployeeCode { get; set; }
         public string EmployeeName { get; set; }
-        public string MobileNo { get; set; }
+        public string UserName { get; set; }
         public string EmailID { get; set; }
-        public int Status { get; set; }
-
+        public string MobileNo { get; set; }
         public int? CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }
         public int? ModifiedBy { get; set; }
@@ -24,5 +22,6 @@ namespace Lincoln.OnlineExam.Request
         public string Active { get; set; }
         public string Password { get; set; }
         public string UserType { get; set; }
+        public int Status { get; set; }
     }
 }

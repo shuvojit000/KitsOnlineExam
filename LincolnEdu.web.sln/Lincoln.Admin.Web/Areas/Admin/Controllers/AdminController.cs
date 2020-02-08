@@ -40,12 +40,9 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             }), JsonRequestBehavior.AllowGet);
         }
 
-       
 
-        #region Department
 
-       
-        #endregion
+      
 
         #region Programme
 
@@ -632,7 +629,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.ProgSEMList = new List<SelectListItem>();
             if (itemList != null && itemList.Count() > 0)
             {
-               
+
                 model.ProgSEMList = itemList.Select(a => new SelectListItem() { Text = a.ProgrammeSemester.ToString(), Value = a.ProgrammeSemester.ToString() }).ToList().GroupBy(n => new { n.Text, n.Value })
                                            .Select(g => g.FirstOrDefault())
                                            .ToList();
@@ -646,13 +643,14 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult ChangeProgramSemSelection(string progSemId)
         {
-            return Json(onlineExamService.SelectProgrammeSemester(new OnlineExam.Request.ProgrammeSemesterRequestDTO {
-                ProgrammeSemesterID=Convert.ToInt32(progSemId)
+            return Json(onlineExamService.SelectProgrammeSemester(new OnlineExam.Request.ProgrammeSemesterRequestDTO
+            {
+                ProgrammeSemesterID = Convert.ToInt32(progSemId)
             }).SemesterType, JsonRequestBehavior.AllowGet);
         }
         #endregion Course
 
-            #region Dropdown Code
+        #region Dropdown Code
         [HttpPost]
         public JsonResult GetProgDrop(string departmentID)
         {
@@ -1006,7 +1004,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.FacultyName = item.FacultyName;
             model.YearName = item.YearName;
             model.SectionName = item.SectionName;
-            model.SectionID= item.SectionName;
+            model.SectionID = item.SectionName;
             model.ModifiedOn = item.ModifiedOn?.Date;
             model.CreatedBy = item.CreatedBy;
             model.CreatedOn = item.CreatedOn;
@@ -1281,8 +1279,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             var model = new SubjectAssessmentResponseDTO();
             if (!string.IsNullOrEmpty(id))
             {
-                 model = SelectSubjectAssessment(id);
-                
+                model = SelectSubjectAssessment(id);
+
                 model.FacultyList = onlineExamService.GetAllDepartment().Where(a => a.DepartmentID == Convert.ToInt32(model.FacultyCode) && a.Status == "A")
                         .Select(a => new SelectListItem
                         {
@@ -1340,7 +1338,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 model.FacultyList = onlineExamService.GetAllDepartment().Select(a => new SelectListItem { Text = a.DepartmentName, Value = a.DepartmentID.ToString() }).ToList();
                 model.ProgramList = new List<SelectListItem>();
                 model.SyllabusVersionList = new List<SelectListItem>();
-                model.SemisterList = new List<SelectListItem>() ;// onlineExamService.GetAllProgrammeSemester().Select(a => new SelectListItem { Text = a.ProgrammeSemester.ToString(), Value = a.ProgrammeSemesterID.ToString() }).ToList();
+                model.SemisterList = new List<SelectListItem>();// onlineExamService.GetAllProgrammeSemester().Select(a => new SelectListItem { Text = a.ProgrammeSemester.ToString(), Value = a.ProgrammeSemesterID.ToString() }).ToList();
                 model.CourseList = new List<SelectListItem>();
                 model.CountryList = new List<SelectListItem>
                             {
@@ -1415,6 +1413,137 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+        #endregion
+
+
+
+
+        #region Employee
+
+        public ActionResult EmployeeRegisration() => View();
+
+        private List<EmployeeViewModel> GetAllEmployee()
+        {
+            var itemSet = new List<EmployeeViewModel>();
+            itemSet = onlineExamService.GetAllProgramme().Select(a => new EmployeeViewModel()
+            {
+                ProgrammeID = a.ProgrammeID,
+                ProgrammeName = a.ProgrammeName,
+                AcademicName = a.AcademicName,
+                ProgrammeCode = a.ProgrammeCode,
+                DepartmentName = a.DepartmentName,
+                DepartmentID = a.DepartmentID,
+                ApprovalNo = a.ApprovalNo,
+                Credit = a.Credit,
+                ModifiedOn = a.ModifiedOn?.Date,
+                Status = a.Status,
+                AcademicID = a.AcademicID,
+                CreatedBy = a.CreatedBy,
+                CreatedOn = a.CreatedOn,
+                ModifiedBy = Convert.ToInt32(a.ModifiedBy),
+            }).ToList();
+
+            return itemSet;
+        }
+        private EmployeeViewModel SelectEmployee(string employeeId)
+        {
+            var model = new EmployeeViewModel();
+            var item = onlineExamService.SelectProgramme(new OnlineExam.Request.EmployeeRequestDTO
+            {
+                EmployeeID = Convert.ToInt32(programmeId),
+
+
+            });
+            model.ProgrammeID = item.ProgrammeID;
+            model.ProgrammeName = item.ProgrammeName;
+            model.AcademicName = item.AcademicName;
+            model.DepartmentID = item.DepartmentID;
+            model.DepartmentName = item.DepartmentName;
+            model.ProgrammeCode = item.ProgrammeCode;
+            model.ApprovalNo = item.ApprovalNo;
+            model.Credit = item.Credit;
+            model.ModifiedOn = item.ModifiedOn?.Date;
+            model.Status = item.Status;
+            model.AcademicID = item.AcademicID;
+            model.CreatedBy = item.CreatedBy;
+            model.CreatedOn = item.CreatedOn;
+            model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
+            return model;
+
+        }
+
+        public PartialViewResult AddEmployee(string id)
+        {
+            var model = new ProgrammeViewModel();
+            if (!string.IsNullOrEmpty(id))
+            {
+                model = SelectProgramme(id);
+                model.DepartmentList = onlineExamService.GetAllDepartment().Where(a => a.AcademicID == model.AcademicID && a.Status == "A")
+                    .Select(a => new SelectListItem
+                    {
+                        Text = a.DepartmentName + "(" + a.DepartmentCode + ")",
+                        Value = a.DepartmentID.ToString()
+
+                    }).ToList();
+            }
+            else
+            {
+                model.DepartmentList = new List<SelectListItem>();
+            }
+            model.AcademicList = onlineExamService.GetDropdownData("Academic").Select(a => new SelectListItem { Text = a.CodeDesc, Value = a.CodeID }).ToList();
+
+            return PartialView("_addEmployee", model);
+        }
+        public PartialViewResult EmployeeView(string id)
+        {
+            return PartialView("_viewEmployee", SelectProgramme(id));
+        }
+        public PartialViewResult EmployeeList()
+        {
+            return PartialView("_listEmployee", GetAllProgramme());
+        }
+        [HttpPost]
+        public JsonResult SaveEmployee(EmployeeViewModel model)
+        {
+            var type = "INSERT";
+            if (model.ProgrammeID > 0)
+            {
+                type = "UPDATE";
+            }
+
+            var result = onlineExamService.SaveProgramme(new OnlineExam.Request.ProgrammeRequestDTO()
+            {
+                AcademicID = model.AcademicID,
+                CreatedBy = User.UserId,
+                ProgrammeCode = model.ProgrammeCode,
+                ApprovalNo = model.ApprovalNo,
+                Credit = model.Credit,
+                ProgrammeName = model.ProgrammeName,
+                ProgrammeID = model.ProgrammeID,
+                DepartmentID = model.DepartmentID,
+                Active = model.Active
+
+            }, type);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult DeleteEmployee(ProgrammeViewModel model)
+        {
+
+            var result = onlineExamService.SaveProgramme(new OnlineExam.Request.ProgrammeRequestDTO()
+            {
+
+                CreatedBy = User.UserId,
+                ProgrammeID = model.ProgrammeID
+
+
+            }, "DELETE");
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
         #endregion
     }
 }
