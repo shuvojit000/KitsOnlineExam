@@ -76,7 +76,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">
-                        <label class="modal-title text-text-bold-600">Employee Entry & Modify/View</label>
+                        <label class="modal-title text-text-bold-600">Faculty Entry & Modify/View</label>
                     </h4>
                     <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
@@ -153,65 +153,74 @@
     }
     function fnSaveEmployee(employeeID) {
         $('.valClass').css({ 'display': 'none' });
-        if ($('#AcademicID').val() == '') {
-            $('#AcademicIDVal').css({ 'display': 'block' });
+
+        if ($('#EmployeeCode').val() == '') {
+            $('#EmployeeCode').focus();
+            $('#EmployeeCodeVal').html('Faculty Code is required.');
+            $('#EmployeeCodeVal').css({ 'display': 'block' });
 
         }
-        else if ($('#DepartmentID').val() == '') {
-            $('#DepartmentIDVal').css({ 'display': 'block' });
+        else if ($('#EmployeeName').val() == '') {
+            $('#EmployeeName').focus();
+            $('#EmployeeNameVal').html('Faculty Name is required.');
+            $('#EmployeeNameVal').css({ 'display': 'block' });
         }
-        else if ($('#ProgrammeCode').val() == '') {
-            $('#ProgrammeCode').focus();
-            $('#ProgrammeCodeVal').html('Programme Code is required.');
-            $('#ProgrammeCodeVal').css({ 'display': 'block' });
+        else if ($('#UserName').val() == '') {
+            $('#UserName').focus();
+            $('#UserNameVal').html('UserName is required.');
+            $('#UserNameVal').css({ 'display': 'block' });
 
         }
-        else if ($('#ProgrammeName').val() == '') {
-            $('#ProgrammeName').focus();
-            $('#ProgrammeNameVal').html('Programme Name is required.');
-            $('#ProgrammeNameVal').css({ 'display': 'block' });
+        else if ($('#Password').val() == '') {
+            $('#Password').focus();
+            $('#PasswordVal').html('Password  is required.');
+            $('#PasswordVal').css({ 'display': 'block' });
         }
-        else if ($('#ApprovalNo').val() == '') {
-            $('#ApprovalNo').focus();
-            $('#ApprovalNoVal').html('Approval No  is required.');
-            $('#ApprovalNoVal').css({ 'display': 'block' });
-
+        else if ($('#EmailID').val() == '') {
+            $('#EmailID').focus();
+            $('#EmailIDVal').html('EmailID  is required.');
+            $('#EmailIDVal').css({ 'display': 'block' });
         }
-        else if ($('#Credit').val() == '') {
-            $('#Credit').focus();
-            $('#CreditVal').html('Credit  is required.');
-            $('#CreditVal').css({ 'display': 'block' });
+        else if (!validateEmail($('#EmailID').val())) {
+            $('#EmailID').focus();
+            $('#EmailIDVal').html('Not valid Email.');
+            $('#EmailIDVal').css({ 'display': 'block' });
+        }
+        else if ($('#MobileNo').val() == '') {
+            $('#MobileNo').focus();
+            $('#MobileNoVal').html('MobileNo  is required.');
+            $('#MobileNoVal').css({ 'display': 'block' });
         }
         else {
 
 
             var model = {
-                ProgrammeID: programmeID,
-                AcademicID: $('#AcademicID').val(),
-                ProgrammeCode: $('#ProgrammeCode').val(),
-                ProgrammeName: $('#ProgrammeName').val(),
-                DepartmentID: $('#DepartmentID').val(),
-                ApprovalNo: $('#ApprovalNo').val(),
-                Credit: $('#Credit').val(),
+                EmployeeID: employeeID,
+                EmployeeName: $('#EmployeeName').val(),
+                EmployeeCode: $('#EmployeeCode').val(),
+                UserName: $('#UserName').val(),
+                Password: $('#Password').val(),
+                EmailID: $('#EmailID').val(),
+                MobileNo: $('#MobileNo').val(),
                 Active: 'A'
             };
 
             $.ajax({
-                url: '@Url.Action("SaveProgramme", "Admin",new {area="Admin" })',
+                url: '@Url.Action("SaveEmployee", "Admin",new {area="Admin" })',
                 data: JSON.stringify(model),
                 type: 'POST',
                 cache: false,
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 success: function (result) {
-                    if (result ==1) {
+                    if (result == 1) {
                         alert('Data Save Successfully.');
                         $("#myModal").modal('hide');
-                        fnLoadProgrammeList();
+                        fnLoadEmployeeList();
                     } else if (result == -1) {
                         alert('Data already exist.');
                         $("#myModal").modal('hide');
-                        fnLoadProgrammeList();
+                        fnLoadEmployeeList();
                     }
                     else {
                         alert('Error in your requst.');
@@ -225,20 +234,20 @@
             });
         }
     }
-    function fnViewProgramme(id) {
-        $('.modal-body').load('/Admin/Admin/ProgrammeView/' + id, function () { $("#myModal").modal('show'); });
+    function fnViewEmployee(id) {
+        $('.modal-body').load('/Admin/Admin/EmployeeView/' + id, function () { $("#myModal").modal('show'); });
     }
-    function fnLoadProgrammeList() {
-        $('.listProgramme').load('/Admin/Admin/ProgrammeList');
+    function fnLoadEmployeeList() {
+        $('.listEmployee').load('/Admin/Admin/EmployeeList');
     }
-    function fnDeleteProgramme(programmeID) {
+    function fnDeleteEmployee(employeeID) {
 
         if (confirm("Are you sure want to delete?")) {
             var model = {
-                ProgrammeID: programmeID
+                EmployeeID: employeeID
             };
             $.ajax({
-                url: '@Url.Action("DeleteProgramme", "Admin",new {area="Admin" })',
+                url: '@Url.Action("DeleteEmployee", "Admin",new {area="Admin" })',
                 data: JSON.stringify(model),
                 type: 'POST',
                 cache: false,
@@ -246,9 +255,8 @@
                 dataType: "json",
                 success: function (result) {
                     if (result > 0) {
-                        alert('Programme has been deleted Successfully.');
-
-                        fnLoadProgrammeList();
+                        alert('Faculty has been deleted Successfully.');
+                        fnLoadEmployeeList();
                     }
                 },
                 error: function (e) {
@@ -257,6 +265,10 @@
             });
         }
 
+    }
+    function validateEmail($email) {
+        var emailReg = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/;
+        return emailReg.test($email);
     }
 </script>
 

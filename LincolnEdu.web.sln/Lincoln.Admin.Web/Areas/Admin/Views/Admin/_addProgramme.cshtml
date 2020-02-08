@@ -83,33 +83,32 @@
 <script>
 
 
-     $(document).ready(function () {
-        //Dropdownlist Selectedchange event
-         $(document).on("change","#AcademicID",function () {
-            $("#DepartmentID").empty();
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("GetDepartmentDrop","Admin",new { area="Admin"})', // we are calling json method
 
-                dataType: 'json',
+    $(document).on("change","#AcademicID",function () {
+        $("#DepartmentID").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetDepartmentDrop","Admin",new { area="Admin"})', // we are calling json method
 
-                data: { academicID: $("#AcademicID").val() },
-                success: function (res) {
-                    // states contains the JSON formatted list
-                    // of states passed from the controller
-                    $("#DepartmentID").append('<option value="">Select Faculty</option>');
-                    $.each(res, function (i, state) {
+            dataType: 'json',
+
+            data: { academicID: $("#AcademicID").val() },
+            success: function (res) {
+                // states contains the JSON formatted list
+                // of states passed from the controller
+                $("#DepartmentID").append('<option value="">Select Faculty</option>');
+                $.each(res, function (i, state) {
                     $("#DepartmentID").append('<option value="' + state.Value + '">' +
                          state.Text + '</option>');
                     // here we are adding option for States
 
-                    });
-                },
-                error: function (ex) {
-                    alert('Failed to retrieve Faculty.' + ex);
-                }
-            });
-            return false;
-        })
-    });
+                });
+            },
+            error: function (ex) {
+                alert('Failed to retrieve Faculty.' + ex);
+            }
+        });
+        return false;
+    })
+
 </script>

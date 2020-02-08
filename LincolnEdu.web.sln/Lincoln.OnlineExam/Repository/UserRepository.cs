@@ -206,21 +206,25 @@ namespace Lincoln.OnlineExam.Repository
         public int SaveEmployee(EmployeeRequestDTO recordAttributer, string Operation)
         {
 
-            //SqlParameter studentID = new SqlParameter("@StudentID", SqlDbType.Int);
-            //studentID.Value = recordAttributer.StudentID;
-
+            SqlParameter employeeID = new SqlParameter("@EmployeeID", SqlDbType.Int);
+            employeeID.Value = recordAttributer.EmployeeID;
             SqlParameter loginID = new SqlParameter("@LoginID", SqlDbType.Int);
             loginID.Value = recordAttributer.LoginID;
             SqlParameter userName = new SqlParameter("@UserName", SqlDbType.VarChar);
             userName.Value = recordAttributer.UserName;
-            SqlParameter emailID = new SqlParameter("@EmailID", SqlDbType.VarChar);
-            emailID.Value = recordAttributer.EmailID;
-            SqlParameter mobileNo = new SqlParameter("@MobileNo", SqlDbType.VarChar);
-            mobileNo.Value = recordAttributer.MobileNo;
+            SqlParameter employeeName = new SqlParameter("@EmployeeName", SqlDbType.VarChar);
+            employeeName.Value = recordAttributer.EmployeeName;
+            SqlParameter employeeCode = new SqlParameter("@EmployeeCode", SqlDbType.VarChar);
+            employeeCode.Value = recordAttributer.EmployeeCode;
             SqlParameter password = new SqlParameter("@Password", SqlDbType.VarChar);
             password.Value = recordAttributer.Password;
             SqlParameter userType = new SqlParameter("@UserType", SqlDbType.VarChar);
             userType.Value = recordAttributer.UserType;
+            SqlParameter emailID = new SqlParameter("@EmailID", SqlDbType.VarChar);
+            emailID.Value = recordAttributer.EmailID;
+            SqlParameter mobileNo = new SqlParameter("@MobileNo", SqlDbType.VarChar);
+            mobileNo.Value = recordAttributer.MobileNo;
+
             SqlParameter active = new SqlParameter("@Active", SqlDbType.Char);
             active.Value = recordAttributer.Active;
             SqlParameter createdBy = new SqlParameter("@CreatedBy", SqlDbType.Int);
@@ -231,7 +235,9 @@ namespace Lincoln.OnlineExam.Repository
             status.Value = recordAttributer.Status;
             status.Direction = ParameterDirection.InputOutput;
 
-            SqlServerHelper.ExecuteNonQueryProc("[ln.User].[upSaveLogin]", loginID, userName, emailID, mobileNo, password, userType, active, createdBy, type, status);
+            SqlServerHelper.ExecuteNonQueryProc("[ln.User].[upSaveEmployee]", employeeID, loginID, userName, employeeName, employeeCode,
+               password, userType, emailID, mobileNo,
+                active, createdBy, type, status);
 
             recordAttributer.Status = Convert.ToInt32(status.Value);
             return recordAttributer.Status;
@@ -262,11 +268,11 @@ namespace Lincoln.OnlineExam.Repository
                             LoginID = Convert.ToInt32(dr["LoginID"]),
                             EmployeeName = object.ReferenceEquals(dr["EmployeeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["EmployeeName"]),
                             EmployeeCode = object.ReferenceEquals(dr["EmployeeCode"], DBNull.Value) ? string.Empty : Convert.ToString(dr["EmployeeCode"]),
-                            //MobileNo = object.ReferenceEquals(dr["MobileNo"], DBNull.Value) ? string.Empty : Convert.ToString(dr["MobileNo"]),
-                            //EmailID = object.ReferenceEquals(dr["EmailID"], DBNull.Value) ? string.Empty : Convert.ToString(dr["EmailID"]),
+                            MobileNo = object.ReferenceEquals(dr["MobileNo"], DBNull.Value) ? string.Empty : Convert.ToString(dr["MobileNo"]),
+                            EmailID = object.ReferenceEquals(dr["EmailID"], DBNull.Value) ? string.Empty : Convert.ToString(dr["EmailID"]),
                             Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
-                            //UserName = object.ReferenceEquals(dr["UserName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["UserName"]),
-                            //UserType = object.ReferenceEquals(dr["UserType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["UserType"]),
+                            UserName = object.ReferenceEquals(dr["UserName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["UserName"]),
+                            UserType = object.ReferenceEquals(dr["UserType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["UserType"]),
                             CreatedBy = Convert.ToInt32(dr["CreatedBy"]),
                             //CreatedOn = object.ReferenceEquals(dr["CreatedOn"], DBNull.Value) ? default(DateTime) : Convert.ToDateTime(dr["CreatedOn"]),
                             // ModifiedBy = Convert.ToInt32(dr["ModifiedBy"]),
@@ -305,11 +311,11 @@ namespace Lincoln.OnlineExam.Repository
                         item.LoginID = Convert.ToInt32(dr["LoginID"]);
                         item.EmailID = object.ReferenceEquals(dr["EmailID"], DBNull.Value) ? string.Empty : Convert.ToString(dr["EmailID"]);
                         item.EmployeeCode = object.ReferenceEquals(dr["EmployeeCode"], DBNull.Value) ? string.Empty : Convert.ToString(dr["EmployeeCode"]);
-                        // item.Password = object.ReferenceEquals(dr["Password"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Password"]);
-                        //item.MobileNo = object.ReferenceEquals(dr["MobileNo"], DBNull.Value) ? string.Empty : Convert.ToString(dr["MobileNo"]);
+                        item.Password = object.ReferenceEquals(dr["Password"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Password"]);
+                        item.MobileNo = object.ReferenceEquals(dr["MobileNo"], DBNull.Value) ? string.Empty : Convert.ToString(dr["MobileNo"]);
                         item.EmployeeName = object.ReferenceEquals(dr["EmployeeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["EmployeeName"]);
                         item.Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]);
-                        //item.UserName = object.ReferenceEquals(dr["UserName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["UserName"]);
+                        item.UserName = object.ReferenceEquals(dr["UserName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["UserName"]);
                         // item.UserType = object.ReferenceEquals(dr["UserType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["UserType"]);
                         // item.CreatedBy = Convert.ToInt32(dr["CreatedBy"]);
                         //item.CreatedOn = object.ReferenceEquals(dr["CreatedOn"], DBNull.Value) ? default(DateTime) : Convert.ToDateTime(dr["CreatedOn"]);

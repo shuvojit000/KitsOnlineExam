@@ -1,1 +1,56 @@
-﻿
+﻿@model Lincoln.Admin.Web.Models.EmployeeViewModel
+<div class="panel-body">
+    <!--main content start-->
+    <div class="row">
+        <div class="col-lg-12">
+            <!--PAGE CONTENT BEGINS-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label><b>Faculty Code: </b></label>
+
+                        @Html.DisplayFor(a => a.EmployeeCode, new { @class = "form-control" })
+
+
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label><b>Faculty Name:</b> </label>
+
+                        @Html.DisplayFor(a => a.EmployeeName, new { @class = "form-control" })
+
+
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-lg-12">
+                        <label><b>UserName:</b> </label>
+
+
+                        @Html.DisplayFor(a => a.UserName, new { @class = "form-control" })
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label><b>EmailID:</b> </label>
+
+
+                        @Html.DisplayFor(a => a.EmailID, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label><b>MobileNo:</b> </label>
+
+
+                        @Html.DisplayFor(a => a.MobileNo, new { @class = "form-control" })
+
+                    </div>
+                </div>
+            </div>
+
+            <!--PAGE CONTENT ENDS-->
+        </div>
+    </div>
+    <!--main contant end-->
+</div>
