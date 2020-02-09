@@ -759,6 +759,8 @@
     <Content Include="Areas\Admin\Views\Admin\_addEmployee.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\_viewEmployee.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\_listEmployee.cshtml" />
+    <Content Include="Areas\Faculty\Views\Shared\_FacultyLayout.cshtml" />
+    <Content Include="Areas\Faculty\Views\Faculty\Dashboard.cshtml" />
     <None Include="Properties\PublishProfiles\LinclnAdmin.pubxml" />
     <None Include="Properties\PublishProfiles\LincLonAdmin.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -789,8 +791,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Faculty\Models\" />
-    <Folder Include="Areas\Faculty\Views\Faculty\" />
-    <Folder Include="Areas\Faculty\Views\Shared\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

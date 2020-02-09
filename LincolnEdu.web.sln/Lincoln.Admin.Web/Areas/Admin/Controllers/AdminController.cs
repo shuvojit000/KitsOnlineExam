@@ -1056,7 +1056,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 && a.ProgrammeYear == model.AcademicYearCode && a.Status == "A" && a.ProgrammeSemester == model.SemisterCode)
                       .Select(a => new SelectListItem
                       {
-                          Text = a.CourseName,
+                          Text = a.CourseName + "(" + a.CourseCode + ")",
                           Value = a.CourseID.ToString()
 
                       }).ToList();
@@ -1172,7 +1172,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                                                                      && a.ProgrammeSemester == Convert.ToInt32(programmeSem))
                     .Select(a => new SelectListItem
                     {
-                        Text = a.CourseName,
+                        Text = a.CourseName + "(" + a.CourseCode + ")",
                         Value = a.CourseID.ToString()
 
                     }).ToList(), JsonRequestBehavior.AllowGet);
@@ -1316,7 +1316,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 && a.ProgrammeYear == model.AcademicYearCode && a.Status == "A" && a.ProgrammeSemester == model.SemisterCode)
                       .Select(a => new SelectListItem
                       {
-                          Text = a.CourseName,
+                          Text = a.CourseName + "(" + a.CourseCode + ")",
                           Value = a.CourseID.ToString()
 
                       }).ToList();

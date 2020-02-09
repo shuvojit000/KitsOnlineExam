@@ -46,11 +46,9 @@
                     <div class="form-group col-lg-6">
                         <label><b>Assessment Type<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
-                            @Html.TextBoxFor(a => a.AssessmentType, new { @class = "form-control" })
-                            <div class="form-control-position">
-                                <i class="fa fa-book"></i>
-                            </div>
-                            <span id="AssessmentTypeVal" style="color:red;display:none" class="valClass"></span>
+                            <input type="radio" name="AssessmentType" value="Open" @(Model.AssessmentType == "Open" ? "checked" : "")> Open
+                            <input type="radio" name="AssessmentType" value="Close" @(Model.AssessmentType == "Close" ? "checked" : "")> Close
+                            <span id="AssessmentTypeVal" style="color:red;display:none" class="valClass"> Please select Assessment Type </span>
                         </div>
                     </div>
                 </div>

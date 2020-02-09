@@ -166,11 +166,10 @@
             $('#AssessmentNameVal').html('Assessment Name is required.');
             $('#AssessmentNameVal').css({ 'display': 'block' });
         }
-        else if ($('#AssessmentType').val() == '') {
-            $('#AssessmentType').focus();
-            $('#AssessmentTypeVal').html('Assessment Type is required.');
+        else if (typeof $('input[name="AssessmentType"]:checked').val() === 'undefined') {
             $('#AssessmentTypeVal').css({ 'display': 'block' });
         }
+        
         else {
 
 
@@ -180,7 +179,7 @@
                 FacultyCode: $('#FacultyCode').val(),
                 SyllabusVersion: $('#SyllabusVersion').val(),
                 AssessmentName: $('#AssessmentName').val(),
-                AssessmentType: $('#AssessmentType').val(),
+                AssessmentType: $('input[name="AssessmentType"]:checked').val(),
                 Active: 'A'
             };
 

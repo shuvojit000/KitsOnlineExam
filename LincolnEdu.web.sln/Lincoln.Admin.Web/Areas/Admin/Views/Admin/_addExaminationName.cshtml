@@ -1,7 +1,11 @@
 ﻿
 
 @model Lincoln.Admin.Web.Models.ExaminationNameViewModel
-
+<style>
+    .bootstrap-datetimepicker-widget .weekend {
+        color: red;
+    }
+</style>
 <div class="panel-body">
     <!--main content start-->
     <div class="row">
@@ -87,9 +91,9 @@
     <!--main contant end-->
 </div>
 <script>
-    
+
     $(document).on("focus","#StartDate,#EndDate",function(){
-        $('#StartDate').datetimepicker({ format: 'MM/DD/YYYY', minDate: moment() });
-        $('#EndDate').datetimepicker({ format: 'MM/DD/YYYY', minDate: moment() });
+        $('#StartDate').datetimepicker({ format: 'DD/MM/YYYY', minDate: moment() });
+        $('#EndDate').datetimepicker({ format: 'DD/MM/YYYY', minDate: moment() });
     });
 </script>

@@ -147,11 +147,9 @@
     }
 
     function fnSaveSubjectAssessment(SubjectAssessmentID) {
-        debugger;
         var SubAssessmentDetails = [];
          var i = 0;
         $('#customFields tr').each(function () {
-             debugger;
          var currentRow=$(this).closest("tr");
             if (i > 0) {
              var tabular = {

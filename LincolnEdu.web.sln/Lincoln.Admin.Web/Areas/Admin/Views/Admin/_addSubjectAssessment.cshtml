@@ -28,7 +28,7 @@
                     <div class="form-group col-lg-6">
                         <label><b>Programme Version<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.SyllabusVersionCode, Model.SyllabusVersionList, "Select Programme Version", new { @class = "custom-select block" })
+                            @Html.DropDownListFor(a => a.SyllabusVersionCode, Model.SyllabusVersionList, "Select Syllabus Version", new { @class = "custom-select block" })
                             <span id="SyllabusVersionCodeVal" style="color:red;display:none" class="valClass">Please select Version.</span>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                     <div class="form-group col-lg-6">
                         <label><b>Academic Year<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.AcademicYearCode, Model.AcademicYearList, "Select Programme Year", new { @class = "custom-select block" })
+                            @Html.DropDownListFor(a => a.AcademicYearCode, Model.AcademicYearList, "Select Academic Year", new { @class = "custom-select block" })
                             <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
                         </div>
                     </div>
@@ -227,7 +227,7 @@
             dataType: 'json',
             data: { ProgramVID: $("#ProgramCode").val() },
             success: function (res) {
-                $("#SyllabusVersionCode").append('<option value="">Select Programme Version</option>');
+                $("#SyllabusVersionCode").append('<option value="">Select Syllabus Version</option>');
                 $.each(res, function (i, state) {
                     $("#SyllabusVersionCode").append('<option value="' + state.Value + '">' +
                         state.Text + '</option>');
@@ -273,14 +273,14 @@
             data: { programmeID: $("#ProgramCode").val(), countryID: $('#CountryCode').val() },
             success: function (res) {
                 if (res != null) {
-                    $("#AcademicYearCode").append('<option value="">Select Programme Year</option>');
+                    $("#AcademicYearCode").append('<option value="">Select Academic Year</option>');
                     $.each(res.ProgYearList, function (i, state) {
                         $("#AcademicYearCode").append('<option value="' + state.Value + '">' +
                              state.Text + '</option>');
                     });
                 }
                 else {
-                    $("#AcademicYearCode").append('<option value="">Select Programme Year</option>');
+                    $("#AcademicYearCode").append('<option value="">Select Academic Year</option>');
 
                 }
             },

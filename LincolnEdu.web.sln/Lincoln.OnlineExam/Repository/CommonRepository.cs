@@ -926,7 +926,7 @@ namespace Lincoln.OnlineExam.Repository
 
         public int SaveExaminationName(ExaminationNameRequestDTO recordAttributer, string Operation)
         {
-            CultureInfo culture = new CultureInfo("en-US");
+            CultureInfo culture = new CultureInfo("en-IN");
             SqlParameter ExaminationID = new SqlParameter("@ExaminationID", SqlDbType.Int);
             ExaminationID.Value = recordAttributer.ExaminationNameID;
             SqlParameter ExaminationName = new SqlParameter("@ExaminationName", SqlDbType.VarChar);
