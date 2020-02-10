@@ -1413,6 +1413,18 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+
+        [HttpGet]
+        public JsonResult GetAssessmentById(string departmentId, string programmeId, string versionId)
+        {
+
+            return Json(GetAllAssessment().Where(a => a.ProgramCode == Convert.ToInt32(programmeId)
+            && a.FacultyCode == Convert.ToInt32(departmentId) &&
+            a.SyllabusVersion == Convert.ToInt32(versionId)),JsonRequestBehavior.AllowGet);
+
+        }
+
         #endregion
 
 

@@ -148,25 +148,32 @@
 
     function fnSaveSubjectAssessment(SubjectAssessmentID) {
         var SubAssessmentDetails = [];
-         var i = 0;
+        var i = 0;
         $('#customFields tr').each(function () {
-         var currentRow=$(this).closest("tr");
+            var currentRow = $(this).closest("tr");
             if (i > 0) {
-             var tabular = {
-                                AssessmentName: currentRow.find("#AssessmentName").val(),
-                                AssessmentType:currentRow.find("#AssessmentType").val(),
-                                FullMarks:  currentRow.find("#FullMarks").val(),
-                                AssessmentPercentage: currentRow.find("#AssessmentPercentage").val(),
-                                OpenClose: currentRow.find(("#OpenClose")).is(':checked')?1:0,
-                            };
-                            SubAssessmentDetails.push(tabular);
-                    }
-                    i = i + 1;
-            });
-
-
+                var tabular = {
+                    AssessmentName: currentRow.find("#AssessmentName").val(),
+                    AssessmentType: currentRow.find("#AssessmentType").val(),
+                    FullMarks: currentRow.find("#FullMarks").val(),
+                    AssessmentPercentage: currentRow.find("#AssessmentPercentage").val(),
+                    OpenClose: 1,
+                };
+                SubAssessmentDetails.push(tabular);
+            }
+            i = i + 1;
+        });
+        var isBlankPercentage = $.grep(SubAssessmentDetails, function(a) {
+            return a.AssessmentPercentage == '' ||"0"||"0.00";
+        })
+        var isBlankMarks = $.grep(SubAssessmentDetails, function (a) {
+            return a.FullMarks == '' ||"0 "|| "0.00";
+        })
         $('.valClass').css({ 'display': 'none' });
-        if ($('#FacultyCode').val() == '') {
+        if (SubAssessmentDetails.length == 0 || isBlankPercentage.length > 0 || isBlankMarks.length>0) {
+            alert('Assessment configuration is required.')
+        }
+        else if ($('#FacultyCode').val() == '') {
             $('#FacultyCodeVal').css({ 'display': 'block' });
         }
         else if ($('#ProgramCode').val() == '') {
@@ -190,7 +197,7 @@
         else if ($('#SectionID').val() == '') {
             $('#SectionIDVal').css({ 'display': 'block' });
         }
-        else if (SubAssessmentDetails.length == 0 ||SubAssessmentDetails == null) {
+        else if (SubAssessmentDetails.length == 0 || SubAssessmentDetails == null) {
             alert('Assessment is required.');
         }
         else {

@@ -19,14 +19,14 @@
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
-                        <label><b>Programme Level<span class="requiredstar">*</span> </b></label>
+                        <label><b>Programme<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
                             @Html.DropDownListFor(a => a.ProgramCode, Model.ProgramList, "Select Programme", new { @class = "custom-select block" })
                             <span id="ProgramCodeVal" style="color:red;display:none" class="valClass">Please select Programme.</span>
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
-                        <label><b>Programme Version<span class="requiredstar">*</span> </b></label>
+                        <label><b>Syllabus Version<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
                             @Html.DropDownListFor(a => a.SyllabusVersionCode, Model.SyllabusVersionList, "Select Syllabus Version", new { @class = "custom-select block" })
                             <span id="SyllabusVersionCodeVal" style="color:red;display:none" class="valClass">Please select Version.</span>
@@ -63,80 +63,45 @@
 
                 </div>
                 <table class="form-table" id="customFields">
-                    <tr>
-                        <th scope="row"><label for="customFieldName">Assessment</label></th>
-                        <th scope="row"><label for="customFieldName">Percentage(%)</label></th>
-                        <th scope="row"><label for="customFieldName">Full Marks</label></th>
-                        <th scope="row"><label for="customFieldName">Type</label></th>
-                        <th scope="row"><label for="customFieldName">Open/Close</label></th>
-                    </tr>
-                    @if (Model.SubAssessmentDetails != null && Model.SubAssessmentDetails.Count() > 0)
-                    {
-                        var last = Model.SubAssessmentDetails.Last();
-                        foreach (var item in Model.SubAssessmentDetails)
+                    <thead>
+                        <tr>
+                            <th scope="row"><label for="customFieldName">Assessment</label></th>
+                            <th scope="row"><label for="customFieldName">Percentage(%)</label></th>
+                            <th scope="row"><label for="customFieldName">Full Marks</label></th>
+                            <th scope="row"><label for="customFieldName">Type</label></th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody id="addtbody">
+                        @if (Model.SubAssessmentDetails != null && Model.SubAssessmentDetails.Count() > 0)
                         {
-                            <tr valign="top">
-                                <td>
-                                    <input type="text" class="form-control" id="AssessmentName" name="AssessmentName[]" value=@item.AssessmentName placeholder="Name" /> &nbsp;
-
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" id="AssessmentPercentage" name="AssessmentPercentage[]" value=@item.AssessmentPercentage placeholder="Percentage" /> &nbsp;
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" id="FullMarks" name="FullMarks[]" value=@item.FullMarks placeholder="Full Marks" /> &nbsp;
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" id="AssessmentType" name="AssessmentType[]" value=@item.AssessmentType placeholder="Type" /> &nbsp;
-                                </td>
-                                <td>
-                                    <input type="checkbox" id="OpenClose" name="OpenClose" value="OpenClose" @(item.OpenClose == 1 ? "checked" : "") />
-                                </td>
-                                @if (item.Equals(last))
-                                {
+                            var last = Model.SubAssessmentDetails.Last();
+                            foreach (var item in Model.SubAssessmentDetails)
+                            {
+                                <tr valign="top">
                                     <td>
-                                        <a href="javascript:void(0);" class="btn btn-success btn-sm" id="addCF">Add</a>
+                                        <input type="text" class="form-control" readonly="readonly" id="AssessmentName" name="AssessmentName[]" value=@item.AssessmentName /> &nbsp;
+
                                     </td>
-                                }
-                                else
-                                {
                                     <td>
-                                        <a href="javascript:void(0);" class="btn btn-danger btn-sm" id="remCF">Remove</a>
+                                        <input type="text" class="form-control" id="AssessmentPercentage" name="AssessmentPercentage[]" value=@item.AssessmentPercentage placeholder="Percentage" /> &nbsp;
                                     </td>
-                                }
+                                    <td>
+                                        <input type="text" class="form-control" id="FullMarks" name="FullMarks[]" value=@item.FullMarks placeholder="Full Marks" /> &nbsp;
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" readonly="readonly" id="AssessmentType" name="AssessmentType[]" value=@item.AssessmentType placeholder="Type" /> &nbsp;
+                                    </td>
 
 
-                            </tr>
+
+                                </tr>
+                            }
+
                         }
 
-                    }
-                    else
-                    {
 
-                        <tr valign="top">
-                            <td>
-                                <input type="text" class="form-control AssessmentNameCol" id="AssessmentName" maxlength="25" name="AssessmentName[]" value="" placeholder="Name" /> &nbsp;
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" id="AssessmentPercentage" maxlength="8" step="0.01" name="AssessmentPercentage[]" value="" placeholder="Percentage" /> &nbsp;
-
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" id="FullMarks" maxlength="8" step="0.01" name="FullMarks[]" value="" placeholder="Full Marks" /> &nbsp;
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" id="AssessmentType" maxlength="25" name="AssessmentType[]" value="" placeholder="Type" /> &nbsp;
-
-                            </td>
-                            <td>
-                                <input type="checkbox" id="OpenClose" name="OpenClose" value="OpenClose" /> &nbsp;
-                            </td>
-                            <td>
-                                <a href="javascript:void(0);" class="btn btn-success btn-sm" id="addCF">Add</a>
-                            </td>
-                        </tr>
-
-                    }
+                    </tbody>
                 </table>
                 <div class="modal-footer">
                     <button type="button" onclick="fnSaveSubjectAssessment(@Model.SubjectAssessmentID)" class="btn btn-primary">
@@ -153,50 +118,7 @@
 
 
 <script>
-    $(document).on("click", "#addCF", function () {
-        var i = 0;
-        debugger;
-        $('#customFields tr').each(function () {
-            var TL = $('#customFields tr').length;
-            var currentRow = $(this).closest("tr");
-            if (i == TL - 1) {
-                $('.valClass').css({ 'display': 'none' });
-                if (currentRow.find("#AssessmentName").val() == '') {
-                    alert("Please Enter Assessment Name ");
-                    currentRow.find("#AssessmentName").focus();
-                }
-                else if (currentRow.find("#AssessmentPercentage").val() == '') {
-                    alert("Please Enter Assessment Percentage ");
-                    currentRow.find("#AssessmentPercentage").focus();
-                }
-                else if (currentRow.find("#FullMarks").val() == '') {
-                    alert("Please Enter Full Marks ");
-                    currentRow.find("#FullMarks").focus();
-                }
-                else if (currentRow.find("#AssessmentType").val() == '') {
-                    alert("Please Enter Assessment Type ");
-                    currentRow.find("#AssessmentType").focus();
-                }
-                else {
-                    $("#customFields")
-                        .append('<tr><td><input type="text" class="form-control" id="AssessmentName" name="AssessmentName[]" value="" placeholder="Name"  /></td> &nbsp;' +
-                            ' <td><input type="text" class="form-control" id="AssessmentPercentage" name="AssessmentPercentage[]" value="" placeholder="Percentage" /></td> &nbsp;' +
-                            ' <td><input type="text" class="form-control" id="FullMarks" name="FullMarks[]" value="" placeholder="Full Marks" /></td>   &nbsp;' +
-                            ' <td><input type="text" class="form-control" id="AssessmentType" name="AssessmentType[]" value="" placeholder="Type" /></td> &nbsp;' +
-                            ' <td><input type="checkbox" id="OpenClose" name="OpenClose" value="OpenClose"/></td>&nbsp; ' +
-                            '<td><a href="javascript:void(0);" id="addCF" class="btn btn-success btn-sm" >Add</a></td ></tr > ');
 
-                    $(this).closest("tr").find("td:eq(5)").html('<td><a href="javascript:void(0);" class="btn btn-danger btn-sm" id="remCF">Remove</a></td >');
-                }
-            }
-            i = i + 1;
-
-        });
-    });
-
-    $(document).on("click", "#remCF", function () {
-        $(this).closest("tr").remove();
-    });
     $(document).on("change", "#FacultyCode", function () {
         $("#ProgramCode").empty();
         $.ajax({
@@ -361,5 +283,27 @@
             return false;
         return true;
     }
+    $(document).on("change", "#SyllabusVersionCode", function () {
+        $("#addtbody").empty();
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("GetAssessmentById", "Admin",new { area="Admin"})',
+            dataType: 'json',
+            data: { programmeId: $("#ProgramCode").val(), versionId: $("#SyllabusVersionCode").val(), departmentId: $("#FacultyCode").val() },
+            success: function (res) {
 
+                $.each(res, function (i, state) {
+                    $("#addtbody")
+                    .append('<tr><td><input type="text" readonly="readonly" class="form-control" id="AssessmentName" name="AssessmentName[]" value="' + state.AssessmentName + '" /></td> &nbsp;' +
+                          ' <td><input type="text" class="form-control" id="AssessmentPercentage" name="AssessmentPercentage[]" value="" placeholder="Percentage" /></td> &nbsp;' +
+                          ' <td><input type="text" class="form-control" id="FullMarks" name="FullMarks[]" value="" placeholder="Full Marks" /></td>   &nbsp;' +
+                          ' <td><input type="text" class="form-control" readonly="readonly" id="AssessmentType" name="AssessmentType[]" value="' + state.AssessmentType + '"  /></td> &nbsp;' +
+                          '</tr > ');
+                });
+            },
+            error: function (ex) {
+                alert('Failed to retrieve.' + ex);
+            }
+        });
+    });
 </script>
