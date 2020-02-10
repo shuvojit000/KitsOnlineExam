@@ -1228,7 +1228,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 ProgramName = a.ProgramName,
                 CourseID = a.CourseID,
                 CourseCode = a.CourseCode,
-                CountryName = a.CountryName,
+                CountryName = (a.CountryCode == 1) ? "India" : (a.CountryCode == 2) ? "Malaysia" : a.CountryCode == 3 ? "United States" : string.Empty,
                 CountryCode = a.CountryCode,
                 SemisterCode = a.SemisterCode,
                 SemisterName = onlineExamService.GetAllProgrammeSemester().Where(x => x.ProgrammeSemesterID == Convert.ToInt32(a.ProgramCode) && a.Status == "A").Select(x => x.SemesterType).SingleOrDefault(),
@@ -1259,7 +1259,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             model.ProgramName = itemSet.ElementAt(0).ProgramName;
             model.CourseName = itemSet.ElementAt(0).CourseName;
-            model.SemisterName = itemSet.ElementAt(0).SemisterName;
+            model.SemisterName = itemSet.ElementAt(0).SemisterCode.ToString();
             model.SyllabusVersionName = itemSet.ElementAt(0).SyllabusVersionName;
             model.CountryName = itemSet.ElementAt(0).CountryName;
             model.FacultyName = itemSet.ElementAt(0).FacultyName;
