@@ -316,6 +316,28 @@ namespace Lincoln.OnlineExam
             }
         }
 
+        public int SaveSubjectAllocation(SubjectAllocationRequestDTO recordAttributer, string Operation)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.SaveSubjectAllocation(recordAttributer, Operation);
+            }
+        }
+        public List<SubjectAllocationResponseDTO> GetAllSubjectAllocation()
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.GetAllSubjectAllocation();
+            }
+        }
+        public SubjectAllocationResponseDTO SelectSubjectAllocation(SubjectAllocationRequestDTO recordAttributer)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.SelectSubjectAllocation(recordAttributer);
+            }
+        }
+
 
     }
 }
