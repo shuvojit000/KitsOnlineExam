@@ -544,7 +544,7 @@ namespace Lincoln.OnlineExam.Repository
 
 
             SqlParameter programVersioningID = new SqlParameter("@ProgrammeVersioningID", SqlDbType.Int);
-            programVersioningID.Value = DBNull.Value;
+            programVersioningID.Value = recordAttributer.ProgramVersioningID;
             SqlParameter departmentCode = new SqlParameter("@DepartmentID", SqlDbType.VarChar);
             departmentCode.Value = DBNull.Value;
             SqlParameter programCode = new SqlParameter("@ProgrammeID", SqlDbType.VarChar);
@@ -862,7 +862,7 @@ namespace Lincoln.OnlineExam.Repository
 
 
             SqlParameter courseID = new SqlParameter("@CourseID", SqlDbType.Int);
-            courseID.Value = DBNull.Value;
+            courseID.Value = recordAttributer.CourseID;
             SqlParameter academicID = new SqlParameter("@AcademicID", SqlDbType.Int);
             academicID.Value = DBNull.Value;
             SqlParameter departmentID = new SqlParameter("@DepartmentID", SqlDbType.Int);
@@ -1450,6 +1450,7 @@ namespace Lincoln.OnlineExam.Repository
 
         }
         #endregion
+
         #region Subject Allocation
 
         public int SaveSubjectAllocation(SubjectAllocationRequestDTO recordAttributer, string Operation)
