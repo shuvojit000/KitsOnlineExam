@@ -1421,7 +1421,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return Json(GetAllAssessment().Where(a => a.ProgramCode == Convert.ToInt32(programmeId)
             && a.FacultyCode == Convert.ToInt32(departmentId) &&
-            a.SyllabusVersion == Convert.ToInt32(versionId)),JsonRequestBehavior.AllowGet);
+            a.SyllabusVersion == Convert.ToInt32(versionId)), JsonRequestBehavior.AllowGet);
 
         }
 
@@ -1714,13 +1714,15 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             return Json("", JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult AllocationDetails(SubjectAllocationViewModel model)
+        public PartialViewResult AllocationDetails(SubjectAllocationViewModel model)
         {
             model.SubAllocationList = new List<SubjectAllocationList>();
             model.AllocationList = new SubjectAllocationList();
             model.AllocationList.SubAllocationDetailsList = new List<SubjectAllocationDetailsList>();
             model.SubAllocationList = onlineExamService.GetAllProgrammeSemester().Where(a => a.ProgrammeID == Convert.ToInt32(model.ProgramCode)
-                                                   && a.CountryID == Convert.ToInt32(model.CountryCode) && a.ProgrammeYear == Convert.ToInt32(model.AcademicYearCode) && a.Status == "A"
+                                                   && a.CountryID == Convert.ToInt32(model.CountryCode) &&
+                                                   a.ProgrammeYear == Convert.ToInt32(model.AcademicYearCode) &&
+                                                   a.Status == "A"
                                                    ).Select(a => new SubjectAllocationList
                                                    {
                                                        SemisterID = a.ProgrammeSemesterID,
@@ -1729,13 +1731,16 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                                                    }).ToList();
 
 
-            
-            model.AllocationList.SubAllocationDetailsList = onlineExamService.GetAllCourse().Where(a => a.ProgrammeID == Convert.ToInt32(model.ProgramCode)
-            && a.CountryId == model.CountryCode && a.DepartmentID== Convert.ToInt32(model.FacultyCode))
+
+             model.AllocationList.SubAllocationDetailsList = onlineExamService.GetAllCourse().Where(a => a.ProgrammeID == Convert.ToInt32(model.ProgramCode)
+             && a.CountryId == Convert.ToInt32(model.CountryCode) &&
+                                                   a.ProgrammeYear == Convert.ToInt32(model.AcademicYearCode) &&
+                                                   a.Status == "A")
              .Select(a => new SubjectAllocationDetailsList
              {
                  CourseID = a.CourseID,
-                 CourseName = a.CourseName.ToString()
+                 CourseName = a.CourseName.ToString(),
+                 ProgrammeSemesterID = a.ProgrammeSemester
 
              }).ToList();
 
