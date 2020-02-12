@@ -67,5 +67,9 @@ namespace Lincoln.OnlineExam
         int SaveEmployee(EmployeeRequestDTO recordAttributer, string Operation);
         List<EmployeeResponseDTO> GetAllEmployee();
         EmployeeResponseDTO SelectEmployee(EmployeeRequestDTO recordAttributer);
+        
+         int SaveSubjectAllocation(SubjectAllocationRequestDTO recordAttributer, string Operation);
+        List<SubjectAllocationResponseDTO> GetAllSubjectAllocation();
+        SubjectAllocationResponseDTO SelectSubjectAllocation(SubjectAllocationRequestDTO recordAttributer);
     }
 }
