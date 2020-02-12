@@ -85,6 +85,7 @@
     <Compile Include="Request\ProgramVersioningRequestDTO.cs" />
     <Compile Include="Request\QuestionSectionRequestDTO.cs" />
     <Compile Include="Request\StudentRequestDTO.cs" />
+    <Compile Include="Request\SubjectAllocationRequestDTO.cs" />
     <Compile Include="Request\SubjectAssessmentRequestDTO.cs" />
     <Compile Include="Request\SubjectRequestDTO.cs" />
     <Compile Include="Request\UpdateStatusReuestDTO.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Response\ProgramVersioningResponseDTO.cs" />
     <Compile Include="Response\QuestionSectionResponseDTO.cs" />
     <Compile Include="Response\StudentResponseDTO.cs" />
+    <Compile Include="Response\SubjectAlocationResponseDTO.cs" />
     <Compile Include="Response\SubjectAssessmentResponseDTO.cs" />
     <Compile Include="Response\SubjectResponseDTO.cs" />
     <Compile Include="Utility\AccessHelper.cs" />

@@ -50,6 +50,7 @@ namespace Lincoln.Admin.Web.Models
         public int SlNo { get; set; }
         public string SubjectAllocationDetailsID { get; set; }
         public int? CourseID { get; set; }
+        public int? ProgrammeSemesterID { get; set; }
         public string CourseName { get; set; }
         public int Allocation { get; set; }
     }
