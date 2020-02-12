@@ -21,7 +21,7 @@
                             <th>Course</th>
                             <th>Allocate</th>
                         </tr>
-                        @foreach (var item2 in item.SubAllocationDetailsList)
+                        @foreach (var item2 in Model.AllocationList?.SubAllocationDetailsList?.Where(a=>a.ProgrammeSemesterID==item.SemisterID))
                         {
                             <tr>
                                 <td><label class="form-control" id="SubjectAllocationDetailsID" name="SubjectAllocationDetailsID[]" value=1 placeholder="Name" /> &nbsp;</td>
