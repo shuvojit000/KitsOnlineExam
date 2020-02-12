@@ -1,0 +1,306 @@
+﻿
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayoutPage.cshtml";
+    ViewBag.Title = "SubjectAllocation";
+}
+
+<div class="content-wrapper">
+    <div class="content-header row">
+    </div>
+    <div class="content-body">
+        <!-- Base style table -->
+        <section id="base-style">
+            <div class="row">
+                <div class="col-12">
+                    <div class="cardk">
+                        <div class="card-header">
+                            <h4 class="card-title">Subject Allocation Records</h4>
+                            <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            <div class="form-group pull-left" style="padding-left:22px; padding-top:10px;">
+                                <select class="custom-select block" id="ddlStatus">
+                                    <option selected value="">Action</option>
+                                    <option value="A">Active</option>
+                                    <option value="I">Inactive</option>
+                                </select>
+                            </div>
+                            <div class="pull-right tableTools-container" style="padding-right:22px; padding-top:10px;">
+                                <div class="dt-buttons btn-overlap btn-group">
+                                    <a class="dt-button buttons-copy buttons-html5 btn btn-white btn-primary btn-bold" onclick="fnAddSubjectAllocation()" title="Add Subject Allocation">
+                                        <span>
+                                            <i class="fa fa-plus bigger-110" style="color:#ffffff"></i>
+                                            <span class="hidden">Add</span>
+                                        </span>
+                                    </a>
+                                    <a class="dt-button buttons-excel buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to Excel">
+                                        <span>
+                                            <i class="fa fa-file-excel-o bigger-110"></i>
+                                            <span class="hidden">Export to Excel</span>
+                                        </span>
+                                    </a>
+                                    <a class="dt-button buttons-pdf buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to PDF">
+                                        <span>
+                                            <i class="fa fa-file-pdf-o bigger-110"></i>
+                                            <span class="hidden">Export to PDF</span>
+                                        </span>
+                                    </a>
+                                    <a class="dt-button buttons-print btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Print">
+                                        <span>
+                                            <i class="fa fa-print bigger-110"></i>
+                                            <span class="hidden">Print</span>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content collapse show">
+                            <div class="card-body card-dashboard listSubjectAllocation">
+                                @{ Html.RenderAction("SubjectAllocationList", "Admin", new { area = "Admin" });}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--/ Base style table -->
+    </div>
+</div>
+<div class="col-lg-12">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <label class="modal-title text-text-bold-600">Subject Allocation Entry & Modify/View</label>
+                    </h4>
+                    <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body recoPas">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('li a[href*="Subject"]').parent('li').addClass('active')
+        $("#ddlStatus").change(function () {
+            if ($('#ddlStatus').val() != '' && $('#ddlStatus').val() != null) {
+                var statusIdstr = [];
+                $.each($(".statusCheck:checked"), function () {
+                    statusIdstr.push($(this).attr('data-id'));
+                });
+                if (statusIdstr.length > 0) {
+                    if (confirm('Are you sure?')) {
+                        var model = {
+                            ID: statusIdstr.join(','),
+                            Active: $('#ddlStatus').val(),
+                            Table: "SubjectAllocation"
+                        };
+
+                        $.ajax({
+                            url: '@Url.Action("ChangeAllStatus", "Admin",new {area="Admin" })',
+                            data: JSON.stringify(model),
+                            type: 'POST',
+                            cache: false,
+                            contentType: "application/json;charset=utf-8",
+                            dataType: "json",
+                            success: function (result) {
+                                if (result > 0) {
+                                    alert('Status has been changed Successfully.');
+                                    $('#ddlStatus').val('');
+                                    fnLoadSubjectAllocationList();
+                                }
+                                else {
+                                    alert('Error in your request.');
+                                }
+                            },
+                            error: function (e) {
+                                alert('Error in your requst.');
+                            }
+                        });
+                    }
+                }
+                else {
+                    alert('Please select an Item.');
+                    $('#ddlStatus').val('');
+                }
+            }
+        });
+    });
+
+    function fnAddSubjectAllocation(id) {
+        if (id != null && id != '') {
+            $('.modal-body').load('/Admin/Admin/AddSubjectAllocation/' + id, function () { $("#myModal").modal('show'); });
+        }
+        else {
+            $('.modal-body').load('/Admin/Admin/AddSubjectAllocation/', function () { $("#myModal").modal('show'); });
+        }
+    }
+
+    function fnSaveSubjectAllocation(SubjectAllocationID) {
+        var SubAllocationDetails = [];
+        // var i = 0;
+        //$('#customFields tr').each(function () {
+        // var currentRow=$(this).closest("tr");
+        //    if (i > 0) {
+        //     var tabular = {
+        //                        AssessmentName: currentRow.find("#AssessmentName").val(),
+        //                        AssessmentType:currentRow.find("#AssessmentType").val(),
+        //                        FullMarks:  currentRow.find("#FullMarks").val(),
+        //                        AssessmentPercentage: currentRow.find("#AssessmentPercentage").val(),
+        //                        OpenClose: currentRow.find(("#OpenClose")).is(':checked')?1:0,
+        //                    };
+        //                    SubAllocationDetails.push(tabular);
+        //            }
+        //            i = i + 1;
+        //    });
+
+             var i = 0;
+    $('.Grid tr').each(function () {
+        var TL = $('.Grid tr').length;
+        var currentRow = $(this).closest("tr");
+             if (i > 0) {
+             var tabular = {
+                                AssessmentName: currentRow.find("#AssessmentName").val(),
+                                AssessmentType:currentRow.find("#AssessmentType").val(),
+                                FullMarks:  currentRow.find("#FullMarks").val(),
+                                AssessmentPercentage: currentRow.find("#AssessmentPercentage").val(),
+                                OpenClose: currentRow.find(("#OpenClose")).is(':checked')?1:0,
+                            };
+                            SubAllocationDetails.push(tabular);
+                    }
+        
+        i = i + 1;
+    });
+
+        var j = 0;
+    $('.ChildGrid tr').each(function () {
+        var TLG = $('.ChildGrid tr').length;
+        var currentRow = $(this).closest("tr");
+        if (j == TLG - 1) {
+           // $('.valClass').css({ 'display': 'none' });
+            if (currentRow.find("#AssessmentName").val() == '') {
+                alert("Please Enter Assessment Name ");
+                currentRow.find("#AssessmentName").focus();
+            }
+        }
+         j = j + 1;
+    });
+
+
+
+
+
+        $('.valClass').css({ 'display': 'none' });
+        if ($('#FacultyCode').val() == '') {
+            $('#FacultyCodeVal').css({ 'display': 'block' });
+        }
+        else if ($('#ProgramCode').val() == '') {
+            $('#ProgramCodeVal').css({ 'display': 'block' });
+        }
+        else if ($('#SyllabusVersionCode').val() == '') {
+            $('#SyllabusVersionCodeVal').css({ 'display': 'block' });
+        }
+        else if ($('#CountryCode').val() == '') {
+            $('#CountryCodeVal').css({ 'display': 'block' });
+        }
+        else if ($('#AcademicYearCode').val() == '') {
+            $('#AcademicYearCodeVal').css({ 'display': 'block' });
+        }
+        //else if ($('#SemisterCode').val() == '') {
+        //    $('#SemisterCodeVal').css({ 'display': 'block' });
+        //}
+        //else if ($('#CourseCode').val() == '') {
+        //    $('#CourseIDVal').css({ 'display': 'block' });
+        //}
+        //else if ($('#SectionID').val() == '') {
+        //    $('#SectionIDVal').css({ 'display': 'block' });
+        //}
+        //else if (SubAllocationDetails.length == 0 ||SubAlocationDetails == null) {
+        //    alert('Assessment is required.');
+        //}
+        else {
+            var model = {
+                SubjectAllocationID: SubjectAllocationID,
+                ProgramCode: $('#ProgramCode').val(),
+                FacultyCode: $('#FacultyCode').val(),
+                SyllabusVersionCode: $('#SyllabusVersionCode').val(),
+                SemisterCode: $('#SemisterCode').val(),
+                CountryCode: $('#CountryCode').val(),
+                CourseCode: $('#CourseCode').val(),
+                AcademicYearCode: $('#AcademicYearCode').val(),
+                SubAssessmentDetails: SubAssessmentDetails,
+                Active: 'A'
+            };
+            $.ajax({
+                url: '@Url.Action("SaveSubjectAllocation", "Admin",new {area="Admin" })',
+                data: JSON.stringify(model),
+                type: 'POST',
+                cache: false,
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result > 0) {
+                        alert('Data Save Successfully.');
+                        $("#myModal").modal('hide');
+                        fnLoadSubjectAllocationList();
+                    } else if (result == -1) {
+                        alert('Data already exist.');
+                        $("#myModal").modal('hide');
+                        fnLoadSubjectAllocationList();
+                    } else {
+                        alert('Error in your requst.');
+                        $("#myModal").modal('hide');
+                    }
+                },
+                error: function (e) {
+                    alert('Error in your requst.');
+                }
+            });
+        }
+    }
+
+    function fnViewSubjectAllocation(id) {
+        $('.modal-body').load('/Admin/Admin/SubjectAllocationView/' + id, function () { $("#myModal").modal('show'); });
+    }
+
+    function fnLoadSubjectAllocationList() {
+        $('.listSubjectAllocation').load('/Admin/Admin/SubjectAllocationList');
+    }
+
+    function fnDeleteSubjectAllocation(SubjectAllocationID) {
+
+        if (confirm("Are you sure want to delete?")) {
+            var model = {
+                SubjectAllocationID: SubjectAllocationID
+            };
+            $.ajax({
+                url: '@Url.Action("DeleteSubjectAllocation", "Admin",new {area="Admin" })',
+                data: JSON.stringify(model),
+                type: 'POST',
+                cache: false,
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result > 0) {
+                        alert('Allocation  has been deleted Successfully.');
+
+                        fnLoadSubjectAllocationList();
+                    }
+                },
+                error: function (e) {
+                    alert('Error in your requst.');
+                }
+            });
+        }
+    }
+</script>

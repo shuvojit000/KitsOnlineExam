@@ -1,0 +1,275 @@
+﻿@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>*@
+@*@using Lincoln.OnlineExam.Response;*@
+
+@*@model Lincoln.Admin.Web.Models.SubjectAssessmentViewModel*@
+@model Lincoln.Admin.Web.Models.SubjectAllocationViewModel
+
+<style type="text/css">
+    body {
+        font-family: Arial;
+        font-size: 10pt;
+    }
+
+    .Grid {
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+        background-color: #fff;
+    }
+
+        .Grid th {
+            background-color: #B8DBFD;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .Grid th, .Grid td {
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .Grid img {
+            cursor: pointer;
+        }
+
+    .ChildGrid {
+        width: 100%;
+    }
+
+        .ChildGrid th {
+            background-color: #6C6C6C;
+            color: #fff;
+            font-weight: bold;
+        }
+</style>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    //Assign Click event to Plus Image.
+    $("body").on("click", "img[src*='plus.png']", function () {
+        $(this).closest("tr").after("<tr><td></td><td colspan = '999'>" + $(this).next().html() + "</td></tr>");
+        $(this).attr("src", "~/Content/assets/images/minus.png");
+    });
+    //Assign Click event to Minus Image.
+    $("body").on("click", "img[src*='minus.png']", function () {
+        $(this).attr("src", "~/Content/assets/images/plus.png");
+        $(this).closest("tr").next().remove();
+    });
+
+/**/</script>
+
+<div class="panel-body">
+    <!--main content start-->
+    <div class="row">
+        <div class="col-lg-12">
+            <!--PAGE CONTENT BEGINS-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label><b>Faculty<span class="requiredstar">*</span> </b></label>
+                        <div class="position-relative has-icon-left">
+                            @Html.DropDownListFor(a => a.FacultyCode, Model.FacultyList, "Select Faculty", new { @class = "custom-select block" })
+                            <span id="FacultyCodeVal" style="color:red;display:none" class="valClass">Please select Faculty.</span>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label><b>Programme Level<span class="requiredstar">*</span> </b></label>
+                        <div class="position-relative has-icon-left">
+                            @Html.DropDownListFor(a => a.ProgramCode, Model.ProgramList, "Select Programme", new { @class = "custom-select block" })
+                            <span id="ProgramCodeVal" style="color:red;display:none" class="valClass">Please select Programme.</span>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label><b>Programme Version<span class="requiredstar">*</span> </b></label>
+                        <div class="position-relative has-icon-left">
+                            @Html.DropDownListFor(a => a.SyllabusVersionCode, Model.SyllabusVersionList, "Select Syllabus Version", new { @class = "custom-select block" })
+                            <span id="SyllabusVersionCodeVal" style="color:red;display:none" class="valClass">Please select Version.</span>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label><b>Country<span class="requiredstar">*</span> </b></label>
+                        <div class="position-relative has-icon-left">
+                            @Html.DropDownListFor(a => a.CountryCode, Model.CountryList, "Select Country", new { @class = "custom-select block" })
+                            <span id="CountryCodeVal" style="color:red;display:none" class="valClass">Please select Country.</span>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label><b>Academic Year<span class="requiredstar">*</span> </b></label>
+                        <div class="position-relative has-icon-left">
+                            @Html.DropDownListFor(a => a.AcademicYearCode, Model.AcademicYearList, "Select Academic Year", new { @class = "custom-select block" })
+                            <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" id="results">
+                    @Html.Partial("_AllocationDetails")
+                    @*@{Html.RenderPartial("_AllocationDetails");}*@
+                </div>
+                    <div class="modal-footer">
+                        <button type="button" onclick="fnSaveSubjectAllocation(@Model.SubjectAllocationID)" class="btn btn-primary">
+                            <i class="fa fa-check-square-o"></i> Save
+                        </button>
+                    </div>
+                    <!--PAGE CONTENT ENDS-->
+                </div>
+            </div>
+        <!--main contant end-->
+    </div>
+</div>
+
+
+<script>
+
+
+    //$(document).on("click", ".btn-primary", function () {
+    //    debugger;
+    //    var i = 0;
+    //$('.Grid tr').each(function () {
+    //    var TL = $('.Grid tr').length;
+    //    var currentRow = $(this).closest("tr");
+    //    if (i == TL - 1) {
+    //       // $('.valClass').css({ 'display': 'none' });
+    //        if (currentRow.find("#AssessmentName").val() == '') {
+    //            alert("Please Enter Assessment Name ");
+    //            currentRow.find("#AssessmentName").focus();
+    //        }
+    //    }
+    //    i = i + 1;
+    //});
+
+    //    var j = 0;
+    //$('.ChildGrid tr').each(function () {
+    //    var TLG = $('.ChildGrid tr').length;
+    //    var currentRow = $(this).closest("tr");
+    //    if (j == TLG - 1) {
+    //       // $('.valClass').css({ 'display': 'none' });
+    //        if (currentRow.find("#AssessmentName").val() == '') {
+    //            alert("Please Enter Assessment Name ");
+    //            currentRow.find("#AssessmentName").focus();
+    //        }
+    //    }
+    //     j = j + 1;
+    //});
+
+
+  //});
+
+
+
+
+    $(document).on("change", "#FacultyCode", function () {
+        $("#ProgramCode").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetProgDrop","Admin",new { area="Admin"})',
+            dataType: 'json',
+            data: { departmentID: $("#FacultyCode").val() },
+            success: function (res) {
+                $("#ProgramCode").append('<option value="">Select Programme</option>');
+                $.each(res, function (i, state) {
+                    $("#ProgramCode").append('<option value="' + state.Value + '">' +
+                        state.Text + '</option>');
+                });
+            },
+            error: function (ex) {
+                alert('Failed to retrieve Faculty.' + ex);
+            }
+        });
+        return false;
+    });
+
+
+    $(document).on("change", "#ProgramCode", function () {
+        $("#SyllabusVersionCode").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetProgrammeVersionDDL","Admin",new { area="Admin"})',
+            dataType: 'json',
+            data: { ProgramVID: $("#ProgramCode").val() },
+            success: function (res) {
+                $("#SyllabusVersionCode").append('<option value="">Select Syllabus Version</option>');
+                $.each(res, function (i, state) {
+                    $("#SyllabusVersionCode").append('<option value="' + state.Value + '">' +
+                        state.Text + '</option>');
+                });
+            },
+            error: function (ex) {
+                alert('Failed to retrieve Version.' + ex);
+            }
+        });
+
+        $("#CountryCode").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("ChangeProgramSelection", "Admin",new { area="Admin"})', // we are calling json method
+            dataType: 'json',
+            data: { programmeID: $("#ProgramCode").val() },
+            success: function (res) {
+                if (res != null) {
+                    $("#CountryCode").append('<option value="">Select Country</option>');
+                    $.each(res.CountryList, function (i, state) {
+                        $("#CountryCode").append('<option value="' + state.Value + '">' +
+                             state.Text + '</option>');
+                    });
+                }
+                else {
+
+                    $("#CountryCode").append('<option value="">Select Country</option>');
+                }
+            },
+            error: function (ex) {
+                alert('Failed to retrieve country.' + ex);
+            }
+        });
+        return false;
+    });
+
+    $(document).on("change", "#CountryCode", function () {
+        $("#AcademicYearCode").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("ChangeCountrySelection", "Admin",new { area="Admin"})',
+            dataType: 'json',
+            data: { programmeID: $("#ProgramCode").val(), countryID: $('#CountryCode').val() },
+            success: function (res) {
+                if (res != null) {
+                    $("#AcademicYearCode").append('<option value="">Select Academic Year</option>');
+                    $.each(res.ProgYearList, function (i, state) {
+                        $("#AcademicYearCode").append('<option value="' + state.Value + '">' +
+                             state.Text + '</option>');
+                    });
+                }
+                else {
+                    $("#AcademicYearCode").append('<option value="">Select Academic Year</option>');
+
+                }
+            },
+            error: function (ex) {
+                alert('Failed to retrieve Programme year.' + ex);
+            }
+        });
+        return false;
+    });
+
+    $(document).on("change", "#AcademicYearCode", function () {
+        debugger;
+        var AllocationViewModel = {
+            ProgramCode:1,
+            FacultyCode:1,
+            SyllabusVersionCode:1,
+            CountryCode:1,
+            AcademicYearCode:1
+        }
+       // var url = '@Url.Action("SubjectAllocationDetails", "Admin")' + "?model="  + AllocationViewModel;
+        $.ajax({
+           type: "POST",
+           url: '@Url.Action("AllocationDetails", "Admin")',
+           data: JSON.stringify(AllocationViewModel),
+           contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (value) {
+                debugger;
+                $("#results").html(value);
+            }
+       });
+    });
+</script>
