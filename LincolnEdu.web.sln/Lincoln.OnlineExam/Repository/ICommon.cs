@@ -57,5 +57,10 @@ namespace Lincoln.OnlineExam.Repository
         int SaveExaminationSection(ExaminationSectionRequestDTO recordAttributer, string Operation);
         List<ExaminationSectionResponseDTO> GetAllExaminationSection();
         ExaminationSectionResponseDTO SelectExaminationSection(ExaminationSectionRequestDTO recordAttributer);
+        
+        
+        int SaveSubjectAllocation(SubjectAllocationRequestDTO recordAttributer, string Operation);
+        List<SubjectAllocationResponseDTO> GetAllSubjectAllocation();
+        SubjectAllocationResponseDTO SelectSubjectAllocation(SubjectAllocationRequestDTO recordAttributer);
     }
 }
