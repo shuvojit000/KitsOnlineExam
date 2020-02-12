@@ -1450,5 +1450,131 @@ namespace Lincoln.OnlineExam.Repository
 
         }
         #endregion
+        #region Subject Allocation
+
+        public int SaveSubjectAllocation(SubjectAllocationRequestDTO recordAttributer, string Operation)
+        {
+            SqlParameter SubjectAllocationID = new SqlParameter("@SubjectAllocationID", SqlDbType.Int);
+            SubjectAllocationID.Value = recordAttributer.SubjectAllocationID;
+
+            SqlParameter ProgramCode = new SqlParameter("@ProgrammeID", SqlDbType.Int);
+            ProgramCode.Value = recordAttributer.ProgrammeID;
+            SqlParameter FacultyCode = new SqlParameter("@EmployeeID", SqlDbType.Int);
+            FacultyCode.Value = recordAttributer.EmployeeID;
+            SqlParameter SyllabusVersionCode = new SqlParameter("@Version", SqlDbType.Int);
+            SyllabusVersionCode.Value = recordAttributer.Version;
+            SqlParameter CountryCode = new SqlParameter("@CountryID", SqlDbType.Int);
+            CountryCode.Value = recordAttributer.CountryID;
+            SqlParameter AcademicYearCode = new SqlParameter("@AcademicID", SqlDbType.Int);
+            AcademicYearCode.Value = recordAttributer.AcademicID;
+            SqlParameter allocationxml = new SqlParameter("@AllocationXML", SqlDbType.Xml);
+            allocationxml.Value = recordAttributer.AllocationDetails;
+            SqlParameter active = new SqlParameter("@Active", SqlDbType.Char);
+            active.Value = recordAttributer.Active;
+            SqlParameter createdBy = new SqlParameter("@CreatedBy", SqlDbType.Int);
+            createdBy.Value = recordAttributer.CreatedBy;
+
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = Operation;
+
+
+            SqlParameter status = new SqlParameter("@Status", SqlDbType.Int);
+            status.Value = 0;
+            status.Direction = ParameterDirection.InputOutput;
+
+            SqlServerHelper.ExecuteNonQueryProc("[ln.User].[upSaveSubjectAllocation]", SubjectAllocationID, ProgramCode, FacultyCode, SyllabusVersionCode,
+                CountryCode, AcademicYearCode, allocationxml, active, createdBy, type, status);
+
+            return Convert.ToInt32(status.Value);
+
+        }
+        public List<SubjectAllocationResponseDTO> GetAllSubjectAllocation()
+        {
+            var itemSet = new List<SubjectAllocationResponseDTO>();
+
+            SqlParameter SubjectAllocationID = new SqlParameter("@SubjectAllocationID", SqlDbType.Int);
+            SubjectAllocationID.Value = DBNull.Value;
+
+            SqlParameter ProgramCode = new SqlParameter("@ProgrammeID", SqlDbType.Int);
+            ProgramCode.Value = DBNull.Value;
+            SqlParameter FacultyCode = new SqlParameter("@EmployeeID", SqlDbType.Int);
+            FacultyCode.Value = DBNull.Value;
+            SqlParameter Version = new SqlParameter("@Version", SqlDbType.VarChar);
+            Version.Value = DBNull.Value;
+            SqlParameter CountryCode = new SqlParameter("@CountryID", SqlDbType.Int);
+            CountryCode.Value = DBNull.Value;
+            SqlParameter AcademicYearCode = new SqlParameter("@ProgrammeYear", SqlDbType.Int);
+            AcademicYearCode.Value = DBNull.Value;
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = "GET";
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.User].[upGetSubjectAllocation]", SubjectAllocationID, ProgramCode, FacultyCode, Version,
+                CountryCode, AcademicYearCode,  type))
+            {
+                if (dr != null && dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        itemSet.Add(new SubjectAllocationResponseDTO()
+                        {
+                            SubjectAllocationID = Convert.ToInt32(dr["SubjectAllocationID"]),
+                            ProgramCode = Convert.ToInt32(dr["ProgrammeID"]),
+                            FacultyCode = Convert.ToInt32(dr["EmployeeID"]),
+                            //SyllabusVersionCode = Convert.ToInt32(dr["Version"]),
+                           // ProgramName = object.ReferenceEquals(dr["ProgrammeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeName"]),
+                           // FacultyName = object.ReferenceEquals(dr["DepartmentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["DepartmentName"]),
+                            SyllabusVersionName = object.ReferenceEquals(dr["Version"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Version"]),
+                           // YearName = object.ReferenceEquals(dr["ProgrammeYear"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeYear"]),
+                            CountryCode = Convert.ToInt32(dr["CountryID"]),
+                            AcademicYearCode = Convert.ToInt32(dr["AcademicID"]),
+                           // CourseCode = Convert.ToInt32(dr["CourseID"]),
+                           // Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
+                            CreatedBy = Convert.ToInt32(dr["CreatedBy"]),
+                        });
+
+                    }
+                }
+            }
+            return itemSet;
+
+        }
+
+        public SubjectAllocationResponseDTO SelectSubjectAllocation(SubjectAllocationRequestDTO recordAttributer)
+        {
+            var item = new SubjectAllocationResponseDTO();
+            SqlParameter SubjectAllocationDetailsID = new SqlParameter("@SubjectAllocationDetailsID", SqlDbType.Int);
+            SubjectAllocationDetailsID.Value = DBNull.Value; //recordAttributer.SubAssessmentDetails.ElementAt(0).AssessmentConfigurationDetailsID;
+            SqlParameter SubjectAssessmentID = new SqlParameter("@AssessmentConfigurationID", SqlDbType.Int);
+            SubjectAssessmentID.Value = recordAttributer.SubjectAllocationID;
+            SqlParameter AssessmentName = new SqlParameter("@AssessmentName", SqlDbType.VarChar);
+            AssessmentName.Value = DBNull.Value;
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            if (SubjectAssessmentID != null)
+            {
+                type.Value = "GET";
+            }
+
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Examination].[upGetAssessmentConfigurationDetails]", SubjectAllocationDetailsID, SubjectAssessmentID, AssessmentName, type))
+            {
+                item.SubAllocationDetails = new List<Response.SubjectAllocationDetails>();
+
+                if (dr != null && dr.HasRows)
+                {
+                    //while (dr.Read())
+                    //{
+                    //    item.TabulalConfigurationDetails = new Response.SubjectAssessmentDetails();
+                    //    item.TabulalConfigurationDetails.AssessmentName = object.ReferenceEquals(dr["AssessmentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AssessmentName"]); ;
+                    //    item.TabulalConfigurationDetails.AssessmentType = object.ReferenceEquals(dr["AssessmentType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AssessmentType"]); ;
+                    //    item.TabulalConfigurationDetails.FullMarks = Convert.ToDecimal(dr["FullMarks"]);
+                    //    item.TabulalConfigurationDetails.AssessmentPercentage = Convert.ToDecimal(dr["AssessmentPercentage"]);
+                    //    item.TabulalConfigurationDetails.OpenClose = Convert.ToInt32(dr["OpenClose"]);
+                    //    //item.CreatedBy = Convert.ToInt32(dr["CreatedBy"]);
+                    //    item.SubAssessmentDetails.Add(item.TabulalConfigurationDetails);
+                    //}
+                }
+            }
+            return item;
+
+        }
+        #endregion
     }
 }
