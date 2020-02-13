@@ -22,5 +22,10 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
         {
             return View();
         }
+        public ActionResult QuestionSetUp()
+        {
+            return View();
+        }
+
     }
 }

@@ -12,7 +12,7 @@ namespace Lincoln.OnlineExam
         
         private IUserRepository userRepository;
         private ICommon commonRepository;
-
+        private IQuestionRepository questionRepository;
 
         public IUserRepository UserRepository
         {
@@ -38,6 +38,19 @@ namespace Lincoln.OnlineExam
                 }
 
                 return this.commonRepository;
+            }
+        }
+        public IQuestionRepository QuestionRepository
+        {
+            get
+            {
+                if (this.questionRepository == null)
+                {
+
+                    this.questionRepository = new QuestionRepository();
+                }
+
+                return this.questionRepository;
             }
         }
         public void Dispose()

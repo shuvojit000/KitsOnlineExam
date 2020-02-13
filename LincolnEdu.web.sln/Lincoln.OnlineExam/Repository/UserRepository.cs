@@ -235,7 +235,7 @@ namespace Lincoln.OnlineExam.Repository
             status.Value = recordAttributer.Status;
             status.Direction = ParameterDirection.InputOutput;
 
-            SqlServerHelper.ExecuteNonQueryProc("[ln.User].[upSaveEmployee]", employeeID, loginID, userName, employeeName, employeeCode,
+            SqlServerHelper.ExecuteNonQueryProc("[ln.Faculty].[upSaveEmployee]", employeeID, loginID, userName, employeeName, employeeCode,
                password, userType, emailID, mobileNo,
                 active, createdBy, type, status);
 
@@ -256,7 +256,7 @@ namespace Lincoln.OnlineExam.Repository
             employeeCode.Value = DBNull.Value;
             SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
             type.Value = "GET";
-            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.User].[upGetEmployee]", employeeID, loginID, employeeCode, type))
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Faculty].[upGetEmployee]", employeeID, loginID, employeeCode, type))
             {
                 if (dr != null && dr.HasRows)
                 {
@@ -300,7 +300,7 @@ namespace Lincoln.OnlineExam.Repository
             SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
             type.Value = "GET";
 
-            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.User].[upGetEmployee]", employeeID, loginID, employeeCode, type))
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Faculty].[upGetEmployee]", employeeID, loginID, employeeCode, type))
             {
                 if (dr != null && dr.HasRows)
                 {
