@@ -155,6 +155,7 @@
     <Compile Include="Models\ProgrammeViewModel.cs" />
     <Compile Include="Models\ProgramVersioningViewModel.cs" />
     <Compile Include="Models\QuestionSectionViewModel.cs" />
+    <Compile Include="Models\QuestionSetUpViewModel.cs" />
     <Compile Include="Models\StudentViewModel.cs" />
     <Compile Include="Models\SubjectAllocationViewModel.cs" />
     <Compile Include="Models\SubjectAssessmentViewModel.cs" />
@@ -767,6 +768,7 @@
     <Content Include="Areas\Admin\Views\Admin\_listSubjectAllocation.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\_viewSubjectAllocation.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\SubjectAllocation.cshtml" />
+    <Content Include="Areas\Faculty\Views\Faculty\QuestionSetUp.cshtml" />
     <None Include="Properties\PublishProfiles\LinclnAdmin.pubxml" />
     <None Include="Properties\PublishProfiles\LincLonAdmin.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
