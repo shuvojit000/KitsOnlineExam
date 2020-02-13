@@ -12,17 +12,7 @@
         <section id="base-style">
             <div class="row">
                 <div class="col-12">
-                    <div class="cardk">
-                        <div class="card-header">
-                            <h4 class="card-title">Faculty Records</h4>
-                            <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
-                            <div class="heading-elements">
-                                <ul class="list-inline mb-0">
-                                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                      
+                   
 
                         <div class="row">
                             <div class="form-group col-lg-6">
@@ -88,29 +78,29 @@
 
                         <div class="card-content collapse show">
                             <div class="card-body card-dashboard listDepartment">
-                                @{ Html.RenderAction("DepartmentList", "Admin", new { area = "Admin" });}
+                               
                             </div>
                         </div>
-                    </div>
+                   
                 </div>
             </div>
         </section>
         <!--/ Base style table -->
     </div>
 </div>
-<script> $(document).on("change", "#FacultyCode", function () {
-     $("#ProgramCode").empty();
+<script> $(document).on("change", "#DepartmentID", function () {
+     $("#ProgrammeID").empty();
      $.ajax({
          type: 'POST',
          url: '@Url.Action("GetProgDrop","Admin",new { area="Admin"})', // we are calling json method
 
          dataType: 'json',
 
-         data: { departmentID: $("#FacultyCode").val() },
+         data: { departmentID: $("#DepartmentID").val() },
          success: function (res) {
-             $("#ProgramCode").append('<option value="">Select Programme</option>');
+             $("#ProgrammeID").append('<option value="">Select Programme</option>');
              $.each(res, function (i, state) {
-                 $("#ProgramCode").append('<option value="' + state.Value + '">' +
+                 $("#ProgrammeID").append('<option value="' + state.Value + '">' +
                      state.Text + '</option>');
              });
          },
@@ -122,20 +112,20 @@
  });
 
 
-    $(document).on("change", "#ProgramCode", function () {
-        $("#SyllabusVersionCode").empty();
+    $(document).on("change", "#ProgrammeID", function () {
+        $("#SyllabusVersionID").empty();
         $.ajax({
             type: 'POST',
             url: '@Url.Action("GetProgrammeVersionDDL","Admin",new { area="Admin"})', // we are calling json method
 
             dataType: 'json',
 
-            data: { ProgramVID: $("#ProgramCode").val() },
+            data: { ProgramVID: $("#ProgrammeID").val() },
             success: function (res) {
-                $("#SyllabusVersionCode").append('<option value="">Select Programme Version</option>');
+                $("#SyllabusVersionID").append('<option value="">Select Programme Version</option>');
 
                 $.each(res, function (i, state) {
-                    $("#SyllabusVersionCode").append('<option value="' + state.Value + '">' +
+                    $("#SyllabusVersionID").append('<option value="' + state.Value + '">' +
                         state.Text + '</option>');
                 });
             },
@@ -143,18 +133,18 @@
                 alert('Failed to retrieve Version.' + ex);
             }
         });
-        $("#CountryCode").empty();
+        $("#CountryID").empty();
         $.ajax({
             type: 'POST',
             url: '@Url.Action("ChangeProgramSelection", "Admin",new { area="Admin"})', // we are calling json method
             dataType: 'json',
-            data: { programmeID: $("#ProgramCode").val() },
+            data: { programmeID: $("#ProgrammeID").val() },
             success: function (res) {
                 if (res != null) {
 
-                    $("#CountryCode").append('<option value="">Select Country</option>');
+                    $("#CountryID").append('<option value="">Select Country</option>');
                     $.each(res.CountryList, function (i, state) {
-                        $("#CountryCode").append('<option value="' + state.Value + '">' +
+                        $("#CountryID").append('<option value="' + state.Value + '">' +
                              state.Text + '</option>');
                         // here we are adding option for States
 
@@ -162,7 +152,7 @@
                 }
                 else {
 
-                    $("#CountryCode").append('<option value="">Select Country</option>');
+                    $("#CountryID").append('<option value="">Select Country</option>');
                 }
             },
             error: function (ex) {
@@ -174,21 +164,21 @@
         return false;
     });
 
-    $(document).on("change", "#CountryCode", function () {
-        $("#AcademicYearCode").empty();
+    $(document).on("change", "#CountryID", function () {
+        $("#ProgrammeYear").empty();
         $.ajax({
             type: 'POST',
             url: '@Url.Action("ChangeCountrySelection", "Admin",new { area="Admin"})', // we are calling json method
 
             dataType: 'json',
 
-            data: { programmeID: $("#ProgramCode").val(), countryID: $('#CountryCode').val() },
+            data: { programmeID: $("#ProgrammeID").val(), countryID: $('#CountryID').val() },
             success: function (res) {
                 if (res != null) {
 
-                    $("#AcademicYearCode").append('<option value="">Select Programme Year</option>');
+                    $("#ProgrammeYear").append('<option value="">Select Programme Year</option>');
                     $.each(res.ProgYearList, function (i, state) {
-                        $("#AcademicYearCode").append('<option value="' + state.Value + '">' +
+                        $("#ProgrammeYear").append('<option value="' + state.Value + '">' +
                              state.Text + '</option>');
                         // here we are adding option for States
 
@@ -196,7 +186,7 @@
                 }
                 else {
 
-                    $("#AcademicYearCode").append('<option value="">Select Programme Year</option>');
+                    $("#ProgrammeYear").append('<option value="">Select Programme Year</option>');
 
                 }
             },
@@ -207,21 +197,21 @@
         return false;
     });
 
-    $(document).on("change", "#AcademicYearCode", function () {
-        $("#SemisterCode").empty();
+    $(document).on("change", "#ProgrammeYear", function () {
+        $("#ProgrammeSemester").empty();
         $.ajax({
             type: 'POST',
             url: '@Url.Action("ChangeProgramYearSelection", "Admin",new { area="Admin"})', // we are calling json method
 
             dataType: 'json',
 
-            data: { programmeID: $("#ProgramCode").val(), countryID: $('#CountryCode').val(), programYear: $('#AcademicYearCode').val() },
+            data: { programmeID: $("#ProgrammeID").val(), countryID: $('#CountryID').val(), programYear: $('#ProgrammeYear').val() },
             success: function (res) {
                 if (res != null) {
 
-                    $("#SemisterCode").append('<option value="">Select Semester</option>');
+                    $("#ProgrammeSemester").append('<option value="">Select Semester</option>');
                     $.each(res.ProgSEMList, function (i, state) {
-                        $("#SemisterCode").append('<option value="' + state.Value + '">' +
+                        $("#ProgrammeSemester").append('<option value="' + state.Value + '">' +
                              state.Text + '</option>');
                         // here we are adding option for States
 
@@ -229,7 +219,7 @@
                 }
                 else {
 
-                    $("#SemisterCode").append('<option value="">Select Semester</option>');
+                    $("#ProgrammeSemester").append('<option value="">Select Semester</option>');
 
                 }
             },
@@ -241,15 +231,15 @@
     });
 
 
-    $(document).on("change", "#SemisterCode", function () {
+    $(document).on("change", "#ProgrammeSemester", function () {
         $("#CourseID").empty();
         $.ajax({
             type: 'POST',
             url: '@Url.Action("GetCourseExam", "Admin",new { area="Admin"})',
             dataType: 'json',
             data: {
-                programmeId: $("#ProgramCode").val(), countryId: $('#CountryCode').val(),
-                programmeYear: $('#AcademicYearCode').val(), programmeSem: $('#SemisterCode').val()
+                programmeId: $("#ProgrammeID").val(), countryId: $('#CountryID').val(),
+                programmeYear: $('#ProgrammeYear').val(), programmeSem: $('#ProgrammeSemester').val()
             },
             success: function (res) {
                 $("#CourseID").append('<option value="">Select Course</option>');
