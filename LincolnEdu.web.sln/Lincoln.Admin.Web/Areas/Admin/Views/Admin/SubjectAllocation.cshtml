@@ -147,37 +147,31 @@
     }
 
     function fnSaveSubjectAllocation(SubjectAllocationID) {
-        debugger;
         var SubAllocationDetailsList = [];
+        var i = 0;
+        $('table.Grid tr').each(function () {
+            var TL = $('.Grid tr').children.length;
+            var currentRow = $(this).closest("tr");
+            if (i > 0 && i < TL) {
+                var j = 0;
+                $('table.ChildGrid tr').each(function () {
+                    var TLG = $('.ChildGrid tr').children.length + 1;
+                    var currentRowD = $(this).closest("tr");
+                    if (j > 0 && j < TLG) {
+                        var tabularD = {
+                            SubjectAllocationDetailsID: currentRowD.find("#SubjectAllocationID").val(),
+                            ProgrammeSemesterID: currentRow.find("#item_SemisterID").val(),
+                            CourseID: currentRowD.find("#item2_CourseID").val(),
+                            Allocation: currentRowD.find(("#Allocation")).is(':checked') ? 'A' : 'I'
+                        };
+                        SubAllocationDetailsList.push(tabularD);
+                    }
+                    j = j + 1;
+                });
 
-             var i = 0;
-    $('table.Grid tr').each(function () {
-        var TL = $('.Grid tr').children.length;
-        debugger;
-        var currentRow = $(this).closest("tr");
-        if (i > 0 && i<TL) {
-             var j = 0;
-            $('table.ChildGrid tr').each(function () {
-                debugger;
-                var TLG = $('.ChildGrid tr').children.length+1;
-                var currentRowD = $(this).closest("tr");
-                if (j > 0 && j<TLG) {
-                    var tabularD = {
-                        SubjectAllocationDetailsID: currentRowD.find("#SubjectAllocationID").val(),
-                        ProgrammeSemesterID: currentRow.find("#item_SemisterID").val(),
-                        CourseID: currentRowD.find("#item2_CourseID").val(),
-                        Allocation: currentRowD.find(("#Allocation")).is(':checked') ? 'A' :'I'
-                    };
-                    SubAllocationDetailsList.push(tabularD);
-                }
-                j = j + 1;
-            });
-
-        }
-        i = i + 1;
-    });
-
-
+            }
+            i = i + 1;
+        });
         $('.valClass').css({ 'display': 'none' });
         if ($('#FacultyCode').val() == '') {
             $('#FacultyCodeVal').css({ 'display': 'block' });
@@ -194,7 +188,7 @@
         else if ($('#AcademicYearCode').val() == '') {
             $('#AcademicYearCodeVal').css({ 'display': 'block' });
         }
-
+       
         else {
             var model = {
                 SubjectAllocationID: SubjectAllocationID,
@@ -205,7 +199,7 @@
                 CountryCode: $('#CountryCode').val(),
                 CourseCode: $('#CourseCode').val(),
                 AcademicYearCode: $('#AcademicYearCode').val(),
-                SubAllocationDetailsList:SubAllocationDetailsList,
+                SubAllocationDetailsList: SubAllocationDetailsList,
                 Active: 'A'
             };
             $.ajax({
@@ -260,12 +254,13 @@
                 success: function (result) {
                     if (result > 0) {
                         alert('Allocation  has been deleted Successfully.');
-
+                        $("#myModal").modal('hide');
                         fnLoadSubjectAllocationList();
                     }
                 },
                 error: function (e) {
                     alert('Error in your requst.');
+
                 }
             });
         }

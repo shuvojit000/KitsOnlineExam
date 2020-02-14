@@ -18,7 +18,7 @@
         <tr>
             <td>
                 @*<img src="~/Images/plus.png" />*@
-                <img src="~/Content/assets/images/datatables/resources/details_open.png" />
+                <img src="~/Content/assets/images/plus.png" />
                 <div style="display:none">
                     <table cellpadding="0" cellspacing="0" class="ChildGrid">
                         <tr>
@@ -29,16 +29,16 @@
                         @foreach (var item2 in Model.AllocationList?.SubAllocationDetailsList?.Where(a => a.ProgrammeSemesterID == item.SemisterID))
                         {
                             q = q + 1;
-                    <tr>
-                        <td>
-                            <label>@q </label>                            
-                        </td>
-                        <td>
-                            @Html.HiddenFor(a => item2.CourseID)
-                            <label id="CourseName" name="CourseName[]" value="@item2.CourseID">@item2.CourseName</label>
-                        </td>
-                        <td><input type="checkbox" id="OpenClose" name="OpenClose" value="OpenClose" @(item2.Allocation == 1 ? "checked" : "") /></td>
-                    </tr>
+                            <tr>
+                                <td>
+                                    <label>@q </label>
+                                </td>
+                                <td>
+                                    @Html.HiddenFor(a => item2.CourseID)
+                                    <label id="CourseName" name="CourseName[]" value="@item2.CourseID">@item2.CourseName</label>
+                                </td>
+                                <td><input type="checkbox" id="OpenClose" name="OpenClose" value="OpenClose" @(item2.Allocation == 1 ? "checked" : "") /></td>
+                            </tr>
                         }
                     </table>
                 </div>
@@ -47,7 +47,7 @@
                 <label id="SL.NO">
                     @p
                 </label>
-                
+
             </td>
             <td>
                 @Html.HiddenFor(a => item.SemisterID)

@@ -237,6 +237,8 @@
     <Content Include="Content\assets\images\defaultPage\icons\non-teaching-staff.png" />
     <Content Include="Content\assets\images\defaultPage\icons\parent.png" />
     <Content Include="Content\assets\images\defaultPage\icons\student.png" />
+    <Content Include="Content\assets\images\minus.png" />
+    <Content Include="Content\assets\images\plus.png" />
     <Content Include="Content\assets\images\ico\favicon.ico" />
     <Content Include="Content\assets\images\ikon\ExamportalIkon.png" />
     <Content Include="Content\assets\images\ikon\Grievance.png" />
