@@ -1469,7 +1469,7 @@ namespace Lincoln.OnlineExam.Repository
             SqlParameter AcademicYearCode = new SqlParameter("@AcademicID", SqlDbType.Int);
             AcademicYearCode.Value = recordAttributer.AcademicID;
             SqlParameter allocationxml = new SqlParameter("@AllocationXML", SqlDbType.Xml);
-            allocationxml.Value = recordAttributer.AllocationDetails;
+            allocationxml.Value = recordAttributer.TabAllocationDetails;
             SqlParameter active = new SqlParameter("@Active", SqlDbType.Char);
             active.Value = recordAttributer.Active;
             SqlParameter createdBy = new SqlParameter("@CreatedBy", SqlDbType.Int);
@@ -1483,8 +1483,8 @@ namespace Lincoln.OnlineExam.Repository
             status.Value = 0;
             status.Direction = ParameterDirection.InputOutput;
 
-            SqlServerHelper.ExecuteNonQueryProc("[ln.User].[upSaveSubjectAllocation]", SubjectAllocationID, ProgramCode, FacultyCode, SyllabusVersionCode,
-                CountryCode, AcademicYearCode, allocationxml, active, createdBy, type, status);
+            SqlServerHelper.ExecuteNonQueryProc("[ln.Faculty].[upSaveSubjectAllocation]", SubjectAllocationID, ProgramCode, FacultyCode, SyllabusVersionCode,
+                CountryCode, AcademicYearCode, allocationxml, createdBy, type, status);
 
             return Convert.ToInt32(status.Value);
 
@@ -1504,12 +1504,12 @@ namespace Lincoln.OnlineExam.Repository
             Version.Value = DBNull.Value;
             SqlParameter CountryCode = new SqlParameter("@CountryID", SqlDbType.Int);
             CountryCode.Value = DBNull.Value;
-            SqlParameter AcademicYearCode = new SqlParameter("@ProgrammeYear", SqlDbType.Int);
+            SqlParameter AcademicYearCode = new SqlParameter("@AcademicID", SqlDbType.Int);
             AcademicYearCode.Value = DBNull.Value;
             SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
             type.Value = "GET";
-            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.User].[upGetSubjectAllocation]", SubjectAllocationID, ProgramCode, FacultyCode, Version,
-                CountryCode, AcademicYearCode,  type))
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Faculty].[upGetSubjectAllocation]", SubjectAllocationID, ProgramCode, FacultyCode, Version,
+                CountryCode, AcademicYearCode, type))
             {
                 if (dr != null && dr.HasRows)
                 {
@@ -1521,14 +1521,14 @@ namespace Lincoln.OnlineExam.Repository
                             ProgramCode = Convert.ToInt32(dr["ProgrammeID"]),
                             FacultyCode = Convert.ToInt32(dr["EmployeeID"]),
                             //SyllabusVersionCode = Convert.ToInt32(dr["Version"]),
-                           // ProgramName = object.ReferenceEquals(dr["ProgrammeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeName"]),
-                           // FacultyName = object.ReferenceEquals(dr["DepartmentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["DepartmentName"]),
+                            ProgramName = object.ReferenceEquals(dr["ProgrammeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeName"]),
+                            FacultyName = object.ReferenceEquals(dr["EmployeeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["EmployeeName"]),
                             SyllabusVersionName = object.ReferenceEquals(dr["Version"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Version"]),
-                           // YearName = object.ReferenceEquals(dr["ProgrammeYear"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeYear"]),
+                            YearName = object.ReferenceEquals(dr["AcademicName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AcademicName"]),
                             CountryCode = Convert.ToInt32(dr["CountryID"]),
                             AcademicYearCode = Convert.ToInt32(dr["AcademicID"]),
-                           // CourseCode = Convert.ToInt32(dr["CourseID"]),
-                           // Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
+                            // CourseCode = Convert.ToInt32(dr["CourseID"]),
+                            // Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
                             CreatedBy = Convert.ToInt32(dr["CreatedBy"]),
                         });
 
@@ -1541,39 +1541,91 @@ namespace Lincoln.OnlineExam.Repository
 
         public SubjectAllocationResponseDTO SelectSubjectAllocation(SubjectAllocationRequestDTO recordAttributer)
         {
-            var item = new SubjectAllocationResponseDTO();
-            SqlParameter SubjectAllocationDetailsID = new SqlParameter("@SubjectAllocationDetailsID", SqlDbType.Int);
-            SubjectAllocationDetailsID.Value = DBNull.Value; //recordAttributer.SubAssessmentDetails.ElementAt(0).AssessmentConfigurationDetailsID;
-            SqlParameter SubjectAssessmentID = new SqlParameter("@AssessmentConfigurationID", SqlDbType.Int);
-            SubjectAssessmentID.Value = recordAttributer.SubjectAllocationID;
-            SqlParameter AssessmentName = new SqlParameter("@AssessmentName", SqlDbType.VarChar);
-            AssessmentName.Value = DBNull.Value;
-            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
-            if (SubjectAssessmentID != null)
-            {
-                type.Value = "GET";
-            }
+            var itemSet = new SubjectAllocationResponseDTO();
 
-            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Examination].[upGetAssessmentConfigurationDetails]", SubjectAllocationDetailsID, SubjectAssessmentID, AssessmentName, type))
+            SqlParameter SubjectAllocationID = new SqlParameter("@SubjectAllocationID", SqlDbType.Int);
+            SubjectAllocationID.Value = recordAttributer.SubjectAllocationID;
+
+            SqlParameter ProgramCode = new SqlParameter("@ProgrammeID", SqlDbType.Int);
+            ProgramCode.Value = recordAttributer.ProgrammeID;
+            SqlParameter FacultyCode = new SqlParameter("@EmployeeID", SqlDbType.Int);
+            FacultyCode.Value = recordAttributer.EmployeeID;
+            SqlParameter Version = new SqlParameter("@Version", SqlDbType.VarChar);
+            Version.Value = recordAttributer.Version;
+            SqlParameter CountryCode = new SqlParameter("@CountryID", SqlDbType.Int);
+            CountryCode.Value = recordAttributer.CountryID;
+            SqlParameter AcademicYearCode = new SqlParameter("@AcademicID", SqlDbType.Int);
+            AcademicYearCode.Value = recordAttributer.AcademicID;
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = "GET";
+
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Faculty].[upGetSubjectAllocation]", SubjectAllocationID, ProgramCode, FacultyCode, Version,
+                CountryCode, AcademicYearCode, type))
             {
-                item.SubAllocationDetails = new List<Response.SubjectAllocationDetails>();
+                itemSet.SubAllocationList = new List<Response.SubjectAllocationListR>();
 
                 if (dr != null && dr.HasRows)
                 {
-                    //while (dr.Read())
-                    //{
-                    //    item.TabulalConfigurationDetails = new Response.SubjectAssessmentDetails();
-                    //    item.TabulalConfigurationDetails.AssessmentName = object.ReferenceEquals(dr["AssessmentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AssessmentName"]); ;
-                    //    item.TabulalConfigurationDetails.AssessmentType = object.ReferenceEquals(dr["AssessmentType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AssessmentType"]); ;
-                    //    item.TabulalConfigurationDetails.FullMarks = Convert.ToDecimal(dr["FullMarks"]);
-                    //    item.TabulalConfigurationDetails.AssessmentPercentage = Convert.ToDecimal(dr["AssessmentPercentage"]);
-                    //    item.TabulalConfigurationDetails.OpenClose = Convert.ToInt32(dr["OpenClose"]);
-                    //    //item.CreatedBy = Convert.ToInt32(dr["CreatedBy"]);
-                    //    item.SubAssessmentDetails.Add(item.TabulalConfigurationDetails);
-                    //}
+                    while (dr.Read())
+                    {
+
+                        itemSet.ProgramCode = Convert.ToInt32(dr["ProgrammeID"]);
+                        itemSet.FacultyCode = Convert.ToInt32(dr["DepartmentID"]);
+                        itemSet.AcademicYearCode = Convert.ToInt32(dr["AcademicID"]);
+                        itemSet.SyllabusVersionCode = Convert.ToInt32(dr["Version"]);
+                        itemSet.EmployeeID = Convert.ToInt32(dr["EmployeeID"]);
+                        itemSet.CountryCode = Convert.ToInt32(dr["CountryID"]);
+                        itemSet.SubjectAllocationID = Convert.ToInt32(dr["SubjectAllocationID"]);
+                        itemSet.ProgramName = object.ReferenceEquals(dr["ProgrammeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeName"]); ;
+                        itemSet.SyllabusVersionName = object.ReferenceEquals(dr["Version"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Version"]); ;
+                        itemSet.YearName = object.ReferenceEquals(dr["AcademicName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AcademicName"]); ;
+                        //item.CreatedBy = Convert.ToInt32(dr["CreatedBy"]);
+
+                    }
                 }
             }
-            return item;
+
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Faculty].[upGetSubjectAllocationDetails]", SubjectAllocationID))
+            {
+
+
+                if (dr != null && dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        itemSet.AllocationList = new Response.SubjectAllocationListR();
+                        itemSet.AllocationList.SemisterName = "";
+                        var gfy = itemSet.SubAllocationList.Any(x => x.SemisterID == Convert.ToInt32(dr["ProgrammeSemesterID"]));
+                        if (gfy == false)
+                        {
+                            var gdt = Convert.ToInt32(dr["ProgrammeSemesterID"]);
+                            itemSet.AllocationList.SemisterID = gdt;
+                            itemSet.AllocationList.SemisterName = object.ReferenceEquals(dr["ProgrammeSemester"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeSemester"]); ;
+                            itemSet.SubAllocationList.Add(itemSet.AllocationList);
+                        }
+                    }
+                }
+            }
+            itemSet.AllocationList.SubAllocationDetailsList = new List<SubjectAllocationDetailsListR>();
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Faculty].[upGetSubjectAllocationDetails]", SubjectAllocationID))
+            {
+
+                if (dr != null && dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        itemSet.AllocationList.AllocationDetails = new Response.SubjectAllocationDetailsListR();
+                        itemSet.AllocationList.AllocationDetails.CourseName = "";
+                        itemSet.AllocationList.AllocationDetails.ProgrammeSemesterID = Convert.ToInt32(dr["ProgrammeSemesterID"]);
+                        itemSet.AllocationList.AllocationDetails.CourseID = Convert.ToInt32(dr["CourseID"]);
+                        itemSet.AllocationList.AllocationDetails.CourseName = object.ReferenceEquals(dr["CourseName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseName"]); ;
+                        itemSet.AllocationList.SubAllocationDetailsList.Add(itemSet.AllocationList.AllocationDetails);
+                    }
+                }
+
+
+            }
+            return itemSet;
 
         }
         #endregion
