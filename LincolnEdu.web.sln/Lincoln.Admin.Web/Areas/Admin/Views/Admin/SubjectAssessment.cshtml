@@ -147,6 +147,7 @@
     }
 
     function fnSaveSubjectAssessment(SubjectAssessmentID) {
+        debugger;
         var SubAssessmentDetails = [];
         var i = 0;
         $('#customFields tr').each(function () {
@@ -164,10 +165,10 @@
             i = i + 1;
         });
         var isBlankPercentage = $.grep(SubAssessmentDetails, function(a) {
-            return a.AssessmentPercentage == '' ||"0"||"0.00";
+            return a.AssessmentPercentage == '' || a.AssessmentPercentage == "0" || a.AssessmentPercentage == "0.00";
         })
         var isBlankMarks = $.grep(SubAssessmentDetails, function (a) {
-            return a.FullMarks == '' ||"0 "|| "0.00";
+            return a.FullMarks == '' ||a.FullMarks=="0 "||a.FullMarks== "0.00";
         })
         $('.valClass').css({ 'display': 'none' });
         if (SubAssessmentDetails.length == 0 || isBlankPercentage.length > 0 || isBlankMarks.length>0) {

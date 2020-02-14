@@ -108,7 +108,7 @@
     <Compile Include="Response\ProgramVersioningResponseDTO.cs" />
     <Compile Include="Response\QuestionSectionResponseDTO.cs" />
     <Compile Include="Response\StudentResponseDTO.cs" />
-    <Compile Include="Response\SubjectAlocationResponseDTO.cs" />
+    <Compile Include="Response\SubjectAllocationResponseDTO.cs" />
     <Compile Include="Response\SubjectAssessmentResponseDTO.cs" />
     <Compile Include="Response\SubjectResponseDTO.cs" />
     <Compile Include="Utility\AccessHelper.cs" />

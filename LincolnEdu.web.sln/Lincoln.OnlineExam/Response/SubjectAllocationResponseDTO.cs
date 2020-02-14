@@ -7,9 +7,9 @@ using System.Web.Mvc;
 
 namespace Lincoln.OnlineExam.Response
 {
-   public class SubjectAllocationResponseDTO
+    public class SubjectAllocationResponseDTO
     {
-    
+
         public int? SubjectAllocationID { get; set; }
         public int? ProgramCode { get; set; }
         public string ProgramName { get; set; }
@@ -21,7 +21,7 @@ namespace Lincoln.OnlineExam.Response
         public string CountryName { get; set; }
         public int? AcademicYearCode { get; set; }
         public string YearName { get; set; }
-         public int? EmployeeID { get; set; }
+        public int? EmployeeID { get; set; }
         public string EmployeeName { get; set; }
         // public int? CourseCode { get; set; }
 
