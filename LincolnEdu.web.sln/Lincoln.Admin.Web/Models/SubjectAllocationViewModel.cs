@@ -17,6 +17,10 @@ namespace Lincoln.Admin.Web.Models
         public string SyllabusVersionName { get; set; }
         public int? CountryCode { get; set; }
         public string CountryName { get; set; }
+
+        public int? EmployeeID { get; set; }
+        public string EmployeeName { get; set; }
+
         public int? AcademicYearCode { get; set; }
         public string YearName { get; set; }
         public int? CreatedBy { get; set; }
@@ -26,12 +30,15 @@ namespace Lincoln.Admin.Web.Models
         public int? ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public List<SelectListItem> ProgramList { get; set; }
+        public List<SelectListItem> EmployeeList { get; set; }
         public List<SelectListItem> AcademicYearList { get; set; }
         public List<SelectListItem> CountryList { get; set; }
         public List<SelectListItem> SyllabusVersionList { get; set; }
         public List<SelectListItem> FacultyList { get; set; }
         public SubjectAllocationList AllocationList { get; set; }
         public List<SubjectAllocationList> SubAllocationList { get; set; }
+        public string TabAllocationDetails { get; set; }
+        public List<SubjectAllocationDetailsList> SubAllocationDetailsList { get; set; }
     }
 
     public class SubjectAllocationList
