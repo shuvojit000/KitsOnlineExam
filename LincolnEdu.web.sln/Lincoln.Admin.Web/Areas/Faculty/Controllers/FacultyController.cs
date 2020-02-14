@@ -49,6 +49,12 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
             model.ProgrammeYearList = new List<SelectListItem>();
             return View(model);
         }
+        public PartialViewResult AddQuestion(string id)
+        {
+            var model = new QuestionSetUpViewModel();
+
+            return PartialView("_AddQuestion", model);
+        }
 
     }
 }
