@@ -1,8 +1,11 @@
-﻿@using Lincoln.OnlineExam.Response;
+﻿@using Lincoln.Admin.Web.Models;
 
 @*@model Lincoln.Admin.Web.Models.SubjectAssessmentViewModel*@
-@model Lincoln.OnlineExam.Response.SubjectAlocationResponseDTO
-
+@model  Lincoln.Admin.Web.Models.SubjectAllocationViewModel
+@{
+    var p = 0;
+    var q = 0;
+}
 <div class="panel-body">
     <!--main content start-->
     <div class="row">
@@ -33,47 +36,72 @@
 
                 </div>
                 <div class="row">
-                    <div class="form-group col-lg-6">
-                        <label><b>Programme Year:</b> </label>
-                        @Html.DisplayFor(a => a.AcademicYearCode, new { @class = "form-control" })
-                    </div>
-                    <div class="form-group col-lg-6">
-                        <label><b>Semester:</b> </label>
-                        @Html.DisplayFor(a => a.SemisterName, new { @class = "form-control" })
-                    </div>
-                    <div class="form-group col-lg-6">
-                        <label><b>Course: </b></label>
-                        @Html.DisplayFor(a => a.CourseName, new { @class = "form-control" })
-                    </div>
+                    @*<div class="form-group col-lg-6">
+                            <label><b>Programme Year:</b> </label>
+                            @Html.DisplayFor(a => a.AcademicYearCode, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label><b>Semester:</b> </label>
+                            @Html.DisplayFor(a => a.SemisterName, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label><b>Course: </b></label>
+                            @Html.DisplayFor(a => a.CourseName, new { @class = "form-control" })
+                        </div>*@
                 </div>
 
-                <table border="1">
-                    <thead>
+                <table cellpadding="0" cellspacing="0" class="">
+                    <tr>
+                        <th></th>
+                        <th>SL.NO</th>
+                        <th>Semester</th>
+                        <th>City</th>
+                    </tr>
+                    @foreach (var item in Model.SubAllocationList)
+                    {
+                        p = p + 1;
                         <tr>
-                            <th>Assessment</th>
-                            <th>Percentage %</th>
-                            <th>Full Marks</th>
-                            <th>Type</th>
-                            <th>Open/Close</th>
+                            <td>
+                                @*<img src="~/Images/plus.png" />*@
+                                <img src="~/Content/assets/images/plus.png" />
+                                <div style="display:block">
+                                    <table cellpadding="0" cellspacing="0" class="">
+                                        <tr>
+                                            <th>SL.NO</th>
+                                            <th>Course</th>
+                                            <th>Allocate</th>
+                                        </tr>
+                                        @foreach (var item2 in Model.AllocationList?.SubAllocationDetailsList?.Where(a => a.ProgrammeSemesterID == item.SemisterID))
+                                        {
+                                            if (@item.SemisterID == item2.ProgrammeSemesterID)
+                                            {
+                                                q = q + 1;
+                                                <tr>
+                                                    <td>
+                                                        <label>@q </label>
+                                                    </td>
+                                                    <td>
+                                                        <label id="CourseName" name="CourseName[]" value="@item2.CourseID">@item2.CourseName</label>
+                                                    </td>
+                                                    <td><input type="checkbox" id="OpenClose" name="OpenClose" value="OpenClose" @(item2.Allocation == 1 ? "checked" : "") /></td>
+                                                </tr>
+                                            }
+                                        }
+                                    </table>
+                                </div>
+                            </td>
+                            <td>
+                                <label id="SL.NO">
+                                    @p
+                                </label>
+
+                            </td>
+                            <td>
+                                <label id="SemesterName" name="SemesterName[]" value="@item.SemisterID">@item.SemisterName</label>
+                            </td>
+                            <td>Kolkata</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model.SubAlocationDetails.Any())
-                        {
-                            foreach (var item in Model.SubAlocationDetails)
-                            {
-                                <tr>
-                                    <td>@item.AssessmentName</td>
-                                    <td>@item.AssessmentPercentage</td>
-                                    <td>@item.FullMarks</td>
-                                    <td>@item.AssessmentType</td>
-                                    <td>@(item.OpenClose==1?"Open":"Close")</td>
-
-                                </tr>
-                            }
-                        }
-
-                    </tbody>
+                    }
                 </table>
 
 

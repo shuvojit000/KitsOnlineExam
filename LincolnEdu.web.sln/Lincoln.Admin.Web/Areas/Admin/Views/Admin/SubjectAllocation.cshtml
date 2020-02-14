@@ -147,57 +147,35 @@
     }
 
     function fnSaveSubjectAllocation(SubjectAllocationID) {
-        var SubAllocationDetails = [];
-        // var i = 0;
-        //$('#customFields tr').each(function () {
-        // var currentRow=$(this).closest("tr");
-        //    if (i > 0) {
-        //     var tabular = {
-        //                        AssessmentName: currentRow.find("#AssessmentName").val(),
-        //                        AssessmentType:currentRow.find("#AssessmentType").val(),
-        //                        FullMarks:  currentRow.find("#FullMarks").val(),
-        //                        AssessmentPercentage: currentRow.find("#AssessmentPercentage").val(),
-        //                        OpenClose: currentRow.find(("#OpenClose")).is(':checked')?1:0,
-        //                    };
-        //                    SubAllocationDetails.push(tabular);
-        //            }
-        //            i = i + 1;
-        //    });
+        debugger;
+        var SubAllocationDetailsList = [];
 
              var i = 0;
-    $('.Grid tr').each(function () {
-        var TL = $('.Grid tr').length;
+    $('table.Grid tr').each(function () {
+        var TL = $('.Grid tr').children.length;
+        debugger;
         var currentRow = $(this).closest("tr");
-             if (i > 0) {
-             var tabular = {
-                                AssessmentName: currentRow.find("#AssessmentName").val(),
-                                AssessmentType:currentRow.find("#AssessmentType").val(),
-                                FullMarks:  currentRow.find("#FullMarks").val(),
-                                AssessmentPercentage: currentRow.find("#AssessmentPercentage").val(),
-                                OpenClose: currentRow.find(("#OpenClose")).is(':checked')?1:0,
-                            };
-                            SubAllocationDetails.push(tabular);
-                    }
-        
+        if (i > 0 && i<TL) {
+             var j = 0;
+            $('table.ChildGrid tr').each(function () {
+                debugger;
+                var TLG = $('.ChildGrid tr').children.length+1;
+                var currentRowD = $(this).closest("tr");
+                if (j > 0 && j<TLG) {
+                    var tabularD = {
+                        SubjectAllocationDetailsID: currentRowD.find("#SubjectAllocationID").val(),
+                        ProgrammeSemesterID: currentRow.find("#item_SemisterID").val(),
+                        CourseID: currentRowD.find("#item2_CourseID").val(),
+                        Allocation: currentRowD.find(("#Allocation")).is(':checked') ? 'A' :'I'
+                    };
+                    SubAllocationDetailsList.push(tabularD);
+                }
+                j = j + 1;
+            });
+
+        }
         i = i + 1;
     });
-
-        var j = 0;
-    $('.ChildGrid tr').each(function () {
-        var TLG = $('.ChildGrid tr').length;
-        var currentRow = $(this).closest("tr");
-        if (j == TLG - 1) {
-           // $('.valClass').css({ 'display': 'none' });
-            if (currentRow.find("#AssessmentName").val() == '') {
-                alert("Please Enter Assessment Name ");
-                currentRow.find("#AssessmentName").focus();
-            }
-        }
-         j = j + 1;
-    });
-
-
-
 
 
         $('.valClass').css({ 'display': 'none' });
@@ -216,29 +194,18 @@
         else if ($('#AcademicYearCode').val() == '') {
             $('#AcademicYearCodeVal').css({ 'display': 'block' });
         }
-        //else if ($('#SemisterCode').val() == '') {
-        //    $('#SemisterCodeVal').css({ 'display': 'block' });
-        //}
-        //else if ($('#CourseCode').val() == '') {
-        //    $('#CourseIDVal').css({ 'display': 'block' });
-        //}
-        //else if ($('#SectionID').val() == '') {
-        //    $('#SectionIDVal').css({ 'display': 'block' });
-        //}
-        //else if (SubAllocationDetails.length == 0 ||SubAlocationDetails == null) {
-        //    alert('Assessment is required.');
-        //}
+
         else {
             var model = {
                 SubjectAllocationID: SubjectAllocationID,
                 ProgramCode: $('#ProgramCode').val(),
-                FacultyCode: $('#FacultyCode').val(),
+                FacultyCode: $('#EmployeeID').val(),
                 SyllabusVersionCode: $('#SyllabusVersionCode').val(),
                 SemisterCode: $('#SemisterCode').val(),
                 CountryCode: $('#CountryCode').val(),
                 CourseCode: $('#CourseCode').val(),
                 AcademicYearCode: $('#AcademicYearCode').val(),
-                SubAssessmentDetails: SubAssessmentDetails,
+                SubAllocationDetailsList:SubAllocationDetailsList,
                 Active: 'A'
             };
             $.ajax({
