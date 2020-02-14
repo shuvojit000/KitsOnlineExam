@@ -338,6 +338,19 @@ namespace Lincoln.OnlineExam
             }
         }
 
-
+        public int SavePaper(PaperRequestDTO recordAttributer, string Operation)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.QuestionRepository.SavePaper(recordAttributer, Operation);
+            }
+        }
+        public int SavePaperDetails(PaperDetailsRequestDTO recordAttributer, string Operation)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.QuestionRepository.SavePaperDetails(recordAttributer, Operation);
+            }
+        }
     }
 }
