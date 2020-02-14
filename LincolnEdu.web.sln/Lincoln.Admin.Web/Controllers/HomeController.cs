@@ -45,6 +45,7 @@ namespace Lincoln.Admin.Web.Controllers
                     serializeModel.LastName = "";
                     serializeModel.Email = user.EmailID;
                     serializeModel.UserType = user.UserType;
+                    serializeModel.UserName = user.UserName;
                     string userData = JsonConvert.SerializeObject(serializeModel);
                     FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
                     1,
