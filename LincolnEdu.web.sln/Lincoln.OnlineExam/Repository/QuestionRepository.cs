@@ -70,22 +70,22 @@ namespace Lincoln.OnlineExam.Repository
             SqlParameter paperID = new SqlParameter("@PaperID", SqlDbType.Int);
             paperID.Value = recordAttributer.PaperID;
 
-            SqlParameter questionType = new SqlParameter("@QuestionType", SqlDbType.Int);
+            SqlParameter questionType = new SqlParameter("@QuestionType", SqlDbType.VarChar);
             questionType.Value = recordAttributer.QuestionType;
 
             SqlParameter questionNo = new SqlParameter("@QuestionNo", SqlDbType.Int);
             questionNo.Value = recordAttributer.QuestionNo;
 
-            SqlParameter questionText = new SqlParameter("@QuestionText", SqlDbType.Int);
+            SqlParameter questionText = new SqlParameter("@QuestionText", SqlDbType.VarChar);
             questionText.Value = recordAttributer.QuestionText;
 
-            SqlParameter textOrImageQuestion = new SqlParameter("@TextOrImageQuestion", SqlDbType.Int);
+            SqlParameter textOrImageQuestion = new SqlParameter("@TextOrImageQuestion", SqlDbType.VarChar);
             textOrImageQuestion.Value = recordAttributer.TextOrImageQuestion;
 
-            SqlParameter audioOrVideoQuestion = new SqlParameter("@AudioOrVideoQuestion", SqlDbType.Int);
+            SqlParameter audioOrVideoQuestion = new SqlParameter("@AudioOrVideoQuestion", SqlDbType.VarChar);
             audioOrVideoQuestion.Value = recordAttributer.AudioOrVideoQuestion;
 
-            SqlParameter questionMarks = new SqlParameter("@QuestionMarks", SqlDbType.VarChar);
+            SqlParameter questionMarks = new SqlParameter("@QuestionMarks", SqlDbType.Decimal);
             questionMarks.Value = recordAttributer.QuestionMarks;
 
             SqlParameter optionANo = new SqlParameter("@OptionANo", SqlDbType.Int);

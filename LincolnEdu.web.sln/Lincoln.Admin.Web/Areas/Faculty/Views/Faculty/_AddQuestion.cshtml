@@ -13,7 +13,7 @@
         <section id="base-style">
             <div class="row">
                 <div class="col-12">
-                    @Html.HiddenFor(a => a.PaperDetailsID)
+
 
                     <div class="row">
                         <div class="form-group col-lg-12">
@@ -21,7 +21,7 @@
                             <div class="position-relative">
                                 <input type="radio" name="QuestionType" value="Subjective" @(Model.QuestionType == "Subjective" ? "checked" : "")> Subjective
                                 <input type="radio" name="QuestionType" value="Objective" @(Model.QuestionType == "Objective" ? "checked" : "")> Objective
-                                <span id="SemesterTypeVal" style="color:red;display:none" class="valClass">Please select Semester Type.</span>
+                                <span id="SemesterTypeVal" style="color:red;display:none" class="valClass">Please select Question Type.</span>
                             </div>
                         </div>
 
@@ -29,7 +29,7 @@
                             <label><b>Question Statement <span class="requiredstar">*</span> </b></label>
                             <div class="position-relative">
                                 @Html.TextBoxFor(a => a.QuestionText, new { @class = "form-control" })
-                                <span id="SyllabusVersionCodeVal" style="color:red;display:none" class="valClass">Please select Version.</span>
+                                <span id="SyllabusVersionCodeVal" style="color:red;display:none" class="valClass"></span>
                             </div>
                         </div>
                         <div class="form-group col-lg-12">
@@ -109,7 +109,7 @@
 
                     </div>
                 </div>
-                <button type="button" onclick="fnSavePaperDetails(@Model.PaperDetailsID)" class="btn btn-primary">
+                <button type="button" onclick="fnSavePaperDetails(@(Model.PaperID??0),@(Model.PaperDetailsID??0))" class="btn btn-primary">
                     <i class="fa fa-check-square-o"></i> Save
                 </button>
             </div>
@@ -123,7 +123,7 @@
             $('#myContent').addClass('hidden');
         }
         else if (this.value == 'Objective') {
-             $('#myContent').removeClass('hidden');
+            $('#myContent').removeClass('hidden');
         }
     });
 
