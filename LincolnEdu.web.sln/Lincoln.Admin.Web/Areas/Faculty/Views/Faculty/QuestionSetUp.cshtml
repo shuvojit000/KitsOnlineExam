@@ -74,7 +74,7 @@
                                 </div>
                             </div>
                             <button type="button" onclick="fnAddPaper()" class="btn btn-primary">
-                                <i class="fa fa-check-square-o"></i> Add
+                                <i class="fa fa-check-square-o"></i> Search
                             </button>
                         </div>
 
@@ -93,28 +93,28 @@
     </div>
 </div>
 <script>
- $(document).on("change", "#DepartmentID", function () {
-     $("#ProgrammeID").empty();
-     $.ajax({
-         type: 'POST',
-         url: '@Url.Action("GetProgDrop","Admin",new { area="Admin"})', // we are calling json method
+    $(document).on("change", "#DepartmentID", function () {
+        $("#ProgrammeID").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetProgDrop","Admin",new { area="Admin"})', // we are calling json method
 
-         dataType: 'json',
+            dataType: 'json',
 
-         data: { departmentID: $("#DepartmentID").val() },
-         success: function (res) {
-             $("#ProgrammeID").append('<option value="">Select Programme</option>');
-             $.each(res, function (i, state) {
-                 $("#ProgrammeID").append('<option value="' + state.Value + '">' +
-                     state.Text + '</option>');
-             });
-         },
-         error: function (ex) {
-             alert('Failed to retrieve Faculty.' + ex);
-         }
-     });
-     return false;
- });
+            data: { departmentID: $("#DepartmentID").val() },
+            success: function (res) {
+                $("#ProgrammeID").append('<option value="">Select Programme</option>');
+                $.each(res, function (i, state) {
+                    $("#ProgrammeID").append('<option value="' + state.Value + '">' +
+                        state.Text + '</option>');
+                });
+            },
+            error: function (ex) {
+                alert('Failed to retrieve Faculty.' + ex);
+            }
+        });
+        return false;
+    });
 
 
     $(document).on("change", "#ProgrammeID", function () {
@@ -265,8 +265,6 @@
     }
 
     function fnSavePaperDetails() {
-
-
         var model = {
             DepartmentID: $('#DepartmentID').val(),
             ProgrammeID: $('#ProgrammeID').val(),
@@ -278,7 +276,7 @@
             SyllabusVersionID: $('#SyllabusVersionID').val(),
             PaperDetailsID: $('#PaperDetailsID').val(),
             PaperID: $('#PaperID').val(),
-            QuestionType: $('#QuestionType').val(),
+            QuestionType: $('input[name="QuestionType"]:checked').val(),
             QuestionNo: $('#QuestionNo').val(),
             QuestionText: $('#QuestionText').val(),
             TextOrImageQuestion: $('#TextOrImageQuestion').val(),
@@ -295,8 +293,28 @@
             OptionENo: 5,
             OptionEText: $('#OptionEText').val(),
             AnswerNo: $('#AnswerNo').val(),
-            AnswerText:$('#AnswerText').val()
+            AnswerText: $('#AnswerText').val()
         };
+        $.ajax({
+            url: '@Url.Action("SavePaperDetails", "Faculty",new {area= "Faculty" })',
+            data: JSON.stringify(model),
+            type: 'POST',
+            cache: false,
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                if (result > 0) {
+                    alert('Data Save Successfully.');
+                   
+                } else {
+                    alert('Error in your requst.');                 
+
+                }
+            },
+            error: function (e) {
+                alert('Error in your requst.');
+            }
+        });
 
     }
 

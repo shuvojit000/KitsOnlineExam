@@ -55,6 +55,64 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
 
             return PartialView("_AddQuestion", model);
         }
+        [HttpPost]
+        public JsonResult SavePaperDetails(QuestionSetUpViewModel model)
+        {
 
+            var type = "INSERT";
+            if (model.PaperID > 0)
+            {
+                type = "UPDATE";
+            }
+
+            var result = onlineExamService.SavePaper(new OnlineExam.Request.PaperRequestDTO()
+            {
+
+                CreatedBy = User.UserId,
+                Active = model.Active,
+                CountryID = model.CountryID,
+                CourseID = model.CourseID,
+                PaperID = model.PaperID,
+                ProgrammeID = model.ProgrammeID,
+                ProgrammeSemester = model.ProgrammeSemester,
+                ProgrammeVersioningID = model.SyllabusVersionID,
+                ProgrammeYear = model.ProgrammeYear,
+                SectionName = model.SectionName
+
+            }, type);
+
+            var Detailstype = "INSERT";
+            if (model.PaperDetailsID > 0)
+            {
+                Detailstype = "UPDATE";
+            }
+            var resultDetails = onlineExamService.SavePaperDetails(new OnlineExam.Request.PaperDetailsRequestDTO()
+            {
+
+                CreatedBy = User.UserId,
+                Active = model.Active,
+                PaperID = model.PaperID,
+                AnswerNo = model.AnswerNo,
+                AnswerText = model.AnswerText,
+                PaperDetailsID = model.PaperDetailsID,
+                AudioOrVideoQuestion = model.AudioOrVideoQuestion,
+                OptionANo = model.OptionANo,
+                OptionAText = model.OptionAText,
+                OptionBNo = model.OptionBNo,
+                OptionBText = model.OptionBText,
+                OptionCNo = model.OptionCNo,
+                OptionCText = model.OptionCText,
+                OptionDNo = model.OptionDNo,
+                OptionDText = model.OptionDText,
+                OptionENo = model.OptionENo,
+                OptionEText = model.OptionEText,
+                QuestionMarks = model.QuestionMarks,
+                QuestionNo = model.QuestionNo,
+                QuestionText = model.QuestionText,
+                QuestionType = model.QuestionType,
+                TextOrImageQuestion = model.TextOrImageQuestion
+            }, Detailstype);
+            return Json(resultDetails, JsonRequestBehavior.AllowGet);
+        }
     }
 }

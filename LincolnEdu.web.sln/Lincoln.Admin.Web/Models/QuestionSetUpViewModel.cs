@@ -20,7 +20,7 @@ namespace Lincoln.Admin.Web.Models
         public int? PaperDetailsID { get; set; }
         public int? PaperID { get; set; }
         public string QuestionType { get; set; }
-        public string QuestionNo { get; set; }
+        public int QuestionNo { get; set; }
         public string QuestionText { get; set; }
         public string TextOrImageQuestion { get; set; }
         public string AudioOrVideoQuestion { get; set; }
@@ -37,7 +37,7 @@ namespace Lincoln.Admin.Web.Models
         public string OptionEText { get; set; }
         public int? AnswerNo { get; set; }
         public string AnswerText { get; set; }
-
+        public string Active { get; set; }
         public List<SelectListItem> ProgramList { get; set; }
         public List<SelectListItem> ProgrammeYearList { get; set; }
         public List<SelectListItem> CourseList { get; set; }
