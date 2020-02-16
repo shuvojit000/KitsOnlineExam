@@ -5,119 +5,149 @@
     }
 </style>
 
-<div class="content-wrapper">
-    <div class="content-header row">
-    </div>
-    <div class="content-body">
-        <!-- Base style table -->
-        <section id="base-style">
-            <div class="row">
-                <div class="col-12">
+<div class="content-body">
+    <!-- Base style table -->
+    @Html.HiddenFor(a => a.PaperDetailsID)
 
+    <div class="row">
 
-                    <div class="row">
-                        <div class="form-group col-lg-12">
-                            <label><b>Question Type <span class="requiredstar">*</span> </b></label>
-                            <div class="position-relative">
-                                <input type="radio" name="QuestionType" value="Subjective" @(Model.QuestionType == "Subjective" ? "checked" : "")> Subjective
-                                <input type="radio" name="QuestionType" value="Objective" @(Model.QuestionType == "Objective" ? "checked" : "")> Objective
-                                <span id="SemesterTypeVal" style="color:red;display:none" class="valClass">Please select Question Type.</span>
-                            </div>
+        <div class="col-lg-12">
+            <div class="form-group row">
+                <label class="col-lg-3 label-control"><b>Question Type <span class="requiredstar">*</span> </b></label>
+                <div class="position-relative col-lg-9">
+                    <div class="input-group">
+                        <div class="d-inline-block custom-control custom-radio mr-1">
+                            <input type="radio" name="QuestionType" value="Subjective" @(Model.QuestionType == "Subjective" ? "checked" : "")> Subjective
                         </div>
-
-                        <div class="form-group col-lg-12">
-                            <label><b>Question Statement <span class="requiredstar">*</span> </b></label>
-                            <div class="position-relative">
-                                @Html.TextBoxFor(a => a.QuestionText, new { @class = "form-control" })
-                                <span id="SyllabusVersionCodeVal" style="color:red;display:none" class="valClass"></span>
-                            </div>
+                        <div class="d-inline-block custom-control custom-radio">
+                            <input type="radio" name="QuestionType" value="Objective" @(Model.QuestionType == "Objective" ? "checked" : "")> Objective
                         </div>
-                        <div class="form-group col-lg-12">
-                            <label><b>Question Marks </b></label>
-                            <div class="position-relative ">
-                                @Html.TextBoxFor(a => a.QuestionMarks, new { @class = "form-control" })
-                                <span id="CountryCodeVal" style="color:red;display:none" class="valClass">Please select Country.</span>
+                        <span id="SemesterTypeVal" style="color:red;display:none" class="valClass">Please select Semester Type.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group col-lg-12">
+            <label><b>Question Statement <span class="requiredstar">*</span> </b></label>
+            <div class="position-relative">
+                @Html.EditorFor(a => a.QuestionText, new { @class = "form-control" })
+                <span id="SyllabusVersionCodeVal" style="color:red;display:none" class="valClass">Please select Version.</span>
+            </div>
+        </div>
+
+        <div class="form-group col-lg-6">
+            <label><b>Question Marks </b></label>
+            <div class="position-relative ">
+                @Html.TextBoxFor(a => a.QuestionMarks, new { @class = "form-control" })
+                <span id="CountryCodeVal" style="color:red;display:none" class="valClass">Please select Country.</span>
+            </div>
+        </div>
+        <div id="myContent" class="hidden">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group row">
+                            <div class="col-lg-1">
+                                <input type="radio" name="OptionANo" value="A" /> A
                             </div>
-                        </div>
-                        <div id="myContent" class="hidden">
-                            <div class=" row col-lg-6">
-                                <div class="col-lg-12">
-                                    <div class="col-lg-3 col-sm">
-                                        <input type="radio" name="OptionANo" value="A" /> A
-                                    </div>
-                                    <div class="col-lg-6">
-                                        @Html.TextBoxFor(a => a.OptionAText, new { @class = "form-control" })
-                                        <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
-                                    </div>
-                                </div>
-                                <div class="form-group col-lg-12">
-                                    <div class="col-lg-3">
-                                        <input type="radio" name="OptionBNo" value="B" /> B
-                                    </div>
-                                    <div class="col-lg-6">
-                                        @Html.TextBoxFor(a => a.OptionBText, new { @class = "form-control" })
-                                        <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
-                                    </div>
-                                </div>
-                                <div class="form-group col-lg-12">
-                                    <div class="col-lg-3">
-                                        <input type="radio" name="OptionCNo" value="C" /> C
-                                    </div>
-                                    <div class="col-lg-6">
-                                        @Html.TextBoxFor(a => a.OptionCText, new { @class = "form-control" })
-                                        <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
-                                    </div>
-                                </div>
-                                <div class="form-group col-lg-12">
-                                    <div class="col-lg-3">
-                                        <input type="radio" name="OptionDNo" value="D" /> D
-                                    </div>
-                                    <div class="col-lg-6">
-                                        @Html.TextBoxFor(a => a.OptionDText, new { @class = "form-control" })
-                                        <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
-                                    </div>
-                                </div>
-                                <div class="form-group col-lg-12">
-                                    <div class="col-lg-3">
-                                        <input type="radio" name="OptionENo" value="E" /> E
-                                    </div>
-                                    <div class="col-lg-6">
-                                        @Html.TextBoxFor(a => a.OptionEText, new { @class = "form-control" })
-                                        <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
-                                    </div>
-                                </div>
-
-                            </div>
-
-
-                        </div>
-
-                        <div class="form-group col-lg-12">
-                            <label><b>Answer No<span class="requiredstar">*</span> </b></label>
-                            <div class="position-relative">
-                                @Html.TextBoxFor(a => a.AnswerNo, new { @class = "form-control" })
+                            <div class="col-lg-11">
+                                @Html.TextBoxFor(a => a.OptionAText, new { @class = "form-control" })
                                 <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
                             </div>
                         </div>
-                        <div class="form-group col-lg-12">
-                            <label><b>Answer Statement<span class="requiredstar">*</span> </b></label>
-                            <div class="position-relative">
-                                @Html.TextBoxFor(a => a.AnswerText, new { @class = "form-control" })
-                                <span id="SemisterCodeVal" style="color:red;display:none" class="valClass">Please select Semester.</span>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="form-group row">
+                            <div class="col-lg-1">
+                                <input type="radio" name="OptionBNo" value="B" /> B
+                            </div>
+                            <div class="col-lg-11">
+                                @Html.TextBoxFor(a => a.OptionBText, new { @class = "form-control" })
+                                <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
                             </div>
                         </div>
+                    </div>
 
+                    <div class="col-lg-12">
+                        <div class="form-group row">
+                            <div class="col-lg-1">
+                                <input type="radio" name="OptionCNo" value="C" /> C
+                            </div>
+                            <div class="col-lg-11">
+                                @Html.TextBoxFor(a => a.OptionCText, new { @class = "form-control" })
+                                <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="form-group row">
+                            <div class="col-lg-1">
+                                <input type="radio" name="OptionDNo" value="D" /> D
+                            </div>
+                            <div class="col-lg-11">
+                                @Html.TextBoxFor(a => a.OptionDText, new { @class = "form-control" })
+                                <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="form-group row">
+                            <div class="col-lg-1">
+                                <input type="radio" name="OptionENo" value="E" /> E
+                            </div>
+                            <div class="col-lg-11">
+                                @Html.TextBoxFor(a => a.OptionEText, new { @class = "form-control" })
+                                <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <button type="button" onclick="fnSavePaperDetails(@(Model.PaperID??0),@(Model.PaperDetailsID??0))" class="btn btn-primary">
-                    <i class="fa fa-check-square-o"></i> Save
-                </button>
             </div>
-        </section>
-        <!--/ Base style table -->
+        </div>
+        <div class="form-group col-lg-6">
+            <label><b>Answer No<span class="requiredstar">*</span> </b></label>
+            <div class="position-relative">
+                @Html.TextBoxFor(a => a.AnswerNo, new { @class = "form-control" })
+                <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
+            </div>
+        </div>
+
+        <div class="form-group col-lg-12">
+            <label><b>Answer Statement<span class="requiredstar">*</span> </b></label>
+            <div class="position-relative">
+                @Html.EditorFor(a => a.AnswerText, new { @class = "form-control" })
+                <span id="SemisterCodeVal" style="color:red;display:none" class="valClass">Please select Semester.</span>
+            </div>
+        </div>
+
     </div>
+
+    <button type="button" onclick="fnSavePaperDetails()" class="btn btn-primary">
+        <i class="fa fa-check-square-o"></i> Save
+    </button>
+    <!--/ Base style table -->
 </div>
 <script>
+    CKEDITOR.plugins.addExternal('ckeditor_wiris', 'https://www.wiris.net/demo/plugins/ckeditor/', 'plugin.js');
+
+    CKEDITOR.replace('QuestionText', {
+        filebrowserImageBrowseUrl: '/Home/uploadPartial',
+        filebrowserImageUploadUrl: '/Home/uploadnow',
+        extraPlugins: 'ckeditor_wiris'
+    });
+    CKEDITOR.replace('AnswerText', {
+        filebrowserImageBrowseUrl: '/Home/uploadPartial',
+        filebrowserImageUploadUrl: '/Home/uploadnow',
+        extraPlugins: 'ckeditor_wiris'
+    });
+    function updateValue(id, value) {
+        // this gets called from the popup window and updates the field with a new value 
+        document.getElementById(id).value = value;
+    }
     $(document).on("change", "input[type=radio][name=QuestionType]", function () {
         if (this.value == 'Subjective') {
             $('#myContent').addClass('hidden');

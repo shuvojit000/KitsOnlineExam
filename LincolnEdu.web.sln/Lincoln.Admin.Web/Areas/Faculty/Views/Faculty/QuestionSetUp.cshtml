@@ -3,81 +3,86 @@
     ViewBag.Title = "Question SetUp";
     Layout = "~/Areas/Faculty/Views/Shared/_FacultyLayout.cshtml";
 }
-
+<script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
 <div class="content-wrapper">
     <div class="content-header row">
     </div>
     <div class="content-body">
         <!-- Base style table -->
-        <section id="base-style">
+        <section id="basic-form-layouts">
             <div class="row">
                 <div class="col-12">
                     <div class="cardk">
-                       
-                        <div class="row">
-                            <div class="form-group col-lg-6">
-                                <label><b>Faculty <span class="requiredstar">*</span> </b></label>
-                                <div class="position-relative has-icon-left">
-                                    @Html.DropDownListFor(a => a.DepartmentID, Model.FacultyList, "Select Faculty", new { @class = "custom-select block" })
-                                    <span id="FacultyCodeVal" style="color:red;display:none" class="valClass">Please select Faculty.</span>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-lg-4">
+                                    <label><b>Faculty <span class="requiredstar">*</span> </b></label>
+                                    <div class="position-relative has-icon-left">
+                                        @Html.DropDownListFor(a => a.DepartmentID, Model.FacultyList, "Select Faculty", new { @class = "custom-select block" })
+                                        <span id="FacultyCodeVal" style="color:red;display:none" class="valClass">Please select Faculty.</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group col-lg-6">
-                                <label><b>Programme <span class="requiredstar">*</span> </b></label>
-                                <div class="position-relative has-icon-left">
-                                    @Html.DropDownListFor(a => a.ProgrammeID, Model.ProgramList, "Select Programme", new { @class = "custom-select block" })
-                                    <span id="ProgramCodeVal" style="color:red;display:none" class="valClass">Please select Programme.</span>
+                                <div class="form-group col-lg-4">
+                                    <label><b>Programme <span class="requiredstar">*</span> </b></label>
+                                    <div class="position-relative has-icon-left">
+                                        @Html.DropDownListFor(a => a.ProgrammeID, Model.ProgramList, "Select Programme", new { @class = "custom-select block" })
+                                        <span id="ProgramCodeVal" style="color:red;display:none" class="valClass">Please select Programme.</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group col-lg-6">
-                                <label><b>Version<span class="requiredstar">*</span> </b></label>
-                                <div class="position-relative has-icon-left">
-                                    @Html.DropDownListFor(a => a.SyllabusVersionID, Model.SyllabusVersionList, "Select Programme Versioning", new { @class = "custom-select block" })
-                                    <span id="SyllabusVersionCodeVal" style="color:red;display:none" class="valClass">Please select Version.</span>
+                                <div class="form-group col-lg-4">
+                                    <label><b>Version<span class="requiredstar">*</span> </b></label>
+                                    <div class="position-relative has-icon-left">
+                                        @Html.DropDownListFor(a => a.SyllabusVersionID, Model.SyllabusVersionList, "Select Programme Versioning", new { @class = "custom-select block" })
+                                        <span id="SyllabusVersionCodeVal" style="color:red;display:none" class="valClass">Please select Version.</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group col-lg-6">
-                                <label><b>Country: </b></label>
-                                <div class="position-relative has-icon-left">
-                                    @Html.DropDownListFor(a => a.CountryID, Model.CountryList, "Select Country", new { @class = "custom-select block" })
-                                    <span id="CountryCodeVal" style="color:red;display:none" class="valClass">Please select Country.</span>
+                                <div class="form-group col-lg-4">
+                                    <label><b>Country: </b></label>
+                                    <div class="position-relative has-icon-left">
+                                        @Html.DropDownListFor(a => a.CountryID, Model.CountryList, "Select Country", new { @class = "custom-select block" })
+                                        <span id="CountryCodeVal" style="color:red;display:none" class="valClass">Please select Country.</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group col-lg-6">
-                                <label><b>Programme Year<span class="requiredstar">*</span> </b></label>
-                                <div class="position-relative has-icon-left">
-                                    @Html.DropDownListFor(a => a.ProgrammeYear, Model.ProgrammeYearList, "Select Programme Year", new { @class = "custom-select block" })
-                                    <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
+                                <div class="form-group col-lg-4">
+                                    <label><b>Programme Year<span class="requiredstar">*</span> </b></label>
+                                    <div class="position-relative has-icon-left">
+                                        @Html.DropDownListFor(a => a.ProgrammeYear, Model.ProgrammeYearList, "Select Programme Year", new { @class = "custom-select block" })
+                                        <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group col-lg-6">
-                                <label><b>Semester<span class="requiredstar">*</span> </b></label>
-                                <div class="position-relative has-icon-left">
-                                    @Html.DropDownListFor(a => a.ProgrammeSemester, Model.SemisterList, "Select Semester", new { @class = "custom-select block" })
-                                    <span id="SemisterCodeVal" style="color:red;display:none" class="valClass">Please select Semester.</span>
+                                <div class="form-group col-lg-4">
+                                    <label><b>Semester<span class="requiredstar">*</span> </b></label>
+                                    <div class="position-relative has-icon-left">
+                                        @Html.DropDownListFor(a => a.ProgrammeSemester, Model.SemisterList, "Select Semester", new { @class = "custom-select block" })
+                                        <span id="SemisterCodeVal" style="color:red;display:none" class="valClass">Please select Semester.</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group col-lg-6">
-                                <label><b>Course<span class="requiredstar">*</span> </b></label>
-                                <div class="position-relative has-icon-left">
-                                    @Html.DropDownListFor(a => a.CourseID, Model.CourseList, "Select Course", new { @class = "custom-select block" })
-                                    <span id="CourseIDVal" style="color:red;display:none" class="valClass">Please select Course.</span>
+                                <div class="form-group col-lg-4">
+                                    <label><b>Course<span class="requiredstar">*</span> </b></label>
+                                    <div class="position-relative has-icon-left">
+                                        @Html.DropDownListFor(a => a.CourseID, Model.CourseList, "Select Course", new { @class = "custom-select block" })
+                                        <span id="CourseIDVal" style="color:red;display:none" class="valClass">Please select Course.</span>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group col-lg-6">
-                                <label><b>Section<span class="requiredstar">*</span> </b></label>
-                                <div class="position-relative has-icon-left">
-                                    @Html.DropDownListFor(a => a.SectionName, Model.SectionList, "Select Section", new { @class = "custom-select block" })
-                                    <input type="hidden" id="Section" value="" />
-                                    <span id="SectionIDVal" style="color:red;display:none" class="valClass">Please select Section.</span>
+                                <div class="form-group col-lg-4">
+                                    <label><b>Section<span class="requiredstar">*</span> </b></label>
+                                    <div class="position-relative has-icon-left">
+                                        @Html.DropDownListFor(a => a.SectionName, Model.SectionList, "Select Section", new { @class = "custom-select block" })
+                                        <input type="hidden" id="Section" value="" />
+                                        <span id="SectionIDVal" style="color:red;display:none" class="valClass">Please select Section.</span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label>&nbsp;</label>
+                                    <div class="position-relative has-icon-left">
+                                        <button type="button" onclick="fnAddPaper()" class="btn btn-primary">
+                                            <i class="fa fa-check-square-o"></i> Add
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                            <button type="button" onclick="fnAddPaper()" class="btn btn-primary">
-                                <i class="fa fa-check-square-o"></i> Search
-                            </button>
                         </div>
-
 
                         <div class="card-content collapse show">
                             <div class="card-body card-dashboard paperdetails">
@@ -93,28 +98,30 @@
     </div>
 </div>
 <script>
-    $(document).on("change", "#DepartmentID", function () {
-        $("#ProgrammeID").empty();
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("GetProgDrop","Admin",new { area="Admin"})', // we are calling json method
+    
 
-            dataType: 'json',
+ $(document).on("change", "#DepartmentID", function () {
+     $("#ProgrammeID").empty();
+     $.ajax({
+         type: 'POST',
+         url: '@Url.Action("GetProgDrop","Admin",new { area="Admin"})', // we are calling json method
 
-            data: { departmentID: $("#DepartmentID").val() },
-            success: function (res) {
-                $("#ProgrammeID").append('<option value="">Select Programme</option>');
-                $.each(res, function (i, state) {
-                    $("#ProgrammeID").append('<option value="' + state.Value + '">' +
-                        state.Text + '</option>');
-                });
-            },
-            error: function (ex) {
-                alert('Failed to retrieve Faculty.' + ex);
-            }
-        });
-        return false;
-    });
+         dataType: 'json',
+
+         data: { departmentID: $("#DepartmentID").val() },
+         success: function (res) {
+             $("#ProgrammeID").append('<option value="">Select Programme</option>');
+             $.each(res, function (i, state) {
+                 $("#ProgrammeID").append('<option value="' + state.Value + '">' +
+                     state.Text + '</option>');
+             });
+         },
+         error: function (ex) {
+             alert('Failed to retrieve Faculty.' + ex);
+         }
+     });
+     return false;
+ });
 
 
     $(document).on("change", "#ProgrammeID", function () {
@@ -305,9 +312,9 @@
             success: function (result) {
                 if (result > 0) {
                     alert('Data Save Successfully.');
-                   
+
                 } else {
-                    alert('Error in your requst.');                 
+                    alert('Error in your requst.');
 
                 }
             },
