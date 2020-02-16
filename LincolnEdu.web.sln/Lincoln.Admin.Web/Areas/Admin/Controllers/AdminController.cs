@@ -1610,7 +1610,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                                        select new SubjectAllocationList
                                        {
                                            SemisterID = objChildtbl1.SemisterID,
-                                           SemisterName = objChildtbl1.SemisterName
+                                           SemisterName = objChildtbl1.SemisterName,
+                                          
                                        }).ToList();
 
             model.AllocationList.SubAllocationDetailsList = (from objChildtbl1 in itemSet.AllocationList.SubAllocationDetailsList
@@ -1618,7 +1619,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                                                              {
                                                                  CourseID = objChildtbl1.CourseID,
                                                                  CourseName = objChildtbl1.CourseName,
-                                                                 ProgrammeSemesterID = objChildtbl1.ProgrammeSemesterID
+                                                                 ProgrammeSemesterID = objChildtbl1.ProgrammeSemesterID,
+                                                                 Allocation=1
                                                              }).ToList();
 
 
