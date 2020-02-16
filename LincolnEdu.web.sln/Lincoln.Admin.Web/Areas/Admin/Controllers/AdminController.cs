@@ -1592,12 +1592,14 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.ProgramCode = Convert.ToInt32(itemSet.ProgramCode);
             model.SyllabusVersionCode = Convert.ToInt32(itemSet.SyllabusVersionCode);
             model.CountryCode = Convert.ToInt32(itemSet.CountryCode);
+            model.CountryName = (itemSet.CountryCode == 1) ? "India" : (itemSet.CountryCode == 2) ? "Malaysia" : "United States";
             model.FacultyCode = Convert.ToInt32(itemSet.FacultyCode);
             model.AcademicYearCode = Convert.ToInt32(itemSet.AcademicYearCode);
             model.ProgramName = itemSet.ProgramName;
             model.SyllabusVersionName = itemSet.SyllabusVersionName;
             model.FacultyName = itemSet.FacultyName;
             model.EmployeeID = itemSet.EmployeeID;
+            model.EmployeeName= itemSet.EmployeeName;
             model.YearName = itemSet.YearName;
             model.ModifiedOn = itemSet.ModifiedOn?.Date;
             model.CreatedBy = Convert.ToInt32(itemSet.CreatedBy);
@@ -1620,7 +1622,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                                                                  CourseID = objChildtbl1.CourseID,
                                                                  CourseName = objChildtbl1.CourseName,
                                                                  ProgrammeSemesterID = objChildtbl1.ProgrammeSemesterID,
-                                                                 Allocation=1
+                                                                 Allocation= objChildtbl1.Status
                                                              }).ToList();
 
 

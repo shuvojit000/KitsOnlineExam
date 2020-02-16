@@ -55,6 +55,7 @@ namespace Lincoln.OnlineExam.Response
         public int SubjectAllocationID { get; set; }
         public int SemisterID { get; set; }
         public string SemisterName { get; set; }
+        public int Status { get; set; }
         public SubjectAllocationDetailsListR AllocationDetails { get; set; }
         public List<SubjectAllocationDetailsListR> SubAllocationDetailsList { get; set; }
     }
@@ -65,6 +66,7 @@ namespace Lincoln.OnlineExam.Response
         public int SlNo { get; set; }
         public string SubjectAllocationDetailsID { get; set; }
         public int CourseID { get; set; }
+        public int Status { get; set; }
         public int ProgrammeSemesterID { get; set; }
         public string CourseName { get; set; }
         public int Allocation { get; set; }
