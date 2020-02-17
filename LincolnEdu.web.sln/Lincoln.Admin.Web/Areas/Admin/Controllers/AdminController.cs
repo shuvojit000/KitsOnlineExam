@@ -1599,7 +1599,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.SyllabusVersionName = itemSet.SyllabusVersionName;
             model.FacultyName = itemSet.FacultyName;
             model.EmployeeID = itemSet.EmployeeID;
-            model.EmployeeName= itemSet.EmployeeName;
+            model.EmployeeName = itemSet.EmployeeName;
             model.YearName = itemSet.YearName;
             model.ModifiedOn = itemSet.ModifiedOn?.Date;
             model.CreatedBy = Convert.ToInt32(itemSet.CreatedBy);
@@ -1613,7 +1613,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                                        {
                                            SemisterID = objChildtbl1.SemisterID,
                                            SemisterName = objChildtbl1.SemisterName,
-                                          
+
                                        }).ToList();
 
             model.AllocationList.SubAllocationDetailsList = (from objChildtbl1 in itemSet.AllocationList.SubAllocationDetailsList
@@ -1622,7 +1622,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                                                                  CourseID = objChildtbl1.CourseID,
                                                                  CourseName = objChildtbl1.CourseName,
                                                                  ProgrammeSemesterID = objChildtbl1.ProgrammeSemesterID,
-                                                                 Allocation= objChildtbl1.Status
+                                                                 Allocation = objChildtbl1.Status.ToString()
                                                              }).ToList();
 
 
@@ -1636,13 +1636,6 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             {
                 model = SelectSubjectAllocation(id);
                 model.FacultyList = onlineExamService.GetAllDepartment().Select(a => new SelectListItem { Text = a.DepartmentName, Value = a.DepartmentID.ToString() }).ToList();
-                //model.FacultyList = onlineExamService.GetAllDepartment().Where(a => a.DepartmentID == Convert.ToInt32(model.FacultyCode) && a.Status == "A")
-                //        .Select(a => new SelectListItem
-                //        {
-                //            Text = a.DepartmentName,
-                //            Value = a.DepartmentID.ToString()
-
-                //        }).ToList();
 
                 model.ProgramList = onlineExamService.GetAllProgramme().Where(a => a.DepartmentID == Convert.ToInt32(model.FacultyCode) && a.Status == "A")
                        .Select(a => new SelectListItem
@@ -1743,7 +1736,17 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult DeleteSubjectAllocation(SubjectAllocationViewModel model)
         {
-            return Json("", JsonRequestBehavior.AllowGet);
+
+            var result = onlineExamService.SaveSubjectAllocation(new OnlineExam.Request.SubjectAllocationRequestDTO()
+            {
+
+                CreatedBy = User.UserId,
+                SubjectAllocationID = Convert.ToInt32(model.SubjectAllocationID)
+
+
+            }, "DELETE");
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public PartialViewResult AllocationDetails(SubjectAllocationViewModel model)

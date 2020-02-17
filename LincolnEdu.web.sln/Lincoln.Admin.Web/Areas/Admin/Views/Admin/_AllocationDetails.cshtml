@@ -5,12 +5,11 @@
     var q = 0;
 }
 
-<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered base-style Grid" style="width:100%">
+<table cellpadding="0" id="Grid" cellspacing="0" class="table table-striped table-bordered base-style Grid" style="width:100%">
     <tr>
         <th></th>
         <th>SL.NO</th>
         <th>Semester</th>
-        <th>City</th>
     </tr>
     @foreach (var item in Model.SubAllocationList)
     {
@@ -37,7 +36,7 @@
                                     @Html.HiddenFor(a => item2.CourseID)
                                     <label id="CourseName" name="CourseName[]" value="@item2.CourseID">@item2.CourseName</label>
                                 </td>
-                                <td><input type="checkbox" id="OpenClose" name="OpenClose" value="OpenClose" @(item2.Allocation == 1 ? "checked" : "") /></td>
+                                <td><input type="checkbox" id="Allocation" name="OpenClose" value="true" @(item2.Allocation == "A" ? "checked" : "") /></td>
                             </tr>
                         }
                     </table>
@@ -53,7 +52,6 @@
                 @Html.HiddenFor(a => item.SemisterID)
                 <label id="SemesterName" name="SemesterName[]" value="@item.SemisterID">@item.SemisterName</label>
             </td>
-            <td>Kolkata</td>
         </tr>
     }
 </table>

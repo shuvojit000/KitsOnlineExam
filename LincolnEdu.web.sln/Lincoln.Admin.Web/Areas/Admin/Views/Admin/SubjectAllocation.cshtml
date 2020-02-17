@@ -147,22 +147,25 @@
     }
 
     function fnSaveSubjectAllocation(SubjectAllocationID) {
+        debugger;
         var SubAllocationDetailsList = [];
         var i = 0;
-        $('table.Grid tr').each(function () {
-            var TL = $('.Grid tr').children.length;
+        debugger;
+        $('table#Grid tr').each(function () {
+            var TL = $('#Grid tr').children.length;
             var currentRow = $(this).closest("tr");
             if (i > 0 && i < TL) {
                 var j = 0;
                 $('table.ChildGrid tr').each(function () {
-                    var TLG = $('.ChildGrid tr').children.length + 1;
+                    debugger;
+                    var TLG = $('.ChildGrid tr').children.length;
                     var currentRowD = $(this).closest("tr");
                     if (j > 0 && j < TLG) {
                         var tabularD = {
                             SubjectAllocationDetailsID: currentRowD.find("#SubjectAllocationID").val(),
                             ProgrammeSemesterID: currentRow.find("#item_SemisterID").val(),
                             CourseID: currentRowD.find("#item2_CourseID").val(),
-                            Allocation: currentRowD.find(("#Allocation")).is(':checked') ? 'A' : 'I'
+                            Allocation: currentRowD.find(("#Allocation")).is(":checked") ? 'A' : 'I'
                         };
                         SubAllocationDetailsList.push(tabularD);
                     }

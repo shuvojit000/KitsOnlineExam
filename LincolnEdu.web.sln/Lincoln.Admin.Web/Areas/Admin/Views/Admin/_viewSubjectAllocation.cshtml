@@ -1,6 +1,4 @@
-﻿@using Lincoln.Admin.Web.Models;
-
-@*@model Lincoln.Admin.Web.Models.SubjectAssessmentViewModel*@
+﻿
 @model  Lincoln.Admin.Web.Models.SubjectAllocationViewModel
 @{
     var p = 0;
@@ -79,7 +77,6 @@
                                 <th></th>
                                 <th>SL.NO</th>
                                 <th>Semester</th>
-                                <th>City</th>
                             </tr>
                             @foreach (var item in Model.SubAllocationList)
     {
@@ -106,7 +103,7 @@
                                     @Html.HiddenFor(a => item2.CourseID)
                                     <label id="CourseName" name="CourseName[]" value="@item2.CourseID">@item2.CourseName</label>
                                 </td>
-                                <td><input type="checkbox" id="OpenClose" name="OpenClose" value="OpenClose" @(item2.Allocation == 1 ? "checked" : "") /></td>
+                                <td><input type="checkbox" id="OpenClose" name="OpenClose" value="true" @(item2.Allocation == "A" ? "checked=\"checked\"" : "") /></td>
                             </tr>
                         }
                                             </table>
@@ -122,31 +119,11 @@
                                         @Html.HiddenFor(a => item.SemisterID)
                                         <label id="SemesterName" name="SemesterName[]" value="@item.SemisterID">@item.SemisterName</label>
                                     </td>
-                                    <td>Kolkata</td>
                                 </tr>
     }
                         </table>
                     </div>
-
                 </div>
-                <div class="row">
-                    @*<div class="form-group col-lg-6">
-                            <label><b>Programme Year:</b> </label>
-                            @Html.DisplayFor(a => a.AcademicYearCode, new { @class = "form-control" })
-                        </div>
-                        <div class="form-group col-lg-6">
-                            <label><b>Semester:</b> </label>
-                            @Html.DisplayFor(a => a.SemisterName, new { @class = "form-control" })
-                        </div>
-                        <div class="form-group col-lg-6">
-                            <label><b>Course: </b></label>
-                            @Html.DisplayFor(a => a.CourseName, new { @class = "form-control" })
-                        </div>*@
-                </div>
-
-                
-
-
             </div>
         </div>
         <!--PAGE CONTENT ENDS-->

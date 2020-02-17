@@ -768,10 +768,10 @@
     <Content Include="Areas\Admin\Views\Admin\_addSubjectAllocation.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\_AllocationDetails.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\_listSubjectAllocation.cshtml" />
-    <Content Include="Areas\Admin\Views\Admin\_viewSubjectAllocation.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\SubjectAllocation.cshtml" />
     <Content Include="Areas\Faculty\Views\Faculty\QuestionSetUp.cshtml" />
     <Content Include="Areas\Faculty\Views\Faculty\_AddQuestion.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_viewSubjectAllocation.cshtml" />
     <None Include="Properties\PublishProfiles\LinclnAdmin.pubxml" />
     <None Include="Properties\PublishProfiles\LincLonAdmin.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />

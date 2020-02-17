@@ -66,9 +66,9 @@ namespace Lincoln.OnlineExam.Response
         public int SlNo { get; set; }
         public string SubjectAllocationDetailsID { get; set; }
         public int CourseID { get; set; }
-        public int Status { get; set; }
+        public string Status { get; set; }
         public int ProgrammeSemesterID { get; set; }
         public string CourseName { get; set; }
-        public int Allocation { get; set; }
+        public string Allocation { get; set; }
     }
 }

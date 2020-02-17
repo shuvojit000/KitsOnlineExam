@@ -59,6 +59,6 @@ namespace Lincoln.Admin.Web.Models
         public int? CourseID { get; set; }
         public int? ProgrammeSemesterID { get; set; }
         public string CourseName { get; set; }
-        public int Allocation { get; set; }
+        public string Allocation { get; set; }
     }
 }

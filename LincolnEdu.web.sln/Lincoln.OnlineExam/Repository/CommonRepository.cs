@@ -1619,7 +1619,7 @@ namespace Lincoln.OnlineExam.Repository
                         itemSet.AllocationList.AllocationDetails.CourseName = "";
                         itemSet.AllocationList.AllocationDetails.ProgrammeSemesterID = Convert.ToInt32(dr["ProgrammeSemesterID"]);
                         itemSet.AllocationList.AllocationDetails.CourseID = Convert.ToInt32(dr["CourseID"]);
-                        itemSet.AllocationList.AllocationDetails.Status = Convert.ToInt32(dr["Status"]);
+                        itemSet.AllocationList.AllocationDetails.Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]);
                         itemSet.AllocationList.AllocationDetails.CourseName = object.ReferenceEquals(dr["CourseName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseName"]); ;
                         itemSet.AllocationList.SubAllocationDetailsList.Add(itemSet.AllocationList.AllocationDetails);
                     }
