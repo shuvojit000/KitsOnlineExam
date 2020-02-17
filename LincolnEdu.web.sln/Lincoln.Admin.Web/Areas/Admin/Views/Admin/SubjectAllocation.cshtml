@@ -165,7 +165,7 @@
                             SubjectAllocationDetailsID: currentRowD.find("#SubjectAllocationID").val(),
                             ProgrammeSemesterID: currentRow.find("#item_SemisterID").val(),
                             CourseID: currentRowD.find("#item2_CourseID").val(),
-                            Allocation: currentRowD.find(("#Allocation")).is(":checked") ? 'A' : 'I'
+                            Allocation: currentRowD.find("#Allocation").is(":checked") ? 'A' : 'I'
                         };
                         SubAllocationDetailsList.push(tabularD);
                     }
