@@ -12,6 +12,8 @@ namespace Lincoln.Admin.Web.Models
         public int? ProgramCode { get; set; }
         public string ProgramName { get; set; }
         public int? FacultyCode { get; set; }
+        public int? DepartmentID { get; set; }
+        
         public string FacultyName { get; set; }
         public int? SyllabusVersionCode { get; set; }
         public string SyllabusVersionName { get; set; }

@@ -515,7 +515,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 model.CountryList = itemList?.Select(a => new SelectListItem() { Text = (a.CountryID == 1) ? "India" : (a.CountryID == 2) ? "Malaysia" : "United States", Value = a.CountryID.ToString() }).ToList().GroupBy(n => new { n.Text, n.Value })
                                            .Select(g => g.FirstOrDefault())
                                            .ToList();
-                model.ProgSEMList = itemList?.Where(a => a.ProgrammeID == Convert.ToInt32(model.ProgrammeID) && a.CountryID == model.CountryID && a.ProgrammeYear == model.ProgrammeYear).Select(a => new SelectListItem() { Text = a.ProgrammeSemester.ToString(), Value = a.ProgrammeSemester.ToString() }).ToList().GroupBy(n => new { n.Text, n.Value })
+                model.ProgSEMList = itemList?.Where(a => a.ProgrammeID == Convert.ToInt32(model.ProgrammeID) && a.CountryID == model.CountryID && a.ProgrammeYear == model.ProgrammeYear).Select(a => new SelectListItem() { Text = a.ProgrammeSemester.ToString(), Value = a.ProgrammeSemesterID.ToString() }).ToList().GroupBy(n => new { n.Text, n.Value })
                                            .Select(g => g.FirstOrDefault())
                                            .ToList();
                 model.ProgYearList = itemList?.Where(a => a.ProgrammeID == Convert.ToInt32(model.ProgrammeID) && a.CountryID == model.CountryID).Select(a => new SelectListItem() { Text = a.ProgrammeYear.ToString(), Value = a.ProgrammeYear.ToString() }).ToList().GroupBy(n => new { n.Text, n.Value })
@@ -630,7 +630,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             if (itemList != null && itemList.Count() > 0)
             {
 
-                model.ProgSEMList = itemList.Select(a => new SelectListItem() { Text = a.ProgrammeSemester.ToString(), Value = a.ProgrammeSemester.ToString() }).ToList().GroupBy(n => new { n.Text, n.Value })
+                model.ProgSEMList = itemList.Select(a => new SelectListItem() { Text = a.ProgrammeSemester.ToString(), Value = a.ProgrammeSemesterID.ToString() }).ToList().GroupBy(n => new { n.Text, n.Value })
                                            .Select(g => g.FirstOrDefault())
                                            .ToList();
 
@@ -1044,10 +1044,10 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
                        }).ToList();
 
-                model.SemisterList = onlineExamService.GetAllProgrammeSemester().Where(a => a.ProgrammeSemesterID == Convert.ToInt32(model.ProgramCode) && a.Status == "A")
+                model.SemisterList = onlineExamService.GetAllProgrammeSemester().Where(a => a.ProgrammeSemesterID == Convert.ToInt32(model.SemisterCode) && a.Status == "A")
                       .Select(a => new SelectListItem
                       {
-                          Text = a.SemesterType,
+                          Text = a.ProgrammeSemester.ToString(),
                           Value = a.ProgrammeSemesterID.ToString()
 
                       }).ToList();
@@ -1065,7 +1065,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                                           .Select(g => g.FirstOrDefault())
                                           .ToList();
                 model.SemisterList = itemList?.Where(a => a.ProgrammeID == Convert.ToInt32(model.ProgramCode) && a.CountryID == model.CountryCode
-                && a.ProgrammeYear == model.AcademicYearCode).Select(a => new SelectListItem() { Text = a.ProgrammeSemester.ToString(), Value = a.ProgrammeSemester.ToString() }).ToList().GroupBy(n => new { n.Text, n.Value })
+                && a.ProgrammeYear == model.AcademicYearCode).Select(a => new SelectListItem() { Text = a.ProgrammeSemester.ToString(), Value = a.ProgrammeSemesterID.ToString() }).ToList().GroupBy(n => new { n.Text, n.Value })
                                            .Select(g => g.FirstOrDefault())
                                            .ToList();
                 model.AcademicYearList = itemList?.Where(a => a.ProgrammeID == Convert.ToInt32(model.ProgramCode) &&
@@ -1304,13 +1304,13 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
                        }).ToList();
 
-                model.SemisterList = onlineExamService.GetAllProgrammeSemester().Where(a => a.ProgrammeSemesterID == Convert.ToInt32(model.ProgramCode) && a.Status == "A")
-                      .Select(a => new SelectListItem
-                      {
-                          Text = a.SemesterType,
-                          Value = a.ProgrammeSemesterID.ToString()
+                //model.SemisterList = onlineExamService.GetAllProgrammeSemester().Where(a => a.ProgrammeSemesterID == Convert.ToInt32(model.SemisterCode) && a.Status == "A")
+                //      .Select(a => new SelectListItem
+                //      {
+                //          Text = a.SemesterType,
+                //          Value = a.ProgrammeSemesterID.ToString()
 
-                      }).ToList();
+                //      }).ToList();
                 model.CourseList = onlineExamService.GetAllCourse().Where(a => a.ProgrammeID == Convert.ToInt32(model.ProgramCode)
                 && a.CountryId == model.CountryCode
                 && a.ProgrammeYear == model.AcademicYearCode && a.Status == "A" && a.ProgrammeSemester == model.SemisterCode)
@@ -1325,7 +1325,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                                           .Select(g => g.FirstOrDefault())
                                           .ToList();
                 model.SemisterList = itemList?.Where(a => a.ProgrammeID == Convert.ToInt32(model.ProgramCode) && a.CountryID == model.CountryCode
-                && a.ProgrammeYear == model.AcademicYearCode).Select(a => new SelectListItem() { Text = a.ProgrammeSemester.ToString(), Value = a.ProgrammeSemester.ToString() }).ToList().GroupBy(n => new { n.Text, n.Value })
+                && a.ProgrammeYear == model.AcademicYearCode).Select(a => new SelectListItem() { Text = a.ProgrammeSemester.ToString(), Value = a.ProgrammeSemesterID.ToString() }).ToList().GroupBy(n => new { n.Text, n.Value })
                                            .Select(g => g.FirstOrDefault())
                                            .ToList();
                 model.AcademicYearList = itemList?.Where(a => a.ProgrammeID == Convert.ToInt32(model.ProgramCode) &&
@@ -1569,7 +1569,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 FacultyName = a.FacultyName,
                 AcademicYearCode = a.AcademicYearCode,
                 YearName = a.YearName,
-                Active = a.Status,
+                Active = a.Active,// by suvendu
                 ModifiedOn = a.ModifiedOn?.Date,
                 CreatedBy = a.CreatedBy,
                 CreatedOn = a.CreatedOn,
@@ -1721,10 +1721,11 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             {
                 SubjectAllocationID = Convert.ToInt32(model.SubjectAllocationID),
                 CreatedBy = User.UserId,
+                DepartmentID = Convert.ToInt32(model.FacultyCode),
                 ProgrammeID = Convert.ToInt32(model.ProgramCode),
                 Version = Convert.ToInt32(model.SyllabusVersionCode),
                 CountryID = Convert.ToInt32(model.CountryCode),
-                EmployeeID = Convert.ToInt32(model.FacultyCode),
+                EmployeeID = Convert.ToInt32(model.EmployeeID),
                 AcademicID = Convert.ToInt32(model.AcademicYearCode),
                 TabAllocationDetails = xEle.ToString().Trim(),
                 Active = model.Active

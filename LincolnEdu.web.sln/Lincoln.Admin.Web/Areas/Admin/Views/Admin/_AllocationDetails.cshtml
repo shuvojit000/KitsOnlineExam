@@ -25,7 +25,7 @@
                             <th>Course</th>
                             <th>Allocate</th>
                         </tr>
-                        @foreach (var item2 in Model.AllocationList?.SubAllocationDetailsList?.Where(a => a.ProgrammeSemesterID == item.SemisterID))
+                        @foreach (var item2 in Model.AllocationList?.SubAllocationDetailsList)
                         {
                             q = q + 1;
                             <tr>
@@ -36,7 +36,7 @@
                                     @Html.HiddenFor(a => item2.CourseID)
                                     <label id="CourseName" name="CourseName[]" value="@item2.CourseID">@item2.CourseName</label>
                                 </td>
-                                <td><input type="checkbox" id="Allocation" name="OpenClose"  @(item2.Allocation == "A" ? "checked" : "") /></td>
+                                <td><input type="checkbox" id="Allocation" name="OpenClose" value="true" @(item2.Allocation == "A" ? "checked=\"checked\"" : "") /></td>
                             </tr>
                         }
                     </table>

@@ -39,11 +39,12 @@
                     @*<td>India</td>*@
                     @*<td>2</td>*@
                     @*<td></td>*@
-                    <td>
-                        <a href="javascript:void(0);" onclick="fnViewSubjectAllocation(@item.SubjectAllocationID)" title="View"><i class="fa fa-eye"></i></a> &nbsp;
-                        <a href="javascript:void(0);" onclick="fnAddSubjectAllocation(@item.SubjectAllocationID)" title="Edit"><i class="fa fa-edit"></i></a> &nbsp;
-                        <a href="javascript:void(0);" onclick="fnDeleteSubjectAllocation(@item.SubjectAllocationID)" title="Delete"><i class="fa fa-trash"></i></a>
-                    </td>
+                <td>
+                    <a href="javascript:void(0);" onclick="fnViewSubjectAllocation(@item.SubjectAllocationID)" title="View"><i class="fa fa-eye"></i></a> &nbsp;
+                    <a href="javascript:void(0);" onclick="fnAddSubjectAllocation(@item.SubjectAllocationID)" title="Edit"><i class="fa fa-edit"></i></a> &nbsp;
+                    <a href="javascript:void(0);" onclick="fnDeleteSubjectAllocation(@item.SubjectAllocationID)" title="Delete"><i class="fa fa-trash"></i></a>
+                    @*<a href="javascript:void(0);"  title="Inactive"><i class="fa fa-ban"></i></a>*@
+                </td>
                 </tr>
                 sl++;
             }

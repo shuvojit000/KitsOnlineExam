@@ -216,9 +216,9 @@
             success: function (res) {
                 if (res != null) {
 
-                    $("#ProgrammeSemester").append('<option value="">Select Semester</option>');
+                    //$("#ProgrammeSemesterID").append('<option value="">Select Semester</option>');
                     $.each(res.ProgSEMList, function (i, state) {
-                        $("#ProgrammeSemester").append('<option value="' + state.Value + '">' +
+                        $("#ProgrammeSemesterID").append('<option value="' + state.Value + '">' +
                              state.Text + '</option>');
                         // here we are adding option for States
 
@@ -226,7 +226,7 @@
                 }
                 else {
 
-                    $("#ProgrammeSemester").append('<option value="">Select Semester</option>');
+                    $("#ProgrammeSemesterID").append('<option value="">Select Semester</option>');
 
                 }
             },
@@ -237,14 +237,14 @@
         return false;
     });
 
-    $(document).on("change", "#ProgrammeSemester", function () {
+    $(document).on("change", "#ProgrammeSemesterID", function () {
         $.ajax({
             type: 'POST',
             url: '@Url.Action("ChangeProgramSemSelection", "Admin",new { area="Admin"})', // we are calling json method
             dataType: 'json',
             data: {
                 programmeID: $("#ProgrammeID").val(), countryID: $('#CountryID').val(), programYear: $('#ProgrammeYear').val(),
-                progSemId: $("#ProgrammeSemester").val()
+                progSemId: $("#ProgrammeSemesterID").val()
             },
             success: function (res) {
                 if (res=="Short") {

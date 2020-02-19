@@ -147,27 +147,27 @@
     }
 
     function fnSaveSubjectAllocation(SubjectAllocationID) {
-        debugger;
         var SubAllocationDetailsList = [];
         var i = 0;
-        debugger;
         $('table#Grid tr').each(function () {
             var TL = $('#Grid tr').children.length;
             var currentRow = $(this).closest("tr");
             if (i > 0 && i < TL) {
                 var j = 0;
                 $('table.ChildGrid tr').each(function () {
-                    debugger;
-                    var TLG = $('.ChildGrid tr').children.length;
+                    var TLG = $('.ChildGrid tr').children.length + 1;
                     var currentRowD = $(this).closest("tr");
                     if (j > 0 && j < TLG) {
-                        var tabularD = {
-                            SubjectAllocationDetailsID: currentRowD.find("#SubjectAllocationID").val(),
-                            ProgrammeSemesterID: currentRow.find("#item_SemisterID").val(),
-                            CourseID: currentRowD.find("#item2_CourseID").val(),
-                            Allocation: currentRowD.find("#Allocation").is(":checked") ? 'A' : 'I'
-                        };
-                        SubAllocationDetailsList.push(tabularD);
+                        if (currentRowD.find("#item2_CourseID").val() != null) {
+                            var tabularD = {
+                                SubjectAllocationDetailsID: currentRowD.find("#SubjectAllocationID").val(),
+                                ProgrammeSemesterID: currentRow.find("#item_SemisterID").val(),
+                                CourseID: currentRowD.find("#item2_CourseID").val(),
+                                Allocation: currentRowD.find("#Allocation").prop("checked", true) ? 'A' : 'I'
+                            };
+                            SubAllocationDetailsList.push(tabularD);
+                        }
+
                     }
                     j = j + 1;
                 });
@@ -191,12 +191,13 @@
         else if ($('#AcademicYearCode').val() == '') {
             $('#AcademicYearCodeVal').css({ 'display': 'block' });
         }
-       
+
         else {
             var model = {
                 SubjectAllocationID: SubjectAllocationID,
                 ProgramCode: $('#ProgramCode').val(),
-                FacultyCode: $('#EmployeeID').val(),
+                FacultyCode: $('#FacultyCode').val(),
+                EmployeeID: $('#EmployeeID').val(),
                 SyllabusVersionCode: $('#SyllabusVersionCode').val(),
                 SemisterCode: $('#SemisterCode').val(),
                 CountryCode: $('#CountryCode').val(),
@@ -228,6 +229,7 @@
                 },
                 error: function (e) {
                     alert('Error in your requst.');
+                    $("#myModal").modal('hide');
                 }
             });
         }
