@@ -128,7 +128,9 @@
 <script>
 
 
-   
+    function fnChange(e) {
+        $(e).closest('tr').closest('table').closest('tr').prev('tr.ctr').find('td:nth-child(1)').find('input#Allocation').prop('checked', $(e).is(':checked'));
+    }
 
 
 

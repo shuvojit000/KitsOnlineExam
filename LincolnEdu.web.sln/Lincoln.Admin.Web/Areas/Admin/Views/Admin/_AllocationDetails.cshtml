@@ -14,7 +14,7 @@
     @foreach (var item in Model.SubAllocationList)
     {
         p = p + 1;
-        <tr>
+        <tr class="ctr">
             <td>
                 @*<img src="~/Images/plus.png" />*@
                 <img src="~/Content/assets/images/plus.png" />
@@ -36,7 +36,7 @@
                                     @Html.HiddenFor(a => item2.CourseID)
                                     <label id="CourseName" name="CourseName[]" value="@item2.CourseID">@item2.CourseName</label>
                                 </td>
-                                <td><input type="checkbox" id="Allocation" name="OpenClose" value="true" @(item2.Allocation == "A" ? "checked=\"checked\"" : "") /></td>
+                                <td><input type="checkbox" id="Allocation" onchange="fnChange(this)" name="OpenClose" value="true" @(item2.Allocation == "A" ? "checked=\"checked\"" : "") /></td>
                             </tr>
                         }
                     </table>
