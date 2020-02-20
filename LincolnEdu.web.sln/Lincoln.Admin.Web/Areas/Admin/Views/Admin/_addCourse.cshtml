@@ -216,7 +216,7 @@
             data: { programmeID: $("#ProgrammeID").val(), countryID: $('#CountryID').val(), programYear: $('#ProgrammeYear').val() },
             success: function (res) {
                 if (res != null) {
-                    debugger;
+                  
                     //$("#ProgrammeSemesterID").append('<option value="">Select Semester</option>');
                     $.each(res.ProgSEMList, function (i, state) {
                         $("#ProgrammeSemester").append('<option value="' + state.Value + '">' +
