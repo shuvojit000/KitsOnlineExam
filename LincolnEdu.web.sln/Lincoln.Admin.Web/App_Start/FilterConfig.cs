@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Elmah;
+using System;
 using System.Web;
 using System.Web.Mvc;
 
@@ -47,6 +48,10 @@ namespace Lincoln.Admin.Web
                 //dbContext.ExceptionLoggers.Add(logger);
                 //dbContext.SaveChanges();
 
+                var httpContext = filterContext.HttpContext.ApplicationInstance.Context;
+                var signal = ErrorSignal.FromContext(httpContext);
+                signal.Raise(filterContext.Exception, httpContext);
+
                 filterContext.ExceptionHandled = true;
                 filterContext.Result = new ViewResult()
                 {
@@ -54,5 +59,8 @@ namespace Lincoln.Admin.Web
                 };
             }
         }
+
     }
+
+
 }
