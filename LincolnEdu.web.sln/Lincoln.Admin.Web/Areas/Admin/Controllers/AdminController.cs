@@ -735,8 +735,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             });
             model.ExaminationNameID = item.ExaminationNameID;
             model.ExaminationName = item.ExaminationName;
-            model.StartDate = item.StartDate.Value.ToShortDateString();
-            model.EndDate = item.EndDate.Value.ToShortDateString();
+            model.StartDate = item.StartDate!=null?Convert.ToDateTime(item.StartDate).ToString("dd/MM/yyyy"):string.Empty;
+            model.EndDate = item.EndDate != null ? Convert.ToDateTime(item.EndDate).ToString("dd/MM/yyyy") : string.Empty;
             model.ModifiedOn = item.ModifiedOn?.Date;
             model.Status = item.Status;
             //model.AcademicID = item.AcademicID;
@@ -1570,7 +1570,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 FacultyName = a.FacultyName,
                 AcademicYearCode = a.AcademicYearCode,
                 YearName = a.YearName,
-                Active = a.Active,// by suvendu
+                Status = a.Active,// by suvendu
                 ModifiedOn = a.ModifiedOn?.Date,
                 CreatedBy = a.CreatedBy,
                 CreatedOn = a.CreatedOn,

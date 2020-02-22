@@ -14,10 +14,7 @@
             <th>Check</th>
             <th>Employee</th>
             <th>Programme</th>
-            <th>Version</th>
-            @*<th>Country</th>*@
-            @*<th>Academic Year</th>*@
-            @*<th>Status</th>*@
+            <th>Status</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -35,10 +32,7 @@
                     </td>
                     <td>@item.FacultyName</td>
                     <td>@item.ProgramName</td>
-                    <td>@item.SyllabusVersionName</td>
-                    @*<td>India</td>*@
-                    @*<td>2</td>*@
-                    @*<td></td>*@
+                    <td>@item.Status</td>
                 <td>
                     <a href="javascript:void(0);" onclick="fnViewSubjectAllocation(@item.SubjectAllocationID)" title="View"><i class="fa fa-eye"></i></a> &nbsp;
                     <a href="javascript:void(0);" onclick="fnAddSubjectAllocation(@item.SubjectAllocationID)" title="Edit"><i class="fa fa-edit"></i></a> &nbsp;
