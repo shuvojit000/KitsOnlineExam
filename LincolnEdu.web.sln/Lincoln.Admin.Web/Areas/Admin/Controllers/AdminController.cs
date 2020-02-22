@@ -813,11 +813,11 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             itemSet = onlineExamService.GetAllAssessment().Select(a => new AssessmentViewModel()
             {
                 AssessmentID = a.AssessmentID,
-                FacultyCode = a.FacultyCode,
-                FacultyName = a.FacultyName,
+                DepartmentID = a.DepartmentID,
+                DepartmentName = a.DepartmentName,
                 SyllabusVersion = a.SyllabusVersionCode,
                 SyllabusVersionName = a.SyllabusVersionName,
-                ProgramCode = a.ProgramCode,
+                ProgrammeID = a.ProgrammeID,
                 ProgramName = a.ProgramName,
                 AssessmentName = a.AssessmentName,
                 AssessmentType = a.AssessmentType,
@@ -839,11 +839,11 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             });
             model.AssessmentID = item.AssessmentID;
-            model.ProgramCode = item.ProgramCode;
-            model.FacultyCode = item.FacultyCode;
+            model.ProgrammeID = item.ProgrammeID;
+            model.DepartmentID = item.DepartmentID;
             model.SyllabusVersion = item.SyllabusVersionCode;
             model.ProgramName = item.ProgramName;
-            model.FacultyName = item.FacultyName;
+            model.DepartmentName = item.DepartmentName;
             model.SyllabusVersionName = item.SyllabusVersionName;
             model.AssessmentType = item.AssessmentType;
             model.AssessmentName = item.AssessmentName;
@@ -860,12 +860,12 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
         public PartialViewResult AddAssessment(string id)
         {
             var model = new AssessmentViewModel();
-            model.FacultyList = onlineExamService.GetAllDepartment().Select(a => new SelectListItem { Text = a.DepartmentName, Value = a.DepartmentID.ToString() }).ToList();
+          
             if (!string.IsNullOrEmpty(id))
             {
                 model = SelectAssessment(id);
 
-                model.FacultyList = onlineExamService.GetAllDepartment().Where(a => a.DepartmentID == Convert.ToInt32(model.FacultyCode) && a.Status == "A")
+                model.DepartmentList = onlineExamService.GetAllDepartment().Where(a => a.DepartmentID == Convert.ToInt32(model.DepartmentID) && a.Status == "A")
                         .Select(a => new SelectListItem
                         {
                             Text = a.DepartmentName,
@@ -873,7 +873,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
                         }).ToList();
 
-                model.ProgramList = onlineExamService.GetAllProgramme().Where(a => a.DepartmentID == Convert.ToInt32(model.FacultyCode) && a.Status == "A")
+                model.ProgramList = onlineExamService.GetAllProgramme().Where(a => a.DepartmentID == Convert.ToInt32(model.DepartmentID) && a.Status == "A")
                        .Select(a => new SelectListItem
                        {
                            Text = a.ProgrammeName + "(" + a.ProgrammeCode + ")",
@@ -892,6 +892,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             {
                 model.ProgramList = new List<SelectListItem>();
                 model.SyllabusVersionList = new List<SelectListItem>();
+                model.DepartmentList = onlineExamService.GetAllDepartment().Select(a => new SelectListItem { Text = a.DepartmentName, Value = a.DepartmentID.ToString() }).ToList();
             }
             return PartialView("_addAssessment", model);
         }
@@ -916,8 +917,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             {
                 AssessmentID = model.AssessmentID,
                 CreatedBy = User.UserId,
-                FacultyCode = model.FacultyCode,
-                ProgramCode = model.ProgramCode,
+                DepartmentID = model.DepartmentID,
+                ProgrammeID = model.ProgrammeID,
                 AssessmentType = model.AssessmentType,
                 AssessmentName = model.AssessmentName,
                 SyllabusVersion = model.SyllabusVersion,
@@ -1419,8 +1420,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
         public JsonResult GetAssessmentById(string departmentId, string programmeId, string versionId)
         {
 
-            return Json(GetAllAssessment().Where(a => a.ProgramCode == Convert.ToInt32(programmeId)
-            && a.FacultyCode == Convert.ToInt32(departmentId) &&
+            return Json(GetAllAssessment().Where(a => a.ProgrammeID == Convert.ToInt32(programmeId)
+            && a.DepartmentID == Convert.ToInt32(departmentId) &&
             a.SyllabusVersion == Convert.ToInt32(versionId)), JsonRequestBehavior.AllowGet);
 
         }

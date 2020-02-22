@@ -1046,9 +1046,9 @@ namespace Lincoln.OnlineExam.Repository
             SqlParameter AssessmentID = new SqlParameter("@AssessmentID", SqlDbType.Int);
             AssessmentID.Value = recordAttributer.AssessmentID;
             SqlParameter programCode = new SqlParameter("@ProgrammeID", SqlDbType.Int);
-            programCode.Value = recordAttributer.ProgramCode;
+            programCode.Value = recordAttributer.ProgrammeID;
             SqlParameter FacultyCode = new SqlParameter("@DepartmentID", SqlDbType.Int);
-            FacultyCode.Value = recordAttributer.FacultyCode;
+            FacultyCode.Value = recordAttributer.DepartmentID;
             SqlParameter AssessmentName = new SqlParameter("@AssessmentName", SqlDbType.VarChar);
             AssessmentName.Value = recordAttributer.AssessmentName;
             SqlParameter SyllabusVersion = new SqlParameter("@ProgrammeVersioningID", SqlDbType.Int);
@@ -1097,10 +1097,10 @@ namespace Lincoln.OnlineExam.Repository
                         itemSet.Add(new AssessmentResponseDTO()
                         {
                             AssessmentID = Convert.ToInt32(dr["AssessmentID"]),
-                            ProgramCode = Convert.ToInt32(dr["ProgrammeID"]),
-                            FacultyCode = Convert.ToInt32(dr["DepartmentID"]),
+                            ProgrammeID = Convert.ToInt32(dr["ProgrammeID"]),
+                            DepartmentID = Convert.ToInt32(dr["DepartmentID"]),
                             ProgramName = object.ReferenceEquals(dr["ProgrammeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeName"]),
-                            FacultyName = object.ReferenceEquals(dr["DepartmentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["DepartmentName"]),
+                            DepartmentName = object.ReferenceEquals(dr["DepartmentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["DepartmentName"]),
                             SyllabusVersionCode = Convert.ToInt32(dr["ProgrammeVersioningID"]),
                             SyllabusVersionName = object.ReferenceEquals(dr["Version"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Version"]),
                             AssessmentName = object.ReferenceEquals(dr["AssessmentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AssessmentName"]),
@@ -1143,10 +1143,10 @@ namespace Lincoln.OnlineExam.Repository
                     while (dr.Read())
                     {
                         item.AssessmentID = Convert.ToInt32(dr["AssessmentID"]);
-                        item.ProgramCode = Convert.ToInt32(dr["ProgrammeID"]);
-                        item.FacultyCode = Convert.ToInt32(dr["DepartmentID"]);
+                        item.ProgrammeID = Convert.ToInt32(dr["ProgrammeID"]);
+                        item.DepartmentID = Convert.ToInt32(dr["DepartmentID"]);
                         item.ProgramName = object.ReferenceEquals(dr["ProgrammeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeName"]);
-                        item.FacultyName = object.ReferenceEquals(dr["DepartmentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["DepartmentName"]);
+                        item.DepartmentName = object.ReferenceEquals(dr["DepartmentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["DepartmentName"]);
                         item.SyllabusVersionCode = Convert.ToInt32(dr["ProgrammeVersioningID"]);
                         item.SyllabusVersionName = object.ReferenceEquals(dr["Version"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Version"]);
                         item.AssessmentName = object.ReferenceEquals(dr["AssessmentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AssessmentName"]);

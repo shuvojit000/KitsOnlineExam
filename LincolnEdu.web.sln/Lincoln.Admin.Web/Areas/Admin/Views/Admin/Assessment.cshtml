@@ -152,10 +152,10 @@
     }
     function fnSaveAssessment(AssessmentID) {
         $('.valClass').css({ 'display': 'none' });
-        if ($('#FacultyCode').val() == '') {
+        if ($('#DepartmentID').val() == '') {
             $('#FacultyCodeVal').css({ 'display': 'block' });
         }
-        else if ($('#ProgramCode').val() == '') {
+        else if ($('#ProgrammeID').val() == '') {
             $('#ProgramCodeVal').css({ 'display': 'block' });
         }
         else if ($('#SyllabusVersion').val() == '') {
@@ -175,8 +175,8 @@
 
             var model = {
                 AssessmentID: AssessmentID,
-                ProgramCode: $('#ProgramCode').val(),
-                FacultyCode: $('#FacultyCode').val(),
+                ProgrammeID: $('#ProgrammeID').val(),
+                DepartmentID: $('#DepartmentID').val(),
                 SyllabusVersion: $('#SyllabusVersion').val(),
                 AssessmentName: $('#AssessmentName').val(),
                 AssessmentType: $('input[name="AssessmentType"]:checked').val(),
