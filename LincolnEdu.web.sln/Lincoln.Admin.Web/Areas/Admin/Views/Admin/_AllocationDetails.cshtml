@@ -36,7 +36,7 @@
                                     @Html.HiddenFor(a => item2.CourseID)
                                     <label id="CourseName" name="CourseName[]" value="@item2.CourseID">@item2.CourseName</label>
                                 </td>
-                                <td><input type="checkbox" id="Allocation" onchange="fnChange(this)" name="OpenClose" value="true" @(item2.Allocation == "A" ? "checked=\"checked\"" : "") /></td>
+                                <td><input type="checkbox" id="Allocation-@item2.ProgrammeSemesterID-@item2.CourseID" onchange="fnChange(this)" name="OpenClose" value="@(item2.Allocation == "A" ? "true" : "false")" @(item2.Allocation == "A" ? "checked=\"checked\"" : "") /></td>
                             </tr>
                         }
                     </table>

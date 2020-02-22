@@ -129,11 +129,9 @@
 
 
     function fnChange(e) {
-        $(e).closest('tr').closest('table').closest('tr').prev('tr.ctr').find('td:nth-child(1)').find('input#Allocation').prop('checked', $(e).is(':checked'));
+        var pid=$(e).attr('id');
+        $(e).closest('tr').closest('table').closest('tr').prev('tr.ctr').find('td:nth-child(1)').find('input#'+pid).attr('value', $(e).is(':checked'));
     }
-
-
-
 
     $(document).on("change", "#FacultyCode", function () {
         $("#ProgramCode").empty();
