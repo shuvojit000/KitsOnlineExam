@@ -21,9 +21,7 @@ namespace Lincoln.Admin.Web.Controllers
 
         public ActionResult LogIn()
         {
-            int a = 0;
-            int b;
-            b = 1 / a;
+          
             return View();
         }
         [HttpPost]
