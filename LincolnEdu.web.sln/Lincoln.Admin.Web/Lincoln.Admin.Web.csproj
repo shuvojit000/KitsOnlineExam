@@ -139,6 +139,7 @@
     <Compile Include="Areas\Admin\Controllers\AdminController.Department.cs" />
     <Compile Include="Areas\Faculty\Controllers\FacultyController.cs" />
     <Compile Include="Areas\Faculty\FacultyAreaRegistration.cs" />
+    <Compile Include="Areas\Student\StudentAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -777,6 +778,7 @@
     <Content Include="Areas\Faculty\Views\Faculty\QuestionSetUp.cshtml" />
     <Content Include="Areas\Faculty\Views\Faculty\_AddQuestion.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\_viewSubjectAllocation.cshtml" />
+    <Content Include="Areas\Student\Views\web.config" />
     <None Include="Properties\PublishProfiles\LinclnAdmin.pubxml" />
     <None Include="Properties\PublishProfiles\LincLonAdmin.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -807,6 +809,9 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Faculty\Models\" />
+    <Folder Include="Areas\Student\Controllers\" />
+    <Folder Include="Areas\Student\Models\" />
+    <Folder Include="Areas\Student\Views\Shared\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
