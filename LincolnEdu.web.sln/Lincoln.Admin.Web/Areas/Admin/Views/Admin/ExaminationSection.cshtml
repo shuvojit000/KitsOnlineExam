@@ -153,7 +153,6 @@
 
     }
     function fnSaveExaminationSection(ExaminationSectionID) {
-        debugger;
         $('.valClass').css({ 'display': 'none' });
         if ($('#FacultyCode').val() == '') {
             $('#FacultyCodeVal').css({ 'display': 'block' });
@@ -179,6 +178,9 @@
         else if ($('#SectionID').val() == '') {
             $('#SectionIDVal').css({ 'display': 'block' });
         }
+        else if (typeof $('input[name="QuestionType"]:checked').val() === 'undefined') {
+            $('#QuestionTypeVal').css({ 'display': 'block' });
+        }
         else {
             var model = {
                 ExaminationSectionID: ExaminationSectionID,
@@ -189,7 +191,8 @@
                 CountryCode: $('#CountryCode').val(),
                 CourseCode: $('#CourseID').val(),
                 SectionName:$("#SectionID option:selected").text(),
-                 AcademicYearCode: $('#AcademicYearCode').val(),
+                AcademicYearCode: $('#AcademicYearCode').val(),
+                QuestionType: $('input[name="QuestionType"]:checked').val(),
                 Active: 'A'
             };
 

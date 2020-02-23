@@ -39,19 +39,7 @@
         }
 </style>
 
-<script type="text/javascript">
-    //Assign Click event to Plus Image.
-    $("body").on("click", "img[src*='plus.png']", function () {
-        $(this).closest("tr").after("<tr><td></td><td colspan = '999'>" + $(this).next().html() + "</td></tr>");
-        $(this).attr("src", "/Content/assets/images/minus.png");
-    });
-    //Assign Click event to Minus Image.
-    $("body").on("click", "img[src*='minus.png']", function () {
-        $(this).attr("src", "/Content/assets/images/plus.png");
-        $(this).closest("tr").next().remove();
-    });
 
-    /**/</script>
 
 <div class="panel-body">
     <!--main content start-->
@@ -91,7 +79,7 @@
                     <div class="form-group col-lg-6">
                         <label><b>Academic Year<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.AcademicYearCode, Model.AcademicYearList, "Select Academic Year", new { @class = "custom-select block" })
+                            @Html.DropDownListFor(a => a.AcademicYearCode, Model.AcademicYearList, "Select Programme Year", new { @class = "custom-select block" })
                             <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
                         </div>
                     </div>
@@ -126,7 +114,14 @@
 
 
 <script>
-
+    $("body").on("click", "img[src*='plus.png']", function () {
+        $(this).closest("tr").after("<tr><td></td><td colspan = '999'>" + $(this).next().html() + "</td></tr>");
+        $(this).attr("src", "/Content/assets/images/minus.png");
+    });
+    $("body").on("click", "img[src*='minus.png']", function () {
+        $(this).attr("src", "/Content/assets/images/plus.png");
+        $(this).closest("tr").next().remove();
+    });
 
     function fnChange(e) {
         var pid=$(e).attr('id');
@@ -209,14 +204,14 @@
             data: { programmeID: $("#ProgramCode").val(), countryID: $('#CountryCode').val() },
             success: function (res) {
                 if (res != null) {
-                    $("#AcademicYearCode").append('<option value="">Select Academic Year</option>');
+                    $("#AcademicYearCode").append('<option value="">Select Programme Year</option>');
                     $.each(res.ProgYearList, function (i, state) {
                         $("#AcademicYearCode").append('<option value="' + state.Value + '">' +
                              state.Text + '</option>');
                     });
                 }
                 else {
-                    $("#AcademicYearCode").append('<option value="">Select Academic Year</option>');
+                    $("#AcademicYearCode").append('<option value="">Select Programme Year</option>');
 
                 }
             },

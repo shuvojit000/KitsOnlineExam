@@ -970,6 +970,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 SectionName = a.SectionName,
                 AcademicYearCode = a.AcademicYearCode,
                 YearName = a.YearName,
+                QuestionType=a.QuestionType,
                 Active = a.Status,
                 ModifiedOn = a.ModifiedOn?.Date,
                 CreatedBy = a.CreatedBy,
@@ -996,7 +997,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.CountryCode = item.CountryCode;
             model.FacultyCode = item.FacultyCode;
             model.AcademicYearCode = item.AcademicYearCode;
-
+            model.QuestionType = item.QuestionType;
             model.ProgramName = item.ProgramName;
             model.CourseName = item.CourseName;
             model.SemisterName = item.SemisterName;
@@ -1141,9 +1142,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 FacultyCode = model.FacultyCode,
                 AcademicYearCode = model.AcademicYearCode,
                 SectionName = model.SectionName,
+                QuestionType=model.QuestionType,
                 Active = model.Active
-
-
             }, type);
 
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -1428,9 +1428,6 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
         #endregion
 
-
-
-
         #region Employee
 
         public ActionResult EmployeeRegisration() => View();
@@ -1549,7 +1546,6 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
 
         #endregion
-
 
         #region Subject Allocation
         public ActionResult SubjectAllocation() => View();

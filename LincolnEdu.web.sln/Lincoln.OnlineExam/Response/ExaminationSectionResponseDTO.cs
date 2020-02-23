@@ -22,7 +22,7 @@ namespace Lincoln.OnlineExam.Response
         public string YearName { get; set; }
         public int SemisterCode { get; set; }
         public string SemisterName { get; set; }
-
+        public string QuestionType { get; set; }
         public int SectionID { get; set; }
         public string SectionName { get; set; }
         public string CourseCode { get; set; }

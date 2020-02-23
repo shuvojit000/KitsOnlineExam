@@ -66,6 +66,14 @@
                             <span id="SectionIDVal" style="color:red;display:none" class="valClass">Please select Section.</span>
                         </div>
                     </div>
+                    <div class="form-group col-lg-6">
+                        <label><b>Question Type<span class="requiredstar">*</span></b> </label>
+                        <div class="position-relative has-icon-left">
+                            <input type="radio" name="QuestionType" value="S" @(Model.QuestionType == "S" ? "checked" : "")> Subjective
+                            <input type="radio" name="QuestionType" value="O" @(Model.QuestionType == "O" ? "checked" : "")> Objective
+                            <span id="QuestionTypeVal" style="color:red;display:none" class="valClass">Please select Question Type.</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

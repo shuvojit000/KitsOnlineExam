@@ -16,7 +16,7 @@
         p = p + 1;
         <tr class="ctr">
             <td>
-                @*<img src="~/Images/plus.png" />*@
+               
                 <img src="~/Content/assets/images/plus.png" />
                 <div style="display:none">
                     <table cellpadding="0" cellspacing="0" class="ChildGrid">
@@ -36,7 +36,8 @@
                                     @Html.HiddenFor(a => item2.CourseID)
                                     <label id="CourseName" name="CourseName[]" value="@item2.CourseID">@item2.CourseName</label>
                                 </td>
-                                <td><input type="checkbox" id="Allocation-@item2.ProgrammeSemesterID-@item2.CourseID" onchange="fnChange(this)" name="OpenClose" value="@(item2.Allocation == "A" ? "true" : "false")" @(item2.Allocation == "A" ? "checked=\"checked\"" : "") /></td>
+                                <td><input type="checkbox" id="Allocation-@item2.ProgrammeSemesterID-@item2.CourseID" onchange="fnChange(this)" name="OpenClose" value="@(item2.Allocation == "A" ? "true" : "false")" 
+                                           @(item2.Allocation == "A" ? "checked=\"checked\"" : "") /></td>
                             </tr>
                         }
                     </table>

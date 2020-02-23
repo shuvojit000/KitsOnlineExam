@@ -25,6 +25,7 @@ namespace Lincoln.Admin.Web.Models
         public string SectionID { get; set; }
         public string CourseCode { get; set; }
         public int CourseID { get; set; }
+        public string QuestionType { get; set; }
         public string CourseName { get; set; }
         public string Active { get; set; }
         public int CreatedBy { get; set; }
