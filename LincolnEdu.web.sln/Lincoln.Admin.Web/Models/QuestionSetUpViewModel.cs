@@ -10,6 +10,7 @@ namespace Lincoln.Admin.Web.Models
     {
        
         public int? DepartmentID { get; set; }
+        public int? ExamSectionID { get; set; }
         public int? ProgrammeID { get; set; }
         public int? CountryID { get; set; }
         public int? ProgrammeYear { get; set; }
@@ -45,7 +46,7 @@ namespace Lincoln.Admin.Web.Models
         public List<SelectListItem> CountryList { get; set; }
         public List<SelectListItem> SyllabusVersionList { get; set; }
         public List<SelectListItem> FacultyList { get; set; }
-        public List<SelectListItem> SectionList { get; set; }
+        public List<SelectListItem> ExamSectionList { get; set; }
 
     }
 }

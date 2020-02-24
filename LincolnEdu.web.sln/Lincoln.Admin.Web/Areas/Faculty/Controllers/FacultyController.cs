@@ -26,33 +26,90 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
         public ActionResult QuestionSetUp()
         {
             var model = new QuestionSetUpViewModel();
-            model.FacultyList = onlineExamService.GetAllDepartment().Select(a => new SelectListItem { Text = a.DepartmentName, Value = a.DepartmentID.ToString() }).ToList();
-            model.ProgramList = new List<SelectListItem>();
-            model.SyllabusVersionList = new List<SelectListItem>();
-            model.SemisterList = new List<SelectListItem>();
-            model.CourseList = new List<SelectListItem>();
-            model.CountryList = new List<SelectListItem>
-                            {
-                                new SelectListItem{ Text="India", Value = "1" },
-                                new SelectListItem{ Text="Malaysia", Value = "2" },
-                                new SelectListItem{ Text="United States", Value = "3" },
-                             };
 
-            model.SectionList = new List<SelectListItem>
-                            {
-                                new SelectListItem{ Text="A", Value = "A" },
-                                new SelectListItem{ Text="B", Value = "B" },
-                                new SelectListItem{ Text="C", Value = "C" },
-                                 new SelectListItem{ Text="D", Value = "D" },
-                                  new SelectListItem{ Text="E", Value = "E" },
-                             };
-            model.ProgrammeYearList = new List<SelectListItem>();
+
+            model.ExamSectionList = GetAllExaminationSection().Where(a => a.Active == "A").Select(c => new SelectListItem
+            {
+                Text = c.SectionName,
+                Value = c.ExaminationSectionID.ToString()
+            }).ToList();
+
+
             return View(model);
+        }
+        private List<ExaminationSectionViewModel> GetAllExaminationSection()
+        {
+            var itemSet = new List<ExaminationSectionViewModel>();
+            itemSet = onlineExamService.GetAllExaminationSection().Select(a => new ExaminationSectionViewModel()
+            {
+                ExaminationSectionID = a.ExaminationSectionID,
+                ProgramCode = a.ProgramCode,
+                ProgramName = a.ProgramName,
+                CourseCode = a.CourseCode,
+                CourseID = a.CourseID,
+                CountryName = a.CountryName,
+                SemisterCode = a.SemisterCode,
+                SemisterName = a.SemisterName,
+                SyllabusVersionCode = a.SyllabusVersionCode,
+                SyllabusVersionName = a.SyllabusVersionName,
+                CourseName = a.CourseName,
+                FacultyCode = a.FacultyCode,
+                FacultyName = a.FacultyName,
+                SectionName = a.SectionName,
+                AcademicYearCode = a.AcademicYearCode,
+                YearName = a.YearName,
+                QuestionType = a.QuestionType,
+                Active = a.Status,
+                ModifiedOn = a.ModifiedOn?.Date,
+                CreatedBy = a.CreatedBy,
+                CreatedOn = a.CreatedOn,
+                ModifiedBy = Convert.ToInt32(a.ModifiedBy),
+            }).ToList();
+
+            return itemSet;
+        }
+
+        private ExaminationSectionViewModel SelectExaminationSection(string ExaminationSectionId)
+        {
+            var model = new ExaminationSectionViewModel();
+            var item = onlineExamService.SelectExaminationSection(new OnlineExam.Request.ExaminationSectionRequestDTO
+            {
+                ExaminationSectionID = Convert.ToInt32(ExaminationSectionId)
+
+            });
+            model.ExaminationSectionID = item.ExaminationSectionID;
+            model.ProgramCode = item.ProgramCode;
+            model.CourseCode = item.CourseCode;
+            model.CourseID = item.CourseID;
+            model.SemisterCode = item.SemisterCode;
+            model.SyllabusVersionCode = item.SyllabusVersionCode;
+            model.CountryCode = item.CountryCode;
+            model.FacultyCode = item.FacultyCode;
+            model.AcademicYearCode = item.AcademicYearCode;
+            model.QuestionType = item.QuestionType;
+            model.ProgramName = item.ProgramName;
+            model.CourseName = item.CourseName;
+            model.SemisterName = item.SemisterName;
+            model.SyllabusVersionName = item.SyllabusVersionName;
+            model.CountryName = item.CountryName;
+            model.FacultyName = item.FacultyName;
+            model.YearName = item.YearName;
+            model.SectionName = item.SectionName;
+            model.SectionID = item.SectionName;
+            model.ModifiedOn = item.ModifiedOn?.Date;
+            model.CreatedBy = item.CreatedBy;
+            model.CreatedOn = item.CreatedOn;
+            model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
+            return model;
+
         }
         public PartialViewResult AddQuestion(string id)
         {
             var model = new QuestionSetUpViewModel();
-
+            if (!string.IsNullOrEmpty(id))
+            {
+                model.QuestionType = SelectExaminationSection(id)?.QuestionType;
+            }
             return PartialView("_AddQuestion", model);
         }
         [HttpPost]
