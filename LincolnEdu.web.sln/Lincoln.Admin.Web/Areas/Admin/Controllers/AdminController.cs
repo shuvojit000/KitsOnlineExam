@@ -454,7 +454,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 DepartmentName = a.DepartmentName,
                 ProgrammeID = a.ProgrammeID,
                 ProgrammeName = a.ProgrammeName,
-                ProgrammeSemester = a.ProgrammeSemester,
+                ProgrammeSemesterID = a.ProgrammeSemester,
                 ProgrammeYear = a.ProgrammeYear,
                 SemesterType = a.SemesterType,
                 CountryID = a.CountryId,
@@ -485,7 +485,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.DepartmentName = item.DepartmentName;
             model.ProgrammeID = item.ProgrammeID;
             model.ProgrammeName = item.ProgrammeName;
-            model.ProgrammeSemester = item.ProgrammeSemester;
+            model.ProgrammeSemesterID = item.ProgrammeSemester;
             model.ProgrammeYear = item.ProgrammeYear;
             model.SemesterType = item.SemesterType;
             model.CountryID = item.CountryId;
@@ -556,7 +556,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 CourseName = model.CourseName,
                 SemesterType = model.SemesterType,
                 ProgrammeYear = model.ProgrammeYear,
-                ProgrammeSemester = model.ProgrammeSemester,
+                ProgrammeSemester = model.ProgrammeSemesterID,
                 ProgrammeID = model.ProgrammeID,
                 DepartmentID = model.DepartmentID,
                 ApprovalNo = model.ApprovalNo,
@@ -622,7 +622,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult ChangeProgramYearSelection(string programmeID, string countryId, string programYear)
         {
-            var itemList = onlineExamService.GetAllProgrammeSemester().Where(a => a.ProgrammeID == Convert.ToInt32(programmeID)
+            var itemList = onlineExamService.GetAllProgrammeSemester().Where(a => a.ProgrammeID == Convert.ToInt32(programmeID??"0")
                                                    && a.CountryID == Convert.ToInt32(countryId) && a.ProgrammeYear == Convert.ToInt32(programYear) && a.Status == "A"
                                                    ).ToList().OrderBy(a => a.ProgrammeSemester);
             var model = new CourseViewModel();
@@ -641,11 +641,13 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
         }
         [HttpPost]
-        public JsonResult ChangeProgramSemSelection(string progSemId)
+        public JsonResult ChangeProgramSemSelection(string progSemId,string countryID,string programmeID,string programYear)
         {
             return Json(onlineExamService.SelectProgrammeSemester(new OnlineExam.Request.ProgrammeSemesterRequestDTO
             {
-                ProgrammeSemesterID = Convert.ToInt32(progSemId)
+                ProgrammeSemesterID = Convert.ToInt32(progSemId),
+
+
             }).SemesterType, JsonRequestBehavior.AllowGet);
         }
         #endregion Course

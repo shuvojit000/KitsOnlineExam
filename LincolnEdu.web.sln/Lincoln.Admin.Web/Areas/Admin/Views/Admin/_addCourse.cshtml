@@ -42,7 +42,7 @@
                     <div class="form-group col-lg-6">
                         <label><b>Programme Semester<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.ProgrammeSemester, Model.ProgSEMList, "Select Semester", new { @class = "custom-select block" })
+                            @Html.DropDownListFor(a => a.ProgrammeSemesterID, Model.ProgSEMList, "Select Semester", new { @class = "custom-select block" })
                             <span id="ProgrammeSemesterVal" style="color:red;display:none" class="valClass">Please select Semester.</span>
                         </div>
                     </div>
@@ -206,7 +206,7 @@
     });
     $(document).on("change", "#ProgrammeYear", function () {
         $("#ProgrammeSemesterID").val('');
-        $("#ProgrammeSemester").empty();
+        $("#ProgrammeSemesterID").empty();
         $.ajax({
             type: 'POST',
             url: '@Url.Action("ChangeProgramYearSelection", "Admin",new { area="Admin"})', // we are calling json method
@@ -217,9 +217,9 @@
             success: function (res) {
                 if (res != null) {
                   
-                    //$("#ProgrammeSemesterID").append('<option value="">Select Semester</option>');
+                    $("#ProgrammeSemesterID").append('<option value="">Select Semester</option>');
                     $.each(res.ProgSEMList, function (i, state) {
-                        $("#ProgrammeSemester").append('<option value="' + state.Value + '">' +
+                        $("#ProgrammeSemesterID").append('<option value="' + state.Value + '">' +
                              state.Text + '</option>');
                         // here we are adding option for States
 
