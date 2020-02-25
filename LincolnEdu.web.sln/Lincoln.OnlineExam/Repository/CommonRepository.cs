@@ -1646,5 +1646,38 @@ namespace Lincoln.OnlineExam.Repository
 
         }
         #endregion
+
+        public List<FacultyDashboardResponseDTO> GetAllFacultyCourse(FacultyDashboardRequestDTO recordAttributer)
+        {
+            var itemSet = new List<FacultyDashboardResponseDTO>();
+            SqlParameter EmployeeID = new SqlParameter("@EmployeeID", SqlDbType.Int);
+            EmployeeID.Value = recordAttributer.EmployeeID;
+            SqlParameter CourseID = new SqlParameter("@CourseID", SqlDbType.Int);
+            CourseID.Value = recordAttributer.CourseID;
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = "GET";
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Faculty].[upGetQuestionCourse]", CourseID, EmployeeID, type))
+            {
+                if (dr != null && dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        itemSet.Add(new FacultyDashboardResponseDTO()
+                        {
+                            EmployeeID = Convert.ToInt32(dr["EmployeeID"]),
+                            EmployeeName = object.ReferenceEquals(dr["EmployeeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["EmployeeName"]),
+                            NoOfQuestion = Convert.ToInt32(dr["NoOfQuestion"]),
+                            CourseID = Convert.ToInt32(dr["CourseID"]),
+                            CourseCode = object.ReferenceEquals(dr["CourseCode"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseCode"]),
+                            CourseName = object.ReferenceEquals(dr["CourseName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseName"]),
+
+                        });
+
+                    }
+                }
+            }
+            return itemSet;
+
+        }
     }
 }

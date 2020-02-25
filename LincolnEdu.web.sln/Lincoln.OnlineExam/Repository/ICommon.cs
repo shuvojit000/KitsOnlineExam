@@ -12,8 +12,8 @@ namespace Lincoln.OnlineExam.Repository
     {
         int UpdateStatus(UpdateStatusReuestDTO recordAttributer);
         List<DropdownResponseDTO> GetDropdownData(string Type);
-        
 
+        List<FacultyDashboardResponseDTO> GetAllFacultyCourse(FacultyDashboardRequestDTO recordAttributer);
         int SaveCourse(CourseRequestDTO recordAttributer, string Operation);
         List<CourseResponseDTO> GetAllCourse();
         CourseResponseDTO SelectCourse(CourseRequestDTO recordAttributer);

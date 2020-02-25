@@ -7,7 +7,7 @@ namespace Lincoln.OnlineExam
     public interface IOnlineExam
     {
         List<DropdownResponseDTO> GetDropdownData(string Type);
-
+        List<FacultyDashboardResponseDTO> GetAllFacultyCourse(FacultyDashboardRequestDTO recordAttributer);
         LogInResponseDTO ValidateUser(LogInRequestDTO request, string Operation);
         int UpdateStatus(UpdateStatusReuestDTO recordAttributer);
 

@@ -1,12 +1,19 @@
 ﻿
+@model IEnumerable<Lincoln.Admin.Web.Models.FacultyDashboardViewModel>
 @{
     ViewBag.Title = "Dashboard";
     Layout = "~/Areas/Faculty/Views/Shared/_FacultyLayout.cshtml";
 }
 
 <style>
-    .color{color:#f8f40a}
-    a:hover{color:#ffd800}
+
+    .color {
+        color: #f8f40a
+    }
+
+    a:hover {
+        color: #ffd800
+    }
 </style>
 <div class="content-wrapper">
     <div class="content-header row">
@@ -14,29 +21,24 @@
     <div class="content-body">
         <!-- Update Records -->
         <div class="row">
-           
+@foreach (var item in Model)
+{
             <div class="col-xl-4 col-lg-6 col-12">
                 <div class="card">
                     <div class="card-content">
                         <div class="media align-items-stretch">
-                            @*<div class="p-2 text-center bg-primary bg-darken-2">
-                                <img src="~/Content/assets/images/ikon/RejectGr.png" />
-                            </div>*@
-                            <div class="p-2 bg-gradient-x-primary white media-body">
-                                <h5>Course: &nbsp; <a href="@Url.Action("QuestionSetUp","Faculty",new {area="Faculty" })" class="color"><span>aaa</span></a></h5>
-                                <h5>No of Question: &nbsp; <span class="color">0</span></h5>
-                                <h5>
-                                    A [<span class="color">aaa</span>],
-                                    B [<span class="color">aaa</span>],
-                                    C [<span class="color">aaa</span>],
-                                    D [<span class="color">aaa</span>],
-                                    E [<span class="color">aaa</span>]
-                                </h5>
-                            </div>
+                           
+                                <div class="p-2 bg-gradient-x-primary white media-body">
+                                    <h5>Course: &nbsp; <a href="@Url.Action("QuestionSetUp","Faculty",new {area="Faculty" })" class="color"><span>@item.CourseName (@item.CourseCode)</span></a></h5>
+                                    <h5>No of Question: &nbsp; <span class="color">@item.NoOfQuestion</span></h5>
+                                </div>
+                           
                         </div>
                     </div>
                 </div>
             </div>
+
+}
         </div>
 
         <!--/ Update Records -->

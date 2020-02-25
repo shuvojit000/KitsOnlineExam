@@ -21,7 +21,23 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
         // GET: Faculty/Faculty
         public ActionResult Dashboard()
         {
-            return View();
+            var modelList = new List<FacultyDashboardViewModel>();
+            var itemSet = onlineExamService.GetAllFacultyCourse(new OnlineExam.Request.FacultyDashboardRequestDTO
+            {
+                EmployeeID = Convert.ToInt32(User.UserId),
+            });
+            foreach (var item in itemSet)
+            {
+                var model = new FacultyDashboardViewModel();
+                model.EmployeeID = item.EmployeeID;
+                model.NoOfQuestion = item.NoOfQuestion;
+                model.EmployeeName = item.EmployeeName;
+                model.CourseID = item.CourseID;
+                model.CourseName = item.CourseName;
+                model.CourseCode = item.CourseCode;
+                modelList.Add(model);
+            };
+            return View(modelList);
         }
         public ActionResult QuestionSetUp()
         {

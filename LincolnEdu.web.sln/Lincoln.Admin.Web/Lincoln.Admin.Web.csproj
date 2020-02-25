@@ -154,6 +154,7 @@
     <Compile Include="Models\EmployeeViewModel.cs" />
     <Compile Include="Models\ExaminationNameViewModel.cs" />
     <Compile Include="Models\ExaminationSectionViewModel.cs" />
+    <Compile Include="Models\FacultyDashboardViewModel.cs" />
     <Compile Include="Models\FacultyViewModel.cs" />
     <Compile Include="Models\LogInViewModel.cs" />
     <Compile Include="Models\ProgrammeSemesterViewModel.cs" />
