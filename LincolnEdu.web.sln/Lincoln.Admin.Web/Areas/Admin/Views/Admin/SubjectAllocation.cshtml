@@ -147,12 +147,13 @@
     }
 
     function fnSaveSubjectAllocation(SubjectAllocationID) {
+    debugger;
         var SubAllocationDetailsList = [];
         var i = 0;        
          var SubAllocationDetailsList = [];
         $('table#Grid tr.ctr').each(function () {
             var currentRow = $(this).closest("tr");
-                $('table#Grid tr.ctr').find('table.ChildGrid tr').filter(':not(:first)').each(function () {
+                $(this).find('table.ChildGrid tbody.dTbody').each(function () {
                     var currentRowD = $(this).closest("tr");
                     if (currentRowD.find("#item2_CourseID").val() != null) {  
 
