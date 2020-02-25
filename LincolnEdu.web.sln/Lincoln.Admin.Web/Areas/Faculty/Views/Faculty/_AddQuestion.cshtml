@@ -20,9 +20,9 @@
                             <input type="radio" name="QuestionType" disabled="disabled" value="S" @(Model.QuestionType == "S" ? "checked" : "")> Subjective
                         </div>
                         <div class="d-inline-block custom-control custom-radio">
-                            <input type="radio" name="QuestionType" disabled="disabled"  value="O" @(Model.QuestionType == "O" ? "checked" : "")> Objective
+                            <input type="radio" name="QuestionType" disabled="disabled" value="O" @(Model.QuestionType == "O" ? "checked" : "")> Objective
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -35,14 +35,23 @@
                 <span id="SyllabusVersionCodeVal" style="color:red;display:none" class="valClass">Please select Version.</span>
             </div>
         </div>
-
-        @*<div class="form-group col-lg-6">
-            <label><b>Question Marks </b></label>
-            <div class="position-relative ">
-                @Html.TextBoxFor(a => a.QuestionMarks, new { @class = "form-control" })
-                <span id="CountryCodeVal" style="color:red;display:none" class="valClass">Please select Country.</span>
+        @if (Model.QuestionType == "S")
+        {
+            <div class="form-group col-lg-12">
+                <label><b>Answer Statement<span class="requiredstar">*</span> </b></label>
+                <div class="position-relative">
+                    @Html.EditorFor(a => a.AnswerText, new { @class = "form-control" })
+                    <span id="SemisterCodeVal" style="color:red;display:none" class="valClass">Please select Semester.</span>
+                </div>
             </div>
-        </div>*@
+            <div class="form-group col-lg-6">
+                <label><b>Question Marks </b></label>
+                <div class="position-relative ">
+                    @Html.TextBoxFor(a => a.QuestionMarks, new { @class = "form-control" })
+                    <span id="CountryCodeVal" style="color:red;display:none" class="valClass">Please select Country.</span>
+                </div>
+            </div>
+        }
         @if (Model.QuestionType == "O")
         {
             <div id="myContent">
@@ -120,15 +129,9 @@
         }
 
 
-       
 
-        <div class="form-group col-lg-12">
-            <label><b>Answer Statement<span class="requiredstar">*</span> </b></label>
-            <div class="position-relative">
-                @Html.EditorFor(a => a.AnswerText, new { @class = "form-control" })
-                <span id="SemisterCodeVal" style="color:red;display:none" class="valClass">Please select Semester.</span>
-            </div>
-        </div>
+
+
 
     </div>
 
@@ -154,7 +157,7 @@
         // this gets called from the popup window and updates the field with a new value
         document.getElementById(id).value = value;
     }
-    
+
 
 
 </script>

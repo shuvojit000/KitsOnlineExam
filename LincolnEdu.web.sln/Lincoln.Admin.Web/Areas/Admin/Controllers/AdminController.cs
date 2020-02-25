@@ -301,6 +301,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             itemSet = onlineExamService.GetAllProgrammeSemester().Select(a => new ProgrammeSemesterViewModel()
             {
                 ProgrammeID = a.ProgrammeID,
+                ProgrammeCode = a.ProgrammeCode,
                 ProgrammeName = a.ProgrammeName,
                 AcademicName = a.AcademicName,
                 DepartmentName = a.DepartmentName,
@@ -331,6 +332,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             });
             model.ProgrammeID = item.ProgrammeID;
             model.ProgrammeName = item.ProgrammeName;
+            model.ProgrammeCode = item.ProgrammeCode;//Suvendu
             model.AcademicName = item.AcademicName;
             model.DepartmentName = item.DepartmentName;
             model.DepartmentID = item.DepartmentID;
@@ -348,6 +350,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             return model;
 
         }
+
 
         public PartialViewResult AddProgrammeSemester(string id)
         {

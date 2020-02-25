@@ -14,7 +14,7 @@
                 <div class="col-12">
                     <div class="cardk">
                         <div class="card-header">
-                            <h4 class="card-title">Academic Level</h4>
+                            <h4 class="card-title">NEC Level</h4>
                             <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
                                 <ul class="list-inline mb-0">
@@ -77,7 +77,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">
-                        <label class="modal-title text-text-bold-600">Academic Level Entry & Modify/View</label>
+                        <label class="modal-title text-text-bold-600">NEC Level Entry & Modify/View</label>
                     </h4>
                     <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
@@ -181,12 +181,12 @@
                 dataType: "json",
                 success: function (result) {
                     if (result == 1) {
-                        alert('Data Save Successfully.');
+                        alert('NEC Save Successfully.');
                         $("#myModal").modal('hide');
                         fnLoadAcademicLevelList();
                     }
                     else if (result == -1) {
-                        alert('Data already exist.');
+                        alert('NEC already exist.');
                         $("#myModal").modal('hide');
                         fnLoadAcademicLevelList();
                     }

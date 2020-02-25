@@ -205,11 +205,11 @@
                 dataType: "json",
                 success: function (result) {
                     if (result ==1) {
-                        alert('Data Save Successfully.');
+                        alert('Programme Save Successfully.');
                         $("#myModal").modal('hide');
                         fnLoadProgrammeList();
                     } else if (result == -1) {
-                        alert('Data already exist.');
+                        alert('Programme already exist.');
                         $("#myModal").modal('hide');
                         fnLoadProgrammeList();
                     }

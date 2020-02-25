@@ -15,15 +15,72 @@
                     <div class="cardk">
                         <div class="card-body">
                             <div class="row">
-
-                                <div class="form-group col-lg-4">
-                                    <label><b>Examination Section<span class="requiredstar">*</span> </b></label>
+                                @*<div class="form-group col-lg-4">
+                                    <label><b>Faculty <span class="requiredstar">*</span> </b></label>
                                     <div class="position-relative has-icon-left">
-                                        @Html.DropDownListFor(a => a.ExamSectionID, Model.ExamSectionList, "Select Exam Section", new { @class = "custom-select block" })
-                                        
+                                        @Html.DropDownListFor(a => a.DepartmentID, Model.FacultyList, "Select Faculty", new { @class = "custom-select block" })
+                                        <span id="FacultyCodeVal" style="color:red;display:none" class="valClass">Please select Faculty.</span>
                                     </div>
                                 </div>
+                                <div class="form-group col-lg-4">
+                                    <label><b>Programme <span class="requiredstar">*</span> </b></label>
+                                    <div class="position-relative has-icon-left">
+                                        @Html.DropDownListFor(a => a.ProgrammeID, Model.ProgramList, "Select Programme", new { @class = "custom-select block" })
+                                        <span id="ProgramCodeVal" style="color:red;display:none" class="valClass">Please select Programme.</span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label><b>Version<span class="requiredstar">*</span> </b></label>
+                                    <div class="position-relative has-icon-left">
+                                        @Html.DropDownListFor(a => a.SyllabusVersionID, Model.SyllabusVersionList, "Select Programme Versioning", new { @class = "custom-select block" })
+                                        <span id="SyllabusVersionCodeVal" style="color:red;display:none" class="valClass">Please select Version.</span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label><b>Country: </b></label>
+                                    <div class="position-relative has-icon-left">
+                                        @Html.DropDownListFor(a => a.CountryID, Model.CountryList, "Select Country", new { @class = "custom-select block" })
+                                        <span id="CountryCodeVal" style="color:red;display:none" class="valClass">Please select Country.</span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label><b>Programme Year<span class="requiredstar">*</span> </b></label>
+                                    <div class="position-relative has-icon-left">
+                                        @Html.DropDownListFor(a => a.ProgrammeYear, Model.ProgrammeYearList, "Select Programme Year", new { @class = "custom-select block" })
+                                        <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label><b>Semester<span class="requiredstar">*</span> </b></label>
+                                    <div class="position-relative has-icon-left">
+                                        @Html.DropDownListFor(a => a.ProgrammeSemester, Model.SemisterList, "Select Semester", new { @class = "custom-select block" })
+                                        <span id="SemisterCodeVal" style="color:red;display:none" class="valClass">Please select Semester.</span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label><b>Course<span class="requiredstar">*</span> </b></label>
+                                    <div class="position-relative has-icon-left">
+                                        @Html.DropDownListFor(a => a.CourseID, Model.CourseList, "Select Course", new { @class = "custom-select block" })
+                                        <span id="CourseIDVal" style="color:red;display:none" class="valClass">Please select Course.</span>
+                                    </div>
+                                </div>*@
 
+                                <div class="form-group col-lg-4">
+                                    <label><b>Section<span class="requiredstar">*</span> </b></label>
+                                    <div class="position-relative has-icon-left">
+                                        @Html.DropDownListFor(a => a.SectionName, Model.SectionList, "Select Section", new { @class = "custom-select block" })
+                                        <input type="hidden" id="Section" value="" />
+                                        <span id="SectionIDVal" style="color:red;display:none" class="valClass">Please select Section.</span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label>&nbsp;</label>
+                                    <div class="position-relative has-icon-left">
+                                        <button type="button" onclick="fnAddPaper()" class="btn btn-primary">
+                                            <i class="fa fa-check-square-o"></i> Add
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -41,19 +98,178 @@
     </div>
 </div>
 <script>
+    
+
+ $(document).on("change", "#DepartmentID", function () {
+     $("#ProgrammeID").empty();
+     $.ajax({
+         type: 'POST',
+         url: '@Url.Action("GetProgDrop","Admin",new { area="Admin"})', // we are calling json method
+
+         dataType: 'json',
+
+         data: { departmentID: $("#DepartmentID").val() },
+         success: function (res) {
+             $("#ProgrammeID").append('<option value="">Select Programme</option>');
+             $.each(res, function (i, state) {
+                 $("#ProgrammeID").append('<option value="' + state.Value + '">' +
+                     state.Text + '</option>');
+             });
+         },
+         error: function (ex) {
+             alert('Failed to retrieve Faculty.' + ex);
+         }
+     });
+     return false;
+ });
 
 
+    $(document).on("change", "#ProgrammeID", function () {
+        $("#SyllabusVersionID").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetProgrammeVersionDDL","Admin",new { area="Admin"})', // we are calling json method
+
+            dataType: 'json',
+
+            data: { ProgramVID: $("#ProgrammeID").val() },
+            success: function (res) {
+                $("#SyllabusVersionID").append('<option value="">Select Programme Version</option>');
+
+                $.each(res, function (i, state) {
+                    $("#SyllabusVersionID").append('<option value="' + state.Value + '">' +
+                        state.Text + '</option>');
+                });
+            },
+            error: function (ex) {
+                alert('Failed to retrieve Version.' + ex);
+            }
+        });
+        $("#CountryID").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("ChangeProgramSelection", "Admin",new { area="Admin"})', // we are calling json method
+            dataType: 'json',
+            data: { programmeID: $("#ProgrammeID").val() },
+            success: function (res) {
+                if (res != null) {
+
+                    $("#CountryID").append('<option value="">Select Country</option>');
+                    $.each(res.CountryList, function (i, state) {
+                        $("#CountryID").append('<option value="' + state.Value + '">' +
+                             state.Text + '</option>');
+                        // here we are adding option for States
+
+                    });
+                }
+                else {
+
+                    $("#CountryID").append('<option value="">Select Country</option>');
+                }
+            },
+            error: function (ex) {
+                alert('Failed to retrieve country.' + ex);
+            }
+        });
 
 
-    $(document).on("change", "#ExamSectionID", function () {
-        if ($('#ExamSectionID').val()!='') {
-            $('.paperdetails').load('/Faculty/Faculty/AddQuestion/' + $('#ExamSectionID').val());
-        }
-        else {
-            $('.paperdetails').html('');
-        }
+        return false;
     });
 
+    $(document).on("change", "#CountryID", function () {
+        $("#ProgrammeYear").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("ChangeCountrySelection", "Admin",new { area="Admin"})', // we are calling json method
+
+            dataType: 'json',
+
+            data: { programmeID: $("#ProgrammeID").val(), countryID: $('#CountryID').val() },
+            success: function (res) {
+                if (res != null) {
+
+                    $("#ProgrammeYear").append('<option value="">Select Programme Year</option>');
+                    $.each(res.ProgYearList, function (i, state) {
+                        $("#ProgrammeYear").append('<option value="' + state.Value + '">' +
+                             state.Text + '</option>');
+                        // here we are adding option for States
+
+                    });
+                }
+                else {
+
+                    $("#ProgrammeYear").append('<option value="">Select Programme Year</option>');
+
+                }
+            },
+            error: function (ex) {
+                alert('Failed to retrieve Programme year.' + ex);
+            }
+        });
+        return false;
+    });
+
+    $(document).on("change", "#ProgrammeYear", function () {
+        $("#ProgrammeSemester").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("ChangeProgramYearSelection", "Admin",new { area="Admin"})', // we are calling json method
+
+            dataType: 'json',
+
+            data: { programmeID: $("#ProgrammeID").val(), countryID: $('#CountryID').val(), programYear: $('#ProgrammeYear').val() },
+            success: function (res) {
+                if (res != null) {
+
+                    $("#ProgrammeSemester").append('<option value="">Select Semester</option>');
+                    $.each(res.ProgSEMList, function (i, state) {
+                        $("#ProgrammeSemester").append('<option value="' + state.Value + '">' +
+                             state.Text + '</option>');
+                        // here we are adding option for States
+
+                    });
+                }
+                else {
+
+                    $("#ProgrammeSemester").append('<option value="">Select Semester</option>');
+
+                }
+            },
+            error: function (ex) {
+                alert('Failed to retrieve Semester.' + ex);
+            }
+        });
+        return false;
+    });
+
+
+    $(document).on("change", "#ProgrammeSemester", function () {
+        $("#CourseID").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetCourseExam", "Admin",new { area="Admin"})',
+            dataType: 'json',
+            data: {
+                programmeId: $("#ProgrammeID").val(), countryId: $('#CountryID').val(),
+                programmeYear: $('#ProgrammeYear').val(), programmeSem: $('#ProgrammeSemester').val()
+            },
+            success: function (res) {
+                $("#CourseID").append('<option value="">Select Course</option>');
+                $.each(res, function (i, state) {
+                    $("#CourseID").append('<option value="' + state.Value + '">' +
+                        state.Text + '</option>');
+                });
+            },
+            error: function (ex) {
+                alert('Failed to retrieve Course.' + ex);
+            }
+        });
+        return false;
+    });
+
+    function fnAddPaper() {
+        $('.paperdetails').load('/Faculty/Faculty/AddQuestion');
+    }
 
     function fnSavePaperDetails() {
         var model = {
@@ -86,7 +302,7 @@
             AnswerNo: $('#AnswerNo').val(),
             AnswerText: $('#AnswerText').val()
         };
-        @*$.ajax({
+        $.ajax({
             url: '@Url.Action("SavePaperDetails", "Faculty",new {area= "Faculty" })',
             data: JSON.stringify(model),
             type: 'POST',
@@ -105,7 +321,7 @@
             error: function (e) {
                 alert('Error in your requst.');
             }
-        });*@
+        });
 
     }
 

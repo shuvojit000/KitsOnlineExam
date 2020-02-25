@@ -207,11 +207,11 @@
                 dataType: "json",
                 success: function (result) {
                     if (result ==1) {
-                        alert('Data Save Successfully.');
+                        alert('Faculty Save Successfully.');
                         $("#myModal").modal('hide');
                         fnLoadDepartmentList();
                     } else if (result == -1) {
-                        alert('Data already exist.');
+                        alert('Faculty already exist.');
                         $("#myModal").modal('hide');
                         fnLoadDepartmentList();
                     }

@@ -16,6 +16,7 @@ namespace Lincoln.OnlineExam.Response
         public string AcademicName { get; set; }
         public string DepartmentName { get; set; }
         public string ProgrammeName { get; set; }
+        public string ProgrammeCode { get; set; }
         public int? ProgrammeYear { get; set; }
         public int? ProgrammeSemester { get; set; }
         public string SemesterType { get; set; }

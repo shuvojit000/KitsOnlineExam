@@ -666,6 +666,7 @@ namespace Lincoln.OnlineExam.Repository
                             DepartmentID = Convert.ToInt32(dr["DepartmentID"]),
                             AcademicID = Convert.ToInt32(dr["AcademicID"]),
                             ProgrammeName = object.ReferenceEquals(dr["ProgrammeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeName"]),
+                            ProgrammeCode = object.ReferenceEquals(dr["ProgrammeCode"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeCode"]),
                             AcademicName = object.ReferenceEquals(dr["AcademicName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AcademicName"]),
                             SemesterType = object.ReferenceEquals(dr["SemesterType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["SemesterType"]),
                             DepartmentName = object.ReferenceEquals(dr["DepartmentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["DepartmentName"]),
@@ -731,7 +732,7 @@ namespace Lincoln.OnlineExam.Repository
                         item.ProgrammeYear = Convert.ToInt32(dr["ProgrammeYear"]);
                         item.Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]);
                         item.CreatedBy = Convert.ToInt32(dr["CreatedBy"]);
-                        //item.CreatedOn = object.ReferenceEquals(dr["CreatedOn"], DBNull.Value) ? default(DateTime) : Convert.ToDateTime(dr["CreatedOn"]);
+                        item.ProgrammeCode = object.ReferenceEquals(dr["ProgrammeCode"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeCode"]);
                         //item.ModifiedBy = Convert.ToInt32(dr["ModifiedBy"]);
                         // item.ModifiedOn = object.ReferenceEquals(dr["ModifiedOn"], DBNull.Value) ? default(DateTime) : Convert.ToDateTime(dr["ModifiedOn"]);
 
@@ -741,6 +742,8 @@ namespace Lincoln.OnlineExam.Repository
             return item;
 
         }
+
+      
         #endregion
 
 

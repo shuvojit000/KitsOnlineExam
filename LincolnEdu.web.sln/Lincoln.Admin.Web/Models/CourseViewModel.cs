@@ -15,6 +15,7 @@ namespace Lincoln.Admin.Web.Models
         public int? CountryID { get; set; }
         public string DepartmentName { get; set; }
         public string ProgrammeName { get; set; }
+        public string CourseType { get; set; }
         public int? ProgrammeYear { get; set; }
         public int? ProgrammeSemester { get; set; }
         public int? ProgrammeSemesterID { get; set; }

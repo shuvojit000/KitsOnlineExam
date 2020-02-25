@@ -2,10 +2,12 @@
 
 @model Lincoln.Admin.Web.Models.ExaminationNameViewModel
 <style>
+
     .bootstrap-datetimepicker-widget .weekend {
         color: red;
     }
 </style>
+
 <div class="panel-body">
     <!--main content start-->
     <div class="row">
@@ -92,8 +94,28 @@
 </div>
 <script>
 
-    $(document).on("focus","#StartDate,#EndDate",function(){
-        $('#StartDate').datetimepicker({ format: 'DD/MM/YYYY', minDate: moment() });
-        $('#EndDate').datetimepicker({ format: 'DD/MM/YYYY', minDate: moment() });
+    $(document).on("focus", "#StartDate,#EndDate", function () {
+        $('#StartDate').datetimepicker({
+            format: 'DD/MM/YYYY',
+            minDate: moment()
+        });
+        debugger;
+        $('#EndDate').datetimepicker({
+            format: 'DD/MM/YYYY',
+            minDate:new Date(convertInputtoDate()).format('MM/dd/YYYY')
+        });
     });
+
+    function convertInputtoDate() {
+        debugger;
+        var input = $("#StartDate").datetimepicker().val();
+       //var gft =  $("#StartDate").datetimepicker.formatDate('MM/dd/YYYY', input);
+        //var gft = input.Date('MM/dd/YYYY');
+        var date = input.split('/');
+        var selectdate = new Date(date[2], date[1], date[0]);
+
+        return selectdate;
+    }
+
+
 </script>

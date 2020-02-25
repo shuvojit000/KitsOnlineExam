@@ -199,11 +199,11 @@
                 dataType: "json",
                 success: function (result) {
                     if (result > 0) {
-                        alert('Data Save Successfully.');
+                        alert('Programme Semester Save Successfully.');
                         $("#myModal").modal('hide');
                         fnLoadProgrammeSemesterList();
                     } else if (result == -1) {
-                        alert('Data already exist.');
+                        alert('Programme Semester already exist.');
                         $("#myModal").modal('hide');
                         fnLoadProgrammeSemesterList();
                     }

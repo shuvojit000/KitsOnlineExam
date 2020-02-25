@@ -220,11 +220,11 @@
                 dataType: "json",
                 success: function (result) {
                     if (result ==1) {
-                        alert('Data Save Successfully.');
+                        alert('Course Save Successfully.');
                         $("#myModal").modal('hide');
                         fnLoadCourseList();
                     } else if (result == -1) {
-                        alert('Data already exist.');
+                        alert('Course already exist.');
                         $("#myModal").modal('hide');
                         fnLoadCourseList();
                     } else {
