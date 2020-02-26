@@ -11,6 +11,7 @@ namespace Lincoln.OnlineExam.Response
         public int AssessmentID { get; set; }
         public int? ProgrammeID { get; set; }
         public int? DepartmentID { get; set; }
+        public int? CountryID { get; set; }
         public int SyllabusVersionCode { get; set; }
         public string ProgramName { get; set; }
         public string DepartmentName { get; set; }
