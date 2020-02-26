@@ -24,7 +24,9 @@ namespace Lincoln.Admin.Web.Models
         public DateTime? CreatedOn { get; set; }
         public int? ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
-
+        public int? CountryID { get; set; }
+        public string CountryName { get; set; }
+        public List<SelectListItem> CountryList { get; set; }
         public List<SelectListItem> ProgramList { get; set; }
         public List<SelectListItem> SyllabusVersionList { get; set; }
         public List<SelectListItem> FacultyList { get; set; }
