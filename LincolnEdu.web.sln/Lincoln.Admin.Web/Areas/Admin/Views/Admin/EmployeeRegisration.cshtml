@@ -156,20 +156,14 @@
 
         if ($('#EmployeeCode').val() == '') {
             $('#EmployeeCode').focus();
-            $('#EmployeeCodeVal').html('Faculty Code is required.');
+            $('#EmployeeCodeVal').html('Employee Code is required.');
             $('#EmployeeCodeVal').css({ 'display': 'block' });
 
         }
         else if ($('#EmployeeName').val() == '') {
             $('#EmployeeName').focus();
-            $('#EmployeeNameVal').html('Faculty Name is required.');
+            $('#EmployeeNameVal').html('Employee Name is required.');
             $('#EmployeeNameVal').css({ 'display': 'block' });
-        }
-        else if ($('#UserName').val() == '') {
-            $('#UserName').focus();
-            $('#UserNameVal').html('UserName is required.');
-            $('#UserNameVal').css({ 'display': 'block' });
-
         }
         else if ($('#Password').val() == '') {
             $('#Password').focus();
@@ -198,7 +192,7 @@
                 EmployeeID: employeeID,
                 EmployeeName: $('#EmployeeName').val(),
                 EmployeeCode: $('#EmployeeCode').val(),
-                UserName: $('#UserName').val(),
+                UserName: $('#EmployeeCode').val(),
                 Password: $('#Password').val(),
                 EmailID: $('#EmailID').val(),
                 MobileNo: $('#MobileNo').val(),
@@ -214,11 +208,11 @@
                 dataType: "json",
                 success: function (result) {
                     if (result == 1) {
-                        alert('Data Save Successfully.');
+                        alert('Employee Saved Successfully.');
                         $("#myModal").modal('hide');
                         fnLoadEmployeeList();
                     } else if (result == -1) {
-                        alert('User Name already exist.');
+                        alert('Employee already exist.');
                         $("#myModal").modal('hide');
                         fnLoadEmployeeList();
                     }
@@ -255,7 +249,7 @@
                 dataType: "json",
                 success: function (result) {
                     if (result > 0) {
-                        alert('Faculty has been deleted Successfully.');
+                        alert('Employee has been deleted Successfully.');
                         fnLoadEmployeeList();
                     }
                 },

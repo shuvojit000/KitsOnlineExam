@@ -49,17 +49,22 @@
                 <div class="row">
                     <div class="form-group col-lg-6">
                         <label><b>Course code:</b> </label>
-                       
-                            @Html.DisplayFor(a => a.CourseCode, new { @class = "form-control" })
+
+                        @Html.DisplayFor(a => a.CourseCode, new { @class = "form-control" })
 
                     </div>
+                    <div class="form-group col-lg-6">
+                        <label><b>Course Type:</b> </label>
 
+                      <span>@(Model.CourseType=="C"?"Core":"Elective")</span>
+
+                    </div>
                     <div class="form-group col-lg-6">
                         <label><b>Course Name:</b> </label>
-                       
-                            @Html.DisplayFor(a => a.CourseName, new { @class = "form-control" })
 
-                     
+                        @Html.DisplayFor(a => a.CourseName, new { @class = "form-control" })
+
+
                     </div>
                 </div>
                 <div class="row">

@@ -31,18 +31,21 @@
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
+                        <label><b>Country <span class="requiredstar">*</span></b> </label>
+                        @Html.DropDownListFor(a => a.CountryID, Model.CountryList, "Select Country", new { @class = "custom-select block" })
+                        <span id="CountryIDVal" style="color:red;display:none" class="valClass">Please select Country.</span>
+                    </div>
+                    <div class="form-group col-lg-6">
                         <label><b>Assessment Name<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
-                            @Html.TextBoxFor(a => a.AssessmentName, new { @class = "form-control"})
+                            @Html.TextBoxFor(a => a.AssessmentName, new { @class = "form-control" })
                             <div class="form-control-position">
                                 <i class="fa fa-book"></i>
                             </div>
                             <span id="AssessmentNameVal" style="color:red;display:none" class="valClass"></span>
                         </div>
-                        </div>
-                </div>
-                
-                <div class="row">
+                    </div>
+
                     <div class="form-group col-lg-6">
                         <label><b>Assessment Type<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">

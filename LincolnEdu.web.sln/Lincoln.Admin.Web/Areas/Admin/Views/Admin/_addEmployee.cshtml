@@ -8,7 +8,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-lg-6">
-                        <label><b>Faculty Code<span class="requiredstar">*</span></b></label>
+                        <label><b>Employee Code<span class="requiredstar">*</span></b></label>
                         <div class="position-relative has-icon-left">
                             @Html.TextBoxFor(a => a.EmployeeCode, new { @class = "form-control" })
                             <div class="form-control-position">
@@ -18,7 +18,7 @@
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
-                        <label><b>Faculty Name <span class="requiredstar">*</span></b> </label>
+                        <label><b>Employee Name <span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
                             @Html.TextBoxFor(a => a.EmployeeName, new { @class = "form-control" })
                             <div class="form-control-position">
@@ -32,7 +32,7 @@
                     <div class="form-group col-lg-6">
                         <label><b>UserName <span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left gt">
-                            @Html.TextBoxFor(a => a.UserName, new { @class = "form-control" })
+                            @Html.TextBoxFor(a => a.UserName, new { @class = "form-control",@readonly="readonly" })
                             <div class="form-control-position">
                                 <i class="fa fa-book"></i>
                             </div>
@@ -42,7 +42,7 @@
                     <div class="form-group col-lg-6">
                         <label><b>Password<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
-                            @Html.PasswordFor(a => a.Password, new { @class = "form-control" })
+                            @Html.TextBoxFor(a => a.Password, new { @class = "form-control" })
                             <div class="form-control-position">
                                 <i class="fa fa-book"></i>
                             </div>

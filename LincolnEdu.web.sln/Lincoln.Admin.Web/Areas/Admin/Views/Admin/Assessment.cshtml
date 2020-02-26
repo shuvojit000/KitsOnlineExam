@@ -39,23 +39,23 @@
                                         </span>
                                     </a>
                                     <a class="dt-button buttons-excel buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to Excel">
-                                            <span>
-                                                <i class="fa fa-file-excel-o bigger-110"></i>
-                                                <span class="hidden">Export to Excel</span>
-                                            </span>
-                                        </a>
-                                        <a class="dt-button buttons-pdf buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to PDF">
-                                            <span>
-                                                <i class="fa fa-file-pdf-o bigger-110"></i>
-                                                <span class="hidden">Export to PDF</span>
-                                            </span>
-                                        </a>
-                                        <a class="dt-button buttons-print btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Print">
-                                            <span>
-                                                <i class="fa fa-print bigger-110"></i>
-                                                <span class="hidden">Print</span>
-                                            </span>
-                                        </a>
+                                        <span>
+                                            <i class="fa fa-file-excel-o bigger-110"></i>
+                                            <span class="hidden">Export to Excel</span>
+                                        </span>
+                                    </a>
+                                    <a class="dt-button buttons-pdf buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Export to PDF">
+                                        <span>
+                                            <i class="fa fa-file-pdf-o bigger-110"></i>
+                                            <span class="hidden">Export to PDF</span>
+                                        </span>
+                                    </a>
+                                    <a class="dt-button buttons-print btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" data-original-title="" title="Print">
+                                        <span>
+                                            <i class="fa fa-print bigger-110"></i>
+                                            <span class="hidden">Print</span>
+                                        </span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -161,6 +161,9 @@
         else if ($('#SyllabusVersion').val() == '') {
             $('#SyllabusVersionVal').css({ 'display': 'block' });
         }
+         else if ($('#CountryID').val() == '') {
+            $('#CountryIDVal').css({ 'display': 'block' });
+        }
         else if ($('#AssessmentName').val() == '') {
             $('#AssessmentName').focus();
             $('#AssessmentNameVal').html('Assessment Name is required.');
@@ -169,7 +172,7 @@
         else if (typeof $('input[name="AssessmentType"]:checked').val() === 'undefined') {
             $('#AssessmentTypeVal').css({ 'display': 'block' });
         }
-        
+
         else {
 
 
@@ -178,6 +181,7 @@
                 ProgrammeID: $('#ProgrammeID').val(),
                 DepartmentID: $('#DepartmentID').val(),
                 SyllabusVersion: $('#SyllabusVersion').val(),
+                CountryID:$('#CountryID').val(),
                 AssessmentName: $('#AssessmentName').val(),
                 AssessmentType: $('input[name="AssessmentType"]:checked').val(),
                 Active: 'A'
