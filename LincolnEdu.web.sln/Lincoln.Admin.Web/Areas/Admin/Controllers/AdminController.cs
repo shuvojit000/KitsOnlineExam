@@ -566,6 +566,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 DepartmentID = model.DepartmentID,
                 ApprovalNo = model.ApprovalNo,
                 CountryID = model.CountryID,
+                CourseType = model.CourseType,
                 Credit = model.Credit,
                 Active = model.Active
             }, type);
@@ -627,7 +628,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult ChangeProgramYearSelection(string programmeID, string countryId, string programYear)
         {
-            var itemList = onlineExamService.GetAllProgrammeSemester().Where(a => a.ProgrammeID == Convert.ToInt32(programmeID??"0")
+            var itemList = onlineExamService.GetAllProgrammeSemester().Where(a => a.ProgrammeID == Convert.ToInt32(programmeID ?? "0")
                                                    && a.CountryID == Convert.ToInt32(countryId) && a.ProgrammeYear == Convert.ToInt32(programYear) && a.Status == "A"
                                                    ).ToList().OrderBy(a => a.ProgrammeSemester);
             var model = new CourseViewModel();
@@ -646,7 +647,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
         }
         [HttpPost]
-        public JsonResult ChangeProgramSemSelection(string progSemId,string countryID,string programmeID,string programYear)
+        public JsonResult ChangeProgramSemSelection(string progSemId, string countryID, string programmeID, string programYear)
         {
             return Json(onlineExamService.SelectProgrammeSemester(new OnlineExam.Request.ProgrammeSemesterRequestDTO
             {
@@ -721,8 +722,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             {
                 ExaminationNameID = a.ExaminationNameID,
                 ExaminationName = a.ExaminationName,
-                StartDate = a.StartDate.Value.ToShortDateString(),
-                EndDate = a.EndDate.Value.ToShortDateString(),
+                StartDate = a.StartDate != null ? Convert.ToDateTime(a.StartDate).ToString("dd/MM/yyyy") : string.Empty,
+                EndDate = a.EndDate != null ? Convert.ToDateTime(a.EndDate).ToString("dd/MM/yyyy") : string.Empty,
                 Active = a.Status,
                 ModifiedOn = a.ModifiedOn?.Date,
                 CreatedBy = a.CreatedBy,
@@ -742,7 +743,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             });
             model.ExaminationNameID = item.ExaminationNameID;
             model.ExaminationName = item.ExaminationName;
-            model.StartDate = item.StartDate!=null?Convert.ToDateTime(item.StartDate).ToString("dd/MM/yyyy"):string.Empty;
+            model.StartDate = item.StartDate != null ? Convert.ToDateTime(item.StartDate).ToString("dd/MM/yyyy") : string.Empty;
             model.EndDate = item.EndDate != null ? Convert.ToDateTime(item.EndDate).ToString("dd/MM/yyyy") : string.Empty;
             model.ModifiedOn = item.ModifiedOn?.Date;
             model.Status = item.Status;
@@ -832,7 +833,9 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 ModifiedOn = a.ModifiedOn?.Date,
                 CreatedBy = a.CreatedBy,
                 CreatedOn = a.CreatedOn,
+                CountryID = a.CountryID,
                 ModifiedBy = Convert.ToInt32(a.ModifiedBy),
+                CountryName = (a.CountryID == 1) ? "India" : (a.CountryID == 2) ? "Malaysia" : a.CountryID == 3 ? "United States" : string.Empty,
             }).ToList();
 
             return itemSet;
@@ -860,6 +863,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.CreatedBy = item.CreatedBy;
             model.CreatedOn = item.CreatedOn;
             model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
+            model.CountryID = item.CountryID;
+            model.CountryName = (item.CountryID == 1) ? "India" : (item.CountryID == 2) ? "Malaysia" : item.CountryID == 3 ? "United States" : string.Empty;
             return model;
 
         }
@@ -867,7 +872,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
         public PartialViewResult AddAssessment(string id)
         {
             var model = new AssessmentViewModel();
-          
+
             if (!string.IsNullOrEmpty(id))
             {
                 model = SelectAssessment(id);
@@ -901,6 +906,12 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 model.SyllabusVersionList = new List<SelectListItem>();
                 model.DepartmentList = onlineExamService.GetAllDepartment().Select(a => new SelectListItem { Text = a.DepartmentName, Value = a.DepartmentID.ToString() }).ToList();
             }
+            model.CountryList = new List<SelectListItem>
+                            {
+                                new SelectListItem{ Text="India", Value = "1" },
+                                new SelectListItem{ Text="Malaysia", Value = "2" },
+                                new SelectListItem{ Text="United States", Value = "3" },
+                             };
             return PartialView("_addAssessment", model);
         }
         public PartialViewResult AssessmentView(string id)
@@ -929,6 +940,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 AssessmentType = model.AssessmentType,
                 AssessmentName = model.AssessmentName,
                 SyllabusVersion = model.SyllabusVersion,
+                CountryID = model.CountryID,
                 Active = model.Active
 
             }, type);
@@ -977,7 +989,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 SectionName = a.SectionName,
                 AcademicYearCode = a.AcademicYearCode,
                 YearName = a.YearName,
-                QuestionType=a.QuestionType,
+                QuestionType = a.QuestionType,
                 Active = a.Status,
                 ModifiedOn = a.ModifiedOn?.Date,
                 CreatedBy = a.CreatedBy,
@@ -1149,7 +1161,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 FacultyCode = model.FacultyCode,
                 AcademicYearCode = model.AcademicYearCode,
                 SectionName = model.SectionName,
-                QuestionType=model.QuestionType,
+                QuestionType = model.QuestionType,
                 Active = model.Active
             }, type);
 
