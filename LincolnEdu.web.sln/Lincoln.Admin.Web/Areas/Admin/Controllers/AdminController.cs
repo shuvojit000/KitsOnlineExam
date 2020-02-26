@@ -317,6 +317,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 CreatedOn = a.CreatedOn,
                 CountryID = a.CountryID,
                 ModifiedBy = Convert.ToInt32(a.ModifiedBy),
+                CountryName = (a.CountryID == 1) ? "India" : (a.CountryID == 2) ? "Malaysia" : a.CountryID == 3 ? "United States" : string.Empty,
             }).ToList();
 
             return itemSet;
@@ -347,6 +348,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.CreatedBy = item.CreatedBy;
             model.CreatedOn = item.CreatedOn;
             model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
+            model.CountryName = (item.CountryID == 1) ? "India" : (item.CountryID == 2) ? "Malaysia" : item.CountryID == 3 ? "United States" : string.Empty;
             return model;
 
         }
