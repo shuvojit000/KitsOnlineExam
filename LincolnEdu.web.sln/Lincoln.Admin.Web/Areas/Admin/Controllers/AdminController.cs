@@ -463,6 +463,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 ProgrammeYear = a.ProgrammeYear,
                 SemesterType = a.SemesterType,
                 CountryID = a.CountryId,
+                CourseType=a.CourseType
             }).ToList();
 
             return itemSet;
@@ -494,6 +495,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.ProgrammeYear = item.ProgrammeYear;
             model.SemesterType = item.SemesterType;
             model.CountryID = item.CountryId;
+            model.CourseType = item.CourseType;
             return model;
 
         }
