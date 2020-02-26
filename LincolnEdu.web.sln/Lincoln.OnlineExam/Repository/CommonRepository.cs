@@ -766,12 +766,15 @@ namespace Lincoln.OnlineExam.Repository
             programmeSemester.Value = recordAttributer.ProgrammeSemester;
             SqlParameter semesterType = new SqlParameter("@SemesterType", SqlDbType.VarChar);
             semesterType.Value = recordAttributer.SemesterType;
+
             SqlParameter courseCode = new SqlParameter("@CourseCode", SqlDbType.VarChar);
             courseCode.Value = recordAttributer.CourseCode;
             SqlParameter courseName = new SqlParameter("@CourseName", SqlDbType.VarChar);
             courseName.Value = recordAttributer.CourseName;
             SqlParameter approvalNo = new SqlParameter("@ApprovalNo", SqlDbType.VarChar);
             approvalNo.Value = recordAttributer.ApprovalNo;
+            SqlParameter courseType = new SqlParameter("@CourseType", SqlDbType.VarChar);
+            courseType.Value = recordAttributer.CourseType;
             SqlParameter credit = new SqlParameter("@Credit", SqlDbType.VarChar);
             credit.Value = recordAttributer.Credit;
 
@@ -786,7 +789,7 @@ namespace Lincoln.OnlineExam.Repository
             status.Direction = ParameterDirection.InputOutput;
 
             SqlServerHelper.ExecuteNonQueryProc("[ln.Master].[upSaveCourse]", courseID, departmentID, programmeID, countryID, programmeYear,
-                programmeSemester, semesterType, courseCode, courseName, approvalNo, credit, active, createdBy, type, status);
+                programmeSemester, semesterType, courseCode, courseName, approvalNo,courseType, credit, active, createdBy, type, status);
 
             return Convert.ToInt32(status.Value);
 
@@ -845,6 +848,7 @@ namespace Lincoln.OnlineExam.Repository
                             CourseCode = object.ReferenceEquals(dr["CourseCode"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseCode"]),
                             CourseName = object.ReferenceEquals(dr["CourseName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseName"]),
                             Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
+                            CourseType = object.ReferenceEquals(dr["CourseType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseType"]),
                             CreatedBy = Convert.ToInt32(dr["CreatedBy"]),
                             //CreatedOn = object.ReferenceEquals(dr["CreatedOn"], DBNull.Value) ? default(DateTime) : Convert.ToDateTime(dr["CreatedOn"]),
                             // ModifiedBy = Convert.ToInt32(dr["ModifiedBy"]),
@@ -912,6 +916,7 @@ namespace Lincoln.OnlineExam.Repository
                         item.CourseCode = object.ReferenceEquals(dr["CourseCode"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseCode"]);
                         item.CourseName = object.ReferenceEquals(dr["CourseName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseName"]);
                         item.Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]);
+                        item.CourseType = object.ReferenceEquals(dr["CourseType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseType"]);
                         item.CreatedBy = Convert.ToInt32(dr["CreatedBy"]);
                         //item.CreatedOn = object.ReferenceEquals(dr["CreatedOn"], DBNull.Value) ? default(DateTime) : Convert.ToDateTime(dr["CreatedOn"]);
                         //item.ModifiedBy = Convert.ToInt32(dr["ModifiedBy"]);
