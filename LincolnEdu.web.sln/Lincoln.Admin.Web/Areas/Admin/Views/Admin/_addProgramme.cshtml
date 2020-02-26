@@ -9,17 +9,18 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-lg-6">
+                        <label><b>NEC Level<span class="requiredstar">*</span></b></label>
+                        @Html.DropDownListFor(a => a.AcademicID, Model.AcademicList, "Select NEC Level", new { @class = "custom-select block" })
+                        <span id="AcademicIDVal" style="color:red;display:none" class="valClass">Please select NEC Level.</span>
+                    </div>
+                    <div class="form-group col-lg-6">
                         <label><b>Faculty <span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
                             @Html.DropDownListFor(a => a.DepartmentID, Model.DepartmentList, "Select Faculty", new { @class = "custom-select block" })
                             <span id="DepartmentIDVal" style="color:red;display:none" class="valClass">Please select Faculty.</span>
                         </div>
                     </div>
-                    <div class="form-group col-lg-6">
-                        <label><b>NEC Level<span class="requiredstar">*</span></b></label>
-                        @Html.DropDownListFor(a => a.AcademicID, Model.AcademicList, "Select Academic Level", new { @class = "custom-select block" })
-                        <span id="AcademicIDVal" style="color:red;display:none" class="valClass">Please select Academic Level.</span>
-                    </div>
+
                 </div>
                 <div class="row">
                     <div class="form-group col-lg-6">

@@ -93,7 +93,7 @@
     $(function () {
         $('li a[href*="Course"]').parent('li').addClass('active')
         $("#ddlStatus").change(function () {
-            
+
             if ($('#ddlStatus').val() != '' && $('#ddlStatus').val() != null) {
 
                 var statusIdstr = [];
@@ -142,7 +142,7 @@
             }
         });
     });
-    
+
     function fnAddCourse(id) {
         if (id!=null && id!='') {
             $('.modal-body').load('/Admin/Admin/AddCourse/'+id, function () { $("#myModal").modal('show'); });
@@ -160,7 +160,7 @@
         else if ($('#ProgrammeID').val() == '') {
             $('#ProgrammeIDVal').css({ 'display': 'block' });
         }
-        
+
         else if ($('#ProgrammeSemesterID').val() == '') {
             $('#ProgrammeSemesterVal').css({ 'display': 'block' });
         }
@@ -177,6 +177,9 @@
             $('#CourseCode').focus();
             $('#CourseCodeVal').html('Course Code  is required.');
             $('#CourseCodeVal').css({ 'display': 'block' });
+        }
+       else if (typeof $('input[name="CourseType"]:checked').val() === 'undefined') {
+            $('#CourseTypeVal').css({ 'display': 'block' });
         }
         else if ($('#CourseName').val() == '') {
             $('#CourseName').focus();
@@ -208,6 +211,7 @@
                 ApprovalNo: $('#ApprovalNo').val(),
                 CountryID: $('#CountryID').val(),
                 Credit: $('#Credit').val(),
+                CourseType:$('input[name="CourseType"]:checked').val(),
                 Active: 'A'
             };
 

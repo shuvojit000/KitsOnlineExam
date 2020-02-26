@@ -159,7 +159,7 @@
         $('.valClass').css({ 'display': 'none' });
         if ($('#AcademicName').val() == '') {
             $('#AcademicName').focus();
-            $('#AcademicNameVal').html('Academic Level is required.');
+            $('#AcademicNameVal').html('NEC Level is required.');
             $('#AcademicNameVal').css({ 'display': 'block' });
         }
         else {
@@ -181,12 +181,12 @@
                 dataType: "json",
                 success: function (result) {
                     if (result == 1) {
-                        alert('NEC Save Successfully.');
+                        alert('NEC Level Save Successfully.');
                         $("#myModal").modal('hide');
                         fnLoadAcademicLevelList();
                     }
                     else if (result == -1) {
-                        alert('NEC already exist.');
+                        alert('NEC Level already exist.');
                         $("#myModal").modal('hide');
                         fnLoadAcademicLevelList();
                     }
@@ -224,7 +224,7 @@
                 dataType: "json",
                 success: function (result) {
                     if (result > 0) {
-                        alert('Academic Level has been deleted Successfully.');
+                        alert('NEC Level has been deleted Successfully.');
 
                         fnLoadAcademicLevelList();
                     }
