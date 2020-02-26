@@ -16,6 +16,7 @@ namespace Lincoln.Admin.Web.Models
         public int? ProgrammeYear { get; set; }
         public int? ProgrammeSemester { get; set; }
         public int? CourseID { get; set; }
+        public int? ExaminationSectionID { get; set; }
         public string SectionName { get; set; }
         public int? SyllabusVersionID { get; set; }
         public int? PaperDetailsID { get; set; }
