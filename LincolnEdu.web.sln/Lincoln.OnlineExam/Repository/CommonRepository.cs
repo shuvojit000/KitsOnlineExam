@@ -1055,6 +1055,8 @@ namespace Lincoln.OnlineExam.Repository
             AssessmentID.Value = recordAttributer.AssessmentID;
             SqlParameter programCode = new SqlParameter("@ProgrammeID", SqlDbType.Int);
             programCode.Value = recordAttributer.ProgrammeID;
+            SqlParameter countryID = new SqlParameter("@CountryID", SqlDbType.Int);
+            countryID.Value = recordAttributer.CountryID;
             SqlParameter FacultyCode = new SqlParameter("@DepartmentID", SqlDbType.Int);
             FacultyCode.Value = recordAttributer.DepartmentID;
             SqlParameter AssessmentName = new SqlParameter("@AssessmentName", SqlDbType.VarChar);
@@ -1072,7 +1074,7 @@ namespace Lincoln.OnlineExam.Repository
             SqlParameter status = new SqlParameter("@Status", SqlDbType.Int);
             status.Value = 0;
             status.Direction = ParameterDirection.InputOutput;
-            SqlServerHelper.ExecuteNonQueryProc("[ln.Examination].[upSaveAssessment]", AssessmentID, programCode, FacultyCode, SyllabusVersion,
+            SqlServerHelper.ExecuteNonQueryProc("[ln.Examination].[upSaveAssessment]", AssessmentID, programCode, countryID, FacultyCode, SyllabusVersion,
                 AssessmentName, AssessmentType, active, createdBy, type, status);
 
             return Convert.ToInt32(status.Value);
@@ -1105,6 +1107,7 @@ namespace Lincoln.OnlineExam.Repository
                         itemSet.Add(new AssessmentResponseDTO()
                         {
                             AssessmentID = Convert.ToInt32(dr["AssessmentID"]),
+                            CountryID = Convert.ToInt32(dr["CountryID"]),
                             ProgrammeID = Convert.ToInt32(dr["ProgrammeID"]),
                             DepartmentID = Convert.ToInt32(dr["DepartmentID"]),
                             ProgramName = object.ReferenceEquals(dr["ProgrammeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeName"]),
@@ -1153,6 +1156,7 @@ namespace Lincoln.OnlineExam.Repository
                         item.AssessmentID = Convert.ToInt32(dr["AssessmentID"]);
                         item.ProgrammeID = Convert.ToInt32(dr["ProgrammeID"]);
                         item.DepartmentID = Convert.ToInt32(dr["DepartmentID"]);
+                        item.CountryID = Convert.ToInt32(dr["CountryID"]);
                         item.ProgramName = object.ReferenceEquals(dr["ProgrammeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeName"]);
                         item.DepartmentName = object.ReferenceEquals(dr["DepartmentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["DepartmentName"]);
                         item.SyllabusVersionCode = Convert.ToInt32(dr["ProgrammeVersioningID"]);
