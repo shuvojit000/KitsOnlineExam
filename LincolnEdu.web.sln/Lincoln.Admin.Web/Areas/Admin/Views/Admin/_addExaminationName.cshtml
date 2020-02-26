@@ -3,6 +3,7 @@
 @model Lincoln.Admin.Web.Models.ExaminationNameViewModel
 <style>
 
+
     .bootstrap-datetimepicker-widget .weekend {
         color: red;
     }
@@ -94,26 +95,27 @@
 </div>
 <script>
 
-    $(document).on("focus", "#StartDate,#EndDate", function () {
+    $(document).on("focus", "#StartDate", function () {
         $('#StartDate').datetimepicker({
             format: 'DD/MM/YYYY',
-            minDate: moment()
+            minDate: new Date(),
+            daysOfWeekDisabled: [6]
         });
-        debugger;
+
+    });
+    $(document).on("focus", "#EndDate", function () {
         $('#EndDate').datetimepicker({
             format: 'DD/MM/YYYY',
-            minDate:new Date(convertInputtoDate()).format('MM/dd/YYYY')
+            minDate: convertInputtoDate(),
+            daysOfWeekDisabled: [6]
         });
     });
-
     function convertInputtoDate() {
-        debugger;
         var input = $("#StartDate").datetimepicker().val();
-       //var gft =  $("#StartDate").datetimepicker.formatDate('MM/dd/YYYY', input);
-        //var gft = input.Date('MM/dd/YYYY');
         var date = input.split('/');
-        var selectdate = new Date(date[2], date[1], date[0]);
-
+        var formatedDate = date[1] + "/" + date[0] + "/" + date[2];
+        var selectdate = new Date(formatedDate);
+        selectdate.setDate(selectdate.getDate() + 15);
         return selectdate;
     }
 
