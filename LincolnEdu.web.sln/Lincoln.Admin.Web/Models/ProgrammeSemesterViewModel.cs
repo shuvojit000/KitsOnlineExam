@@ -13,6 +13,7 @@ namespace Lincoln.Admin.Web.Models
         public int? DepartmentID { get; set; }
         public int? ProgrammeID { get; set; }
         public int? CountryID { get; set; }
+        public string CountryName { get; set; }
         public string AcademicName { get; set; }
         public string DepartmentName { get; set; }
         public string ProgrammeName { get; set; }
