@@ -9,6 +9,7 @@ namespace Lincoln.OnlineExam.Response
     public class ProgrammeResponseDTO
     {
         public int ProgrammeID { get; set; }
+        public int? ProgramVersioningID { get; set; }
         public int? AcademicID { get; set; }
         public int? DepartmentID { get; set; }
         public string AcademicName { get; set; }
@@ -18,6 +19,7 @@ namespace Lincoln.OnlineExam.Response
         public string ApprovalNo { get; set; }
         public string Credit { get; set; }
         public string Status { get; set; }
+        public string Version { get; set; }
         public int? CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }
         public int ModifiedBy { get; set; }

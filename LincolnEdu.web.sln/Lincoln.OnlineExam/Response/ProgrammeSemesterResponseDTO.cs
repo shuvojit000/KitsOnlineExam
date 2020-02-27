@@ -9,6 +9,7 @@ namespace Lincoln.OnlineExam.Response
     public class ProgrammeSemesterResponseDTO
     {
         public int? ProgrammeSemesterID { get; set; }
+        public int? ProgrammeVersioningID { get; set; }
         public int? AcademicID { get; set; }
         public int? DepartmentID { get; set; }
         public int? ProgrammeID { get; set; }
@@ -19,6 +20,7 @@ namespace Lincoln.OnlineExam.Response
         public string ProgrammeCode { get; set; }
         public int? ProgrammeYear { get; set; }
         public int? ProgrammeSemester { get; set; }
+        public string Version { get; set; }
         public string SemesterType { get; set; }
         public string Status { get; set; }
         public int? CreatedBy { get; set; }
