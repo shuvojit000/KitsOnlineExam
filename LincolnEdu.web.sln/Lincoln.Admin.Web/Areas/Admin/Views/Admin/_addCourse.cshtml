@@ -15,7 +15,7 @@
                     </div>
                     <div class="form-group col-lg-6">
                         <label><b>Programme<span class="requiredstar">*</span></b> </label>
-                        @Html.DropDownListFor(a => a.ProgrammeID, Model.ProgrammeList, "Select Programme", new { @class = "custom-select block" })
+                        @Html.DropDownListFor(a => a.ProgramVersioningID, Model.ProgrammeList, "Select Programme", new { @class = "custom-select block" })
 
                         <span id="ProgrammeIDVal" style="color:red;display:none" class="valClass">Please select Programme.</span>
                     </div>
@@ -126,10 +126,10 @@
 
     //Dropdownlist Selectedchange event
     $(document).on("change", "#DepartmentID", function () {
-        $("#ProgrammeID").empty();
+        $("#ProgramVersioningID").empty();
         $.ajax({
             type: 'POST',
-            url: '@Url.Action("GetProgDrop","Admin",new { area="Admin"})', // we are calling json method
+            url: '@Url.Action("GetProgDropWithVersion","Admin",new { area="Admin"})', // we are calling json method
 
             dataType: 'json',
 
@@ -137,9 +137,9 @@
             success: function (res) {
                 // states contains the JSON formatted list
                 // of states passed from the controller
-                $("#ProgrammeID").append('<option value="">Select Programme</option>');
+                $("#ProgramVersioningID").append('<option value="">Select Programme</option>');
                 $.each(res, function (i, state) {
-                    $("#ProgrammeID").append('<option value="' + state.Value + '">' +
+                    $("#ProgramVersioningID").append('<option value="' + state.Value + '">' +
                          state.Text + '</option>');
                     // here we are adding option for States
 
@@ -151,7 +151,7 @@
         });
         return false;
     })
-    $(document).on("change", "#ProgrammeID", function () {
+    $(document).on("change", "#ProgramVersioningID", function () {
         $("#CountryID").empty();
         $.ajax({
             type: 'POST',
@@ -159,7 +159,7 @@
 
             dataType: 'json',
 
-            data: { programmeID: $("#ProgrammeID").val() },
+            data: { programmeVersionID: $("#ProgramVersioningID").val() },
             success: function (res) {
                 if (res != null) {
 
@@ -190,7 +190,7 @@
 
             dataType: 'json',
 
-            data: { programmeID: $("#ProgrammeID").val(), countryID: $('#CountryID').val() },
+            data: { programmeVersionID: $("#ProgramVersioningID").val(), countryID: $('#CountryID').val() },
             success: function (res) {
                 if (res != null) {
 
@@ -223,7 +223,7 @@
 
             dataType: 'json',
 
-            data: { programmeID: $("#ProgrammeID").val(), countryID: $('#CountryID').val(), programYear: $('#ProgrammeYear').val() },
+            data: { programmeVersionID: $("#ProgramVersioningID").val(), countryID: $('#CountryID').val(), programYear: $('#ProgrammeYear').val() },
             success: function (res) {
                 if (res != null) {
 
@@ -254,7 +254,7 @@
             url: '@Url.Action("ChangeProgramSemSelection", "Admin",new { area="Admin"})', // we are calling json method
             dataType: 'json',
             data: {
-                programmeID: $("#ProgrammeID").val(), countryID: $('#CountryID').val(), programYear: $('#ProgrammeYear').val(),
+                programmeVersionID: $("#ProgramVersioningID").val(), countryID: $('#CountryID').val(), programYear: $('#ProgrammeYear').val(),
                 progSemId: $("#ProgrammeSemesterID").val()
             },
             success: function (res) {
