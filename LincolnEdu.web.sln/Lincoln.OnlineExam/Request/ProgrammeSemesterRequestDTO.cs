@@ -10,6 +10,7 @@ namespace Lincoln.OnlineExam.Request
     {
         public int? ProgrammeSemesterID { get; set; }
         public int? DepartmentID { get; set; }
+        public int? ProgramVersioningID { get; set; }
         public int? ProgrammeID { get; set; }
         public int? CountryID { get; set; }
         public int? ProgrammeYear { get; set; }

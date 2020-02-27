@@ -9,12 +9,13 @@ namespace Lincoln.OnlineExam.Request
     public class CourseRequestDTO
     {
         public int? CourseID { get; set; }
+        public int? ProgramVersioningID { get; set; }
         public int? AcademicID { get; set; }
         public int? DepartmentID { get; set; }
         public int? ProgrammeID { get; set; }
         public int? CountryID { get; set; }
         public int? ProgrammeYear { get; set; }
-        public int? ProgrammeSemester { get; set; }
+        public int? ProgrammeSemesterID { get; set; }
         public int? CountryId { get; set; }
         public string CourseType { get; set; }
         public string SemesterType { get; set; }
