@@ -150,6 +150,13 @@ namespace Lincoln.OnlineExam
                 return unitOfWork.CommonRepository.GetAllProgramme();
             }
         }
+        public List<ProgrammeResponseDTO> GetAllProgrammeWithVersion()
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.GetAllProgrammeWithVersion();
+            }
+        }
         public ProgrammeResponseDTO SelectProgramme(ProgrammeRequestDTO recordAttributer)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
