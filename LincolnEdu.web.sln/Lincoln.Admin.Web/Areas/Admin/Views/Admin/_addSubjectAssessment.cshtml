@@ -36,7 +36,7 @@
                     <div class="form-group col-lg-6">
                         <label><b>Academic Year<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.AcademicYearCode, Model.AcademicYearList, "Select Academic Year", new { @class = "custom-select block" })
+                            @Html.DropDownListFor(a => a.AcademicYearCode, Model.AcademicYearList, "Select Programme Year", new { @class = "custom-select block" })
                             <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
                         </div>
                     </div>
@@ -172,14 +172,14 @@
             data: { programmeVersionID: $("#ProgrammeVersioningID").val(), countryID: $('#CountryCode').val() },
             success: function (res) {
                 if (res != null) {
-                    $("#AcademicYearCode").append('<option value="">Select Academic Year</option>');
+                    $("#AcademicYearCode").append('<option value="">Select Programme Year</option>');
                     $.each(res.ProgYearList, function (i, state) {
                         $("#AcademicYearCode").append('<option value="' + state.Value + '">' +
                              state.Text + '</option>');
                     });
                 }
                 else {
-                    $("#AcademicYearCode").append('<option value="">Select Academic Year</option>');
+                    $("#AcademicYearCode").append('<option value="">Select Programme Year</option>');
 
                 }
             },
