@@ -1111,8 +1111,6 @@ namespace Lincoln.OnlineExam.Repository
         {
             SqlParameter AssessmentID = new SqlParameter("@AssessmentID", SqlDbType.Int);
             AssessmentID.Value = recordAttributer.AssessmentID;
-            SqlParameter programCode = new SqlParameter("@ProgrammeID", SqlDbType.Int);
-            programCode.Value = recordAttributer.ProgrammeID;
             SqlParameter countryID = new SqlParameter("@CountryID", SqlDbType.Int);
             countryID.Value = recordAttributer.CountryID;
             SqlParameter FacultyCode = new SqlParameter("@DepartmentID", SqlDbType.Int);
@@ -1120,7 +1118,7 @@ namespace Lincoln.OnlineExam.Repository
             SqlParameter AssessmentName = new SqlParameter("@AssessmentName", SqlDbType.VarChar);
             AssessmentName.Value = recordAttributer.AssessmentName;
             SqlParameter SyllabusVersion = new SqlParameter("@ProgrammeVersioningID", SqlDbType.Int);
-            SyllabusVersion.Value = recordAttributer.SyllabusVersion;
+            SyllabusVersion.Value = recordAttributer.ProgrammeVersioningID;
             SqlParameter AssessmentType = new SqlParameter("@AssessmentType", SqlDbType.VarChar);
             AssessmentType.Value = recordAttributer.AssessmentType;
             SqlParameter active = new SqlParameter("@Active", SqlDbType.Char);
@@ -1132,7 +1130,7 @@ namespace Lincoln.OnlineExam.Repository
             SqlParameter status = new SqlParameter("@Status", SqlDbType.Int);
             status.Value = 0;
             status.Direction = ParameterDirection.InputOutput;
-            SqlServerHelper.ExecuteNonQueryProc("[ln.Examination].[upSaveAssessment]", AssessmentID, programCode, countryID, FacultyCode, SyllabusVersion,
+            SqlServerHelper.ExecuteNonQueryProc("[ln.Examination].[upSaveAssessment]", AssessmentID, countryID, FacultyCode, SyllabusVersion,
                 AssessmentName, AssessmentType, active, createdBy, type, status);
 
             return Convert.ToInt32(status.Value);
@@ -1146,17 +1144,13 @@ namespace Lincoln.OnlineExam.Repository
             AssessmentID.Value = DBNull.Value;
             SqlParameter FacultyCode = new SqlParameter("@DepartmentID", SqlDbType.Int);
             FacultyCode.Value = DBNull.Value;
-            SqlParameter programCode = new SqlParameter("@ProgrammeID", SqlDbType.Int);
-            programCode.Value = DBNull.Value;
             SqlParameter AssessmentName = new SqlParameter("@AssessmentName", SqlDbType.VarChar);
             AssessmentName.Value = DBNull.Value;
-            //SqlParameter AssessmentType = new SqlParameter("@AssessmentType", SqlDbType.VarChar);
-            //AssessmentType.Value = DBNull.Value;
             SqlParameter SyllabusVersion = new SqlParameter("@ProgrammeVersioningID", SqlDbType.Int);
             SyllabusVersion.Value = DBNull.Value;
             SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
             type.Value = "GET";
-            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Examination].[upGetAssessment]", AssessmentID, FacultyCode, programCode, SyllabusVersion, AssessmentName, type))
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Examination].[upGetAssessment]", AssessmentID, FacultyCode, SyllabusVersion, AssessmentName, type))
             {
                 if (dr != null && dr.HasRows)
                 {
@@ -1170,11 +1164,11 @@ namespace Lincoln.OnlineExam.Repository
                             DepartmentID = Convert.ToInt32(dr["DepartmentID"]),
                             ProgramName = object.ReferenceEquals(dr["ProgrammeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeName"]),
                             DepartmentName = object.ReferenceEquals(dr["DepartmentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["DepartmentName"]),
-                            SyllabusVersionCode = Convert.ToInt32(dr["ProgrammeVersioningID"]),
-                            SyllabusVersionName = object.ReferenceEquals(dr["Version"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Version"]),
+                            ProgrammeVersioningID = Convert.ToInt32(dr["ProgrammeVersioningID"]),                           
                             AssessmentName = object.ReferenceEquals(dr["AssessmentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AssessmentName"]),
                             AssessmentType = object.ReferenceEquals(dr["AssessmentType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AssessmentType"]),
                             Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
+                            Version = object.ReferenceEquals(dr["Version"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Version"]),
                             CreatedBy = Convert.ToInt32(dr["CreatedBy"])
                         });
 
@@ -1193,19 +1187,15 @@ namespace Lincoln.OnlineExam.Repository
             AssessmentID.Value = recordAttributer.AssessmentID;
             SqlParameter FacultyCode = new SqlParameter("@DepartmentID", SqlDbType.Int);
             FacultyCode.Value = DBNull.Value;
-            SqlParameter programCode = new SqlParameter("@ProgrammeID", SqlDbType.Int);
-            programCode.Value = DBNull.Value;
             SqlParameter AssessmentName = new SqlParameter("@AssessmentName", SqlDbType.VarChar);
             AssessmentName.Value = DBNull.Value;
-            //SqlParameter AssessmentType = new SqlParameter("@AssessmentType", SqlDbType.VarChar);
-            //AssessmentType.Value = DBNull.Value;
             SqlParameter SyllabusVersion = new SqlParameter("@ProgrammeVersioningID", SqlDbType.Int);
             SyllabusVersion.Value = DBNull.Value;
 
 
             SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
             type.Value = "GET";
-            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Examination].[upGetAssessment]", AssessmentID, programCode, FacultyCode, SyllabusVersion, AssessmentName, type))
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Examination].[upGetAssessment]", AssessmentID, FacultyCode, SyllabusVersion, AssessmentName, type))
             {
                 if (dr != null && dr.HasRows)
                 {
@@ -1217,11 +1207,11 @@ namespace Lincoln.OnlineExam.Repository
                         item.CountryID = Convert.ToInt32(dr["CountryID"]);
                         item.ProgramName = object.ReferenceEquals(dr["ProgrammeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeName"]);
                         item.DepartmentName = object.ReferenceEquals(dr["DepartmentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["DepartmentName"]);
-                        item.SyllabusVersionCode = Convert.ToInt32(dr["ProgrammeVersioningID"]);
-                        item.SyllabusVersionName = object.ReferenceEquals(dr["Version"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Version"]);
+                        item.ProgrammeVersioningID = Convert.ToInt32(dr["ProgrammeVersioningID"]);
                         item.AssessmentName = object.ReferenceEquals(dr["AssessmentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AssessmentName"]);
                         item.AssessmentType = object.ReferenceEquals(dr["AssessmentType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AssessmentType"]);
                         item.Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]);
+                        item.Version = object.ReferenceEquals(dr["Version"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Version"]);
                         item.CreatedBy = Convert.ToInt32(dr["CreatedBy"]);
 
 
@@ -1395,17 +1385,16 @@ namespace Lincoln.OnlineExam.Repository
             SqlParameter SubjectAssessmentID = new SqlParameter("@AssessmentConfigurationID", SqlDbType.Int);
             SubjectAssessmentID.Value = recordAttributer.SubjectAssessmentID;
 
-            SqlParameter ProgramCode = new SqlParameter("@ProgrammeID", SqlDbType.Int);
-            ProgramCode.Value = recordAttributer.ProgramCode;
+           
             SqlParameter FacultyCode = new SqlParameter("@DepartmentID", SqlDbType.Int);
             FacultyCode.Value = recordAttributer.FacultyCode;
             SqlParameter SyllabusVersionCode = new SqlParameter("@ProgrammeVersioningID", SqlDbType.Int);
-            SyllabusVersionCode.Value = recordAttributer.SyllabusVersionCode;
+            SyllabusVersionCode.Value = recordAttributer.ProgrammeVersioningID;
             SqlParameter CountryCode = new SqlParameter("@CountryID", SqlDbType.Int);
             CountryCode.Value = recordAttributer.CountryCode;
             SqlParameter AcademicYearCode = new SqlParameter("@ProgrammeYear", SqlDbType.Int);
             AcademicYearCode.Value = recordAttributer.AcademicYearCode;
-            SqlParameter SemisterCode = new SqlParameter("@ProgrammeSemester", SqlDbType.Int);
+            SqlParameter SemisterCode = new SqlParameter("@ProgrammeSemesterID", SqlDbType.Int);
             SemisterCode.Value = recordAttributer.SemisterCode;
             SqlParameter CourseCode = new SqlParameter("@CourseID", SqlDbType.Int);
             CourseCode.Value = recordAttributer.CourseCode;
@@ -1424,7 +1413,7 @@ namespace Lincoln.OnlineExam.Repository
             status.Value = 0;
             status.Direction = ParameterDirection.InputOutput;
 
-            SqlServerHelper.ExecuteNonQueryProc("[ln.Examination].[upSaveAssessmentConfiguration]", SubjectAssessmentID, ProgramCode, FacultyCode, SyllabusVersionCode,
+            SqlServerHelper.ExecuteNonQueryProc("[ln.Examination].[upSaveAssessmentConfiguration]", SubjectAssessmentID, FacultyCode, SyllabusVersionCode,
                 CountryCode, AcademicYearCode, SemisterCode, CourseCode, AssessmentXML, active, createdBy, type, status);
 
             return Convert.ToInt32(status.Value);
@@ -1437,17 +1426,16 @@ namespace Lincoln.OnlineExam.Repository
             SqlParameter SubjectAssessmentID = new SqlParameter("@AssessmentConfigurationID", SqlDbType.Int);
             SubjectAssessmentID.Value = DBNull.Value;
 
-            SqlParameter ProgramCode = new SqlParameter("@ProgrammeID", SqlDbType.Int);
+            SqlParameter ProgramCode = new SqlParameter("@ProgrammeVersioningID", SqlDbType.Int);
             ProgramCode.Value = DBNull.Value;
             SqlParameter FacultyCode = new SqlParameter("@DepartmentID", SqlDbType.Int);
             FacultyCode.Value = DBNull.Value;
-            //SqlParameter AssessmentName = new SqlParameter("@AssessmentName", SqlDbType.VarChar);
-            //AssessmentName.Value = DBNull.Value;
+           
             SqlParameter CountryCode = new SqlParameter("@CountryID", SqlDbType.Int);
             CountryCode.Value = DBNull.Value;
             SqlParameter AcademicYearCode = new SqlParameter("@ProgrammeYear", SqlDbType.Int);
             AcademicYearCode.Value = DBNull.Value;
-            SqlParameter SemisterCode = new SqlParameter("@ProgrammeSemester", SqlDbType.Int);
+            SqlParameter SemisterCode = new SqlParameter("@ProgrammeSemesterID", SqlDbType.Int);
             SemisterCode.Value = DBNull.Value;
             SqlParameter CourseCode = new SqlParameter("@CourseID", SqlDbType.Int);
             CourseCode.Value = DBNull.Value;
@@ -1465,16 +1453,16 @@ namespace Lincoln.OnlineExam.Repository
                             SubjectAssessmentID = Convert.ToInt32(dr["AssessmentConfigurationID"]),
                             ProgramCode = Convert.ToInt32(dr["ProgrammeID"]),
                             FacultyCode = Convert.ToInt32(dr["DepartmentID"]),
-                            SyllabusVersionCode = Convert.ToInt32(dr["ProgrammeVersioningID"]),
+                            ProgrammeVersioningID = Convert.ToInt32(dr["ProgrammeVersioningID"]),
                             ProgramName = object.ReferenceEquals(dr["ProgrammeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeName"]),
                             FacultyName = object.ReferenceEquals(dr["DepartmentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["DepartmentName"]),
-                            SyllabusVersionName = object.ReferenceEquals(dr["Version"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Version"]),
+                            Version = object.ReferenceEquals(dr["Version"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Version"]),
                             YearName = object.ReferenceEquals(dr["ProgrammeYear"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeYear"]),
                             SemisterName = object.ReferenceEquals(dr["ProgrammeSemester"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeSemester"]),
                             CountryCode = Convert.ToInt32(dr["CountryID"]),
                             AcademicYearCode = Convert.ToInt32(dr["ProgrammeYear"]),
-                            SemisterCode = Convert.ToInt32(dr["ProgrammeSemester"]),
-                            CourseCode = Convert.ToInt32(dr["CourseID"]),
+                            SemisterCode = Convert.ToInt32(dr["ProgrammeSemesterID"]),
+                            CourseID = Convert.ToInt32(dr["CourseID"]),
                             Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
                             CreatedBy = Convert.ToInt32(dr["CreatedBy"]),
                         });
@@ -1490,7 +1478,7 @@ namespace Lincoln.OnlineExam.Repository
         {
             var item = new SubjectAssessmentResponseDTO();
             SqlParameter AssessmentConfigurationDetailsID = new SqlParameter("@AssessmentConfigurationDetailsID", SqlDbType.Int);
-            AssessmentConfigurationDetailsID.Value = DBNull.Value; //recordAttributer.SubAssessmentDetails.ElementAt(0).AssessmentConfigurationDetailsID;
+            AssessmentConfigurationDetailsID.Value = DBNull.Value; 
             SqlParameter SubjectAssessmentID = new SqlParameter("@AssessmentConfigurationID", SqlDbType.Int);
             SubjectAssessmentID.Value = recordAttributer.SubjectAssessmentID;
             SqlParameter AssessmentName = new SqlParameter("@AssessmentName", SqlDbType.VarChar);
@@ -1515,7 +1503,6 @@ namespace Lincoln.OnlineExam.Repository
                         item.TabulalConfigurationDetails.FullMarks = Convert.ToDecimal(dr["FullMarks"]);
                         item.TabulalConfigurationDetails.AssessmentPercentage = Convert.ToDecimal(dr["AssessmentPercentage"]);
                         item.TabulalConfigurationDetails.OpenClose = Convert.ToInt32(dr["OpenClose"]);
-                        //item.CreatedBy = Convert.ToInt32(dr["CreatedBy"]);
                         item.SubAssessmentDetails.Add(item.TabulalConfigurationDetails);
                     }
                 }
