@@ -13,8 +13,8 @@ namespace Lincoln.OnlineExam.Request
         public string ProgramName { get; set; }
         public int? FacultyCode { get; set; }
         public string FacultyName { get; set; }
-        public int? SyllabusVersionCode { get; set; }
-        public string SyllabusVersionName { get; set; }
+        public int? ProgrammeVersioningID { get; set; }
+        public string Version { get; set; }
         public int? CountryCode { get; set; }
         public string CountryName { get; set; }
         public int? AcademicYearCode { get; set; }
