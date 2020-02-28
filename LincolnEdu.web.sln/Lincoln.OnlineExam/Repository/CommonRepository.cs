@@ -1230,17 +1230,15 @@ namespace Lincoln.OnlineExam.Repository
         {
             SqlParameter ExaminationSectionID = new SqlParameter("@ExaminationSectionID", SqlDbType.Int);
             ExaminationSectionID.Value = recordAttributer.ExaminationSectionID;
-            SqlParameter ProgramCode = new SqlParameter("@ProgrammeID", SqlDbType.Int);
-            ProgramCode.Value = recordAttributer.ProgramCode;
+            SqlParameter ProgramCode = new SqlParameter("@ProgrammeVersioningID", SqlDbType.Int);
+            ProgramCode.Value = recordAttributer.ProgrammeVersioningID;
             SqlParameter FacultyCode = new SqlParameter("@DepartmentID", SqlDbType.Int);
             FacultyCode.Value = recordAttributer.FacultyCode;
-            SqlParameter SyllabusVersionCode = new SqlParameter("@ProgrammeVersioningID", SqlDbType.Int);
-            SyllabusVersionCode.Value = recordAttributer.SyllabusVersionCode;
             SqlParameter CountryCode = new SqlParameter("@CountryID", SqlDbType.Int);
             CountryCode.Value = recordAttributer.CountryCode;
             SqlParameter AcademicYearCode = new SqlParameter("@ProgrammeYear", SqlDbType.Int);
             AcademicYearCode.Value = recordAttributer.AcademicYearCode;
-            SqlParameter SemisterCode = new SqlParameter("@ProgrammeSemester", SqlDbType.Int);
+            SqlParameter SemisterCode = new SqlParameter("@ProgrammeSemesterID", SqlDbType.Int);
             SemisterCode.Value = recordAttributer.SemisterCode;
            
             SqlParameter CourseCode = new SqlParameter("@CourseID", SqlDbType.Int);
@@ -1259,7 +1257,7 @@ namespace Lincoln.OnlineExam.Repository
             status.Value = 0;
             status.Direction = ParameterDirection.InputOutput;
 
-            SqlServerHelper.ExecuteNonQueryProc("[ln.Examination].[upSaveExaminationSection]", ExaminationSectionID, ProgramCode, FacultyCode, SyllabusVersionCode,
+            SqlServerHelper.ExecuteNonQueryProc("[ln.Examination].[upSaveExaminationSection]", ExaminationSectionID, ProgramCode, FacultyCode,
                 CountryCode, AcademicYearCode, SemisterCode,  CourseCode, SectionName,questionType, active, createdBy, type, status);
 
             return Convert.ToInt32(status.Value);
@@ -1271,17 +1269,15 @@ namespace Lincoln.OnlineExam.Repository
 
             SqlParameter ExaminationSectionID = new SqlParameter("@ExaminationSectionID", SqlDbType.Int);
             ExaminationSectionID.Value = DBNull.Value;
-            SqlParameter ProgramCode = new SqlParameter("@ProgrammeID", SqlDbType.Int);
+            SqlParameter ProgramCode = new SqlParameter("@ProgrammeVersioningID", SqlDbType.Int);
             ProgramCode.Value = DBNull.Value;
             SqlParameter FacultyCode = new SqlParameter("@DepartmentID", SqlDbType.Int);
             FacultyCode.Value = DBNull.Value;
-            //SqlParameter SyllabusVersionCode = new SqlParameter("@ProgrammeVersioningID", SqlDbType.Int);
-            //SyllabusVersionCode.Value = DBNull.Value;
             SqlParameter CountryCode = new SqlParameter("@CountryID", SqlDbType.Int);
             CountryCode.Value = DBNull.Value;
             SqlParameter AcademicYearCode = new SqlParameter("@ProgrammeYear", SqlDbType.Int);
             AcademicYearCode.Value = DBNull.Value;
-            SqlParameter SemisterCode = new SqlParameter("@ProgrammeSemester", SqlDbType.Int);
+            SqlParameter SemisterCode = new SqlParameter("@ProgrammeSemesterID", SqlDbType.Int);
             SemisterCode.Value = DBNull.Value;
             SqlParameter CourseCode = new SqlParameter("@CourseID", SqlDbType.Int);
             CourseCode.Value = DBNull.Value;
@@ -1298,17 +1294,17 @@ namespace Lincoln.OnlineExam.Repository
                             ExaminationSectionID = Convert.ToInt32(dr["ExaminationSectionID"]),
                             ProgramCode = Convert.ToInt32(dr["ProgrammeID"]),
                             FacultyCode = Convert.ToInt32(dr["DepartmentID"]),
-                            SyllabusVersionCode = Convert.ToInt32(dr["ProgrammeVersioningID"]),
+                            ProgrammeVersioningID = Convert.ToInt32(dr["ProgrammeVersioningID"]),
                             CountryCode = Convert.ToInt32(dr["CountryID"]),
                             CourseName = object.ReferenceEquals(dr["CourseName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseName"]),
                             ProgramName = object.ReferenceEquals(dr["ProgrammeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeName"]),
                             FacultyName = object.ReferenceEquals(dr["DepartmentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["DepartmentName"]),
-                            SyllabusVersionName = object.ReferenceEquals(dr["Version"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Version"]),
+                            Version = object.ReferenceEquals(dr["Version"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Version"]),
                             //CountryName = object.ReferenceEquals(dr["CountryID"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseCode"]),
                             SectionName = object.ReferenceEquals(dr["SectionName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["SectionName"]),
                             AcademicYearCode = Convert.ToInt32(dr["ProgrammeYear"]),
-                            SemisterCode = Convert.ToInt32(dr["ProgrammeSemester"]),
-                            //SemisterName= object.ReferenceEquals(dr["SemesterType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["SemesterType"]),
+                            SemisterCode = Convert.ToInt32(dr["ProgrammeSemesterID"]),
+                            SemisterName= object.ReferenceEquals(dr["ProgrammeSemester"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeSemester"]),
                             CourseID = Convert.ToInt32(dr["CourseID"]),
                             QuestionType = object.ReferenceEquals(dr["QuestionType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["QuestionType"]),                          
                             Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
@@ -1329,17 +1325,15 @@ namespace Lincoln.OnlineExam.Repository
 
             SqlParameter ExaminationSectionID = new SqlParameter("@ExaminationSectionID", SqlDbType.Int);
             ExaminationSectionID.Value = recordAttributer.ExaminationSectionID;
-            SqlParameter ProgramCode = new SqlParameter("@ProgrammeID", SqlDbType.Int);
-            ProgramCode.Value = recordAttributer.ProgramCode;
+            SqlParameter ProgramCode = new SqlParameter("@ProgrammeVersioningID", SqlDbType.Int);
+            ProgramCode.Value = recordAttributer.ProgrammeVersioningID;
             SqlParameter FacultyCode = new SqlParameter("@DepartmentID", SqlDbType.Int);
             FacultyCode.Value = recordAttributer.FacultyCode;
-            //SqlParameter SyllabusVersionCode = new SqlParameter("@ProgrammeVersioningID", SqlDbType.Int);
-            //SyllabusVersionCode.Value = DBNull.Value;
             SqlParameter CountryCode = new SqlParameter("@CountryID", SqlDbType.Int);
             CountryCode.Value = recordAttributer.CountryCode;
             SqlParameter AcademicYearCode = new SqlParameter("@ProgrammeYear", SqlDbType.Int);
             AcademicYearCode.Value = recordAttributer.AcademicYearCode;
-            SqlParameter SemisterCode = new SqlParameter("@ProgrammeSemester", SqlDbType.Int);
+            SqlParameter SemisterCode = new SqlParameter("@ProgrammeSemesterID", SqlDbType.Int);
             SemisterCode.Value = recordAttributer.SemisterCode;
             SqlParameter CourseCode = new SqlParameter("@CourseID", SqlDbType.Int);
             CourseCode.Value = recordAttributer.CourseCode;
@@ -1356,16 +1350,16 @@ namespace Lincoln.OnlineExam.Repository
                         item.ExaminationSectionID = Convert.ToInt32(dr["ExaminationSectionID"]);
                         item.ProgramCode = Convert.ToInt32(dr["ProgrammeID"]);
                         item.FacultyCode = Convert.ToInt32(dr["DepartmentID"]);
-                        item.SyllabusVersionCode = Convert.ToInt32(dr["ProgrammeVersioningID"]);
+                        item.ProgrammeVersioningID = Convert.ToInt32(dr["ProgrammeVersioningID"]);
                         item.CountryCode = Convert.ToInt32(dr["CountryID"]);
                         item.AcademicYearCode = Convert.ToInt32(dr["ProgrammeYear"]);
-                        item.SemisterCode = Convert.ToInt32(dr["ProgrammeSemester"]);
+                        item.SemisterCode = Convert.ToInt32(dr["ProgrammeSemesterID"]);
                         item.SectionName = object.ReferenceEquals(dr["SectionName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["SectionName"]);
-                        item.SyllabusVersionName = object.ReferenceEquals(dr["Version"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Version"]);
+                        item.Version = object.ReferenceEquals(dr["Version"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Version"]);
                         item.ProgramName = object.ReferenceEquals(dr["ProgrammeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeName"]);
                         item.FacultyName = object.ReferenceEquals(dr["DepartmentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["DepartmentName"]);
                         item.CourseName = object.ReferenceEquals(dr["CourseName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseName"]);
-                        item.SemisterName = object.ReferenceEquals(dr["CourseName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseName"]);
+                        item.SemisterName = object.ReferenceEquals(dr["ProgrammeSemester"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseName"]);
                         item.CourseID = Convert.ToInt32(dr["CourseID"]);
                         item.Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]);
                         item.QuestionType= object.ReferenceEquals(dr["QuestionType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["QuestionType"]);
