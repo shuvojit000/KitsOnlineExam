@@ -12,7 +12,7 @@ namespace Lincoln.OnlineExam.Response
         public int? ProgrammeID { get; set; }
         public int? DepartmentID { get; set; }
         public int? CountryID { get; set; }
-        public int SyllabusVersionCode { get; set; }
+        public int? ProgrammeVersioningID { get; set; }
         public string ProgramName { get; set; }
         public string DepartmentName { get; set; }
         public string SyllabusVersionName { get; set; }
@@ -21,6 +21,7 @@ namespace Lincoln.OnlineExam.Response
         public string Active { get; set; }
         public int CreatedBy { get; set; }
         public string Status { get; set; }
+        public string Version { get; set; }
         public DateTime? CreatedOn { get; set; }
         public int? ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
