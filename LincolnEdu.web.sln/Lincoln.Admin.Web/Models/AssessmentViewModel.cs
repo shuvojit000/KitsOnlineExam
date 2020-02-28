@@ -11,11 +11,11 @@ namespace Lincoln.Admin.Web.Models
         public int AssessmentID { get; set; }
         public int? ProgrammeID { get; set; }
         public int? DepartmentID { get; set; }
-        public int SyllabusVersion { get; set; }
-
+        public int? ProgramVersioningID { get; set; }
+        public string Version { get; set; }
         public string ProgramName { get; set; }
         public string DepartmentName { get; set; }
-        public string SyllabusVersionName { get; set; }
+       
         public string AssessmentName { get; set; }
         public string AssessmentType { get; set; }
         public string Active { get; set; }
