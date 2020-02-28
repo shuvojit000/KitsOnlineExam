@@ -147,7 +147,6 @@
     }
 
     function fnSaveSubjectAssessment(SubjectAssessmentID) {
-        debugger;
         var SubAssessmentDetails = [];
         var i = 0;
         $('#customFields tr').each(function () {
@@ -177,12 +176,10 @@
         else if ($('#FacultyCode').val() == '') {
             $('#FacultyCodeVal').css({ 'display': 'block' });
         }
-        else if ($('#ProgramCode').val() == '') {
+        else if ($('#ProgrammeVersioningID').val() == '') {
             $('#ProgramCodeVal').css({ 'display': 'block' });
         }
-        else if ($('#SyllabusVersionCode').val() == '') {
-            $('#SyllabusVersionCodeVal').css({ 'display': 'block' });
-        }
+       
         else if ($('#CountryCode').val() == '') {
             $('#CountryCodeVal').css({ 'display': 'block' });
         }
@@ -204,9 +201,8 @@
         else {
             var model = {
                 SubjectAssessmentID: SubjectAssessmentID,
-                ProgramCode: $('#ProgramCode').val(),
+                ProgrammeVersioningID: $('#ProgrammeVersioningID').val(),
                 FacultyCode: $('#FacultyCode').val(),
-                SyllabusVersionCode: $('#SyllabusVersionCode').val(),
                 SemisterCode: $('#SemisterCode').val(),
                 CountryCode: $('#CountryCode').val(),
                 CourseCode: $('#CourseCode').val(),

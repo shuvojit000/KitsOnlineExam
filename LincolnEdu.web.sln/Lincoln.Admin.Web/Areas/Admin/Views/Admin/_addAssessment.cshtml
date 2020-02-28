@@ -19,17 +19,11 @@
                     <div class="form-group col-lg-6">
                         <label><b>Program <span class="requiredstar">*</span> </b></label>
                         <div class="position-relative ">
-                            @Html.DropDownListFor(a => a.ProgrammeID, Model.ProgramList, "Select Program ", new { @class = "custom-select block" })
+                            @Html.DropDownListFor(a => a.ProgramVersioningID, Model.ProgramList, "Select Program ", new { @class = "custom-select block" })
                             <span id="ProgramCodeVal" style="color:red;display:none" class="valClass">Please select programme.</span>
                         </div>
                     </div>
-                    <div class="form-group col-lg-6">
-                        <label><b>Syllabus Version<span class="requiredstar">*</span></b></label>
-                        <div class="position-relative">
-                            @Html.DropDownListFor(a => a.SyllabusVersion, Model.SyllabusVersionList, "Select Syllabus Version", new { @class = "custom-select block" })
-                            <span id="SyllabusVersionVal" style="color:red;display:none" class="valClass">Please select Syllabus Version.</span>
-                        </div>
-                    </div>
+                    
                     <div class="form-group col-lg-6">
                         <label><b>Country <span class="requiredstar">*</span></b> </label>
                         @Html.DropDownListFor(a => a.CountryID, Model.CountryList, "Select Country", new { @class = "custom-select block" })
@@ -71,16 +65,16 @@
 <script>
    
     $(document).on("change", "#DepartmentID", function () {
-        $("#ProgrammeID").empty();
+        $("#ProgramVersioningID").empty();
             $.ajax({
                 type: 'POST',
-                url: '@Url.Action("GetProgDrop","Admin",new { area="Admin"})',
+                url: '@Url.Action("GetProgDropWithVersion","Admin",new { area="Admin"})',
                 dataType: 'json',
                 data: { departmentID: $("#DepartmentID").val() },
                 success: function (res) {
-                    $("#ProgrammeID").append('<option value="">Select Programme</option>');
+                    $("#ProgramVersioningID").append('<option value="">Select Programme</option>');
                     $.each(res, function (i, state) {
-                        $("#ProgrammeID").append('<option value="' + state.Value + '">' +
+                        $("#ProgramVersioningID").append('<option value="' + state.Value + '">' +
                             state.Text + '</option>');
                     });
                 },

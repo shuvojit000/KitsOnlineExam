@@ -155,12 +155,10 @@
         if ($('#DepartmentID').val() == '') {
             $('#FacultyCodeVal').css({ 'display': 'block' });
         }
-        else if ($('#ProgrammeID').val() == '') {
+        else if ($('#ProgramVersioningID').val() == '') {
             $('#ProgramCodeVal').css({ 'display': 'block' });
         }
-        else if ($('#SyllabusVersion').val() == '') {
-            $('#SyllabusVersionVal').css({ 'display': 'block' });
-        }
+        
          else if ($('#CountryID').val() == '') {
             $('#CountryIDVal').css({ 'display': 'block' });
         }
@@ -178,9 +176,8 @@
 
             var model = {
                 AssessmentID: AssessmentID,
-                ProgrammeID: $('#ProgrammeID').val(),
+                ProgramVersioningID: $('#ProgramVersioningID').val(),
                 DepartmentID: $('#DepartmentID').val(),
-                SyllabusVersion: $('#SyllabusVersion').val(),
                 CountryID:$('#CountryID').val(),
                 AssessmentName: $('#AssessmentName').val(),
                 AssessmentType: $('input[name="AssessmentType"]:checked').val(),

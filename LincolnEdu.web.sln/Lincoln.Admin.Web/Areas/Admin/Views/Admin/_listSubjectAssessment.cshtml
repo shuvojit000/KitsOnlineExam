@@ -13,8 +13,7 @@
             <th>SlNo</th>
             <th>Check</th>
             <th>Faculty</th>
-            <th>Program</th>
-            <th>Syllabus Version</th>
+            <th>Program</th>           
             <th>Status</th>
             <th>Action</th>
         </tr>
@@ -32,8 +31,8 @@
                         </center>
                     </td>
                     <td>@item.FacultyName</td>
-                    <td>@item.ProgramName</td>
-                    <td>@item.SyllabusVersionName</td>
+                    <td>@item.ProgramName (@item.Version)</td>
+                  
                     <td>@item.Active</td>
                     <td>
                         <a href="javascript:void(0);" onclick="fnViewSubjectAssessment(@item.SubjectAssessmentID)" title="View"><i class="fa fa-eye"></i></a> &nbsp;

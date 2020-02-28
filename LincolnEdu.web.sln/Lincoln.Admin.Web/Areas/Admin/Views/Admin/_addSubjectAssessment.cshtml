@@ -21,17 +21,11 @@
                     <div class="form-group col-lg-6">
                         <label><b>Programme<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.ProgramCode, Model.ProgramList, "Select Programme", new { @class = "custom-select block" })
+                            @Html.DropDownListFor(a => a.ProgrammeVersioningID, Model.ProgramList, "Select Programme", new { @class = "custom-select block" })
                             <span id="ProgramCodeVal" style="color:red;display:none" class="valClass">Please select Programme.</span>
                         </div>
                     </div>
-                    <div class="form-group col-lg-6">
-                        <label><b>Syllabus Version<span class="requiredstar">*</span> </b></label>
-                        <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.SyllabusVersionCode, Model.SyllabusVersionList, "Select Syllabus Version", new { @class = "custom-select block" })
-                            <span id="SyllabusVersionCodeVal" style="color:red;display:none" class="valClass">Please select Version.</span>
-                        </div>
-                    </div>
+                    
                     <div class="form-group col-lg-6">
                         <label><b>Country<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
@@ -120,16 +114,16 @@
 <script>
 
     $(document).on("change", "#FacultyCode", function () {
-        $("#ProgramCode").empty();
+        $("#ProgrammeVersioningID").empty();
         $.ajax({
             type: 'POST',
-            url: '@Url.Action("GetProgDrop","Admin",new { area="Admin"})',
+            url: '@Url.Action("GetProgDropWithVersion","Admin",new { area="Admin"})',
             dataType: 'json',
             data: { departmentID: $("#FacultyCode").val() },
             success: function (res) {
-                $("#ProgramCode").append('<option value="">Select Programme</option>');
+                $("#ProgrammeVersioningID").append('<option value="">Select Programme</option>');
                 $.each(res, function (i, state) {
-                    $("#ProgramCode").append('<option value="' + state.Value + '">' +
+                    $("#ProgrammeVersioningID").append('<option value="' + state.Value + '">' +
                         state.Text + '</option>');
                 });
             },
@@ -141,31 +135,14 @@
     });
 
 
-    $(document).on("change", "#ProgramCode", function () {
-        $("#SyllabusVersionCode").empty();
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("GetProgrammeVersionDDL","Admin",new { area="Admin"})',
-            dataType: 'json',
-            data: { ProgramVID: $("#ProgramCode").val() },
-            success: function (res) {
-                $("#SyllabusVersionCode").append('<option value="">Select Syllabus Version</option>');
-                $.each(res, function (i, state) {
-                    $("#SyllabusVersionCode").append('<option value="' + state.Value + '">' +
-                        state.Text + '</option>');
-                });
-            },
-            error: function (ex) {
-                alert('Failed to retrieve Version.' + ex);
-            }
-        });
-
+    $(document).on("change", "#ProgrammeVersioningID", function () {
+        
         $("#CountryCode").empty();
         $.ajax({
             type: 'POST',
             url: '@Url.Action("ChangeProgramSelection", "Admin",new { area="Admin"})', // we are calling json method
             dataType: 'json',
-            data: { programmeID: $("#ProgramCode").val() },
+            data: { programmeVersionID: $("#ProgrammeVersioningID").val() },
             success: function (res) {
                 if (res != null) {
                     $("#CountryCode").append('<option value="">Select Country</option>');
@@ -192,7 +169,7 @@
             type: 'POST',
             url: '@Url.Action("ChangeCountrySelection", "Admin",new { area="Admin"})',
             dataType: 'json',
-            data: { programmeID: $("#ProgramCode").val(), countryID: $('#CountryCode').val() },
+            data: { programmeVersionID: $("#ProgrammeVersioningID").val(), countryID: $('#CountryCode').val() },
             success: function (res) {
                 if (res != null) {
                     $("#AcademicYearCode").append('<option value="">Select Academic Year</option>');
@@ -219,7 +196,7 @@
             type: 'POST',
             url: '@Url.Action("ChangeProgramYearSelection", "Admin",new { area="Admin"})',
             dataType: 'json',
-            data: { programmeID: $("#ProgramCode").val(), countryID: $('#CountryCode').val(), programYear: $('#AcademicYearCode').val() },
+            data: { programmeVersionID: $("#ProgrammeVersioningID").val(), countryID: $('#CountryCode').val(), programYear: $('#AcademicYearCode').val() },
             success: function (res) {
                 if (res != null) {
                     $("#SemisterCode").append('<option value="">Select Semester</option>');
@@ -249,7 +226,7 @@
             url: '@Url.Action("GetCourseExam", "Admin",new { area="Admin"})',
             dataType: 'json',
             data: {
-                programmeId: $("#ProgramCode").val(), countryId: $('#CountryCode').val(),
+                programVersioningID: $("#ProgrammeVersioningID").val(), countryId: $('#CountryCode').val(),
                 programmeYear: $('#AcademicYearCode').val(), programmeSem: $('#SemisterCode').val()
             },
             success: function (res) {
@@ -283,13 +260,13 @@
             return false;
         return true;
     }
-    $(document).on("change", "#SyllabusVersionCode", function () {
+    $(document).on("change", "#ProgrammeVersioningID", function () {
         $("#addtbody").empty();
         $.ajax({
             type: 'GET',
             url: '@Url.Action("GetAssessmentById", "Admin",new { area="Admin"})',
             dataType: 'json',
-            data: { programmeId: $("#ProgramCode").val(), versionId: $("#SyllabusVersionCode").val(), departmentId: $("#FacultyCode").val() },
+            data: { programmeVersioningId: $("#ProgrammeVersioningID").val(), departmentId: $("#FacultyCode").val() },
             success: function (res) {
 
                 $.each(res, function (i, state) {
