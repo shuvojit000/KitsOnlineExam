@@ -10,21 +10,18 @@ namespace Lincoln.OnlineExam.Response
     public class SubjectAllocationResponseDTO
     {
 
-        public int? SubjectAllocationID { get; set; }
-        public int? ProgramCode { get; set; }
+        public int? SubjectAllocationID { get; set; }       
         public string ProgramName { get; set; }
         public int? FacultyCode { get; set; }
         public string FacultyName { get; set; }
-        public int? SyllabusVersionCode { get; set; }
-        public string SyllabusVersionName { get; set; }
+        public int? ProgrammeVersioningID { get; set; }
+        public string Version { get; set; }
         public int? CountryCode { get; set; }
         public string CountryName { get; set; }
         public int? AcademicYearCode { get; set; }
         public string YearName { get; set; }
         public int? EmployeeID { get; set; }
         public string EmployeeName { get; set; }
-        // public int? CourseCode { get; set; }
-
         public int? CourseID { get; set; }
         public string CourseName { get; set; }
         public int? CreatedBy { get; set; }

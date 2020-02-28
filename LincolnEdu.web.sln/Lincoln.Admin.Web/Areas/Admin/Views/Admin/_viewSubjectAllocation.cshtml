@@ -53,21 +53,39 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-lg-6">
-                        <label><b>Faculty Name: </b></label>
-                        @Html.DisplayFor(a => a.EmployeeName, new { @class = "form-control" })
+                        <label><b>Faculty: </b></label>
+                        @Html.DisplayFor(a => a.FacultyName, new { @class = "form-control" })
                     </div>
 
                     <div class="form-group col-lg-6">
                         <label><b>Programme: </b></label>
-                        @Html.DisplayFor(a => a.ProgramName, new { @class = "form-control" })
+                        <span>@Model.ProgramName (@Model.Version)</span>
                     </div>
 
                 </div>
                 <div class="row">
                     <div class="form-group col-lg-6">
-                        <label><b>Programme Version:</b> </label>
-                        @Html.DisplayFor(a => a.SyllabusVersionName, new { @class = "form-control" })
+                        <label><b>Country: </b></label>
+                        @Html.DisplayFor(a => a.CountryName, new { @class = "form-control" })
                     </div>
+
+                    <div class="form-group col-lg-6">
+                        <label><b>Programme Year: </b></label>
+                        @Html.DisplayFor(a => a.YearName, new { @class = "form-control" })
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label><b>Employee: </b></label>
+                        @Html.DisplayFor(a => a.EmployeeName, new { @class = "form-control" })
+                    </div>
+
+                    
+                </div>
+
+                <div class="row">
+
                     <div class="form-group col-lg-6">
                         <label><b>Country:</b> </label>
                         @Html.DisplayFor(a => a.CountryName, new { @class = "form-control" })
@@ -81,11 +99,11 @@
                                 <th>Semester</th>
                             </tr>
                             @foreach (var item in Model.SubAllocationList)
-    {
-        p = p + 1;
+                            {
+                                p = p + 1;
                                 <tr>
                                     <td>
-                                        @*<img src="~/Images/plus.png" />*@
+                                       
                                         <img src="~/Content/assets/images/plus.png" />
                                         <div style="display:none">
                                             <table cellpadding="0" cellspacing="0" class="ChildGrid">
@@ -95,19 +113,19 @@
                                                     <th>Allocate</th>
                                                 </tr>
                                                 @foreach (var item2 in Model.AllocationList?.SubAllocationDetailsList?.Where(a => a.ProgrammeSemesterID == item.SemisterID))
-                        {
-                            q = q + 1;
-                            <tr>
-                                <td>
-                                    <label>@q </label>
-                                </td>
-                                <td>
-                                    @Html.HiddenFor(a => item2.CourseID)
-                                    <label id="CourseName" name="CourseName[]" value="@item2.CourseID">@item2.CourseName</label>
-                                </td>
-                                <td><input type="checkbox" id="OpenClose" name="OpenClose" value="true" @(item2.Allocation == "A" ? "checked=\"checked\"" : "") /></td>
-                            </tr>
-                        }
+                                                {
+                                                    q = q + 1;
+                                                    <tr>
+                                                        <td>
+                                                            <label>@q </label>
+                                                        </td>
+                                                        <td>
+                                                            @Html.HiddenFor(a => item2.CourseID)
+                                                            <label id="CourseName" name="CourseName[]" value="@item2.CourseID">@item2.CourseName</label>
+                                                        </td>
+                                                        <td> @(item2.Allocation == "A" ? "Active" : "In-Active") </td>
+                                                    </tr>
+                                                }
                                             </table>
                                         </div>
                                     </td>
@@ -118,11 +136,11 @@
 
                                     </td>
                                     <td>
-                                        @Html.HiddenFor(a => item.SemisterID)
+                                      
                                         <label id="SemesterName" name="SemesterName[]" value="@item.SemisterID">@item.SemisterName</label>
                                     </td>
                                 </tr>
-    }
+                            }
                         </table>
                     </div>
                 </div>

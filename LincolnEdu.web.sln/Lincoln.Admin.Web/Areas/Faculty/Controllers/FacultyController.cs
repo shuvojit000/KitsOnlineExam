@@ -66,8 +66,8 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
                 CountryName = a.CountryName,
                 SemisterCode = a.SemisterCode,
                 SemisterName = a.SemisterName,
-                SyllabusVersionCode = a.SyllabusVersionCode,
-                SyllabusVersionName = a.SyllabusVersionName,
+                ProgrammeVersioningID = a.ProgrammeVersioningID,
+                Version = a.Version,
                 CourseName = a.CourseName,
                 FacultyCode = a.FacultyCode,
                 FacultyName = a.FacultyName,
@@ -98,7 +98,7 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
             model.CourseCode = item.CourseCode;
             model.CourseID = item.CourseID;
             model.SemisterCode = item.SemisterCode;
-            model.SyllabusVersionCode = item.SyllabusVersionCode;
+            model.ProgrammeVersioningID = item.ProgrammeVersioningID;
             model.CountryCode = item.CountryCode;
             model.FacultyCode = item.FacultyCode;
             model.AcademicYearCode = item.AcademicYearCode;
@@ -106,7 +106,7 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
             model.ProgramName = item.ProgramName;
             model.CourseName = item.CourseName;
             model.SemisterName = item.SemisterName;
-            model.SyllabusVersionName = item.SyllabusVersionName;
+            model.Version = item.Version;
             model.CountryName = item.CountryName;
             model.FacultyName = item.FacultyName;
             model.YearName = item.YearName;

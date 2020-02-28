@@ -176,27 +176,28 @@
         if ($('#FacultyCode').val() == '') {
             $('#FacultyCodeVal').css({ 'display': 'block' });
         }
-        else if ($('#ProgramCode').val() == '') {
+        else if ($('#ProgrammeVersioningID').val() == '') {
             $('#ProgramCodeVal').css({ 'display': 'block' });
         }
-        else if ($('#SyllabusVersionCode').val() == '') {
-            $('#SyllabusVersionCodeVal').css({ 'display': 'block' });
-        }
+       
         else if ($('#CountryCode').val() == '') {
             $('#CountryCodeVal').css({ 'display': 'block' });
         }
         else if ($('#AcademicYearCode').val() == '') {
             $('#AcademicYearCodeVal').css({ 'display': 'block' });
         }
-
+        else if ($('#EmployeeID').val() == '') {
+            $('#EmployeeVal').css({ 'display': 'block' });
+        }
+        else if (SubAllocationDetailsList.length==0) {
+            alert("Please Allocate Subject.");
+        }
         else {
-            debugger;
             var model = {
                 SubjectAllocationID: SubjectAllocationID,
-                ProgramCode: $('#ProgramCode').val(),
+                ProgrammeVersioningID: $('#ProgrammeVersioningID').val(),
                 FacultyCode: $('#FacultyCode').val(),
-                EmployeeID: $('#EmployeeID').val(),
-                SyllabusVersionCode: $('#SyllabusVersionCode').val(),
+                EmployeeID: $('#EmployeeID').val(),               
                 SemisterCode: $('#SemisterCode').val(),
                 CountryCode: $('#CountryCode').val(),
                 CourseCode: $('#CourseCode').val(),

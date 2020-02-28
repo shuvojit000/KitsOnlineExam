@@ -10,12 +10,12 @@ namespace Lincoln.OnlineExam.Request
     public class SubjectAllocationRequestDTO
     {
         public int? SubjectAllocationID { get; set; }
-        public int? ProgrammeID { get; set; }
+        public int? ProgrammeVersioningID { get; set; }
         public string ProgramName { get; set; }
         public int? EmployeeID { get; set; }
         public int? DepartmentID { get; set; }
         public string FacultyName { get; set; }
-        public int? Version { get; set; }
+        public string Version { get; set; }
         public string SyllabusVersionName { get; set; }
         public int? CountryID { get; set; }
         public string CountryName { get; set; }

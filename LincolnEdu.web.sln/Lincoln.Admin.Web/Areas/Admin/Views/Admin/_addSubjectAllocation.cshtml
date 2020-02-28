@@ -58,17 +58,11 @@
                     <div class="form-group col-lg-6">
                         <label><b>Programme<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.ProgramCode, Model.ProgramList, "Select Programme", new { @class = "custom-select block" })
+                            @Html.DropDownListFor(a => a.ProgrammeVersioningID, Model.ProgramList, "Select Programme", new { @class = "custom-select block" })
                             <span id="ProgramCodeVal" style="color:red;display:none" class="valClass">Please select Programme.</span>
                         </div>
                     </div>
-                    <div class="form-group col-lg-6">
-                        <label><b>Syllabus Version<span class="requiredstar">*</span> </b></label>
-                        <div class="position-relative has-icon-left">
-                            @Html.DropDownListFor(a => a.SyllabusVersionCode, Model.SyllabusVersionList, "Select Syllabus Version", new { @class = "custom-select block" })
-                            <span id="SyllabusVersionCodeVal" style="color:red;display:none" class="valClass">Please select Version.</span>
-                        </div>
-                    </div>
+                    
                     <div class="form-group col-lg-6">
                         <label><b>Country<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
@@ -77,7 +71,7 @@
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
-                        <label><b>Academic Year<span class="requiredstar">*</span> </b></label>
+                        <label><b>Programme Year<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
                             @Html.DropDownListFor(a => a.AcademicYearCode, Model.AcademicYearList, "Select Programme Year", new { @class = "custom-select block" })
                             <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
@@ -88,13 +82,13 @@
                         <label><b>Employee <span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
                             @Html.DropDownListFor(a => a.EmployeeID, Model.EmployeeList, "Select Employee", new { @class = "custom-select block" })
-                            <span id="EmployeeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
+                            <span id="EmployeeVal" style="color:red;display:none" class="valClass">Please select Employee.</span>
                         </div>
                     </div>
 
                     <div class="form-group col-lg-12" id="results">
                         @Html.Partial("_AllocationDetails")
-                        @*@{Html.RenderPartial("_AllocationDetails");}*@
+                       
                     </div>
 
                 </div>
@@ -129,52 +123,36 @@
     }
 
     $(document).on("change", "#FacultyCode", function () {
-        $("#ProgramCode").empty();
+        $("#ProgrammeVersioningID").empty();
         $.ajax({
             type: 'POST',
-            url: '@Url.Action("GetProgDrop","Admin",new { area="Admin"})',
+            url: '@Url.Action("GetProgDropWithVersion", "Admin",new { area="Admin"})',
             dataType: 'json',
             data: { departmentID: $("#FacultyCode").val() },
             success: function (res) {
-                $("#ProgramCode").append('<option value="">Select Programme</option>');
+                $("#ProgrammeVersioningID").append('<option value="">Select Programme</option>');
                 $.each(res, function (i, state) {
-                    $("#ProgramCode").append('<option value="' + state.Value + '">' +
+                    $("#ProgrammeVersioningID").append('<option value="' + state.Value + '">' +
                         state.Text + '</option>');
                 });
             },
             error: function (ex) {
-                alert('Failed to retrieve Faculty.' + ex);
+                alert('Failed to retrieve Programme.' + ex);
             }
         });
         return false;
     });
 
 
-    $(document).on("change", "#ProgramCode", function () {
-        $("#SyllabusVersionCode").empty();
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("GetProgrammeVersionDDL","Admin",new { area="Admin"})',
-            dataType: 'json',
-            data: { ProgramVID: $("#ProgramCode").val() },
-            success: function (res) {
-                $("#SyllabusVersionCode").append('<option value="">Select Syllabus Version</option>');
-                $.each(res, function (i, state) {
-                    $("#SyllabusVersionCode").append('<option value="' + state.Value + '">' +
-                        state.Text + '</option>');
-                });
-            },
-            error: function (ex) {
-                alert('Failed to retrieve Version.' + ex);
-            }
-        });
+    $(document).on("change", "#ProgrammeVersioningID", function () {
+        
 
         $("#CountryCode").empty();
         $.ajax({
             type: 'POST',
             url: '@Url.Action("ChangeProgramSelection", "Admin",new { area="Admin"})', // we are calling json method
             dataType: 'json',
-            data: { programmeID: $("#ProgramCode").val() },
+            data: { programmeVersionID: $("#ProgrammeVersioningID").val() },
             success: function (res) {
                 if (res != null) {
                     $("#CountryCode").append('<option value="">Select Country</option>');
@@ -201,7 +179,7 @@
             type: 'POST',
             url: '@Url.Action("ChangeCountrySelection", "Admin",new { area="Admin"})',
             dataType: 'json',
-            data: { programmeID: $("#ProgramCode").val(), countryID: $('#CountryCode').val() },
+            data: { programmeVersionID: $("#ProgrammeVersioningID").val(), countryID: $('#CountryCode').val() },
             success: function (res) {
                 if (res != null) {
                     $("#AcademicYearCode").append('<option value="">Select Programme Year</option>');
@@ -224,9 +202,8 @@
 
     $(document).on("change", "#AcademicYearCode", function () {
         var AllocationViewModel = {
-            ProgramCode:$("#ProgramCode").val(),
-            FacultyCode:$("#FacultyCode").val(),
-            SyllabusVersionCode:$("#SyllabusVersionCode").val(),
+            ProgrammeVersioningID: $("#ProgrammeVersioningID").val(),
+            FacultyCode:$("#FacultyCode").val(),          
             CountryCode:$("#CountryCode").val(),
             AcademicYearCode:$("#AcademicYearCode").val()
         }

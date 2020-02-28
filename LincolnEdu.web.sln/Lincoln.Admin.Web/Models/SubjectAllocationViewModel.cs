@@ -9,14 +9,14 @@ namespace Lincoln.Admin.Web.Models
     public class SubjectAllocationViewModel
     {
         public int? SubjectAllocationID { get; set; }
-        public int? ProgramCode { get; set; }
+        public int? ProgramID { get; set; }
         public string ProgramName { get; set; }
         public int? FacultyCode { get; set; }
         public int? DepartmentID { get; set; }
         
         public string FacultyName { get; set; }
-        public int? SyllabusVersionCode { get; set; }
-        public string SyllabusVersionName { get; set; }
+        public int? ProgrammeVersioningID { get; set; }
+        public string Version { get; set; }
         public int? CountryCode { get; set; }
         public string CountryName { get; set; }
 
