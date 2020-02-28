@@ -642,7 +642,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
         public JsonResult ChangeProgramYearSelection(string programmeVersionID, string countryId, string programYear)
         {
             var itemList = onlineExamService.GetAllProgrammeSemester().Where(a => a.ProgrammeVersioningID == Convert.ToInt32(programmeVersionID ?? "0")
-                                                   && a.CountryID == Convert.ToInt32(countryId) && a.ProgrammeYear == Convert.ToInt32(programYear) && a.Status == "A"
+                                                   && a.CountryID == Convert.ToInt32(countryId)
+                                                   && a.ProgrammeYear == Convert.ToInt32(programYear) && a.Status == "A"
                                                    ).ToList().OrderBy(a => a.ProgrammeSemester);
             var model = new CourseViewModel();
             model.ProgSEMList = new List<SelectListItem>();
@@ -849,8 +850,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 AssessmentID = a.AssessmentID,
                 DepartmentID = a.DepartmentID,
                 DepartmentName = a.DepartmentName,
-                SyllabusVersion = a.SyllabusVersionCode,
-                SyllabusVersionName = a.SyllabusVersionName,
+                ProgramVersioningID = a.ProgrammeVersioningID,
+                Version = a.Version,
                 ProgrammeID = a.ProgrammeID,
                 ProgramName = a.ProgramName,
                 AssessmentName = a.AssessmentName,
@@ -877,15 +878,13 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.AssessmentID = item.AssessmentID;
             model.ProgrammeID = item.ProgrammeID;
             model.DepartmentID = item.DepartmentID;
-            model.SyllabusVersion = item.SyllabusVersionCode;
+            model.ProgramVersioningID = item.ProgrammeVersioningID;
             model.ProgramName = item.ProgramName;
             model.DepartmentName = item.DepartmentName;
-            model.SyllabusVersionName = item.SyllabusVersionName;
+            model.Version = item.Version;
             model.AssessmentType = item.AssessmentType;
             model.AssessmentName = item.AssessmentName;
             model.ModifiedOn = item.ModifiedOn?.Date;
-            //model.Status = item.Status;
-            //model.AcademicID = item.AcademicID;
             model.CreatedBy = item.CreatedBy;
             model.CreatedOn = item.CreatedOn;
             model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
@@ -911,20 +910,14 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
                         }).ToList();
 
-                model.ProgramList = onlineExamService.GetAllProgramme().Where(a => a.DepartmentID == Convert.ToInt32(model.DepartmentID) && a.Status == "A")
+                model.ProgramList = onlineExamService.GetAllProgrammeWithVersion().Where(a => a.DepartmentID == Convert.ToInt32(model.DepartmentID) && a.Status == "A")
                        .Select(a => new SelectListItem
                        {
-                           Text = a.ProgrammeName + "(" + a.ProgrammeCode + ")",
-                           Value = a.ProgrammeID.ToString()
-
-                       }).ToList();
-                model.SyllabusVersionList = onlineExamService.GetAllProgramVersioning().Where(a => a.ProgramVersioningID == Convert.ToInt32(model.SyllabusVersion) && a.Status == "A")
-                       .Select(a => new SelectListItem
-                       {
-                           Text = a.Version,
+                           Text = a.ProgrammeName + "(" + a.Version + ")",
                            Value = a.ProgramVersioningID.ToString()
 
                        }).ToList();
+               
             }
             else
             {
@@ -965,7 +958,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 ProgrammeID = model.ProgrammeID,
                 AssessmentType = model.AssessmentType,
                 AssessmentName = model.AssessmentName,
-                SyllabusVersion = model.SyllabusVersion,
+                ProgrammeVersioningID=model.ProgramVersioningID,
                 CountryID = model.CountryID,
                 Active = model.Active
 
@@ -1209,13 +1202,13 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public JsonResult GetCourseExam(string programmeId, string countryId, string programmeYear, string programmeSem)
+        public JsonResult GetCourseExam(string programVersioningID, string countryId, string programmeYear, string programmeSem)
         {
 
-            return Json(onlineExamService.GetAllCourse().Where(a => a.ProgrammeID == Convert.ToInt32(programmeId)
+            return Json(onlineExamService.GetAllCourse().Where(a => a.ProgramVersioningID == Convert.ToInt32(programVersioningID)
                                                                     && a.CountryId == Convert.ToInt32(countryId)
                                                                     && a.ProgrammeYear == Convert.ToInt32(programmeYear)
-                                                                     && a.ProgrammeSemesterID == Convert.ToInt32(programmeSem))
+                                                                     && a.ProgrammeSemesterID == Convert.ToInt32(programmeSem) && a.Status == "A")
                     .Select(a => new SelectListItem
                     {
                         Text = a.CourseName + "(" + a.CourseCode + ")",
@@ -1241,8 +1234,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 CountryName = a.CountryName,
                 SemisterCode = a.SemisterCode,
                 SemisterName = a.SemisterName,
-                SyllabusVersionCode = a.SyllabusVersionCode,
-                SyllabusVersionName = a.SyllabusVersionName,
+                ProgrammeVersioningID = a.ProgrammeVersioningID,
+                Version = a.Version,
                 CourseName = a.CourseName,
                 FacultyCode = a.FacultyCode,
                 FacultyName = a.FacultyName,
@@ -1273,14 +1266,14 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 ProgramCode = a.ProgramCode,
                 ProgramName = a.ProgramName,
                 CourseID = a.CourseID,
-                CourseCode = a.CourseCode,
+                CourseCode = a.CourseID,
                 CountryName = (a.CountryCode == 1) ? "India" : (a.CountryCode == 2) ? "Malaysia" : a.CountryCode == 3 ? "United States" : string.Empty,
                 CountryCode = a.CountryCode,
                 SemisterCode = a.SemisterCode,
                 SemisterName = onlineExamService.GetAllProgrammeSemester().Where(x => x.ProgrammeSemesterID == Convert.ToInt32(a.ProgramCode) && a.Status == "A").Select(x => x.SemesterType).SingleOrDefault(),
-                SyllabusVersionCode = a.SyllabusVersionCode,
-                SyllabusVersionName = a.SyllabusVersionName,
-                CourseName = onlineExamService.GetAllCourse().Where(x => x.CourseID == Convert.ToInt32(a.ProgramCode) && a.Status == "A").Select(x => x.CourseName).SingleOrDefault(),
+                ProgrammeVersioningID = a.ProgrammeVersioningID,
+                Version = a.Version,
+                CourseName = onlineExamService.GetAllCourse().Where(x => x.CourseID == Convert.ToInt32(a.CourseID) && a.Status == "A").Select(x => x.CourseName).SingleOrDefault(),
                 FacultyCode = a.FacultyCode,
                 FacultyName = a.FacultyName,
                 AcademicYearCode = a.AcademicYearCode,
@@ -1298,7 +1291,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.CourseCode = Convert.ToInt32(itemSet.ElementAt(0).CourseCode);
             model.CourseID = item.CourseID;
             model.SemisterCode = Convert.ToInt32(itemSet.ElementAt(0).SemisterCode);
-            model.SyllabusVersionCode = Convert.ToInt32(itemSet.ElementAt(0).SyllabusVersionCode);
+            model.ProgrammeVersioningID = Convert.ToInt32(itemSet.ElementAt(0).ProgrammeVersioningID);
             model.CountryCode = Convert.ToInt32(itemSet.ElementAt(0).CountryCode);
             model.FacultyCode = Convert.ToInt32(itemSet.ElementAt(0).FacultyCode);
             model.AcademicYearCode = Convert.ToInt32(itemSet.ElementAt(0).AcademicYearCode);
@@ -1306,7 +1299,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.ProgramName = itemSet.ElementAt(0).ProgramName;
             model.CourseName = itemSet.ElementAt(0).CourseName;
             model.SemisterName = itemSet.ElementAt(0).SemisterCode.ToString();
-            model.SyllabusVersionName = itemSet.ElementAt(0).SyllabusVersionName;
+            model.Version = itemSet.ElementAt(0).Version;
             model.CountryName = itemSet.ElementAt(0).CountryName;
             model.FacultyName = itemSet.ElementAt(0).FacultyName;
             model.YearName = itemSet.ElementAt(0).YearName;
@@ -1335,29 +1328,15 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
                         }).ToList();
 
-                model.ProgramList = onlineExamService.GetAllProgramme().Where(a => a.DepartmentID == Convert.ToInt32(model.FacultyCode) && a.Status == "A")
+                model.ProgramList = onlineExamService.GetAllProgrammeWithVersion().Where(a => a.DepartmentID == Convert.ToInt32(model.FacultyCode) && a.Status == "A")
                        .Select(a => new SelectListItem
                        {
-                           Text = a.ProgrammeName + "(" + a.ProgrammeCode + ")",
-                           Value = a.ProgrammeID.ToString()
-
-                       }).ToList();
-                model.SyllabusVersionList = onlineExamService.GetAllProgramVersioning().Where(a => a.ProgramCode == Convert.ToInt32(model.ProgramCode) && a.Status == "A")
-                       .Select(a => new SelectListItem
-                       {
-                           Text = a.Version,
+                           Text = a.ProgrammeName + "(" + a.Version + ")",
                            Value = a.ProgramVersioningID.ToString()
 
                        }).ToList();
-
-                //model.SemisterList = onlineExamService.GetAllProgrammeSemester().Where(a => a.ProgrammeSemesterID == Convert.ToInt32(model.SemisterCode) && a.Status == "A")
-                //      .Select(a => new SelectListItem
-                //      {
-                //          Text = a.SemesterType,
-                //          Value = a.ProgrammeSemesterID.ToString()
-
-                //      }).ToList();
-                model.CourseList = onlineExamService.GetAllCourse().Where(a => a.ProgrammeID == Convert.ToInt32(model.ProgramCode)
+               
+                model.CourseList = onlineExamService.GetAllCourse().Where(a => a.ProgramVersioningID == Convert.ToInt32(model.ProgrammeVersioningID)
                 && a.CountryId == model.CountryCode
                 && a.ProgrammeYear == model.AcademicYearCode && a.Status == "A" && a.ProgrammeSemesterID == model.SemisterCode)
                       .Select(a => new SelectListItem
@@ -1366,15 +1345,17 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                           Value = a.CourseID.ToString()
 
                       }).ToList();
-                var itemList = onlineExamService.GetAllProgrammeSemester().Where(a => a.ProgrammeID == Convert.ToInt32(model.ProgramCode) && a.Status == "A").ToList();
+                var itemList = onlineExamService.GetAllProgrammeSemester().Where(a => a.ProgrammeVersioningID == Convert.ToInt32(model.ProgrammeVersioningID)
+                && a.ProgrammeYear==model.AcademicYearCode
+                && a.Status == "A").ToList();
                 model.CountryList = itemList?.Select(a => new SelectListItem() { Text = (a.CountryID == 1) ? "India" : (a.CountryID == 2) ? "Malaysia" : "United States", Value = a.CountryID.ToString() }).ToList().GroupBy(n => new { n.Text, n.Value })
                                           .Select(g => g.FirstOrDefault())
                                           .ToList();
-                model.SemisterList = itemList?.Where(a => a.ProgrammeID == Convert.ToInt32(model.ProgramCode) && a.CountryID == model.CountryCode
+                model.SemisterList = itemList?.Where(a => a.ProgrammeVersioningID == Convert.ToInt32(model.ProgrammeVersioningID) && a.CountryID == model.CountryCode
                 && a.ProgrammeYear == model.AcademicYearCode).Select(a => new SelectListItem() { Text = a.ProgrammeSemester.ToString(), Value = a.ProgrammeSemesterID.ToString() }).ToList().GroupBy(n => new { n.Text, n.Value })
                                            .Select(g => g.FirstOrDefault())
                                            .ToList();
-                model.AcademicYearList = itemList?.Where(a => a.ProgrammeID == Convert.ToInt32(model.ProgramCode) &&
+                model.AcademicYearList = itemList?.Where(a => a.ProgrammeVersioningID == Convert.ToInt32(model.ProgrammeVersioningID) &&
                 a.CountryID == model.CountryCode).Select(a => new SelectListItem() { Text = a.ProgrammeYear.ToString(), Value = a.ProgrammeYear.ToString() }).ToList().GroupBy(n => new { n.Text, n.Value })
                                            .Select(g => g.FirstOrDefault())
                                            .ToList();
@@ -1433,7 +1414,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 ProgramCode = Convert.ToInt32(model.ProgramCode),
                 CourseCode = Convert.ToInt32(model.CourseCode),
                 SemisterCode = Convert.ToInt32(model.SemisterCode),
-                SyllabusVersionCode = Convert.ToInt32(model.SyllabusVersionCode),
+                ProgrammeVersioningID = Convert.ToInt32(model.ProgrammeVersioningID),
                 CountryCode = Convert.ToInt32(model.CountryCode),
                 FacultyCode = Convert.ToInt32(model.FacultyCode),
                 AcademicYearCode = Convert.ToInt32(model.AcademicYearCode),
@@ -1462,12 +1443,12 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
 
         [HttpGet]
-        public JsonResult GetAssessmentById(string departmentId, string programmeId, string versionId)
+        public JsonResult GetAssessmentById(string departmentId, string programmeVersioningId)
         {
 
-            return Json(GetAllAssessment().Where(a => a.ProgrammeID == Convert.ToInt32(programmeId)
-            && a.DepartmentID == Convert.ToInt32(departmentId) &&
-            a.SyllabusVersion == Convert.ToInt32(versionId)), JsonRequestBehavior.AllowGet);
+            return Json(GetAllAssessment().Where(a => a.ProgramVersioningID == Convert.ToInt32(programmeVersioningId)
+            && a.DepartmentID == Convert.ToInt32(departmentId) 
+            ), JsonRequestBehavior.AllowGet);
 
         }
 
