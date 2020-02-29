@@ -105,6 +105,8 @@
     <Compile Include="Response\ExaminationSectionResponseDTO.cs" />
     <Compile Include="Response\FacultyDashboardResponseDTO.cs" />
     <Compile Include="Response\LogInResponseDTO.cs" />
+    <Compile Include="Response\PaperDetailsResponseDTO.cs" />
+    <Compile Include="Response\PaperResponseDTO.cs" />
     <Compile Include="Response\ProgrammeResponseDTO.cs" />
     <Compile Include="Response\ProgrammeSemesterResponseDTO.cs" />
     <Compile Include="Response\ProgramVersioningResponseDTO.cs" />

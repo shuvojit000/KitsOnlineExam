@@ -16,7 +16,8 @@
                         <div class="card-body">
                             <div class="row">
 
-
+                                @Html.HiddenFor(a => a.CourseID)
+                                @Html.HiddenFor(a => a.PaperID)
                                 <div class="form-group col-lg-4">
                                     <label><b>Section<span class="requiredstar">*</span> </b></label>
                                     <div class="position-relative has-icon-left">
@@ -34,7 +35,11 @@
 
                             </div>
                         </div>
-
+                        <div class="card-content collapse show">
+                            <div class="card-body card-dashboard paperdetailsList">
+                                @{ Html.RenderAction("QuestionList", "Faculty", new { area = "Faculty" });}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -49,63 +54,123 @@
 
 
     $(document).on("change", "#ExaminationSectionID", function () {
-        $('.paperdetails').load('/Faculty/Faculty/AddQuestion/'+$('#ExaminationSectionID').val());
+        $('.paperdetails').load('/Faculty/Faculty/AddQuestion/' + $('#ExaminationSectionID').val());
     });
 
-
-
-    function fnSavePaperDetails() {
-        var model = {
-            DepartmentID: $('#DepartmentID').val(),
-            ProgrammeID: $('#ProgrammeID').val(),
-            CountryID: $('#CountryID').val(),
-            ProgrammeYear: $('#ProgrammeYear').val(),
-            ProgrammeSemester: $('#ProgrammeSemester').val(),
-            CourseID: $('#CourseID').val(),
-            SectionName: $('#SectionName').val(),
-            SyllabusVersionID: $('#SyllabusVersionID').val(),
-            PaperDetailsID: $('#PaperDetailsID').val(),
-            PaperID: $('#PaperID').val(),
-            QuestionType: $('input[name="QuestionType"]:checked').val(),
-            QuestionNo: $('#QuestionNo').val(),
-            QuestionText: $('#QuestionText').val(),
-            TextOrImageQuestion: $('#TextOrImageQuestion').val(),
-            AudioOrVideoQuestion: $('#AudioOrVideoQuestion').val(),
-            QuestionMarks: $('#QuestionMarks').val(),
-            OptionANo: 1,
-            OptionAText: $('#OptionAText').val(),
-            OptionBNo: 2,
-            OptionBText: $('#OptionBText').val(),
-            OptionCNo: 3,
-            OptionCText: $('#OptionCText').val(),
-            OptionDNo: 4,
-            OptionDText: $('#OptionDText').val(),
-            OptionENo: 5,
-            OptionEText: $('#OptionEText').val(),
-            AnswerNo: $('#AnswerNo').val(),
-            AnswerText: $('#AnswerText').val()
-        };
-        $.ajax({
-            url: '@Url.Action("SavePaperDetails", "Faculty",new {area= "Faculty" })',
-            data: JSON.stringify(model),
-            type: 'POST',
-            cache: false,
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            success: function (result) {
-                if (result > 0) {
-                    alert('Data Save Successfully.');
-
-                } else {
-                    alert('Error in your requst.');
-
-                }
-            },
-            error: function (e) {
-                alert('Error in your requst.');
-            }
-        });
-
+    function fnResetScreen() {
+        $('.paperdetails').load('/Faculty/Faculty/AddQuestion/' + $('#ExaminationSectionID').val());
     }
 
+    function fnSavePaperDetails() {
+
+        if (fnValidation()) {
+            var model = {
+                CourseID: $('#CourseID').val(),
+                ExaminationSectionID: $('#ExaminationSectionID').val(),
+                PaperDetailsID: $('#PaperDetailsID').val(),
+                PaperID: $('#PaperID').val(),
+                QuestionType: $('input[name="QuestionType"]:checked').val(),
+                QuestionNo: $('#QuestionNo').val(),
+                QuestionText: CKEDITOR.instances['QuestionText'].getData(),
+                TextOrImageQuestion: $('#TextOrImageQuestion').val(),
+                AudioOrVideoQuestion: $('#AudioOrVideoQuestion').val(),
+                QuestionMarks: $('#QuestionMarks').val(),
+                OptionANo: 1,
+                OptionAText: $('#OptionAText').val(),
+                OptionBNo: 2,
+                OptionBText: $('#OptionBText').val(),
+                OptionCNo: 3,
+                OptionCText: $('#OptionCText').val(),
+                OptionDNo: 4,
+                OptionDText: $('#OptionDText').val(),
+                OptionENo: 5,
+                OptionEText: $('#OptionEText').val(),
+                AnswerNo: $('input[name="AnswerNo"]:checked').val(),
+                AnswerText: $('input[name="QuestionType"]:checked').val()=="S"?CKEDITOR.instances['AnswerText'].getData():"",
+                SectionMarks: $('#SectionMarks').val(),
+            };
+            $.ajax({
+                url: '@Url.Action("SavePaperDetails", "Faculty",new {area= "Faculty" })',
+                data: JSON.stringify(model),
+                type: 'POST',
+                cache: false,
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result > 0) {
+                        alert('Question Saved Successfully.');
+                        fnResetScreen();
+                        fnLoadQuestionList();
+
+                    } else {
+                        alert('Error in your requst.');
+
+                    }
+                },
+                error: function (e) {
+                    alert('Error in your requst.');
+                }
+            });
+        }
+
+
+    }
+    function fnValidation() {
+        var ret = true;
+        $('.valClass').css({ 'display': 'none' });
+        if (CKEDITOR.instances['QuestionText'].getData() == '') {
+            ret = false;
+            $('#QuestionTextVal').css({ 'display': 'block' });
+        }
+        else if ($('input[name="QuestionType"]:checked').val() == 'S') {
+            if (CKEDITOR.instances['AnswerText'].getData() == '') {
+                ret = false;
+                $('#AnswerTextVal').css({ 'display': 'block' });
+            }
+            
+        }
+        else if ($('input[name="QuestionType"]:checked').val() == 'O') {
+            if ($('#OptionAText').val() == '') {
+                ret = false;
+                $('#OptionATextVal').css({ 'display': 'block' });
+            }
+            else if ($('#OptionBText').val() == '') {
+                ret = false;
+                $('#OptionBTextVal').css({ 'display': 'block' });
+            }
+            else if ($('#OptionCText').val() == '') {
+                ret = false;
+                $('#OptionCTextVal').css({ 'display': 'block' });
+            }
+            else if ($('#OptionDText').val() == '') {
+                ret = false;
+                $('#OptionDTextVal').css({ 'display': 'block' });
+            }
+            else if ($('#OptionEText').val() == '') {
+                ret = false;
+                $('#OptionETextVal').css({ 'display': 'block' });
+            }
+            else if (typeof $('input[name="AnswerNo"]:checked').val() === 'undefined') {
+                ret = false;
+                $('#AnswerNoVal').css({ 'display': 'block' });
+            }
+        }
+        else if ($('#QuestionMarks').val() == '') {
+            ret = false;
+            $('#QuestionMarksVal').css({ 'display': 'block' });
+        }
+        return ret;
+    }
+    function fnViewPaperDetails(paperDetailsID) {
+
+    }
+    function fnAddPaperDetails(paperDetailsID) {
+        $('.paperdetails').load('/Faculty/Faculty/AddQuestion/' + $('#ExaminationSectionID').val());
+    }
+    function fnDeletePaperDetails(paperDetailsID) {
+
+    }
+    function fnLoadQuestionList() {
+        $('.paperdetailsList').load('/Faculty/Faculty/QuestionList');
+    }
 </script>

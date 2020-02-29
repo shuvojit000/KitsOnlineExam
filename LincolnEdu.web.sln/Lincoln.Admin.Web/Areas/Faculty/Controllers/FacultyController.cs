@@ -39,18 +39,18 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
             };
             return View(modelList);
         }
-        public ActionResult QuestionSetUp()
+        public ActionResult QuestionSetUp(string id)
         {
             var model = new QuestionSetUpViewModel();
 
-
-            model.ExamSectionList = GetAllExaminationSection().Where(a => a.Active == "A").Select(c => new SelectListItem
+            model.CourseID = Convert.ToInt32(id);
+            model.ExamSectionList = GetAllExaminationSection().Where(a => a.CourseID == Convert.ToInt32(id) && a.Active == "A").Select(c => new SelectListItem
             {
                 Text = c.SectionName,
                 Value = c.ExaminationSectionID.ToString()
             }).ToList();
 
-
+            TempData["CourseID"] = model.CourseID;
             return View(model);
         }
         private List<ExaminationSectionViewModel> GetAllExaminationSection()
@@ -125,13 +125,43 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
             if (!string.IsNullOrEmpty(id))
             {
                 model.QuestionType = SelectExaminationSection(id)?.QuestionType;
+                model.QuestionNo = onlineExamService.SelectPaper(new OnlineExam.Request.PaperRequestDTO()
+                {
+                    CourseID = Convert.ToInt32(TempData.Peek("CourseID")),
+                    LoginID = User.UserId,
+                    ExaminationSectionID = SelectExaminationSection(id)?.ExaminationSectionID,
+                    CreatedBy = User.UserId,
+
+                })?.QuestionNo??1;
+                model.SectionMarks = onlineExamService.SelectPaper(new OnlineExam.Request.PaperRequestDTO()
+                {
+                    CourseID = Convert.ToInt32(TempData.Peek("CourseID")),
+                    LoginID = User.UserId,
+                    ExaminationSectionID = SelectExaminationSection(id)?.ExaminationSectionID,
+                    CreatedBy = User.UserId,
+
+                })?.SectionMarks??0;
             }
+
             return PartialView("_AddQuestion", model);
+        }
+
+        public PartialViewResult QuestionList()
+        {
+            return PartialView("_listQuestion", GetPaperDetails());
         }
         [HttpPost]
         public JsonResult SavePaperDetails(QuestionSetUpViewModel model)
         {
 
+            model.PaperID = onlineExamService.SelectPaper(new OnlineExam.Request.PaperRequestDTO()
+            {
+                CourseID = model.CourseID,
+                LoginID = User.UserId,
+                ExaminationSectionID = model.ExaminationSectionID,
+                CreatedBy = User.UserId,
+
+            })?.PaperID;
             var type = "INSERT";
             if (model.PaperID > 0)
             {
@@ -143,17 +173,21 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
 
                 CreatedBy = User.UserId,
                 Active = model.Active,
-                CountryID = model.CountryID,
                 CourseID = model.CourseID,
                 PaperID = model.PaperID,
-                ProgrammeID = model.ProgrammeID,
-                ProgrammeSemester = model.ProgrammeSemester,
-                ProgrammeVersioningID = model.SyllabusVersionID,
-                ProgrammeYear = model.ProgrammeYear,
-                SectionName = model.SectionName
+                SectionName = model.SectionName,
+                ExaminationSectionID = model.ExaminationSectionID,
+                LoginID = User.UserId
 
             }, type);
+            model.PaperID = onlineExamService.SelectPaper(new OnlineExam.Request.PaperRequestDTO()
+            {
+                CourseID = model.CourseID,
+                LoginID = User.UserId,
+                ExaminationSectionID = model.ExaminationSectionID,
+                CreatedBy = User.UserId,
 
+            }).PaperID;
             var Detailstype = "INSERT";
             if (model.PaperDetailsID > 0)
             {
@@ -168,6 +202,7 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
                 AnswerNo = model.AnswerNo,
                 AnswerText = model.AnswerText,
                 PaperDetailsID = model.PaperDetailsID,
+                SectionMarks = model.SectionMarks,
                 AudioOrVideoQuestion = model.AudioOrVideoQuestion,
                 OptionANo = model.OptionANo,
                 OptionAText = model.OptionAText,
@@ -180,12 +215,84 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
                 OptionENo = model.OptionENo,
                 OptionEText = model.OptionEText,
                 QuestionMarks = model.QuestionMarks,
-                QuestionNo = model.QuestionNo,
+                QuestionNo = model.QuestionNo == 0 ? 1 : model.QuestionNo,
                 QuestionText = model.QuestionText,
                 QuestionType = model.QuestionType,
                 TextOrImageQuestion = model.TextOrImageQuestion
             }, Detailstype);
             return Json(resultDetails, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        private List<QuestionSetUpViewModel> GetPaperDetails()
+        {
+            var itemSet = new List<QuestionSetUpViewModel>();
+
+
+            itemSet = onlineExamService.GetAllPaperDetails(new OnlineExam.Request.PaperDetailsRequestDTO() { LoginID = User.UserId }).Select(a => new QuestionSetUpViewModel()
+            {
+                ExaminationSectionID = a.ExaminationSectionID,
+                Active = a.Status,
+                AnswerNo = a.AnswerNo,
+                AnswerText = a.AnswerText,
+                AudioOrVideoQuestion = a.AudioOrVideoQuestion,
+                OptionANo = a.OptionANo,
+                OptionAText = a.OptionAText,
+                OptionBNo = a.OptionBNo,
+                OptionBText = a.OptionBText,
+                OptionCNo = a.OptionCNo,
+                OptionCText = a.OptionCText,
+                OptionDNo = a.OptionDNo,
+                OptionDText = a.OptionDText,
+                OptionEText = a.OptionEText,
+                OptionENo = a.OptionENo,
+                PaperID = a.PaperID,
+                PaperDetailsID = a.PaperDetailsID,
+                QuestionMarks = a.QuestionMarks,
+                QuestionNo = Convert.ToInt32(a.QuestionNo),
+                QuestionType = a.QuestionType,
+                SectionMarks = a.SectionMarks,
+                TextOrImageQuestion = a.TextOrImageQuestion,
+                QuestionText = a.QuestionText,
+
+            }).ToList();
+
+
+            return itemSet;
+        }
+
+        private QuestionSetUpViewModel SelectPaperDetails(string paperDetailsID)
+        {
+            var model = new QuestionSetUpViewModel();
+
+
+            var itemSet = onlineExamService.SelectAllPaperDetails(new OnlineExam.Request.PaperDetailsRequestDTO() { PaperDetailsID = Convert.ToInt32(paperDetailsID) });
+            model.Active = itemSet.Status;
+            model.AnswerNo = itemSet.AnswerNo;
+            model.AnswerText = itemSet.AnswerText;
+            model.AudioOrVideoQuestion = itemSet.AudioOrVideoQuestion;
+            model.OptionANo = itemSet.OptionANo;
+            model.OptionAText = itemSet.OptionAText;
+            model.OptionBNo = itemSet.OptionBNo;
+            model.OptionBText = itemSet.OptionBText;
+            model.OptionCNo = itemSet.OptionCNo;
+            model.OptionCText = itemSet.OptionCText;
+            model.OptionDNo = itemSet.OptionDNo;
+            model.OptionDText = itemSet.OptionDText;
+            model.OptionEText = itemSet.OptionEText;
+            model.OptionENo = itemSet.OptionENo;
+            model.PaperID = itemSet.PaperID;
+            model.PaperDetailsID = itemSet.PaperDetailsID;
+            model.QuestionMarks = itemSet.QuestionMarks;
+            model.QuestionNo = Convert.ToInt32(itemSet.QuestionNo);
+            model.QuestionType = itemSet.QuestionType;
+            model.SectionMarks = itemSet.SectionMarks;
+            model.TextOrImageQuestion = itemSet.TextOrImageQuestion;
+            model.QuestionText = itemSet.QuestionText;
+
+
+            return model;
         }
     }
 }

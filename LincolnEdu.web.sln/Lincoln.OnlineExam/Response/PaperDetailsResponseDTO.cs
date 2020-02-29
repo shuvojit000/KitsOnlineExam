@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Lincoln.Admin.Web.Models
+namespace Lincoln.OnlineExam.Response
 {
-    public class QuestionSetUpViewModel
+    public class PaperDetailsResponseDTO
     {
-       
-        
-        public int? CourseID { get; set; }
-        public int? ExaminationSectionID { get; set; }
-        public string SectionName { get; set; }       
         public int? PaperDetailsID { get; set; }
+        public int? ExaminationSectionID { get; set; }        
         public int? PaperID { get; set; }
         public string QuestionType { get; set; }
         public int? QuestionNo { get; set; }
@@ -34,15 +30,10 @@ namespace Lincoln.Admin.Web.Models
         public string OptionEText { get; set; }
         public int? AnswerNo { get; set; }
         public string AnswerText { get; set; }
-        public string Active { get; set; }
-        public List<SelectListItem> ProgramList { get; set; }
-        public List<SelectListItem> ProgrammeYearList { get; set; }
-        public List<SelectListItem> CourseList { get; set; }
-        public List<SelectListItem> SemisterList { get; set; }
-        public List<SelectListItem> CountryList { get; set; }
-        public List<SelectListItem> SyllabusVersionList { get; set; }
-        public List<SelectListItem> FacultyList { get; set; }
-        public List<SelectListItem> ExamSectionList { get; set; }
-
+        public int CreatedBy { get; set; }
+        public string Status { get; set; }
+        public DateTime? CreatedOn { get; set; }
+        public int? ModifiedBy { get; set; }
+        public DateTime? ModifiedOn { get; set; }
     }
 }

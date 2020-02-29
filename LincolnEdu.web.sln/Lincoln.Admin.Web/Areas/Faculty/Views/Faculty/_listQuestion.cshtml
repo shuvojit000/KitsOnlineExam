@@ -1,0 +1,44 @@
+﻿
+@model IEnumerable<Lincoln.Admin.Web.Models.QuestionSetUpViewModel>
+@{
+
+    int sl = 1;
+}
+
+<table class="table table-striped table-bordered base-style" id="dataTables-example" style="width:100%">
+    <thead>
+        <tr>
+            <th>SlNo</th>
+
+            <th>Question Text</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count() > 0)
+        {
+
+
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@sl</td>
+
+                    <td>@item.QuestionText</td>
+
+                    <td>@item.Active</td>
+                    <td>
+                        <a href="javascript:void(0);" onclick="fnViewPaperDetails(@item.PaperDetailsID)" title="View"><i class="fa fa-eye"></i></a> &nbsp;
+                        <a href="javascript:void(0);" onclick="fnAddPaperDetails(@item.PaperDetailsID)" title="Edit"><i class="fa fa-edit"></i></a> &nbsp;
+                        <a href="javascript:void(0);" onclick="fnDeletePaperDetails(@item.PaperDetailsID)" title="Delete"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+                sl++;
+            }
+        }
+    </tbody>
+</table>
+<script>
+    $('#dataTables-example').dataTable();
+</script>

@@ -10,7 +10,24 @@
     @Html.HiddenFor(a => a.PaperDetailsID)
 
     <div class="row">
+        <div class="form-group col-lg-6">
+            <label><b>Section Marks </b></label>
+            <div class="position-relative">
+                @Html.TextBoxFor(a => a.SectionMarks, new { @class = "form-control", @readonly = "readonly" })
 
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-lg-6">
+            <label><b>Question No </b></label>
+            <div class="position-relative">
+                @Html.TextBoxFor(a => a.QuestionNo, new { @class = "form-control", @readonly = "readonly" })
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-lg-12">
             <div class="form-group row">
                 <label class="col-lg-3 label-control"><b>Question Type  </b></label>
@@ -32,7 +49,7 @@
             <label><b>Question Statement <span class="requiredstar">*</span> </b></label>
             <div class="position-relative">
                 @Html.EditorFor(a => a.QuestionText, new { @class = "form-control" })
-                <span id="SyllabusVersionCodeVal" style="color:red;display:none" class="valClass">Please select Version.</span>
+                <span id="QuestionTextVal" style="color:red;display:none" class="valClass">Question Statement is required.</span>
             </div>
         </div>
         @if (Model.QuestionType == "S")
@@ -41,16 +58,10 @@
                 <label><b>Answer Statement<span class="requiredstar">*</span> </b></label>
                 <div class="position-relative">
                     @Html.EditorFor(a => a.AnswerText, new { @class = "form-control" })
-                    <span id="SemisterCodeVal" style="color:red;display:none" class="valClass">Please select Semester.</span>
+                    <span id="AnswerTextVal" style="color:red;display:none" class="valClass">Answer Statement is required.</span>
                 </div>
             </div>
-            <div class="form-group col-lg-6">
-                <label><b>Question Marks </b></label>
-                <div class="position-relative ">
-                    @Html.TextBoxFor(a => a.QuestionMarks, new { @class = "form-control" })
-                    <span id="CountryCodeVal" style="color:red;display:none" class="valClass">Please select Country.</span>
-                </div>
-            </div>
+            
         }
         @if (Model.QuestionType == "O")
         {
@@ -60,11 +71,11 @@
                         <div class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-lg-1">
-                                    <input type="radio" name="OptionANo" value="A" /> A
+                                    <input type="radio" name="AnswerNo" value="1" /> A
                                 </div>
                                 <div class="col-lg-11">
                                     @Html.TextBoxFor(a => a.OptionAText, new { @class = "form-control" })
-                                    <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
+                                    <span id="OptionATextVal" style="color:red;display:none" class="valClass">Text is required.</span>
                                 </div>
                             </div>
                         </div>
@@ -72,11 +83,11 @@
                         <div class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-lg-1">
-                                    <input type="radio" name="OptionBNo" value="B" /> B
+                                    <input type="radio" name="AnswerNo" value="2" /> B
                                 </div>
                                 <div class="col-lg-11">
                                     @Html.TextBoxFor(a => a.OptionBText, new { @class = "form-control" })
-                                    <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
+                                    <span id="OptionBTextVal" style="color:red;display:none" class="valClass">Text is required.</span>
                                 </div>
                             </div>
                         </div>
@@ -84,11 +95,11 @@
                         <div class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-lg-1">
-                                    <input type="radio" name="OptionCNo" value="C" /> C
+                                    <input type="radio" name="AnswerNo" value="3" /> C
                                 </div>
                                 <div class="col-lg-11">
                                     @Html.TextBoxFor(a => a.OptionCText, new { @class = "form-control" })
-                                    <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
+                                    <span id="OptionCTextVal" style="color:red;display:none" class="valClass">Text is required.</span>
                                 </div>
                             </div>
                         </div>
@@ -96,11 +107,11 @@
                         <div class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-lg-1">
-                                    <input type="radio" name="OptionDNo" value="D" /> D
+                                    <input type="radio" name="AnswerNo" value="4" /> D
                                 </div>
                                 <div class="col-lg-11">
                                     @Html.TextBoxFor(a => a.OptionDText, new { @class = "form-control" })
-                                    <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
+                                    <span id="OptionDTextVal" style="color:red;display:none" class="valClass">Text is required.</span>
                                 </div>
                             </div>
                         </div>
@@ -108,27 +119,28 @@
                         <div class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-lg-1">
-                                    <input type="radio" name="OptionENo" value="E" /> E
+                                    <input type="radio" name="AnswerNo" value="5" /> E
                                 </div>
                                 <div class="col-lg-11">
                                     @Html.TextBoxFor(a => a.OptionEText, new { @class = "form-control" })
-                                    <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
+                                    <span id="OptionETextVal" style="color:red;display:none" class="valClass">Text is required.</span>
                                 </div>
                             </div>
                         </div>
+                        <span id="AnswerNoVal" style="color:red;display:none" class="valClass">Select an Answer.</span>
                     </div>
                 </div>
             </div>
-            <div class="form-group col-lg-6">
-                <label><b>Answer No<span class="requiredstar">*</span> </b></label>
-                <div class="position-relative">
-                    @Html.TextBoxFor(a => a.AnswerNo, new { @class = "form-control" })
-                    <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
-                </div>
-            </div>
+
         }
 
-
+        <div class="form-group col-lg-6">
+            <label><b>Maximum Marks </b></label>
+            <div class="position-relative ">
+                @Html.TextBoxFor(a => a.QuestionMarks, new { @class = "form-control" })
+                <span id="QuestionMarksVal" style="color:red;display:none" class="valClass">Question Marks is required.</span>
+            </div>
+        </div>
 
 
 
@@ -148,15 +160,20 @@
         filebrowserImageUploadUrl: '/Home/uploadnow',
         extraPlugins: 'ckeditor_wiris'
     });
-    CKEDITOR.replace('AnswerText', {
-        filebrowserImageBrowseUrl: '/Home/uploadPartial',
-        filebrowserImageUploadUrl: '/Home/uploadnow',
-        extraPlugins: 'ckeditor_wiris'
-    });
     function updateValue(id, value) {
         // this gets called from the popup window and updates the field with a new value
         document.getElementById(id).value = value;
     }
+    if ('@Model.QuestionType' == "S") {
+
+        CKEDITOR.replace('AnswerText', {
+            filebrowserImageBrowseUrl: '/Home/uploadPartial',
+            filebrowserImageUploadUrl: '/Home/uploadnow',
+            extraPlugins: 'ckeditor_wiris'
+        });
+       
+    }
+
 
 
 

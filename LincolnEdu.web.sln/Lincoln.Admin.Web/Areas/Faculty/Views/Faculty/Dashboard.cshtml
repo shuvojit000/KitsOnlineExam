@@ -6,13 +6,12 @@
 }
 
 <style>
-
     .color {
-        color: #f8f40a
+        color: #f8f40a;
     }
 
     a:hover {
-        color: #ffd800
+        color: #ffd800;
     }
 </style>
 <div class="content-wrapper">
@@ -29,7 +28,7 @@
                             @foreach (var item in Model)
                             {
                                 <div class="p-2 bg-gradient-x-primary white media-body">
-                                    <h5>Course: &nbsp; <a href="@Url.Action("QuestionSetUp","Faculty",new {area="Faculty" })" class="color"><span>@item.CourseName (@item.CourseCode)</span></a></h5>
+                                    <h5>Course: &nbsp; <a href="@Url.Action("QuestionSetUp", "Faculty", new { area = "Faculty", id = item.CourseID })" class="color"><span>@item.CourseName (@item.CourseCode)</span></a></h5>
                                     <h5>No of Question: &nbsp; <span class="color">@item.NoOfQuestion</span></h5>
                                 </div>
                             }
@@ -42,4 +41,3 @@
         <!--/ Update Records -->
     </div>
 </div>
-

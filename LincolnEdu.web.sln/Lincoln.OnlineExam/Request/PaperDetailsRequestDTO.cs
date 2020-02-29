@@ -9,6 +9,7 @@ namespace Lincoln.OnlineExam.Request
     public class PaperDetailsRequestDTO
     {
         public int? PaperDetailsID { get; set; }
+        public int? LoginID { get; set; }
         public int? PaperID { get; set; }
         public string QuestionType { get; set; }
         public int? QuestionNo { get; set; }
@@ -16,6 +17,7 @@ namespace Lincoln.OnlineExam.Request
         public string TextOrImageQuestion { get; set; }
         public string AudioOrVideoQuestion { get; set; }
         public decimal? QuestionMarks { get; set; }
+        public decimal? SectionMarks { get; set; }
         public int? OptionANo { get; set; }
         public string OptionAText { get; set; }
         public int? OptionBNo { get; set; }

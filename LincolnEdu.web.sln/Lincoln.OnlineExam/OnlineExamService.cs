@@ -358,11 +358,32 @@ namespace Lincoln.OnlineExam
                 return unitOfWork.QuestionRepository.SavePaper(recordAttributer, Operation);
             }
         }
+        public PaperResponseDTO SelectPaper(PaperRequestDTO recordAttributer)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.QuestionRepository.SelectPaper(recordAttributer);
+            }
+        }
         public int SavePaperDetails(PaperDetailsRequestDTO recordAttributer, string Operation)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
                 return unitOfWork.QuestionRepository.SavePaperDetails(recordAttributer, Operation);
+            }
+        }
+        public List<PaperDetailsResponseDTO> GetAllPaperDetails(PaperDetailsRequestDTO recordAttributer)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.QuestionRepository.GetAllPaperDetails(recordAttributer);
+            }
+        }
+        public PaperDetailsResponseDTO SelectAllPaperDetails(PaperDetailsRequestDTO recordAttributer)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.QuestionRepository.SelectAllPaperDetails(recordAttributer);
             }
         }
     }

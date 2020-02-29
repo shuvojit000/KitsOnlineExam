@@ -74,6 +74,9 @@ namespace Lincoln.OnlineExam
         SubjectAllocationResponseDTO SelectSubjectAllocation(SubjectAllocationRequestDTO recordAttributer);
 
         int SavePaper(PaperRequestDTO recordAttributer, string Operation);
+        PaperResponseDTO SelectPaper(PaperRequestDTO recordAttributer);
         int SavePaperDetails(PaperDetailsRequestDTO recordAttributer, string Operation);
+        List<PaperDetailsResponseDTO> GetAllPaperDetails(PaperDetailsRequestDTO recordAttributer);
+        PaperDetailsResponseDTO SelectAllPaperDetails(PaperDetailsRequestDTO recordAttributer);
     }
 }
