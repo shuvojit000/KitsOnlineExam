@@ -124,6 +124,8 @@
 
     $(document).on("change", "#FacultyCode", function () {
         $("#ProgrammeVersioningID").empty();
+        $("#CountryCode").empty();
+        $("#AcademicYearCode").empty();
         $.ajax({
             type: 'POST',
             url: '@Url.Action("GetProgDropWithVersion", "Admin",new { area="Admin"})',
@@ -148,6 +150,7 @@
         
 
         $("#CountryCode").empty();
+        $("#AcademicYearCode").empty();
         $.ajax({
             type: 'POST',
             url: '@Url.Action("ChangeProgramSelection", "Admin",new { area="Admin"})', // we are calling json method

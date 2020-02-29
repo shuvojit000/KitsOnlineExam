@@ -471,6 +471,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 CourseType = a.CourseType,
                 ProgramVersioningID = a.ProgramVersioningID,
                 Version = a.Version,
+                CountryName = (a.CountryId == 1) ? "India" : (a.CountryId == 2) ? "Malaysia" : a.CountryId == 3 ? "United States" : string.Empty
             }).ToList();
 
             return itemSet;
@@ -503,6 +504,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.ProgrammeYear = item.ProgrammeYear;
             model.SemesterType = item.SemesterType;
             model.CountryID = item.CountryId;
+            model.CountryName = (item.CountryId == 1) ? "India" : (item.CountryId == 2) ? "Malaysia" : item.CountryId == 3 ? "United States" : string.Empty;
             model.CourseType = item.CourseType;
             model.ProgramVersioningID = item.ProgramVersioningID;
             model.Version = item.Version;

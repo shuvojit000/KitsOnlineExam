@@ -85,6 +85,10 @@
 
     $(document).on("change","#FacultyCode",function () {
         $("#ProgrammeVersioningID").empty();
+        $("#CountryCode").empty();
+        $("#AcademicYearCode").empty();
+        $("#SemisterCode").empty();
+        $("#CourseID").empty();
         $.ajax({
             type: 'POST',
             url: '@Url.Action("GetProgDropWithVersion","Admin",new { area="Admin"})', // we are calling json method
@@ -110,6 +114,9 @@
     $(document).on("change","#ProgrammeVersioningID",function () {
        
         $("#CountryCode").empty();
+        $("#AcademicYearCode").empty();
+        $("#SemisterCode").empty();
+        $("#CourseID").empty();
         $.ajax({
             type: 'POST',
             url: '@Url.Action("ChangeProgramSelection", "Admin",new { area="Admin"})', // we are calling json method
@@ -141,7 +148,9 @@
     });
 
     $(document).on("change", "#CountryCode", function () {
-        $("#AcademicYearCode").empty();
+        $("#AcademicYearCode").empty();        
+        $("#SemisterCode").empty();
+        $("#CourseID").empty();
         $.ajax({
             type: 'POST',
             url: '@Url.Action("ChangeCountrySelection", "Admin",new { area="Admin"})', // we are calling json method
@@ -174,7 +183,8 @@
     });
 
     $(document).on("change", "#AcademicYearCode", function () {
-        $("#SemisterCode").empty();
+        $("#SemisterCode").empty();       
+        $("#CourseID").empty();
         $.ajax({
             type: 'POST',
             url: '@Url.Action("ChangeProgramYearSelection", "Admin",new { area="Admin"})', // we are calling json method

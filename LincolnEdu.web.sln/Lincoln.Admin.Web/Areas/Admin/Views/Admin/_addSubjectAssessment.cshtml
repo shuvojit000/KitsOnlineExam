@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
-                        <label><b>Academic Year<span class="requiredstar">*</span> </b></label>
+                        <label><b>Programme Year<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
                             @Html.DropDownListFor(a => a.AcademicYearCode, Model.AcademicYearList, "Select Programme Year", new { @class = "custom-select block" })
                             <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
@@ -113,6 +113,10 @@
 
     $(document).on("change", "#FacultyCode", function () {
         $("#ProgrammeVersioningID").empty();
+        $("#CountryCode").empty();
+        $("#AcademicYearCode").empty();
+        $("#SemisterCode").empty();
+        $("#CourseCode").empty();
         $.ajax({
             type: 'POST',
             url: '@Url.Action("GetProgDropWithVersion","Admin",new { area="Admin"})',
@@ -136,6 +140,9 @@
     $(document).on("change", "#ProgrammeVersioningID", function () {
         
         $("#CountryCode").empty();
+        $("#AcademicYearCode").empty();
+        $("#SemisterCode").empty();
+        $("#CourseCode").empty();
         $.ajax({
             type: 'POST',
             url: '@Url.Action("ChangeProgramSelection", "Admin",new { area="Admin"})', // we are calling json method
@@ -163,6 +170,8 @@
 
     $(document).on("change", "#CountryCode", function () {
         $("#AcademicYearCode").empty();
+        $("#SemisterCode").empty();
+        $("#CourseCode").empty();
         $.ajax({
             type: 'POST',
             url: '@Url.Action("ChangeCountrySelection", "Admin",new { area="Admin"})',
@@ -190,6 +199,7 @@
 
     $(document).on("change", "#AcademicYearCode", function () {
         $("#SemisterCode").empty();
+        $("#CourseCode").empty();
         $.ajax({
             type: 'POST',
             url: '@Url.Action("ChangeProgramYearSelection", "Admin",new { area="Admin"})',

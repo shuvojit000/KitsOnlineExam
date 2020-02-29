@@ -66,6 +66,7 @@
    
     $(document).on("change", "#DepartmentID", function () {
         $("#ProgramVersioningID").empty();
+        $("#SyllabusVersion").empty();
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("GetProgDropWithVersion","Admin",new { area="Admin"})',
@@ -86,7 +87,7 @@
         });
 
 
-    $(document).on("change", "#ProgrammeID", function () {
+    $(document).on("change", "#ProgramVersioningID", function () {
             $("#SyllabusVersion").empty();
                 $.ajax({
                     type: 'POST',

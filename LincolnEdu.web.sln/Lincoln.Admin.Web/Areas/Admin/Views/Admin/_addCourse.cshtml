@@ -153,6 +153,8 @@
     })
     $(document).on("change", "#ProgramVersioningID", function () {
         $("#CountryID").empty();
+        $("#ProgrammeYear").empty();
+        $("#ProgrammeSemesterID").empty();
         $.ajax({
             type: 'POST',
             url: '@Url.Action("ChangeProgramSelection", "Admin",new { area="Admin"})', // we are calling json method
@@ -182,8 +184,9 @@
         });
         return false;
     });
-    $(document).on("change", "#CountryID", function () {
+    $(document).on("change", "#CountryID", function () {       
         $("#ProgrammeYear").empty();
+        $("#ProgrammeSemesterID").empty();
         $.ajax({
             type: 'POST',
             url: '@Url.Action("ChangeCountrySelection", "Admin",new { area="Admin"})', // we are calling json method

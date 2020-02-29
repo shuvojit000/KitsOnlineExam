@@ -8,8 +8,9 @@
         <tr>
             <th>Sl NO</th>
             <th>Check</th>
+            <th>Country</th>
             <th>Programme</th>
-            <th>Code</th>
+            
             <th>Course</th>
             <th>Status</th>
             <th>Action</th>
@@ -30,8 +31,9 @@
                             <input type="checkbox" class="statusCheck" data-id="@item.CourseID">
                         </center>
                     </td>
+                    <td>@item.CountryName</td>
                     <td>@item.ProgrammeName (@item.Version)</td>
-                    <td>@item.CourseCode</td>
+                   
                     <td>@item.CourseName</td>
                     <td>@item.Status</td>
                     <td>
