@@ -202,7 +202,13 @@
                 dataType: "json",
                 success: function (result) {
                     if (result > 0) {
-                        alert('Examination Section Save Successfully.');
+                        if (ExaminationSectionID != null && ExaminationSectionID > 0) {
+                            alert('Examination Section Updated Successfully.');
+                        }
+                        else {
+                            alert('Examination Section Save Successfully.');
+                        }
+                       
                         $("#myModal").modal('hide');
                         fnLoadExaminationSectionList();
                     } else if (result == -1) {

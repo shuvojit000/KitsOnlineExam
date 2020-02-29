@@ -144,8 +144,8 @@
     });
 
     function fnAddCourse(id) {
-        if (id!=null && id!='') {
-            $('.modal-body').load('/Admin/Admin/AddCourse/'+id, function () { $("#myModal").modal('show'); });
+        if (id != null && id != '') {
+            $('.modal-body').load('/Admin/Admin/AddCourse/' + id, function () { $("#myModal").modal('show'); });
         }
         else {
             $('.modal-body').load('/Admin/Admin/AddCourse/', function () { $("#myModal").modal('show'); });
@@ -178,7 +178,7 @@
             $('#CourseCodeVal').html('Course Code  is required.');
             $('#CourseCodeVal').css({ 'display': 'block' });
         }
-       else if (typeof $('input[name="CourseType"]:checked').val() === 'undefined') {
+        else if (typeof $('input[name="CourseType"]:checked').val() === 'undefined') {
             $('#CourseTypeVal').css({ 'display': 'block' });
         }
         else if ($('#CourseName').val() == '') {
@@ -211,7 +211,7 @@
                 ApprovalNo: $('#ApprovalNo').val(),
                 CountryID: $('#CountryID').val(),
                 Credit: $('#Credit').val(),
-                CourseType:$('input[name="CourseType"]:checked').val(),
+                CourseType: $('input[name="CourseType"]:checked').val(),
                 Active: 'A'
             };
 
@@ -223,8 +223,12 @@
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 success: function (result) {
-                    if (result ==1) {
-                        alert('Course Save Successfully.');
+                    if (result == 1) {
+                        if (AssessmentID != null && AssessmentID > 0) { alert('Course Updated Successfully.'); }
+                        else {
+                            alert('Course Save Successfully.');
+                        }
+
                         $("#myModal").modal('hide');
                         fnLoadCourseList();
                     } else if (result == -1) {
@@ -244,26 +248,26 @@
         }
     }
     function fnViewCourse(id) {
-        $('.modal-body').load('/Admin/Admin/CourseView/'+id, function () { $("#myModal").modal('show'); });
+        $('.modal-body').load('/Admin/Admin/CourseView/' + id, function () { $("#myModal").modal('show'); });
     }
     function fnLoadCourseList() {
         $('.listCourse').load('/Admin/Admin/CourseList');
     }
-     function fnDeleteCourse(courseId) {
+    function fnDeleteCourse(courseId) {
 
-         if (confirm("Are you sure want to delete?")) {
-              var model = {
-            CourseID: courseId
-         };
-             $.ajax({
-            url: '@Url.Action("DeleteCourse", "Admin",new {area="Admin" })',
-            data: JSON.stringify(model),
+        if (confirm("Are you sure want to delete?")) {
+            var model = {
+                CourseID: courseId
+            };
+            $.ajax({
+                url: '@Url.Action("DeleteCourse", "Admin",new {area="Admin" })',
+                data: JSON.stringify(model),
                 type: 'POST',
                 cache: false,
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 success: function (result) {
-                    if (result>0) {
+                    if (result > 0) {
                         alert('Course has been deleted Successfully.');
 
                         fnLoadCourseList();
@@ -273,7 +277,7 @@
                     alert('Error in your requst.');
                 }
             });
-         }
+        }
 
     }
 </script>

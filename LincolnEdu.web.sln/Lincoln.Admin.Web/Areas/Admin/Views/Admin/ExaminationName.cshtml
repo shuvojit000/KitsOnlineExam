@@ -192,7 +192,13 @@
                 dataType: "json",
                 success: function (result) {
                     if (result > 0) {
-                        alert('Examination Name Save Successfully.');
+                        if (ExaminationNameID != null && ExaminationNameID > 0) {
+                            alert('Examination Name Updated Successfully.');
+                        }
+                        else {
+                            alert('Examination Name Save Successfully.');
+                        }
+                      
                         $("#myModal").modal('hide');
                         fnLoadExaminationNameList();
                     } else if (result == -1) {

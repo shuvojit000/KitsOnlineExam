@@ -196,7 +196,13 @@
                 dataType: "json",
                 success: function (result) {
                     if (result > 0) {
-                        alert('Programme Versioning Save Successfully.');
+                        if (programVersioningID != null && programVersioningID > 0) {
+                            alert('Programme Versioning Updated Successfully.');
+                        }
+                        else {
+                            alert('Programme Versioning Save Successfully.');
+                        }
+                       
                         $("#myModal").modal('hide');
                         fnLoadCourseList();
                     } else {

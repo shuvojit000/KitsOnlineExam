@@ -199,7 +199,13 @@
                 dataType: "json",
                 success: function (result) {
                     if (result > 0) {
-                        alert('Programme Semester Save Successfully.');
+                        if (programmeSemesterID != null && programmeSemesterID > 0) {
+                            alert('Programme Semester Updated Successfully.');
+                        }
+                        else {
+                            alert('Programme Semester Save Successfully.');
+                        }
+                      
                         $("#myModal").modal('hide');
                         fnLoadProgrammeSemesterList();
                     } else if (result == -1) {

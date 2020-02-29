@@ -181,7 +181,13 @@
                 dataType: "json",
                 success: function (result) {
                     if (result == 1) {
-                        alert('NEC Level Save Successfully.');
+                        if (academicID != null && academicID>0) {
+                            alert('NEC Level Updated Successfully.');
+                        }
+                        else {
+                            alert('NEC Level Save Successfully.');
+                        }
+                      
                         $("#myModal").modal('hide');
                         fnLoadAcademicLevelList();
                     }

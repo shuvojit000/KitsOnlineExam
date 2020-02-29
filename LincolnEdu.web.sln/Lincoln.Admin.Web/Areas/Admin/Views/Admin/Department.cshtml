@@ -206,8 +206,14 @@
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 success: function (result) {
-                    if (result ==1) {
-                        alert('Faculty Save Successfully.');
+                    if (result == 1) {
+                        if (departmentID != null && departmentID > 0) {
+                            alert('Faculty Updated Successfully.');
+                        }
+                        else {
+                            alert('Faculty Save Successfully.');
+                        }
+                       
                         $("#myModal").modal('hide');
                         fnLoadDepartmentList();
                     } else if (result == -1) {

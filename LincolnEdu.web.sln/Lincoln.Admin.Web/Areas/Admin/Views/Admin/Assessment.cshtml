@@ -193,7 +193,13 @@
                 dataType: "json",
                 success: function (result) {
                     if (result > 0) {
-                        alert('Assessment Save Successfully.');
+                        if (AssessmentID != null && AssessmentID > 0) {
+                            alert('Assessment updated Successfully.');
+                        }
+                        else {
+                            alert('Assessment Save Successfully.');
+                        }
+                      
                         $("#myModal").modal('hide');
                         fnLoadAssessmentList();
                     } else if (result == -1) {

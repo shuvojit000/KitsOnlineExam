@@ -81,13 +81,11 @@
                     <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body recoPas">
-
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <script>
     $(function () {
         $('li a[href="/Admin/Admin/EmployeeRegisration"]').parent('li').addClass('active');
@@ -140,6 +138,12 @@
                 }
             }
         });
+
+
+        $("#EmployeeCode").blur(function () {
+            $('#UserName').val($(this).val());
+        });
+
     });
 
     function fnAddEmployee(id) {
@@ -156,7 +160,7 @@
 
         if ($('#EmployeeCode').val() == '') {
             $('#EmployeeCode').focus();
-            $('#EmployeeCodeVal').html('Employee Code is required.');
+            $('#EmployeeCodeVal').html('EmployeeID is required.');
             $('#EmployeeCodeVal').css({ 'display': 'block' });
 
         }
@@ -208,7 +212,13 @@
                 dataType: "json",
                 success: function (result) {
                     if (result == 1) {
-                        alert('Employee Saved Successfully.');
+                        if (employeeID != null && employeeID > 0) {
+                            alert('Employee Updated Successfully.');
+                        }
+                        else {
+                            alert('Employee Saved Successfully.');
+                        }
+                     
                         $("#myModal").modal('hide');
                         fnLoadEmployeeList();
                     } else if (result == -1) {
@@ -265,10 +275,3 @@
         return emailReg.test($email);
     }
 </script>
-
-
-
-
-
-
-

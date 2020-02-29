@@ -60,7 +60,7 @@
                         </a>
                     </li>
                     <li class="nav-item mr-auto">
-                        <a class="navbar-brand" href="index.html">
+                        <a class="navbar-brand" href="@Url.Action("Dashboard","Admin",new {area="Admin" })">
                             <img class="brand-logo" alt="stack admin logo" src="~/Content/assets/images/logo/dashboardLogo.png">
                         </a>
                     </li>
@@ -180,13 +180,13 @@
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
                 <li class="nav-item active">
-                    <a href="adminDashboard.html"><i class="ft-home"></i><span class="menu-title" data-i18n="">Dashboard</span></a>
+                    <a href="@Url.Action("Dashboard","Admin",new {area="Admin" })"><i class="ft-home"></i><span class="menu-title" data-i18n="">Dashboard</span></a>
                 </li>
                 <li class="nav-item">
                     <a href="#"><i class="ft-edit"></i><span class="menu-title" data-i18n="">Academic Structure</span></a>
                     <ul class="menu-content">
                         <li>
-                            <a class="menu-item" href="@Url.Action("AcademicLevel","Admin",new {area="Admin" })">Academic Level</a>
+                            <a class="menu-item" href="@Url.Action("AcademicLevel","Admin",new {area="Admin" })">NEC Level</a>
                         </li>
                         <li>
                             <a class="menu-item" href="@Url.Action("Department","Admin",new {area="Admin" })">Faculty</a>

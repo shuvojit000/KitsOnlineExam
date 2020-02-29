@@ -214,7 +214,13 @@
                 dataType: "json",
                 success: function (result) {
                     if (result > 0) {
-                        alert('Subject Allocation Save Successfully.');
+                        if (SubjectAllocationID != null && SubjectAllocationID > 0) {
+                            alert('Subject Allocation Updated Successfully.');
+                        }
+                        else {
+                            alert('Subject Allocation Save Successfully.');
+                        }
+                       
                         $("#myModal").modal('hide');
                         fnLoadSubjectAllocationList();
                     } else if (result == -1) {

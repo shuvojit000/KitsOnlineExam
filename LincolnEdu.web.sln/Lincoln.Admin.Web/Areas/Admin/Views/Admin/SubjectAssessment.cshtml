@@ -219,7 +219,13 @@
                 dataType: "json",
                 success: function (result) {
                     if (result > 0) {
-                        alert('Subject Configuration Save Successfully.');
+                        if (SubjectAllocationID != null && SubjectAllocationID > 0) {
+                            alert('Subject Configuration Updated Successfully.');
+                        }
+                        else {
+                            alert('Subject Configuration Save Successfully.');
+                        }
+                       
                         $("#myModal").modal('hide');
                         fnLoadSubjectAssessmentList();
                     } else if (result == -1) {

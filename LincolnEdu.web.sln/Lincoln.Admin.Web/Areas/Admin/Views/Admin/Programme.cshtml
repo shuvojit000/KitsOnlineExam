@@ -204,8 +204,14 @@
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 success: function (result) {
-                    if (result ==1) {
-                        alert('Programme Save Successfully.');
+                    if (result == 1) {
+                        if (programmeID != null && programmeID > 0) {
+                            alert('Programme Updated Successfully.');
+                        }
+                        else {
+                            alert('Programme Save Successfully.');
+                        }
+                       
                         $("#myModal").modal('hide');
                         fnLoadProgrammeList();
                     } else if (result == -1) {
