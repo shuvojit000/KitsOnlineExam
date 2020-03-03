@@ -27,6 +27,7 @@ namespace Lincoln.Admin.Web.Models
         public int CourseID { get; set; }
         public string QuestionType { get; set; }
         public string CourseName { get; set; }
+        public decimal? MaximumMarks { get; set; }
         public string Active { get; set; }
         public int CreatedBy { get; set; }
         public string Status { get; set; }
