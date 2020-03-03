@@ -39,11 +39,12 @@
                 <div class="row">
                     <div class="form-group col-lg-6">
                         <label><b>Question Type:</b> </label>
-                        <span >@(Model.QuestionType=="S"?"Subjective":"Objective")</span>
+                        <span>@(Model.QuestionType == "S" ? "Subjective" : "Objective")</span>
                     </div>
 
                     <div class="form-group col-lg-6">
-                       
+                        <label><b>Maximum Marks:</b> </label>
+                        @Html.DisplayFor(a => a.MaximumMarks, new { @class = "form-control" })
                     </div>
                 </div>
             </div>

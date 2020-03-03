@@ -160,7 +160,7 @@
         else if ($('#ProgrammeVersioningID').val() == '') {
             $('#ProgramCodeVal').css({ 'display': 'block' });
         }
-        
+
         else if ($('#CountryCode').val() == '') {
             $('#CountryCodeVal').css({ 'display': 'block' });
         }
@@ -179,6 +179,9 @@
         else if (typeof $('input[name="QuestionType"]:checked').val() === 'undefined') {
             $('#QuestionTypeVal').css({ 'display': 'block' });
         }
+            else if ($('#MaximumMarks').val() == ''|| $('#MaximumMarks').val() == "0" || $('#MaximumMarks').val() == "0.00") {
+            $('#MaximumMarksval').css({ 'display': 'block' });
+        }
         else {
             var model = {
                 ExaminationSectionID: ExaminationSectionID,
@@ -189,6 +192,7 @@
                 CourseCode: $('#CourseID').val(),
                 SectionName:$("#SectionID option:selected").text(),
                 AcademicYearCode: $('#AcademicYearCode').val(),
+                 MaximumMarks: $('#MaximumMarks').val(),
                 QuestionType: $('input[name="QuestionType"]:checked').val(),
                 Active: 'A'
             };
@@ -208,7 +212,7 @@
                         else {
                             alert('Examination Section Save Successfully.');
                         }
-                       
+
                         $("#myModal").modal('hide');
                         fnLoadExaminationSectionList();
                     } else if (result == -1) {
@@ -259,5 +263,6 @@
         }
 
     }
+    
 </script>
 

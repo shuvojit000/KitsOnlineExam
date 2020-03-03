@@ -1,7 +1,7 @@
 ﻿
 @{
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayoutPage.cshtml";
-    ViewBag.Title = "SubjectAssessment";
+    ViewBag.Title = "Course Assessment";
 }
 
 <div class="content-wrapper">
@@ -14,7 +14,7 @@
                 <div class="col-12">
                     <div class="cardk">
                         <div class="card-header">
-                            <h4 class="card-title">Subject Assessment Configuration Records</h4>
+                            <h4 class="card-title">Course Assessment Configuration Records</h4>
                             <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
                                 <ul class="list-inline mb-0">
@@ -32,7 +32,7 @@
                             </div>
                             <div class="pull-right tableTools-container" style="padding-right:22px; padding-top:10px;">
                                 <div class="dt-buttons btn-overlap btn-group">
-                                    <a class="dt-button buttons-copy buttons-html5 btn btn-white btn-primary btn-bold" onclick="fnAddSubjectAssessment()" title="Add Subject Assessment">
+                                    <a class="dt-button buttons-copy buttons-html5 btn btn-white btn-primary btn-bold" onclick="fnAddSubjectAssessment()" title="Add Course Assessment">
                                         <span>
                                             <i class="fa fa-plus bigger-110" style="color:#ffffff"></i>
                                             <span class="hidden">Add</span>
@@ -77,7 +77,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">
-                        <label class="modal-title text-text-bold-600">Subject Assessment Configuration Entry & Modify/View</label>
+                        <label class="modal-title text-text-bold-600">Course Assessment Configuration Entry & Modify/View</label>
                     </h4>
                     <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
@@ -219,11 +219,11 @@
                 dataType: "json",
                 success: function (result) {
                     if (result > 0) {
-                        if (SubjectAllocationID != null && SubjectAllocationID > 0) {
-                            alert('Subject Configuration Updated Successfully.');
+                        if (SubjectAssessmentID != null && SubjectAssessmentID > 0) {
+                            alert('Course Assessment Updated Successfully.');
                         }
                         else {
-                            alert('Subject Configuration Save Successfully.');
+                            alert('Course Assessment Save Successfully.');
                         }
                        
                         $("#myModal").modal('hide');
@@ -267,7 +267,7 @@
                 dataType: "json",
                 success: function (result) {
                     if (result > 0) {
-                        alert('Assessment Configuration has been deleted Successfully.');
+                        alert('Course Assessment has been deleted Successfully.');
 
                         fnLoadSubjectAssessmentList();
                     }
