@@ -907,7 +907,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 model.DepartmentList = onlineExamService.GetAllDepartment().Where(a => a.DepartmentID == Convert.ToInt32(model.DepartmentID) && a.Status == "A")
                         .Select(a => new SelectListItem
                         {
-                            Text = a.DepartmentName,
+                            Text = a.DepartmentName +"("+a.DepartmentCode+")",
                             Value = a.DepartmentID.ToString()
 
                         }).ToList();
@@ -925,7 +925,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             {
                 model.ProgramList = new List<SelectListItem>();
                 model.SyllabusVersionList = new List<SelectListItem>();
-                model.DepartmentList = onlineExamService.GetAllDepartment().Select(a => new SelectListItem { Text = a.DepartmentName, Value = a.DepartmentID.ToString() }).ToList();
+                model.DepartmentList = onlineExamService.GetAllDepartment().Select(a => new SelectListItem { Text = a.DepartmentName + "(" + a.DepartmentCode + ")", Value = a.DepartmentID.ToString() }).ToList();
             }
             model.CountryList = new List<SelectListItem>
                             {
@@ -1011,6 +1011,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 AcademicYearCode = a.AcademicYearCode,
                 YearName = a.YearName,
                 QuestionType = a.QuestionType,
+                MaximumMarks=a.MaximumMarks,
                 Active = a.Status,
                 ModifiedOn = a.ModifiedOn?.Date,
                 CreatedBy = a.CreatedBy,
@@ -1047,6 +1048,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.YearName = item.YearName;
             model.SectionName = item.SectionName;
             model.SectionID = item.SectionName;
+            model.MaximumMarks = item.MaximumMarks;
             model.ModifiedOn = item.ModifiedOn?.Date;
             model.CreatedBy = item.CreatedBy;
             model.CreatedOn = item.CreatedOn;
@@ -1066,7 +1068,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 model.FacultyList = onlineExamService.GetAllDepartment().Where(a => a.DepartmentID == Convert.ToInt32(model.FacultyCode) && a.Status == "A")
                      .Select(a => new SelectListItem
                      {
-                         Text = a.DepartmentName,
+                         Text = a.DepartmentName + "(" + a.DepartmentCode + ")",
                          Value = a.DepartmentID.ToString()
 
                      }).ToList();
@@ -1126,7 +1128,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             }
             else
             {
-                model.FacultyList = onlineExamService.GetAllDepartment().Select(a => new SelectListItem { Text = a.DepartmentName, Value = a.DepartmentID.ToString() }).ToList();
+                model.FacultyList = onlineExamService.GetAllDepartment().Select(a => new SelectListItem { Text = a.DepartmentName + "(" + a.DepartmentCode + ")", Value = a.DepartmentID.ToString() }).ToList();
                 model.ProgramList = new List<SelectListItem>();
                 model.SyllabusVersionList = new List<SelectListItem>();
                 model.SemisterList = new List<SelectListItem>();
@@ -1180,6 +1182,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 AcademicYearCode = model.AcademicYearCode,
                 SectionName = model.SectionName,
                 QuestionType = model.QuestionType,
+                MaximumMarks=model.MaximumMarks,
                 Active = model.Active
             }, type);
 
@@ -1322,7 +1325,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 model.FacultyList = onlineExamService.GetAllDepartment().Where(a => a.DepartmentID == Convert.ToInt32(model.FacultyCode) && a.Status == "A")
                         .Select(a => new SelectListItem
                         {
-                            Text = a.DepartmentName,
+                            Text = a.DepartmentName + "(" + a.DepartmentCode + ")",
                             Value = a.DepartmentID.ToString()
 
                         }).ToList();
@@ -1361,7 +1364,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             }
             else
             {
-                model.FacultyList = onlineExamService.GetAllDepartment().Select(a => new SelectListItem { Text = a.DepartmentName, Value = a.DepartmentID.ToString() }).ToList();
+                model.FacultyList = onlineExamService.GetAllDepartment().Select(a => new SelectListItem { Text = a.DepartmentName + "(" + a.DepartmentCode + ")", Value = a.DepartmentID.ToString() }).ToList();
                 model.ProgramList = new List<SelectListItem>();
                 model.SyllabusVersionList = new List<SelectListItem>();
                 model.SemisterList = new List<SelectListItem>();// onlineExamService.GetAllProgrammeSemester().Select(a => new SelectListItem { Text = a.ProgrammeSemester.ToString(), Value = a.ProgrammeSemesterID.ToString() }).ToList();
@@ -1657,7 +1660,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             if (!string.IsNullOrEmpty(id))
             {
                 model = SelectSubjectAllocation(id);
-                model.FacultyList = onlineExamService.GetAllDepartment().Select(a => new SelectListItem { Text = a.DepartmentName, Value = a.DepartmentID.ToString() }).ToList();
+                model.FacultyList = onlineExamService.GetAllDepartment().Select(a => new SelectListItem { Text = a.DepartmentName + "(" + a.DepartmentCode + ")", Value = a.DepartmentID.ToString() }).ToList();
 
                 model.ProgramList = onlineExamService.GetAllProgrammeWithVersion().Where(a => a.DepartmentID == Convert.ToInt32(model.FacultyCode) && a.Status == "A")
                        .Select(a => new SelectListItem
@@ -1695,7 +1698,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             }
             else
             {
-                model.FacultyList = onlineExamService.GetAllDepartment().Select(a => new SelectListItem { Text = a.DepartmentName, Value = a.DepartmentID.ToString() }).ToList();
+                model.FacultyList = onlineExamService.GetAllDepartment().Select(a => new SelectListItem { Text = a.DepartmentName + "(" + a.DepartmentCode + ")", Value = a.DepartmentID.ToString() }).ToList();
                 model.ProgramList = new List<SelectListItem>();
                 model.SyllabusVersionList = new List<SelectListItem>();
                 model.CountryList = new List<SelectListItem>
