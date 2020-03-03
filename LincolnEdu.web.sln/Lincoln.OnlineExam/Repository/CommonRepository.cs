@@ -1247,6 +1247,9 @@ namespace Lincoln.OnlineExam.Repository
             SectionName.Value = recordAttributer.SectionName;
             SqlParameter questionType = new SqlParameter("@QuestionType", SqlDbType.VarChar);
             questionType.Value = recordAttributer.QuestionType;
+            SqlParameter maximumMarks = new SqlParameter("@MaximumMarks", SqlDbType.Decimal);
+            maximumMarks.Value = recordAttributer.MaximumMarks;
+
             SqlParameter active = new SqlParameter("@Active", SqlDbType.Char);
             active.Value = recordAttributer.Active;
             SqlParameter createdBy = new SqlParameter("@CreatedBy", SqlDbType.Int);
@@ -1257,8 +1260,9 @@ namespace Lincoln.OnlineExam.Repository
             status.Value = 0;
             status.Direction = ParameterDirection.InputOutput;
 
-            SqlServerHelper.ExecuteNonQueryProc("[ln.Examination].[upSaveExaminationSection]", ExaminationSectionID, ProgramCode, FacultyCode,
-                CountryCode, AcademicYearCode, SemisterCode,  CourseCode, SectionName,questionType, active, createdBy, type, status);
+            SqlServerHelper.ExecuteNonQueryProc("[ln.Examination].[upSaveExaminationSection]",
+                ExaminationSectionID, FacultyCode, ProgramCode,
+                CountryCode, AcademicYearCode, SemisterCode,  CourseCode, SectionName,questionType,maximumMarks, active, createdBy, type, status);
 
             return Convert.ToInt32(status.Value);
 
@@ -1306,7 +1310,8 @@ namespace Lincoln.OnlineExam.Repository
                             SemisterCode = Convert.ToInt32(dr["ProgrammeSemesterID"]),
                             SemisterName= object.ReferenceEquals(dr["ProgrammeSemester"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ProgrammeSemester"]),
                             CourseID = Convert.ToInt32(dr["CourseID"]),
-                            QuestionType = object.ReferenceEquals(dr["QuestionType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["QuestionType"]),                          
+                            QuestionType = object.ReferenceEquals(dr["QuestionType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["QuestionType"]),
+                            MaximumMarks = Convert.ToDecimal(dr["MaximumMarks"]),
                             Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
                             CreatedBy = Convert.ToInt32(dr["CreatedBy"]),
                         });
@@ -1361,6 +1366,7 @@ namespace Lincoln.OnlineExam.Repository
                         item.CourseName = object.ReferenceEquals(dr["CourseName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseName"]);
                         item.SemisterName = object.ReferenceEquals(dr["ProgrammeSemester"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseName"]);
                         item.CourseID = Convert.ToInt32(dr["CourseID"]);
+                        item.MaximumMarks = Convert.ToDecimal(dr["MaximumMarks"]);
                         item.Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]);
                         item.QuestionType= object.ReferenceEquals(dr["QuestionType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["QuestionType"]);
                         item.CreatedBy = Convert.ToInt32(dr["CreatedBy"]);
