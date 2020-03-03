@@ -27,6 +27,7 @@ namespace Lincoln.OnlineExam.Response
         public string SectionName { get; set; }
         public string CourseCode { get; set; }
         public string CourseName { get; set; }
+        public decimal? MaximumMarks { get; set; }
         public string Active { get; set; }
         public int CreatedBy { get; set; }
         public string Status { get; set; }
