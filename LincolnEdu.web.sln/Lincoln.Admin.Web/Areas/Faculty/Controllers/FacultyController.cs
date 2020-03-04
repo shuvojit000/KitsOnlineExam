@@ -79,6 +79,7 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
                 ModifiedOn = a.ModifiedOn?.Date,
                 CreatedBy = a.CreatedBy,
                 CreatedOn = a.CreatedOn,
+                MaximumMarks=a.MaximumMarks,
                 ModifiedBy = Convert.ToInt32(a.ModifiedBy),
             }).ToList();
 
@@ -119,28 +120,39 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
             return model;
 
         }
-        public PartialViewResult AddQuestion(string id)
+        public PartialViewResult AddQuestion(string examSectionID, string paperDetailsID)
         {
             var model = new QuestionSetUpViewModel();
-            if (!string.IsNullOrEmpty(id))
+            if (!string.IsNullOrEmpty(paperDetailsID))
             {
-                model.QuestionType = SelectExaminationSection(id)?.QuestionType;
-                model.QuestionNo = onlineExamService.SelectPaper(new OnlineExam.Request.PaperRequestDTO()
-                {
-                    CourseID = Convert.ToInt32(TempData.Peek("CourseID")),
-                    LoginID = User.UserId,
-                    ExaminationSectionID = SelectExaminationSection(id)?.ExaminationSectionID,
-                    CreatedBy = User.UserId,
+                model = SelectPaperDetails(paperDetailsID);
+            }
+            else
+            {
 
-                })?.QuestionNo??1;
-                model.SectionMarks = onlineExamService.SelectPaper(new OnlineExam.Request.PaperRequestDTO()
+                if (!string.IsNullOrEmpty(examSectionID))
                 {
-                    CourseID = Convert.ToInt32(TempData.Peek("CourseID")),
-                    LoginID = User.UserId,
-                    ExaminationSectionID = SelectExaminationSection(id)?.ExaminationSectionID,
-                    CreatedBy = User.UserId,
+                    model.QuestionType = SelectExaminationSection(examSectionID)?.QuestionType;
+                    model.QuestionNo = onlineExamService.SelectPaper(new OnlineExam.Request.PaperRequestDTO()
+                    {
+                        CourseID = Convert.ToInt32(TempData.Peek("CourseID")),
+                        LoginID = User.UserId,
+                        ExaminationSectionID = Convert.ToInt32(examSectionID),
+                        CreatedBy = User.UserId,
 
-                })?.SectionMarks??0;
+                    })?.QuestionNo ?? 1;
+                    model.SectionMarks = GetAllExaminationSection().Where(a => a.ExaminationSectionID == Convert.ToInt32(examSectionID)).
+                        FirstOrDefault().MaximumMarks ?? 0;
+                    model.RemainingMarks = onlineExamService.SelectPaper(new OnlineExam.Request.PaperRequestDTO()
+                    {
+                        CourseID = Convert.ToInt32(TempData.Peek("CourseID")),
+                        LoginID = User.UserId,
+                        ExaminationSectionID = Convert.ToInt32(examSectionID),
+                        CreatedBy = User.UserId,
+
+                    })?.RemainingMarks ?? model.SectionMarks;
+                }
+               
             }
 
             return PartialView("_AddQuestion", model);
@@ -235,7 +247,7 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
                 ExaminationSectionID = a.ExaminationSectionID,
                 Active = a.Status,
                 AnswerNo = a.AnswerNo,
-                AnswerText = a.AnswerText,
+                AnswerText = a.AnswerText,               
                 AudioOrVideoQuestion = a.AudioOrVideoQuestion,
                 OptionANo = a.OptionANo,
                 OptionAText = a.OptionAText,
@@ -254,7 +266,7 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
                 QuestionType = a.QuestionType,
                 SectionMarks = a.SectionMarks,
                 TextOrImageQuestion = a.TextOrImageQuestion,
-                QuestionText = a.QuestionText,
+                QuestionText = HttpUtility.HtmlDecode(a.QuestionText),
 
             }).ToList();
 
@@ -289,7 +301,7 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
             model.QuestionType = itemSet.QuestionType;
             model.SectionMarks = itemSet.SectionMarks;
             model.TextOrImageQuestion = itemSet.TextOrImageQuestion;
-            model.QuestionText = itemSet.QuestionText;
+            model.QuestionText = HttpUtility.HtmlDecode(itemSet.QuestionText);
 
 
             return model;
