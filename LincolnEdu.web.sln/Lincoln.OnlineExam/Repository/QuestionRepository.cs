@@ -69,7 +69,7 @@ namespace Lincoln.OnlineExam.Repository
             SqlParameter examinationSectionID = new SqlParameter("@ExaminationSectionID", SqlDbType.Int);
             examinationSectionID.Value = recordAttributer.ExaminationSectionID;
 
-            SqlParameter sectionName = new SqlParameter("@SectionName", SqlDbType.Int);
+            SqlParameter sectionName = new SqlParameter("@SectionName", SqlDbType.VarChar);
             sectionName.Value = recordAttributer.SectionName;
 
             SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
@@ -90,6 +90,7 @@ namespace Lincoln.OnlineExam.Repository
                         item.ExaminationSectionID = Convert.ToInt32(dr["ExaminationSectionID"]);
                         item.SectionName = object.ReferenceEquals(dr["SectionName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["SectionName"]);
                         item.SectionMarks = Convert.ToDecimal(dr["SectionMarks"]);
+                        item.RemainingMarks = Convert.ToDecimal(dr["RemainingMarks"]);
                     }
                 }
             }
