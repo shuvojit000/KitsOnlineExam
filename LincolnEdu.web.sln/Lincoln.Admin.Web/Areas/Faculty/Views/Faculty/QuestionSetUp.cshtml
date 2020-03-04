@@ -54,11 +54,33 @@
 
 
     $(document).on("change", "#ExaminationSectionID", function () {
-        $('.paperdetails').load('/Faculty/Faculty/AddQuestion/' + $('#ExaminationSectionID').val());
+
+        if ($('#ExaminationSectionID').val()!='' && $('#ExaminationSectionID').val()!=null) {
+            $.ajax({
+                url: '@Url.Action("AddQuestion", "Faculty",new {area= "Faculty" })',
+                data: {examSectionID:$('#ExaminationSectionID').val()},
+                type: 'GET',
+                cache: false,
+                contentType: "application/json;charset=utf-8",
+                 dataType: 'html',
+            success: function (result) {
+               
+                      $('.paperdetails').html(result);
+                },
+                error: function (e) {
+                    alert('Error in your requst.');
+                }
+         });
+        }
+        else {
+            fnResetScreen();
+        }
     });
 
     function fnResetScreen() {
-        $('.paperdetails').load('/Faculty/Faculty/AddQuestion/' + $('#ExaminationSectionID').val());
+      
+        $('#ExaminationSectionID').val('');
+        $('.paperdetails').html('');
     }
 
     function fnSavePaperDetails() {
@@ -127,7 +149,7 @@
                 ret = false;
                 $('#AnswerTextVal').css({ 'display': 'block' });
             }
-            
+
         }
         else if ($('input[name="QuestionType"]:checked').val() == 'O') {
             if ($('#OptionAText').val() == '') {
@@ -164,8 +186,25 @@
     function fnViewPaperDetails(paperDetailsID) {
 
     }
-    function fnAddPaperDetails(paperDetailsID) {
-        $('.paperdetails').load('/Faculty/Faculty/AddQuestion/' + $('#ExaminationSectionID').val());
+    function fnAddPaperDetails(paperDetailsID,showExamSectionId) {
+
+        $.ajax({
+                url: '@Url.Action("AddQuestion", "Faculty",new {area= "Faculty" })',
+                data: {paperDetailsID:paperDetailsID},
+                type: 'GET',
+                cache: false,
+                contentType: "application/json;charset=utf-8",
+                 dataType: 'html',
+            success: function (result) {
+                $('#ExaminationSectionID').val(showExamSectionId);
+                      $('.paperdetails').html(result);
+                },
+                error: function (e) {
+                    alert('Error in your requst.');
+                }
+        });
+
+       // $('.paperdetails').load('/Faculty/Faculty/AddQuestion/' + $('#ExaminationSectionID').val());
     }
     function fnDeletePaperDetails(paperDetailsID) {
 

@@ -20,6 +20,15 @@
     </div>
     <div class="row">
         <div class="form-group col-lg-6">
+            <label><b>Remaining Marks </b></label>
+            <div class="position-relative">
+                @Html.TextBoxFor(a => a.RemainingMarks, new { @class = "form-control", @readonly = "readonly" })
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-lg-6">
             <label><b>Question No </b></label>
             <div class="position-relative">
                 @Html.TextBoxFor(a => a.QuestionNo, new { @class = "form-control", @readonly = "readonly" })
@@ -48,7 +57,7 @@
         <div class="form-group col-lg-12">
             <label><b>Question Statement <span class="requiredstar">*</span> </b></label>
             <div class="position-relative">
-                @Html.EditorFor(a => a.QuestionText, new { @class = "form-control" })
+                @Html.TextAreaFor(a => a.QuestionText, new { @class = "form-control" })
                 <span id="QuestionTextVal" style="color:red;display:none" class="valClass">Question Statement is required.</span>
             </div>
         </div>
@@ -57,11 +66,11 @@
             <div class="form-group col-lg-12">
                 <label><b>Answer Statement<span class="requiredstar">*</span> </b></label>
                 <div class="position-relative">
-                    @Html.EditorFor(a => a.AnswerText, new { @class = "form-control" })
+                    @Html.TextAreaFor(a => a.AnswerText, new { @class = "form-control" })
                     <span id="AnswerTextVal" style="color:red;display:none" class="valClass">Answer Statement is required.</span>
                 </div>
             </div>
-            
+
         }
         @if (Model.QuestionType == "O")
         {
