@@ -15,5 +15,6 @@ namespace Lincoln.OnlineExam.Response
         public int? ExaminationSectionID { get; set; }
         public string SectionName { get; set; }
         public decimal? SectionMarks { get; set; }
+        public decimal? RemainingMarks { get; set; }
     }
 }
