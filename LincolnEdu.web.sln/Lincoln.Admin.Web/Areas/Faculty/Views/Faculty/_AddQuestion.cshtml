@@ -167,7 +167,8 @@
     CKEDITOR.replace('QuestionText', {
         filebrowserImageBrowseUrl: '/Home/uploadPartial',
         filebrowserImageUploadUrl: '/Home/uploadnow',
-        extraPlugins: 'ckeditor_wiris'
+        extraPlugins: 'ckeditor_wiris',
+        allowedContent :true
     });
     function updateValue(id, value) {
         // this gets called from the popup window and updates the field with a new value
@@ -178,7 +179,8 @@
         CKEDITOR.replace('AnswerText', {
             filebrowserImageBrowseUrl: '/Home/uploadPartial',
             filebrowserImageUploadUrl: '/Home/uploadnow',
-            extraPlugins: 'ckeditor_wiris'
+            extraPlugins: 'ckeditor_wiris',
+             allowedContent :true
         });
        
     }
