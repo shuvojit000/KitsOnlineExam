@@ -31,6 +31,9 @@ namespace Lincoln.Admin.Web.Models
         public DateTime? CreatedOn { get; set; }
         public int? ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
+        public int? AcademicID { get; set; }
+        public string AcademicName { get; set; }
+        public List<SelectListItem> AcademicList { get; set; }
         public List<SelectListItem> ProgramList { get; set; }
         public List<SelectListItem> EmployeeList { get; set; }
         public List<SelectListItem> AcademicYearList { get; set; }

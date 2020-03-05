@@ -22,6 +22,7 @@ namespace Lincoln.Admin.Web.Models
         public string AudioOrVideoQuestion { get; set; }
         public decimal? QuestionMarks { get; set; }
         public decimal? SectionMarks { get; set; }
+        public decimal? RemainingMarks { get; set; }
         public int? OptionANo { get; set; }
         public string OptionAText { get; set; }
         public int? OptionBNo { get; set; }

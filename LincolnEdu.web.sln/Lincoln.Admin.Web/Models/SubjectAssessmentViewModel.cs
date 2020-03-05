@@ -41,6 +41,9 @@ namespace Lincoln.Admin.Web.Models
         public List<SelectListItem> FacultyList { get; set; }
         public SubjectAssessmentDetails TabulalConfigurationDetails { get; set; }
         public List<SubjectAssessmentDetails> SubAssessmentDetails { get; set; }
+        public int? AcademicID { get; set; }
+        public string AcademicName { get; set; }
+        public List<SelectListItem> AcademicList { get; set; }
     }
 
     public class SubjectAssessmentDetails

@@ -34,5 +34,7 @@ namespace Lincoln.Admin.Web.Models
         public List<SelectListItem> ProgYearList { get; set; }
         public List<SelectListItem> ProgSEMList { get; set; }
         public string Active { get; set; }
+       
+        public List<SelectListItem> AcademicList { get; set; }
     }
 }

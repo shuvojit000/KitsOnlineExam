@@ -23,5 +23,8 @@ namespace Lincoln.Admin.Web.Models
         public string Active { get; set; }
         public List<SelectListItem> ProgramList { get; set; }
         public List<SelectListItem> DepartmentList { get; set; }
+        public int? AcademicID { get; set; }
+        public string AcademicName { get; set; }
+        public List<SelectListItem> AcademicList { get; set; }
     }
 }

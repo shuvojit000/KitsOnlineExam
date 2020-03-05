@@ -31,6 +31,9 @@ namespace Lincoln.Admin.Web.Models
         public List<SelectListItem> SyllabusVersionList { get; set; }
         public List<SelectListItem> FacultyList { get; set; }
         public List<SelectListItem> DepartmentList { get; set; }
+        public int? AcademicID { get; set; }
+        public string AcademicName { get; set; }
+        public List<SelectListItem> AcademicList { get; set; }
 
     }
 }
