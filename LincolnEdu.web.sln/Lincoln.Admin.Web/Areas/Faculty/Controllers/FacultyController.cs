@@ -301,7 +301,7 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
             model.QuestionType = itemSet.QuestionType;
             model.SectionMarks = itemSet.SectionMarks;
             model.TextOrImageQuestion = itemSet.TextOrImageQuestion;
-            model.QuestionText = HttpUtility.HtmlDecode(itemSet.QuestionText);
+            model.QuestionText = itemSet.QuestionText;
 
 
             return model;
