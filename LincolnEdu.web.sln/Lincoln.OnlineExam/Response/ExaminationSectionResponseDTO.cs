@@ -28,6 +28,8 @@ namespace Lincoln.OnlineExam.Response
         public string CourseCode { get; set; }
         public string CourseName { get; set; }
         public decimal? MaximumMarks { get; set; }
+        public int? AcademicID { get; set; }
+        public string AcademicName { get; set; }
         public string Active { get; set; }
         public int CreatedBy { get; set; }
         public string Status { get; set; }

@@ -8,6 +8,8 @@ namespace Lincoln.OnlineExam.Response
 {
    public class ProgramVersioningResponseDTO
     {
+        public int? AcademicID { get; set; }
+        public string AcademicName { get; set; }
         public int ProgramVersioningID { get; set; }
         public int DepartmentCode { get; set; }
         public int ProgramCode { get; set; }

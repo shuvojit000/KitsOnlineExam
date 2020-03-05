@@ -29,11 +29,13 @@ namespace Lincoln.OnlineExam.Response
         public string CourseName { get; set; }
         public int? CreatedBy { get; set; }
         public string Status { get; set; }
-
+        public int? AcademicID { get; set; }
+        public string AcademicName { get; set; }
         public string Active { get; set; }
         public DateTime? CreatedOn { get; set; }
         public int? ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
+        public List<SelectListItem> AcademicList { get; set; }
         public List<SelectListItem> ProgramList { get; set; }
         public List<SelectListItem> CourseList { get; set; }
         public List<SelectListItem> SemisterList { get; set; }

@@ -22,6 +22,8 @@ namespace Lincoln.OnlineExam.Response
         public int CreatedBy { get; set; }
         public string Status { get; set; }
         public string Version { get; set; }
+        public int? AcademicID { get; set; }
+        public string AcademicName { get; set; }
         public DateTime? CreatedOn { get; set; }
         public int? ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
