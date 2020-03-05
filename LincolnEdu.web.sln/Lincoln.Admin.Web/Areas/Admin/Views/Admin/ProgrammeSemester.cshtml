@@ -159,7 +159,10 @@
     function fnSaveProgrammeSemester(programmeSemesterID) {
 
         $('.valClass').css({ 'display': 'none' });
-        if ($('#DepartmentID').val() == '') {
+        if ($('#AcademicID').val() == '') {
+            $('#AcademicIDVal').css({ 'display': 'block' });
+        }
+        else if ($('#DepartmentID').val() == '') {
             $('#DepartmentIDVal').css({ 'display': 'block' });
         }
         else if ($('#ProgramVersioningID').val() == '') {

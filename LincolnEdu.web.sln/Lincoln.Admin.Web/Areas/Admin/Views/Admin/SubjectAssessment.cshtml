@@ -173,6 +173,9 @@
         if (SubAssessmentDetails.length == 0 || isBlankPercentage.length > 0 || isBlankMarks.length>0) {
             alert('Assessment configuration is required.')
         }
+        else if ($('#AcademicID').val() == '') {
+            $('#AcademicIDVal').css({ 'display': 'block' });
+        }
         else if ($('#FacultyCode').val() == '') {
             $('#FacultyCodeVal').css({ 'display': 'block' });
         }

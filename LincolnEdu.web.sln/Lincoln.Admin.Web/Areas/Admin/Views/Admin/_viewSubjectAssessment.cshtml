@@ -9,6 +9,15 @@
         <div class="col-lg-12">
             <!--PAGE CONTENT BEGINS-->
             <div class="modal-body">
+
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label><b>MQF Level: </b></label>
+
+                        @Html.DisplayFor(a => a.AcademicName, new { @class = "form-control" })
+
+                    </div>
+                </div>
                 <div class="row">
                     <div class="form-group col-lg-6">
                         <label><b>Faculty Name: </b></label>
@@ -17,12 +26,12 @@
 
                     <div class="form-group col-lg-6">
                         <label><b>Programme: </b></label>
-                       <span>@Model.ProgramName (@Model.Version)</span>
+                        <span>@Model.ProgramName (@Model.Version)</span>
                     </div>
 
                 </div>
                 <div class="row">
-                   
+
                     <div class="form-group col-lg-6">
                         <label><b>Country:</b> </label>
                         @Html.DisplayFor(a => a.CountryName, new { @class = "form-control" })
@@ -51,7 +60,7 @@
                             <th>Percentage %</th>
                             <th>Full Marks</th>
                             <th>Assessment Type</th>
-                           
+
                         </tr>
                     </thead>
                     <tbody>
@@ -64,7 +73,7 @@
                                     <td>@item.AssessmentPercentage</td>
                                     <td>@item.FullMarks</td>
                                     <td>@item.AssessmentType</td>
-                                    
+
 
                                 </tr>
                             }

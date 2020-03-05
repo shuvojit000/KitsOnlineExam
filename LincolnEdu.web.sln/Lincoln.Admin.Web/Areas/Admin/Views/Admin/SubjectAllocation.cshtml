@@ -173,7 +173,11 @@
 
         });
         $('.valClass').css({ 'display': 'none' });
-        if ($('#FacultyCode').val() == '') {
+        
+        if ($('#AcademicID').val() == '') {
+            $('#AcademicIDVal').css({ 'display': 'block' });
+        }
+       else  if ($('#FacultyCode').val() == '') {
             $('#FacultyCodeVal').css({ 'display': 'block' });
         }
         else if ($('#ProgrammeVersioningID').val() == '') {

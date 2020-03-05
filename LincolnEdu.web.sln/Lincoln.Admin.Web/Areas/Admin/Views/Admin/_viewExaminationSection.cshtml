@@ -10,22 +10,30 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-lg-6">
+                        <label><b>MQF Level: </b></label>
+
+                        @Html.DisplayFor(a => a.AcademicName, new { @class = "form-control" })
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-6">
                         <label><b>Faculty: </b></label>
                         @Html.DisplayFor(a => a.FacultyName, new { @class = "form-control" })
                     </div>
                     <div class="form-group col-lg-12">
                         <label><b>Program: </b></label>
-                       <span>@Model.ProgramName (@Model.Version)</span>
+                        <span>@Model.ProgramName (@Model.Version)</span>
                     </div>
                 </div>
                 <div class="row">
-                   
+
                     <div class="form-group col-lg-6">
                         <label><b>Course:</b> </label>
                         @Html.DisplayFor(a => a.CourseName, new { @class = "form-control" })
                     </div>
                 </div>
-                <div class="row">  
+                <div class="row">
                     <div class="form-group col-lg-6">
                         <label><b>Programme Year:</b> </label>
                         @Html.DisplayFor(a => a.AcademicYearCode, new { @class = "form-control" })

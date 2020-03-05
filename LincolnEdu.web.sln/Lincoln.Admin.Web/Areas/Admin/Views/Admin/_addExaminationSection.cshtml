@@ -8,6 +8,17 @@
             <!--PAGE CONTENT BEGINS-->
             <div class="modal-body">
                 <div class="row">
+                    <div class="row">
+                        <div class="form-group col-lg-12">
+                            <label><b>MQF Level <span class="requiredstar">*</span> </b></label>
+                            <div class="position-relative has-icon-left">
+                                @Html.DropDownListFor(a => a.AcademicID, Model.AcademicList, "Select MQF Level", new { @class = "custom-select block" })
+                                <span id="AcademicIDVal" style="color:red;display:none" class="valClass">Please select MQF Level.</span>
+
+                            </div>
+                        </div>
+
+                    </div>
                     <div class="form-group col-lg-6">
                         <label><b>Faculty <span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
@@ -71,7 +82,7 @@
                     <div class="form-group col-lg-6">
                         <label><b>Maximum Marks<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative">
-                            @Html.TextBoxFor(a => a.MaximumMarks,  new { @class = "form-control",@length="6" })                            
+                            @Html.TextBoxFor(a => a.MaximumMarks, new { @class = "form-control", @length = "6" })
                             <span id="MaximumMarksVal" style="color:red;display:none" class="valClass">Marks is required.</span>
                         </div>
                     </div>
@@ -89,7 +100,32 @@
 </div>
 
 <script>
+     $(document).on("change","#AcademicID",function () {
+        $("#FacultyCode").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetDepartmentDrop","Admin",new { area="Admin"})', // we are calling json method
 
+            dataType: 'json',
+
+            data: { academicID: $("#AcademicID").val() },
+            success: function (res) {
+                // states contains the JSON formatted list
+                // of states passed from the controller
+                $("#FacultyCode").append('<option value="">Select Faculty</option>');
+                $.each(res, function (i, state) {
+                    $("#FacultyCode").append('<option value="' + state.Value + '">' +
+                         state.Text + '</option>');
+                    // here we are adding option for States
+
+                });
+            },
+            error: function (ex) {
+                alert('Failed to retrieve Faculty.' + ex);
+            }
+        });
+        return false;
+    })
     $(document).on("change","#FacultyCode",function () {
         $("#ProgrammeVersioningID").empty();
         $("#CountryCode").empty();

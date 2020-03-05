@@ -6,44 +6,53 @@
         <div class="col-lg-12">
             <!--PAGE CONTENT BEGINS-->
             <div class="modal-body">
+
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label><b>MQF Level: </b></label>
+
+                        @Html.DisplayFor(a => a.AcademicName, new { @class = "form-control" })
+
+                    </div>
+                </div>
                 <div class="row">
                     <div class="form-group col-lg-6">
                         <label><b>Faculty: </b></label>
-                            @Html.DisplayFor(a => a.DepartmentName,  new { @class = "form-control" })
+                        @Html.DisplayFor(a => a.DepartmentName, new { @class = "form-control" })
 
                     </div>
                     <div class="form-group col-lg-6">
                         <label><b>Programme :</b> </label>
-                       <span>@Model.ProgrammeName (@Model.Version)</span>
+                        <span>@Model.ProgrammeName (@Model.Version)</span>
 
 
                     </div>
                 </div>
                 <div class="row">
-                    
+
                     <div class="form-group col-lg-6">
                         <label><b>Programme Year:</b> </label>
-                       
-                            @Html.DisplayFor(a => a.ProgrammeYear,  new { @class = "form-control" })
 
-                    
+                        @Html.DisplayFor(a => a.ProgrammeYear, new { @class = "form-control" })
+
+
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-lg-6">
                         <label><b>Programme Semester:</b> </label>
-                       
-                            @Html.DisplayFor(a => a.ProgrammeSemester,  new { @class = "form-control" })
 
-                     
+                        @Html.DisplayFor(a => a.ProgrammeSemester, new { @class = "form-control" })
+
+
                     </div>
 
                     <div class="form-group col-lg-6">
                         <label><b>Semester Type:</b> </label>
-                      
-                            @Html.DisplayFor(a => a.SemesterType, new { @class = "form-control" })
 
-                     
+                        @Html.DisplayFor(a => a.SemesterType, new { @class = "form-control" })
+
+
                     </div>
                 </div>
                 <div class="row">
@@ -56,7 +65,7 @@
                     <div class="form-group col-lg-6">
                         <label><b>Course Type:</b> </label>
 
-                      <span>@(Model.CourseType=="C"?"Core":"Elective")</span>
+                        <span>@(Model.CourseType == "C" ? "Core" : "Elective")</span>
 
                     </div>
                     <div class="form-group col-lg-6">
@@ -70,16 +79,16 @@
                 <div class="row">
                     <div class="form-group col-lg-6">
                         <label><b>Approval  No:</b> </label>
-                        
-                            @Html.DisplayFor(a => a.ApprovalNo, new { @class = "form-control" })
 
-                      
+                        @Html.DisplayFor(a => a.ApprovalNo, new { @class = "form-control" })
+
+
                     </div>
 
                     <div class="form-group col-lg-6">
                         <label><b>Credit:</b> </label>
-                       
-                            @Html.DisplayFor(a => a.Credit, new { @class = "form-control" })
+
+                        @Html.DisplayFor(a => a.Credit, new { @class = "form-control" })
 
                     </div>
                 </div>

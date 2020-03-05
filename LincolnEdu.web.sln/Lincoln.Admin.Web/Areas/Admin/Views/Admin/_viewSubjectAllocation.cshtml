@@ -51,6 +51,16 @@
         <div class="col-lg-12">
             <!--PAGE CONTENT BEGINS-->
             <div class="modal-body">
+
+
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label><b>MQF Level: </b></label>
+
+                        @Html.DisplayFor(a => a.AcademicName, new { @class = "form-control" })
+
+                    </div>
+                </div>
                 <div class="row">
                     <div class="form-group col-lg-6">
                         <label><b>Faculty: </b></label>
@@ -81,7 +91,7 @@
                         @Html.DisplayFor(a => a.EmployeeName, new { @class = "form-control" })
                     </div>
 
-                    
+
                 </div>
 
                 <div class="row">
@@ -103,7 +113,7 @@
                                 p = p + 1;
                                 <tr>
                                     <td>
-                                       
+
                                         <img src="~/Content/assets/images/plus.png" />
                                         <div style="display:none">
                                             <table cellpadding="0" cellspacing="0" class="ChildGrid">
@@ -136,7 +146,7 @@
 
                                     </td>
                                     <td>
-                                      
+
                                         <label id="SemesterName" name="SemesterName[]" value="@item.SemisterID">@item.SemisterName</label>
                                     </td>
                                 </tr>

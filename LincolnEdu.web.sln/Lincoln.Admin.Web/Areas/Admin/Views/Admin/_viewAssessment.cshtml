@@ -9,6 +9,12 @@
             <!--PAGE CONTENT BEGINS-->
             <div class="modal-body">
                 <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label><b>MQF Level: </b></label>
+                        @Html.DisplayFor(a => a.AcademicName, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="row">
                     <div class="form-group col-lg-12">
                         <label><b>Faculty: </b></label>
                         @Html.DisplayFor(a => a.DepartmentName, new { @class = "form-control" })
@@ -17,13 +23,13 @@
 
                     <div class="form-group col-lg-6">
                         <label><b>Program: </b></label>
-                       <span>@Model.ProgramName (@Model.Version)</span>
+                        <span>@Model.ProgramName (@Model.Version)</span>
                     </div>
                 </div>
-                <div class="row">                    
+                <div class="row">
                     <div class="form-group col-lg-6">
                         <label><b>Country :</b> </label>
-                        @Html.DisplayFor(a => a.CountryName, new {@class = "form-control" })
+                        @Html.DisplayFor(a => a.CountryName, new { @class = "form-control" })
                     </div>
                 </div>
                 <div class="row">

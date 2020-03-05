@@ -152,7 +152,10 @@
     }
     function fnSaveAssessment(AssessmentID) {
         $('.valClass').css({ 'display': 'none' });
-        if ($('#DepartmentID').val() == '') {
+        if ($('#AcademicID').val() == '') {
+            $('#AcademicIDVal').css({ 'display': 'block' });
+        }
+        else if ($('#DepartmentID').val() == '') {
             $('#FacultyCodeVal').css({ 'display': 'block' });
         }
         else if ($('#ProgramVersioningID').val() == '') {

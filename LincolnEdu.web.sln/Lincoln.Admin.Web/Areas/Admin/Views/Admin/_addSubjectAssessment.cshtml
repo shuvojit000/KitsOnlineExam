@@ -10,6 +10,17 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-lg-6">
+                        <label><b>MQF Level <span class="requiredstar">*</span> </b></label>
+                        <div class="position-relative has-icon-left">
+                            @Html.DropDownListFor(a => a.AcademicID, Model.AcademicList, "Select MQF Level", new { @class = "custom-select block" })
+                            <span id="AcademicIDVal" style="color:red;display:none" class="valClass">Please select MQF Level.</span>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="form-group col-lg-6">
                         <label><b>Faculty<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
                             @Html.DropDownListFor(a => a.FacultyCode, Model.FacultyList, "Select Faculty", new { @class = "custom-select block" })
@@ -23,7 +34,7 @@
                             <span id="ProgramCodeVal" style="color:red;display:none" class="valClass">Please select Programme.</span>
                         </div>
                     </div>
-                    
+
                     <div class="form-group col-lg-6">
                         <label><b>Country<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
@@ -61,7 +72,7 @@
                             <th scope="row"><label for="customFieldName">Percentage(%)</label></th>
                             <th scope="row"><label for="customFieldName">Full Marks</label></th>
                             <th scope="row"><label for="customFieldName">Type</label></th>
-                           
+
                         </tr>
                     </thead>
                     <tbody id="addtbody">
@@ -110,7 +121,32 @@
 
 
 <script>
+     $(document).on("change","#AcademicID",function () {
+        $("#FacultyCode").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetDepartmentDrop","Admin",new { area="Admin"})', // we are calling json method
 
+            dataType: 'json',
+
+            data: { academicID: $("#AcademicID").val() },
+            success: function (res) {
+                // states contains the JSON formatted list
+                // of states passed from the controller
+                $("#FacultyCode").append('<option value="">Select Faculty</option>');
+                $.each(res, function (i, state) {
+                    $("#FacultyCode").append('<option value="' + state.Value + '">' +
+                         state.Text + '</option>');
+                    // here we are adding option for States
+
+                });
+            },
+            error: function (ex) {
+                alert('Failed to retrieve Faculty.' + ex);
+            }
+        });
+        return false;
+    })
     $(document).on("change", "#FacultyCode", function () {
         $("#ProgrammeVersioningID").empty();
         $("#CountryCode").empty();

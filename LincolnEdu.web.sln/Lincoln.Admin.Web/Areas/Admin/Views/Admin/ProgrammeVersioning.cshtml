@@ -159,7 +159,10 @@
     function fnSaveProgramVersioning(programVersioningID) {
 
         $('.valClass').css({ 'display': 'none' });
-        if ($('#DepartmentCode').val() == '') {
+         if ($('#AcademicID').val() == '') {
+            $('#AcademicIDVal').css({ 'display': 'block' });
+        }
+        else if ($('#DepartmentCode').val() == '') {
             $('#DepartmentCodeVal').css({ 'display': 'block' });
         }
         else if ($('#ProgramCode').val() == '') {
