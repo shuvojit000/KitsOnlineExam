@@ -162,6 +162,11 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
         {
             return PartialView("_listQuestion", GetPaperDetails());
         }
+
+        public PartialViewResult QuestionView(string id)
+        {
+            return PartialView("_QuestionView", SelectPaperDetails(id));
+        }
         [HttpPost]
         public JsonResult SavePaperDetails(QuestionSetUpViewModel model)
         {
@@ -267,6 +272,7 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
                 SectionMarks = a.SectionMarks,
                 TextOrImageQuestion = a.TextOrImageQuestion,
                 QuestionText = HttpUtility.HtmlDecode(a.QuestionText),
+                RemainingMarks=a.RemainingMarks
 
             }).ToList();
 
@@ -302,9 +308,26 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
             model.SectionMarks = itemSet.SectionMarks;
             model.TextOrImageQuestion = itemSet.TextOrImageQuestion;
             model.QuestionText = itemSet.QuestionText;
-
+            model.RemainingMarks = itemSet.RemainingMarks;
 
             return model;
+        }
+
+
+        [HttpPost]
+        public JsonResult DeletePaperDetails(QuestionSetUpViewModel model)
+        {
+
+            var result = onlineExamService.SavePaperDetails(new OnlineExam.Request.PaperDetailsRequestDTO()
+            {
+
+                CreatedBy = User.UserId,
+                PaperDetailsID = model.PaperDetailsID
+
+
+            }, "DELETE");
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

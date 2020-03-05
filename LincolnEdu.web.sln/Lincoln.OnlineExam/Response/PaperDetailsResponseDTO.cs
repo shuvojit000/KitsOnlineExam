@@ -12,6 +12,7 @@ namespace Lincoln.OnlineExam.Response
         public int? ExaminationSectionID { get; set; }        
         public int? PaperID { get; set; }
         public string QuestionType { get; set; }
+        public decimal? RemainingMarks { get; set; }
         public int? QuestionNo { get; set; }
         public string QuestionText { get; set; }
         public string TextOrImageQuestion { get; set; }

@@ -47,6 +47,23 @@
         <!--/ Base style table -->
     </div>
 </div>
+<div class="col-lg-12">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <label class="modal-title text-text-bold-600">Question View</label>
+                    </h4>
+                    <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body recoPas">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
 
 
@@ -184,7 +201,7 @@
         return ret;
     }
     function fnViewPaperDetails(paperDetailsID) {
-
+        $('.modal-body').load('/Faculty/Faculty/QuestionView/' + paperDetailsID, function () { $("#myModal").modal('show'); });
     }
     function fnAddPaperDetails(paperDetailsID,showExamSectionId) {
 
@@ -207,7 +224,29 @@
        // $('.paperdetails').load('/Faculty/Faculty/AddQuestion/' + $('#ExaminationSectionID').val());
     }
     function fnDeletePaperDetails(paperDetailsID) {
+        if (confirm("Are you sure want to delete?")) {
+            var model = {
+                PaperDetailsID: paperDetailsID
+            };
+            $.ajax({
+                url: '@Url.Action("DeletePaperDetails", "Faculty",new {area= "Faculty" })',
+                data: JSON.stringify(model),
+                type: 'POST',
+                cache: false,
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result > 0) {
+                        alert('Question has been deleted Successfully.');
 
+                        fnLoadQuestionList();
+                    }
+                },
+                error: function (e) {
+                    alert('Error in your requst.');
+                }
+            });
+        }
     }
     function fnLoadQuestionList() {
         $('.paperdetailsList').load('/Faculty/Faculty/QuestionList');

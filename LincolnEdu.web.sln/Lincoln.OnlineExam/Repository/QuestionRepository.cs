@@ -231,6 +231,7 @@ namespace Lincoln.OnlineExam.Repository
                             OptionEText = object.ReferenceEquals(dr["OptionEText"], DBNull.Value) ? string.Empty : Convert.ToString(dr["OptionEText"]),
                             PaperID = Convert.ToInt32(dr["PaperID"]),
                             QuestionMarks = Convert.ToDecimal(dr["QuestionMarks"]),
+                            RemainingMarks = Convert.ToDecimal(dr["RemainingMarks"]),
                             QuestionNo = Convert.ToInt32(dr["QuestionNo"]),
                             QuestionText = object.ReferenceEquals(dr["QuestionText"], DBNull.Value) ? string.Empty : Convert.ToString(dr["QuestionText"]),
                             QuestionType = object.ReferenceEquals(dr["QuestionType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["QuestionType"]),
@@ -288,7 +289,8 @@ namespace Lincoln.OnlineExam.Repository
                         itemSet.OptionENo = Convert.ToInt32(dr["OptionENo"]);
                         itemSet.OptionEText = object.ReferenceEquals(dr["OptionEText"], DBNull.Value) ? string.Empty : Convert.ToString(dr["OptionEText"]);
                         itemSet.PaperID = Convert.ToInt32(dr["PaperID"]);
-                        itemSet.QuestionMarks = Convert.ToDecimal(dr["QuestionMarks"]);                       
+                        itemSet.QuestionMarks = Convert.ToDecimal(dr["QuestionMarks"]);
+                        itemSet.RemainingMarks = Convert.ToDecimal(dr["RemainingMarks"]);
                         itemSet.QuestionNo = Convert.ToInt32(dr["QuestionNo"]);
                         itemSet.QuestionText = object.ReferenceEquals(dr["QuestionText"], DBNull.Value) ? string.Empty : Convert.ToString(dr["QuestionText"]);
                         itemSet.QuestionType = object.ReferenceEquals(dr["QuestionType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["QuestionType"]);
