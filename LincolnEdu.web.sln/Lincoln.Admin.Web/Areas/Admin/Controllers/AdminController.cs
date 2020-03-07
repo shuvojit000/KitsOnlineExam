@@ -1632,6 +1632,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             itemSet = onlineExamService.GetAllSubjectAllocation().Select(a => new SubjectAllocationViewModel()
             {
                 SubjectAllocationID = a.SubjectAllocationID,
+                AcademicID=a.AcademicID,
+                AcademicName =a.AcademicName,
                 ProgramName = a.ProgramName,
                 CountryName = a.CountryName,
                 EmployeeName=a.EmployeeName,
@@ -1661,7 +1663,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             SubjectAllocationViewModel model = new SubjectAllocationViewModel();
             model.SubjectAllocationID = Convert.ToInt32(itemSet.SubjectAllocationID);
-
+            model.AcademicID = itemSet.AcademicID;
+            model.AcademicName = itemSet.AcademicName;
             model.ProgrammeVersioningID = Convert.ToInt32(itemSet.ProgrammeVersioningID);
             model.CountryCode = Convert.ToInt32(itemSet.CountryCode);
             model.CountryName = (itemSet.CountryCode == 1) ? "India" : (itemSet.CountryCode == 2) ? "Malaysia" : "United States";
