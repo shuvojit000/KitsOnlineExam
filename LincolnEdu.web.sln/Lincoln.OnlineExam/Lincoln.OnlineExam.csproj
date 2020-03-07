@@ -70,8 +70,10 @@
     <Compile Include="Repository\CommonRepository.cs" />
     <Compile Include="Repository\ICommon.cs" />
     <Compile Include="Repository\IQuestionRepository.cs" />
+    <Compile Include="Repository\IStudent.cs" />
     <Compile Include="Repository\IUserRepository.cs" />
     <Compile Include="Repository\QuestionRepository.cs" />
+    <Compile Include="Repository\StudentRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Request\AcademicLevelRequestDTO.cs" />
     <Compile Include="Request\AssessmentRequestDTO.cs" />

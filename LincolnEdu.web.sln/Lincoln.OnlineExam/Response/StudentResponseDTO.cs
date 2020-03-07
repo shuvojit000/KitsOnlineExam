@@ -13,6 +13,10 @@ namespace Lincoln.OnlineExam.Response
         public int BatchID { get; set; }
         public string BatchName { get; set; }
         public string StudentName { get; set; }
+
+        public int CourseID { get; set; }
+        public int CourseCode { get; set; }
+        public string CourseName { get; set; }
         public string RollNo { get; set; }
         public string Password { get; set; }
         public string MobileNo { get; set; }

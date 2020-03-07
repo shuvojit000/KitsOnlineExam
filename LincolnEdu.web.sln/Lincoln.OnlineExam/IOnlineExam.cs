@@ -78,5 +78,6 @@ namespace Lincoln.OnlineExam
         int SavePaperDetails(PaperDetailsRequestDTO recordAttributer, string Operation);
         List<PaperDetailsResponseDTO> GetAllPaperDetails(PaperDetailsRequestDTO recordAttributer);
         PaperDetailsResponseDTO SelectAllPaperDetails(PaperDetailsRequestDTO recordAttributer);
+        
     }
 }

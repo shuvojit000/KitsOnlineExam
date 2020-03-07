@@ -1,0 +1,41 @@
+﻿
+@model Lincoln.Admin.Web.Models.AnswerSetUpdViewModel
+@{
+        ViewBag.Title = "Answer SetUp";
+        Layout = "~/Areas/Student/Views/Shared/_StudentLayout.cshtml";
+    }
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
+<script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
+
+<div class="content-wrapper">
+    <div class="content-header row">
+    </div>
+    <div class="content-body">
+        <!-- Base style table -->
+        @Html.HiddenFor(a => a.PaperDetailsID)
+        <span>Course Name:@Model.CourseName (@Model.CourseCode)</span>
+        <span>Exam Duration:3 Hours</span>
+        <span>Start Time:10:30 AM</span>
+        <div class="card-content collapse show">
+            <div class="card-body card-dashboard paperdetails">
+                @{ Html.RenderAction("AnswerSubmit", "Student", new { area = "Student", Id = Model.CourseID });}
+            </div>
+        </div>
+
+
+        <button type="button" id="AnswerSubmit" class="btn btn-primary">
+            <i class="fa fa-check-square-o"></i> Save
+        </button>
+        <!--/ Base style table -->
+    </div>
+</div>
+<script>
+    $(document).on("click", "#AnswerSubmit", function () {
+        //$('.paperdetails').load('/Student/Student/AnswerSubmit/' + $('#ExaminationSectionID').val());
+        $('.paperdetails').load('/Student/Student/AnswerSubmit');
+    });
+</script>

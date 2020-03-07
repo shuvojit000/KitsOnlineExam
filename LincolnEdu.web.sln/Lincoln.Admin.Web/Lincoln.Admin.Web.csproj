@@ -139,6 +139,7 @@
     <Compile Include="Areas\Admin\Controllers\AdminController.Department.cs" />
     <Compile Include="Areas\Faculty\Controllers\FacultyController.cs" />
     <Compile Include="Areas\Faculty\FacultyAreaRegistration.cs" />
+    <Compile Include="Areas\Student\Controllers\StudentController.cs" />
     <Compile Include="Areas\Student\StudentAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -162,6 +163,7 @@
     <Compile Include="Models\ProgramVersioningViewModel.cs" />
     <Compile Include="Models\QuestionSectionViewModel.cs" />
     <Compile Include="Models\QuestionSetUpViewModel.cs" />
+    <Compile Include="Models\StudentDashboardViewModel.cs" />
     <Compile Include="Models\StudentViewModel.cs" />
     <Compile Include="Models\SubjectAllocationViewModel.cs" />
     <Compile Include="Models\SubjectAssessmentViewModel.cs" />
@@ -782,6 +784,9 @@
     <Content Include="Areas\Student\Views\web.config" />
     <Content Include="Areas\Faculty\Views\Faculty\_listQuestion.cshtml" />
     <Content Include="Areas\Faculty\Views\Faculty\_QuestionView.cshtml" />
+    <Content Include="Areas\Student\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Student\Views\Shared\_StudentLayout.cshtml" />
+    <Content Include="Areas\Student\Views\_ViewStart.cshtml" />
     <None Include="Properties\PublishProfiles\LinclnAdmin.pubxml" />
     <None Include="Properties\PublishProfiles\LincLonAdmin.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -812,9 +817,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Faculty\Models\" />
-    <Folder Include="Areas\Student\Controllers\" />
     <Folder Include="Areas\Student\Models\" />
-    <Folder Include="Areas\Student\Views\Shared\" />
+    <Folder Include="Areas\Student\Views\Student\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

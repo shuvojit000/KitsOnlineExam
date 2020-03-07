@@ -71,7 +71,10 @@ namespace Lincoln.Admin.Web.Controllers
                     {
                         return RedirectToAction("Dashboard", "Faculty", new { area = "Faculty" });
                     }
-
+                    else if (String.Equals(user.UserType, "STUDENT", StringComparison.OrdinalIgnoreCase))
+                    {
+                        return RedirectToAction("Dashboard", "Student", new { area = "Student" });
+                    }
                 }
 
                 ModelState.AddModelError("UserName", "Incorrect Username and/or Password");

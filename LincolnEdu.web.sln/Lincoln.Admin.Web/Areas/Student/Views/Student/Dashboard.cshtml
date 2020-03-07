@@ -1,0 +1,45 @@
+﻿
+@model IEnumerable<Lincoln.Admin.Web.Models.StudentDashboardViewModel>
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Areas/Student/Views/Shared/_StudentLayout.cshtml";
+}
+
+<style>
+
+    .color {
+        color: #f8f40a
+    }
+
+    a:hover {
+        color: #ffd800
+    }
+</style>
+<div class="content-wrapper">
+    <div class="content-header row">
+    </div>
+    <div class="content-body">
+        <!-- Update Records -->
+        <div class="row">
+
+            <div class="col-xl-4 col-lg-6 col-12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="media align-items-stretch">
+                            @foreach (var item in Model)
+                            {
+                                <div class="p-2 bg-gradient-x-primary white media-body">
+                                    <h5>Course: &nbsp; <a href="@Url.Action("AnswerSetUp","Student",new {area="Student",Id=item.CourseID })" class="color"><span>@item.CourseName (@item.CourseCode)</span></a></h5>
+                                    
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--/ Update Records -->
+    </div>
+</div>
+

@@ -13,7 +13,20 @@ namespace Lincoln.OnlineExam
         private IUserRepository userRepository;
         private ICommon commonRepository;
         private IQuestionRepository questionRepository;
+        private IStudent studentRepository;
+        public IStudent StudentRepository
+        {
+            get
+            {
+                if (this.studentRepository == null)
+                {
 
+                    this.studentRepository = new StudentRepository();
+                }
+
+                return this.studentRepository;
+            }
+        }
         public IUserRepository UserRepository
         {
             get
