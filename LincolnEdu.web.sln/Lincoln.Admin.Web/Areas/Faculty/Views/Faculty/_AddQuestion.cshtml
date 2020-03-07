@@ -76,7 +76,7 @@
                         <div class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-lg-1">
-                                    <input type="radio" name="AnswerNo" value="1" /> A
+                                    <input type="radio" name="AnswerNo" value="1" @(Model.AnswerNo == 1 ? "checked" : "") /> A
                                 </div>
                                 <div class="col-lg-11">
                                     @Html.TextBoxFor(a => a.OptionAText, new { @class = "form-control" })
@@ -88,7 +88,7 @@
                         <div class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-lg-1">
-                                    <input type="radio" name="AnswerNo" value="2" /> B
+                                    <input type="radio" name="AnswerNo" value="2" @(Model.AnswerNo == 2 ? "checked" : "") /> B
                                 </div>
                                 <div class="col-lg-11">
                                     @Html.TextBoxFor(a => a.OptionBText, new { @class = "form-control" })
@@ -100,7 +100,7 @@
                         <div class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-lg-1">
-                                    <input type="radio" name="AnswerNo" value="3" /> C
+                                    <input type="radio" name="AnswerNo" value="3" @(Model.AnswerNo == 3 ? "checked" : "") /> C
                                 </div>
                                 <div class="col-lg-11">
                                     @Html.TextBoxFor(a => a.OptionCText, new { @class = "form-control" })
@@ -112,7 +112,7 @@
                         <div class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-lg-1">
-                                    <input type="radio" name="AnswerNo" value="4" /> D
+                                    <input type="radio" name="AnswerNo" value="4" @(Model.AnswerNo == 4 ? "checked" : "") /> D
                                 </div>
                                 <div class="col-lg-11">
                                     @Html.TextBoxFor(a => a.OptionDText, new { @class = "form-control" })
@@ -124,7 +124,7 @@
                         <div class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-lg-1">
-                                    <input type="radio" name="AnswerNo" value="5" /> E
+                                    <input type="radio" name="AnswerNo" value="5" @(Model.AnswerNo == 5 ? "checked" : "") /> E
                                 </div>
                                 <div class="col-lg-11">
                                     @Html.TextBoxFor(a => a.OptionEText, new { @class = "form-control" })
