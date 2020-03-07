@@ -270,6 +270,7 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
                 QuestionNo = Convert.ToInt32(a.QuestionNo),
                 QuestionType = a.QuestionType,
                 SectionMarks = a.SectionMarks,
+                SectionName=a.SectionName,
                 TextOrImageQuestion = a.TextOrImageQuestion,
                 QuestionText = HttpUtility.HtmlDecode(a.QuestionText),
                 RemainingMarks=a.RemainingMarks
@@ -309,7 +310,7 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
             model.TextOrImageQuestion = itemSet.TextOrImageQuestion;
             model.QuestionText = itemSet.QuestionText;
             model.RemainingMarks = itemSet.RemainingMarks;
-
+            model.SectionName = itemSet.SectionName;
             return model;
         }
 

@@ -36,5 +36,6 @@ namespace Lincoln.OnlineExam.Response
         public DateTime? CreatedOn { get; set; }
         public int? ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
+        public string SectionName { get; set; }
     }
 }

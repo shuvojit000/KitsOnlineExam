@@ -238,7 +238,7 @@ namespace Lincoln.OnlineExam.Repository
                             Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
                             TextOrImageQuestion = object.ReferenceEquals(dr["TextOrImageQuestion"], DBNull.Value) ? string.Empty : Convert.ToString(dr["TextOrImageQuestion"]),
 
-
+                            SectionName = object.ReferenceEquals(dr["SectionName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["SectionName"]),
 
                         });
 
@@ -296,6 +296,8 @@ namespace Lincoln.OnlineExam.Repository
                         itemSet.QuestionType = object.ReferenceEquals(dr["QuestionType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["QuestionType"]);
                         itemSet.Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]);
                         itemSet.TextOrImageQuestion = object.ReferenceEquals(dr["TextOrImageQuestion"], DBNull.Value) ? string.Empty : Convert.ToString(dr["TextOrImageQuestion"]);
+                        itemSet.SectionName = object.ReferenceEquals(dr["SectionName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["SectionName"]);
+
 
 
 
