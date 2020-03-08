@@ -152,8 +152,8 @@
          var SubAllocationDetailsList = [];
         $('table#Grid tr.ctr').each(function () {
             var currentRow = $(this).closest("tr");
-                $(this).find('table.ChildGrid tbody.dTbody').each(function () {
-                    var currentRowD = $(this).closest("tr");
+            $(this).find('table.ChildGrid tbody.dTbody tr.dTTr').each(function () {
+                    var currentRowD = $(this);
                     if (currentRowD.find("#item2_CourseID").val() != null) {  
 
                         var tabularD = {
