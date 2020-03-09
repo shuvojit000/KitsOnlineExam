@@ -7,6 +7,7 @@ using System.Web.Security;
 using Lincoln.Admin.Web.Models;
 using Lincoln.OnlineExam;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace Lincoln.Admin.Web.Controllers
 {
@@ -88,6 +89,26 @@ namespace Lincoln.Admin.Web.Controllers
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", "Home", new { area=""});
+        }
+
+        public ActionResult uploadPartial()
+        {
+            var appData = Server.MapPath("~/UploadImage");
+            var images = Directory.GetFiles(appData).Select(x => new imagesviewmodel
+            {
+                Url = Url.Content("/UploadImage/" + Path.GetFileName(x))
+            });
+            return View(images);
+        }
+        public void uploadnow(HttpPostedFileWrapper upload)
+        {
+            if (upload != null)
+            {
+                string ImageName = upload.FileName;
+                string path = System.IO.Path.Combine(Server.MapPath("~/UploadImage"), ImageName);
+                upload.SaveAs(path);
+            }
+
         }
     }
 }

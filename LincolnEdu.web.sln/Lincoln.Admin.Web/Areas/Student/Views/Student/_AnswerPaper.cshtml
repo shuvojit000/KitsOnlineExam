@@ -1,124 +1,40 @@
-﻿
-@model Lincoln.Admin.Web.Models.AnswerSetUpdViewModel
-
-<style>
-    .hidden {
-        display: none;
-    }
-</style>
-<script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
-
-<div class="content-body">
-    <!-- Base style table -->
-    @Html.HiddenFor(a => a.PaperDetailsID)
-
-    <div class="row">
-
-        <div class="form-group col-lg-12">
-            <label><b>Question Statement </b></label>
-            <div class="position-relative">
-                @Html.LabelFor(a => a.QuestionText, Model.QuestionText, new { @class = "form-control" })
-            </div>
-        </div>
-        @if (Model.QuestionType == "S")
-        {
-            <div class="form-group col-lg-12">
-                <label><b>Answer Statement </b></label>
-                <div class="position-relative">
-                    @Html.EditorFor(a => a.AnswerText, new { @class = "form-control" })
-                </div>
-            </div>
-
-        }
-        @if (Model.QuestionType == "O")
-        {
-            <div id="myContent">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group row">
-                                <div class="col-lg-1">
-
-                                    @Html.RadioButtonFor(a => a.OptionANo, new { @checked = "false" })@Html.Label("A")
-
-                                </div>
-                                <div class="col-lg-11">
-                                    @Html.LabelFor(a => a.OptionAText, Model.OptionAText, new { @class = "form-control" })
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12">
-                            <div class="form-group row">
-                                <div class="col-lg-1">
-                                    @Html.RadioButtonFor(a => a.OptionBNo, new { @checked = "false" })@Html.Label("B")
-                                </div>
-                                <div class="col-lg-11">
-                                    @Html.LabelFor(a => a.OptionBText, Model.OptionBText, new { @class = "form-control" })
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12">
-                            <div class="form-group row">
-                                <div class="col-lg-1">
-                                    @Html.RadioButtonFor(a => a.OptionCNo, new { @checked = "false" })@Html.Label("C")
-                                </div>
-                                <div class="col-lg-11">
-                                    @Html.LabelFor(a => a.OptionCText, Model.OptionCText, new { @class = "form-control" })
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12">
-                            <div class="form-group row">
-                                <div class="col-lg-1">
-                                    @Html.RadioButtonFor(a => a.OptionDNo, new { @checked = "false" })@Html.Label("D")
-                                </div>
-                                <div class="col-lg-11">
-                                    @Html.LabelFor(a => a.OptionDText, Model.OptionDText, new { @class = "form-control" })
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12">
-                            <div class="form-group row">
-                                <div class="col-lg-1">
-                                    @Html.RadioButtonFor(a => a.OptionENo, new { @checked = "false" })@Html.Label("E")
-                                </div>
-                                <div class="col-lg-11">
-                                    @Html.LabelFor(a => a.OptionEText, Model.OptionEText, new { @class = "form-control" })
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
+﻿<input type="hidden" name="qno" id="qno" value="" />
+<p style="text-align: justify; padding-left:10px; padding-top:10px;">
+    Q.1
+</p>
+<hr />
+<div class="col-sm-12">
+    <div class="col-sm-6">
+        <p style="text-align: justify;">
+            <strong>
+                Out of Rs. 70000, Ram invested Rs. 30000 at 4% and Rs. 20000 at 3% simple interest.
+                At what rate of interest he must invest the balance so as to got a return of 5% on the
+                whole amount per year.
+                <br />
+            </strong>&nbsp;
+        </p>
     </div>
+    <div class="col-sm-6 part-br">
+        <p style="text-align: justify;">
+            <strong>
+                Out of Rs. 70000, Ram invested Rs. 30000 at 4% and Rs. 20000 at 3% simple interest.
+                At what rate of interest he must invest the balance so as to got a return of 5% on the
+                whole amount per year.
+                <br />
+            </strong>&nbsp;
+        </p>
 
-    <!--/ Base style table -->
+        <input type="radio" id="opt1" name="radio-1-set" value="1" />
+        <label for="opt1"></label><strong>5%</strong><br />
+
+        <input type="radio" id="opt2" name="radio-1-set" value="2" />
+        <label for="opt2"></label> <strong>7%</strong><br />
+
+        <input type="radio" id="opt3" name="radio-1-set" value="3" />
+        <label for="opt3"></label><strong>8%</strong><br />
+
+        <input type="radio" id="opt4" name="radio-1-set" value="4" />
+        <label for="opt4"></label><strong>8.5%</strong><br />
+
+    </div>
 </div>
-
-<script>
-    CKEDITOR.plugins.addExternal('ckeditor_wiris', 'https://www.wiris.net/demo/plugins/ckeditor/', 'plugin.js');
-
-    //CKEDITOR.replace('AnswerText', {
-    //    filebrowserImageBrowseUrl: '/Home/uploadPartial',
-    //    filebrowserImageUploadUrl: '/Home/uploadnow',
-    //    extraPlugins: 'ckeditor_wiris'
-    //});
-    CKEDITOR.replace('AnswerText', {
-        filebrowserImageBrowseUrl: '/Home/uploadPartial',
-        filebrowserImageUploadUrl: '/Home/uploadnow',
-        extraPlugins: 'ckeditor_wiris'
-    });
-    function updateValue(id, value) {
-        // this gets called from the popup window and updates the field with a new value
-        document.getElementById(id).value = value;
-    }
-
-
-
-</script>
-

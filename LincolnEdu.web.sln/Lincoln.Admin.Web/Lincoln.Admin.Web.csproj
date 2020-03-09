@@ -787,6 +787,9 @@
     <Content Include="Areas\Student\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Student\Views\Shared\_StudentLayout.cshtml" />
     <Content Include="Areas\Student\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Student\Views\Student\AnswerSetUp.cshtml" />
+    <Content Include="Areas\Student\Views\Student\Dashboard.cshtml" />
+    <Content Include="Areas\Student\Views\Student\_AnswerPaper.cshtml" />
     <None Include="Properties\PublishProfiles\LinclnAdmin.pubxml" />
     <None Include="Properties\PublishProfiles\LincLonAdmin.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -812,13 +815,14 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\LogIn.cshtml" />
+    <Content Include="Views\Home\uploadPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Faculty\Models\" />
     <Folder Include="Areas\Student\Models\" />
-    <Folder Include="Areas\Student\Views\Student\" />
+    <Folder Include="UploadImage\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

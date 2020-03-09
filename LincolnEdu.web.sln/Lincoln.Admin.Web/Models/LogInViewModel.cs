@@ -16,4 +16,8 @@ namespace Lincoln.Admin.Web.Models
         public string EmailID { get; set; }
         public string MobileNo { get; set; }
     }
+    public class imagesviewmodel
+    {
+        public string Url { get; set; }
+    }
 }

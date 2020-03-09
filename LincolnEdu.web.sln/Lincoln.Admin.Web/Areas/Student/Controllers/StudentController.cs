@@ -71,7 +71,7 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
             return View(AVM);
         }
 
-        public PartialViewResult AnswerSubmit(string id)
+        public PartialViewResult AnswerPaper(string id)
         {
             AnswerSetUpdViewModel AVM = new AnswerSetUpdViewModel();
            
