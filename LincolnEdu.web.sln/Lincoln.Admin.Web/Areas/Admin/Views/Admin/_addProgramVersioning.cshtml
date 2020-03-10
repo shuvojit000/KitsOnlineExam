@@ -91,7 +91,7 @@
 
             dataType: 'json',
 
-            data: { academicID: $("#AcademicID").val() },
+            data: { academicID: $("#AcademicID").val()==''?"0":$("#AcademicID").val() },
             success: function (res) {
                 // states contains the JSON formatted list
                 // of states passed from the controller
@@ -116,7 +116,7 @@
                 type: 'POST',
                 url: '@Url.Action("GetProgDrop","Admin",new { area="Admin"})', // we are calling json method
                 dataType: 'json',
-                data: { departmentID: $("#DepartmentCode").val() },
+                data: { departmentID: $("#DepartmentCode").val()==''?"0":$("#DepartmentCodeGetProgDrop").val() },
                 success: function (res) {
                     // states contains the JSON formatted list
                     // of states passed from the controller
