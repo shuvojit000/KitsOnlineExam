@@ -6,9 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using static Lincoln.Admin.Web.FilterConfig;
 
 namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
 {
+    [CutomAuthorizeAttribute]
     public class FacultyController : BaseController
     {
         private readonly IOnlineExam onlineExamService;

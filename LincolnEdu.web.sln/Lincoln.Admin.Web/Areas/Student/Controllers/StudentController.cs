@@ -1,14 +1,13 @@
 ﻿using Lincoln.Admin.Web.Controllers;
 using Lincoln.Admin.Web.Models;
 using Lincoln.OnlineExam;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using static Lincoln.Admin.Web.FilterConfig;
 
 namespace Lincoln.Admin.Web.Areas.Student.Controllers
 {
+    [CutomAuthorizeAttribute]
     public class StudentController : BaseController
     {
         private readonly IOnlineExam onlineExamService;

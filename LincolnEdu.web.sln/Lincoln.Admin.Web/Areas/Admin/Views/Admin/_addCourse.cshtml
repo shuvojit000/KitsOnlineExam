@@ -142,7 +142,7 @@
 
             dataType: 'json',
 
-            data: { academicID: $("#AcademicID").val() },
+            data: { academicID: $("#AcademicID").val() != '' ? $("#AcademicID").val() : "0" },
             success: function (res) {
                 // states contains the JSON formatted list
                 // of states passed from the controller
@@ -169,7 +169,7 @@
 
             dataType: 'json',
 
-            data: { departmentID: $("#DepartmentID").val() },
+            data: { departmentID: $("#DepartmentID").val() != '' ? $("#DepartmentID").val() : "0" },
             success: function (res) {
                 // states contains the JSON formatted list
                 // of states passed from the controller
@@ -197,7 +197,7 @@
 
             dataType: 'json',
 
-            data: { programmeVersionID: $("#ProgramVersioningID").val() },
+            data: { programmeVersionID: $("#ProgramVersioningID").val() != '' ? $("#ProgramVersioningID").val() : "0" },
             success: function (res) {
                 if (res != null) {
 
@@ -229,7 +229,10 @@
 
             dataType: 'json',
 
-            data: { programmeVersionID: $("#ProgramVersioningID").val(), countryID: $('#CountryID').val() },
+            data: {
+                programmeVersionID: $("#ProgramVersioningID").val() != '' ? $("#ProgramVersioningID").val() : "0",
+                countryID: $('#CountryID').val() != '' ? $("#CountryID").val() : "0"
+            },
             success: function (res) {
                 if (res != null) {
 
@@ -262,7 +265,11 @@
 
             dataType: 'json',
 
-            data: { programmeVersionID: $("#ProgramVersioningID").val(), countryID: $('#CountryID').val(), programYear: $('#ProgrammeYear').val() },
+            data: {
+                programmeVersionID: $("#ProgramVersioningID").val() != '' ? $("#ProgramVersioningID").val() : "0",
+                countryID: $('#CountryID').val() != '' ? $("#CountryID").val() : "0",
+                programYear: $('#ProgrammeYear').val() != '' ? $("#ProgrammeYear").val() : "0"
+            },
             success: function (res) {
                 if (res != null) {
 
@@ -293,8 +300,10 @@
             url: '@Url.Action("ChangeProgramSemSelection", "Admin",new { area="Admin"})', // we are calling json method
             dataType: 'json',
             data: {
-                programmeVersionID: $("#ProgramVersioningID").val(), countryID: $('#CountryID').val(), programYear: $('#ProgrammeYear').val(),
-                progSemId: $("#ProgrammeSemesterID").val()
+                programmeVersionID: $("#ProgramVersioningID").val() != '' ? $("#ProgramVersioningID").val() : "0",
+                countryID: $('#CountryID').val() != '' ? $("#CountryID").val() : "0",
+                programYear: $('#ProgrammeYear').val() != '' ? $("#ProgrammeYear").val() : "0",
+                progSemId: $("#ProgrammeSemesterID").val() != '' ? $("#ProgrammeSemesterID").val() : "0"
             },
             success: function (res) {
                 if (res=="Short") {

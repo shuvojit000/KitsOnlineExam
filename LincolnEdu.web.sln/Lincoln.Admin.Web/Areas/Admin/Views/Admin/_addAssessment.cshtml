@@ -78,7 +78,7 @@
 
             dataType: 'json',
 
-            data: { academicID: $("#AcademicID").val() },
+            data: { academicID: $("#AcademicID").val() != '' ? $("#AcademicID").val() : "0" },
             success: function (res) {
                 // states contains the JSON formatted list
                 // of states passed from the controller
@@ -103,7 +103,7 @@
                 type: 'POST',
                 url: '@Url.Action("GetProgDropWithVersion","Admin",new { area="Admin"})',
                 dataType: 'json',
-                data: { departmentID: $("#DepartmentID").val() },
+                data: { departmentID: $("#DepartmentID").val() != '' ? $("#DepartmentID").val() : "0" },
                 success: function (res) {
                     $("#ProgramVersioningID").append('<option value="">Select Programme</option>');
                     $.each(res, function (i, state) {
@@ -125,7 +125,7 @@
                     type: 'POST',
                     url: '@Url.Action("GetProgrammeVersionDDL","Admin",new { area="Admin"})',
                     dataType: 'json',
-                    data: { ProgramVID: $("#ProgrammeID").val() },
+                    data: { ProgramVID: $("#ProgrammeID").val() != '' ? $("#ProgrammeID").val() : "0" },
                     success: function (res) {
                         $("#SyllabusVersion").append('<option value="">Select Syllabus version</option>');
                         $.each(res, function (i, state) {

@@ -116,7 +116,7 @@
                 type: 'POST',
                 url: '@Url.Action("GetProgDrop","Admin",new { area="Admin"})', // we are calling json method
                 dataType: 'json',
-                data: { departmentID: $("#DepartmentCode").val()==''?"0":$("#DepartmentCodeGetProgDrop").val() },
+                data: { departmentID: $("#DepartmentCode").val()==''?"0":$("#DepartmentCode").val() },
                 success: function (res) {
                     // states contains the JSON formatted list
                     // of states passed from the controller

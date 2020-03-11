@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Lincoln.Admin.Web.Controllers;
 using Lincoln.Admin.Web.Models;
 using Lincoln.OnlineExam;
-using Lincoln.OnlineExam.Response;
-using System.Xml.Linq;
 
 namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 {
+    [Authorize]
     public partial class AdminController : BaseController
     {
         private readonly IOnlineExam onlineExamService;

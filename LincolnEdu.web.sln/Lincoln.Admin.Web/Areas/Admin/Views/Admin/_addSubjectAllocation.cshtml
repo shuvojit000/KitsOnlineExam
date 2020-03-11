@@ -140,7 +140,7 @@
 
             dataType: 'json',
 
-            data: { academicID: $("#AcademicID").val() },
+            data: { academicID: $("#AcademicID").val()!=''?$("#AcademicID").val():"0"  },
             success: function (res) {
                 // states contains the JSON formatted list
                 // of states passed from the controller
@@ -166,7 +166,7 @@
             type: 'POST',
             url: '@Url.Action("GetProgDropWithVersion", "Admin",new { area="Admin"})',
             dataType: 'json',
-            data: { departmentID: $("#FacultyCode").val() },
+            data: { departmentID: $("#FacultyCode").val()!=''?$("#FacultyCode").val():"0"  },
             success: function (res) {
                 $("#ProgrammeVersioningID").append('<option value="">Select Programme</option>');
                 $.each(res, function (i, state) {
@@ -191,7 +191,7 @@
             type: 'POST',
             url: '@Url.Action("ChangeProgramSelection", "Admin",new { area="Admin"})', // we are calling json method
             dataType: 'json',
-            data: { programmeVersionID: $("#ProgrammeVersioningID").val() },
+            data: { programmeVersionID: $("#ProgrammeVersioningID").val()!=''?$("#ProgrammeVersioningID").val():"0"  },
             success: function (res) {
                 if (res != null) {
                     $("#CountryCode").append('<option value="">Select Country</option>');
@@ -218,7 +218,8 @@
             type: 'POST',
             url: '@Url.Action("ChangeCountrySelection", "Admin",new { area="Admin"})',
             dataType: 'json',
-            data: { programmeVersionID: $("#ProgrammeVersioningID").val(), countryID: $('#CountryCode').val() },
+            data: { programmeVersionID: $("#ProgrammeVersioningID").val()!=''?$("#ProgrammeVersioningID").val():"0" , 
+                countryID: $('#CountryCode').val()!=''?$("#CountryCode").val():"0"  },
             success: function (res) {
                 if (res != null) {
                     $("#AcademicYearCode").append('<option value="">Select Programme Year</option>');

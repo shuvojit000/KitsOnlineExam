@@ -108,7 +108,7 @@
 
             dataType: 'json',
 
-            data: { academicID: $("#AcademicID").val() },
+            data: { academicID: $("#AcademicID").val() != '' ? $("#AcademicID").val() : "0" },
             success: function (res) {
                 // states contains the JSON formatted list
                 // of states passed from the controller
@@ -138,7 +138,7 @@
 
             dataType: 'json',
 
-            data: { departmentID: $("#FacultyCode").val() },
+            data: { departmentID: $("#FacultyCode").val() != '' ? $("#FacultyCode").val() : "0" },
             success: function (res) {
                 $("#ProgrammeVersioningID").append('<option value="">Select Programme</option>');
                 $.each(res, function (i, state) {
@@ -164,7 +164,7 @@
             type: 'POST',
             url: '@Url.Action("ChangeProgramSelection", "Admin",new { area="Admin"})', // we are calling json method
             dataType: 'json',
-            data: { programmeVersionID: $("#ProgrammeVersioningID").val() },
+            data: { programmeVersionID: $("#ProgrammeVersioningID").val() != '' ? $("#ProgrammeVersioningID").val() : "0" },
             success: function (res) {
                 if (res != null) {
 
@@ -200,7 +200,10 @@
 
             dataType: 'json',
 
-            data: {programmeVersionID: $("#ProgrammeVersioningID").val(), countryID: $('#CountryCode').val() },
+            data: {
+                programmeVersionID: $("#ProgrammeVersioningID").val() != '' ? $("#ProgrammeVersioningID").val() : "0",
+                countryID: $('#CountryCode').val() != '' ? $("#CountryCode").val() : "0"
+            },
             success: function (res) {
                 if (res != null) {
 
@@ -234,7 +237,11 @@
 
             dataType: 'json',
 
-            data: {  programmeVersionID: $("#ProgrammeVersioningID").val(), countryID: $('#CountryCode').val(), programYear: $('#AcademicYearCode').val() },
+            data: {
+                programmeVersionID: $("#ProgrammeVersioningID").val() != '' ? $("#ProgrammeVersioningID").val() : "0",
+                countryID: $('#CountryCode').val() != '' ? $("#CountryCode").val() : "0",
+                programYear: $('#AcademicYearCode').val() != '' ? $("#AcademicYearCode").val() : "0"
+            },
             success: function (res) {
                 if (res != null) {
                     
@@ -266,8 +273,12 @@
             type: 'POST',
             url: '@Url.Action("GetCourseExam", "Admin",new { area="Admin"})',
             dataType: 'json',
-            data: { programVersioningID: $("#ProgrammeVersioningID").val(),  countryId: $('#CountryCode').val(), 
-                programmeYear: $('#AcademicYearCode').val(),programmeSem: $('#SemisterCode').val() },
+            data: {
+                programVersioningID: $("#ProgrammeVersioningID").val() != '' ? $("#ProgrammeVersioningID").val() : "0",
+                countryId: $('#CountryCode').val() != '' ? $("#CountryCode").val() : "0",
+                programmeYear: $('#AcademicYearCode').val() != '' ? $("#AcademicYearCode").val() : "0",
+                programmeSem: $('#SemisterCode').val() != '' ? $("#SemisterCode").val() : "0"
+            },
               success: function (res) {
                 $("#CourseID").append('<option value="">Select Course</option>');
                 $.each(res, function (i, state) {
