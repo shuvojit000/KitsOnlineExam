@@ -71,7 +71,7 @@
 
 <script>
    $(document).on("change","#AcademicID",function () {
-        $("#DepartmentID").empty();
+       $("#DepartmentID").empty().append('<option value="">Select Faculty</option>');
         $.ajax({
             type: 'POST',
             url: '@Url.Action("GetDepartmentDrop","Admin",new { area="Admin"})', // we are calling json method
@@ -80,9 +80,7 @@
 
             data: { academicID: $("#AcademicID").val() != '' ? $("#AcademicID").val() : "0" },
             success: function (res) {
-                // states contains the JSON formatted list
-                // of states passed from the controller
-                $("#DepartmentID").append('<option value="">Select Faculty</option>');
+                
                 $.each(res, function (i, state) {
                     $("#DepartmentID").append('<option value="' + state.Value + '">' +
                          state.Text + '</option>');
@@ -97,15 +95,14 @@
         return false;
     })
     $(document).on("change", "#DepartmentID", function () {
-        $("#ProgramVersioningID").empty();
-        $("#SyllabusVersion").empty();
+        $("#ProgramVersioningID").empty().append('<option value="">Select Programme</option>');
+        $("#SyllabusVersion").empty().append('<option value="">Select Syllabus version</option>');
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("GetProgDropWithVersion","Admin",new { area="Admin"})',
                 dataType: 'json',
                 data: { departmentID: $("#DepartmentID").val() != '' ? $("#DepartmentID").val() : "0" },
                 success: function (res) {
-                    $("#ProgramVersioningID").append('<option value="">Select Programme</option>');
                     $.each(res, function (i, state) {
                         $("#ProgramVersioningID").append('<option value="' + state.Value + '">' +
                             state.Text + '</option>');
@@ -120,14 +117,13 @@
 
 
     $(document).on("change", "#ProgramVersioningID", function () {
-            $("#SyllabusVersion").empty();
+        $("#SyllabusVersion").empty().append('<option value="">Select Syllabus version</option>');
                 $.ajax({
                     type: 'POST',
                     url: '@Url.Action("GetProgrammeVersionDDL","Admin",new { area="Admin"})',
                     dataType: 'json',
                     data: { ProgramVID: $("#ProgrammeID").val() != '' ? $("#ProgrammeID").val() : "0" },
                     success: function (res) {
-                        $("#SyllabusVersion").append('<option value="">Select Syllabus version</option>');
                         $.each(res, function (i, state) {
                             $("#SyllabusVersion").append('<option value="' + state.Value + '">' +
                                 state.Text + '</option>');

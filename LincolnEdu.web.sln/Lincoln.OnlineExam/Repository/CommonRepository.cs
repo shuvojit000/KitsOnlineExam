@@ -1729,6 +1729,11 @@ namespace Lincoln.OnlineExam.Repository
                             CourseID = Convert.ToInt32(dr["CourseID"]),
                             CourseCode = object.ReferenceEquals(dr["CourseCode"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseCode"]),
                             CourseName = object.ReferenceEquals(dr["CourseName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseName"]),
+                            SectionInQuestion= object.ReferenceEquals(dr["SectionInQuestion"], DBNull.Value) ? string.Empty : Convert.ToString(dr["SectionInQuestion"]),
+                            //SectionName = object.ReferenceEquals(dr["SectionName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["SectionName"]),
+                            Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
+                            SubjectAllocationDetailsID = Convert.ToInt32(dr["SubjectAllocationDetailsID"]),
+                            SubjectAllocationID = Convert.ToInt32(dr["SubjectAllocationID"]),
 
                         });
 

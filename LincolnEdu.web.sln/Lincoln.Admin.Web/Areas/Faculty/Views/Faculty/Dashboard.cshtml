@@ -20,24 +20,26 @@
     <div class="content-body">
         <!-- Update Records -->
         <div class="row">
-
-            <div class="col-xl-4 col-lg-6 col-12">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="media align-items-stretch">
-                            @foreach (var item in Model)
-                            {
-                                <div class="p-2 bg-gradient-x-primary white media-body">
-                                    <h5>Course: &nbsp; <a href="@Url.Action("QuestionSetUp", "Faculty", new { area = "Faculty", id = item.CourseID })" class="color"><span>@item.CourseName (@item.CourseCode)</span></a></h5>
-                                    <h5>No of Question: &nbsp; <span class="color">@item.NoOfQuestion</span></h5>
+            @if (Model != null && Model.Count() > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <div class="col-xl-3 col-lg-6 col-12">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="media align-items-stretch">
+                                    <div class="p-2 bg-gradient-x-primary white media-body">
+                                        <h5>Course:</h5> &nbsp; <a href="@Url.Action("QuestionSetUp", "Faculty", new { area = "Faculty", id = item.CourseID })" class="color"><span>@item.CourseName (@item.CourseCode)</span></a>
+                                        <h5>No of Question: </h5>&nbsp; <span class="color">@item.NoOfQuestion</span>
+                                        <h5>No of Question: </h5> <span class="color">@item.SectionInQuestion</span>
+                                    </div>
                                 </div>
-                            }
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                }
+            }
         </div>
-
         <!--/ Update Records -->
     </div>
 </div>

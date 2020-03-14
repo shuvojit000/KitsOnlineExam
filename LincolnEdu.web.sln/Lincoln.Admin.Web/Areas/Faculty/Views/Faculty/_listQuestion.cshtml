@@ -26,7 +26,7 @@
                 <tr>
                     <td>@item.QuestionNo</td>
 
-                    <td>@(item.QuestionText?.Length>100? Html.Raw(item.QuestionText.Substring(0,100)): Html.Raw(item.QuestionText))</td>
+                    <td>@(Html.Raw(item.QuestionText))</td>
                     <td>@item.SectionName</td>
                     <td>@item.QuestionMarks</td>
                     <td>@item.Active</td>

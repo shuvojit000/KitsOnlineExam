@@ -8,10 +8,10 @@
     <div class="col-sm-12 part-br">
         <div id="QuestionText">
 
-            Out of Rs. 70000, Ram invested Rs. 30000 at 4% and Rs. 20000 at 3% simple interest.
-            At what rate of interest he must invest the balance so as to got a return of 5% on the
-            whole amount per year.
-            <br />
+            <p><math xmlns="http://www.w3.org/1998/Math/MathML"><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup></math>
+            Test 
+            </p>
+
 
         </div>
 
@@ -31,9 +31,10 @@
 </div>
 <script>
 
-
+    CKEDITOR.plugins.addExternal('ckeditor_wiris', 'https://www.wiris.net/demo/plugins/ckeditor/', 'plugin.js');
     CKEDITOR.replace('QuestionText', {
         allowedContent: true,
+        extraPlugins: 'ckeditor_wiris',
         readOnly: true,
         on:
    {

@@ -24,21 +24,24 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
         public ActionResult Dashboard()
         {
             var modelList = new List<FacultyDashboardViewModel>();
-            var itemSet = onlineExamService.GetAllFacultyCourse(new OnlineExam.Request.FacultyDashboardRequestDTO
+            modelList = onlineExamService.GetAllFacultyCourse(new OnlineExam.Request.FacultyDashboardRequestDTO
             {
                 EmployeeID = Convert.ToInt32(User.UserId),
-            });
-            foreach (var item in itemSet)
+            }).Select(a => new FacultyDashboardViewModel()
             {
-                var model = new FacultyDashboardViewModel();
-                model.EmployeeID = item.EmployeeID;
-                model.NoOfQuestion = item.NoOfQuestion;
-                model.EmployeeName = item.EmployeeName;
-                model.CourseID = item.CourseID;
-                model.CourseName = item.CourseName;
-                model.CourseCode = item.CourseCode;
-                modelList.Add(model);
-            };
+                EmployeeID = a.EmployeeID,
+                CourseCode = a.CourseCode,
+                CourseID = a.CourseID,
+                CourseName = a.CourseName,
+                EmployeeName = a.EmployeeName,
+                NoOfQuestion = a.NoOfQuestion,
+                SectionInQuestion = a.SectionInQuestion,
+                SectionName = a.SectionName,
+                Status = a.Status,
+                SubjectAllocationDetailsID = a.SubjectAllocationDetailsID,
+                SubjectAllocationID = a.SubjectAllocationID
+            }).ToList();
+
             return View(modelList);
         }
         public ActionResult QuestionSetUp(string id)
@@ -81,7 +84,7 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
                 ModifiedOn = a.ModifiedOn?.Date,
                 CreatedBy = a.CreatedBy,
                 CreatedOn = a.CreatedOn,
-                MaximumMarks=a.MaximumMarks,
+                MaximumMarks = a.MaximumMarks,
                 ModifiedBy = Convert.ToInt32(a.ModifiedBy),
             }).ToList();
 
@@ -154,7 +157,7 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
 
                     })?.RemainingMarks ?? model.SectionMarks;
                 }
-               
+
             }
 
             return PartialView("_AddQuestion", model);
@@ -254,7 +257,7 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
                 ExaminationSectionID = a.ExaminationSectionID,
                 Active = a.Status,
                 AnswerNo = a.AnswerNo,
-                AnswerText = a.AnswerText,               
+                AnswerText = a.AnswerText,
                 AudioOrVideoQuestion = a.AudioOrVideoQuestion,
                 OptionANo = a.OptionANo,
                 OptionAText = a.OptionAText,
@@ -272,10 +275,10 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
                 QuestionNo = Convert.ToInt32(a.QuestionNo),
                 QuestionType = a.QuestionType,
                 SectionMarks = a.SectionMarks,
-                SectionName=a.SectionName,
+                SectionName = a.SectionName,
                 TextOrImageQuestion = a.TextOrImageQuestion,
                 QuestionText = HttpUtility.HtmlDecode(a.QuestionText),
-                RemainingMarks=a.RemainingMarks
+                RemainingMarks = a.RemainingMarks
 
             }).ToList();
 
