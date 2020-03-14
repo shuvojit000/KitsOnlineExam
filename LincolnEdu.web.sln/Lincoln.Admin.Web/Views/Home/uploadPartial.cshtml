@@ -14,9 +14,8 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $(".returnImage").click("click", function (e) {
-            debugger;
             var urlImage = $(this).attr("data-url");
-            window.opener.updateValue("cke_89_textInput", urlImage);
+            window.opener.updateValue(urlImage);
             window.close();
         });
     });

@@ -164,11 +164,16 @@
         filebrowserImageBrowseUrl: '/Home/uploadPartial',
         filebrowserImageUploadUrl: '/Home/uploadnow',
         extraPlugins: 'ckeditor_wiris',
-        allowedContent :true
+        allowedContent: true
     });
-    function updateValue(id, value) {
+    function updateValue(value) {
+        var id = "";
+        if (window.parent.CKEDITOR.currentInstance.name == "QuestionText") {
+            id = '#' + $('input[id*="_textInput"][aria-required="true"]').attr('id');
+            $(id).val(value);
+        }
         // this gets called from the popup window and updates the field with a new value
-        document.getElementById(id).value = value;
+        //document.getElementById(id).value = value;
     }
     if ('@Model.QuestionType' == "S") {
 
@@ -176,9 +181,9 @@
             filebrowserImageBrowseUrl: '/Home/uploadPartial',
             filebrowserImageUploadUrl: '/Home/uploadnow',
             extraPlugins: 'ckeditor_wiris',
-             allowedContent :true
+            allowedContent: true
         });
-       
+
     }
 
 
