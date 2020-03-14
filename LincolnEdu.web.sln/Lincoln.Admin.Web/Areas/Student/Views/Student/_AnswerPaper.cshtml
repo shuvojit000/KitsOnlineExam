@@ -4,25 +4,16 @@
 </p>
 <hr />
 <div class="col-sm-12">
-    <div class="col-sm-6">
-        <p style="text-align: justify;">
-            <strong>
-                Out of Rs. 70000, Ram invested Rs. 30000 at 4% and Rs. 20000 at 3% simple interest.
-                At what rate of interest he must invest the balance so as to got a return of 5% on the
-                whole amount per year.
-                <br />
-            </strong>&nbsp;
-        </p>
-    </div>
-    <div class="col-sm-6 part-br">
-        <p style="text-align: justify;">
-            <strong>
-                Out of Rs. 70000, Ram invested Rs. 30000 at 4% and Rs. 20000 at 3% simple interest.
-                At what rate of interest he must invest the balance so as to got a return of 5% on the
-                whole amount per year.
-                <br />
-            </strong>&nbsp;
-        </p>
+
+    <div class="col-sm-12 part-br">
+        <div id="QuestionText">
+
+            Out of Rs. 70000, Ram invested Rs. 30000 at 4% and Rs. 20000 at 3% simple interest.
+            At what rate of interest he must invest the balance so as to got a return of 5% on the
+            whole amount per year.
+            <br />
+
+        </div>
 
         <input type="radio" id="opt1" name="radio-1-set" value="1" />
         <label for="opt1"></label><strong>5%</strong><br />
@@ -38,3 +29,18 @@
 
     </div>
 </div>
+<script>
+
+
+    CKEDITOR.replace('QuestionText', {
+        allowedContent: true,
+        readOnly: true,
+        on:
+   {
+       instanceReady: function (evt) {
+           // Hide the editor top bar.
+           document.getElementById('cke_1_top').style.display = 'none';
+       }
+   }
+    });
+</script>

@@ -821,7 +821,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Default\" />
     <Folder Include="Areas\Faculty\Models\" />
     <Folder Include="Areas\Student\Models\" />
     <Folder Include="UploadImage\" />
