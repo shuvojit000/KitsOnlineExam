@@ -56,9 +56,6 @@
 
                         </div>
                     </div>
-
-                </div>
-                <div class="row">
                     <div class="form-group col-lg-6">
                         <label><b>Faculty<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
@@ -66,6 +63,9 @@
                             <span id="FacultyCodeVal" style="color:red;display:none" class="valClass">Please select Faculty.</span>
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                    
                     <div class="form-group col-lg-6">
                         <label><b>Programme<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
@@ -81,6 +81,8 @@
                             <span id="CountryCodeVal" style="color:red;display:none" class="valClass">Please select Country.</span>
                         </div>
                     </div>
+                    </div>
+                <div class="row">
                     <div class="form-group col-lg-6">
                         <label><b>Programme Year<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
@@ -97,13 +99,15 @@
                         </div>
                     </div>
 
+                    
+
+                </div>
+                <div class="row">
                     <div class="form-group col-lg-12" id="results">
                         @Html.Partial("_AllocationDetails")
 
                     </div>
-
                 </div>
-
 
                 <div class="modal-footer">
                     <button type="button" onclick="fnSaveSubjectAllocation(@Model.SubjectAllocationID)" class="btn btn-primary">

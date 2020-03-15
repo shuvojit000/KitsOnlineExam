@@ -13,8 +13,7 @@
 
             </div>
         </div>
-    </div>
-    <div class="row">
+
         <div class="form-group col-lg-6">
             <label><b>Remaining Marks </b></label>
             <div class="position-relative">
@@ -138,22 +137,29 @@
             </div>
 
         }
-
-        <div class="form-group col-lg-6">
-            <label><b>Maximum Marks </b></label>
-            <div class="position-relative ">
-                @Html.TextBoxFor(a => a.QuestionMarks, new { @class = "form-control" })
-                <span id="QuestionMarksVal" style="color:red;display:none" class="valClass">Question Marks is required.</span>
+    </div>
+        <div class="row">
+            <div class="form-group col-lg-6">
+                <label><b>Max Marks </b></label>
+                <div class="position-relative has-icon-left ">
+                    @Html.TextBoxFor(a => a.QuestionMarks, new { @class = "form-control" })
+                    <div class="form-control-position">
+                        <i class="fa fa-book"></i>
+                    </div>
+                    <span id="QuestionMarksVal" style="color:red;display:none" class="valClass">Max Marks is required.</span>
+                </div>
             </div>
         </div>
 
 
 
-
-    </div>
+   
 
     <button type="button" onclick="fnSavePaperDetails()" class="btn btn-primary">
         <i class="fa fa-check-square-o"></i> Save
+    </button>
+    <button type="button" onclick="fnResetScreen()" class="btn btn-danger">
+        <i class="fa fa-check-square-o"></i> Clear
     </button>
     <!--/ Base style table -->
 </div>

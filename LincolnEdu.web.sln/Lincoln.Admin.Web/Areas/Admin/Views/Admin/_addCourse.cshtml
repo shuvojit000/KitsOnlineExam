@@ -14,9 +14,6 @@
 
                         </div>
                     </div>
-
-                </div>
-                <div class="row">
                     <div class="form-group col-lg-6">
                         <label><b>Faculty<span class="requiredstar">*</span> </b></label>
                         <div class="position-relative has-icon-left">
@@ -24,14 +21,16 @@
                             <span id="DepartmentIDVal" style="color:red;display:none" class="valClass">Please select Faculty.</span>
                         </div>
                     </div>
+
+                </div>
+                <div class="row">
+                   
                     <div class="form-group col-lg-6">
                         <label><b>Programme<span class="requiredstar">*</span></b> </label>
                         @Html.DropDownListFor(a => a.ProgramVersioningID, Model.ProgrammeList, "Select Programme", new { @class = "custom-select block" })
 
                         <span id="ProgrammeIDVal" style="color:red;display:none" class="valClass">Please select Programme.</span>
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-lg-6">
                         <label><b>Country <span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left gt">
@@ -39,6 +38,9 @@
                             <span id="CountryIDVal" style="color:red;display:none" class="valClass">Please select Country.</span>
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                    
                     <div class="form-group col-lg-6">
                         <label><b>Programme Year<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
@@ -46,10 +48,6 @@
                             <span id="ProgrammeYearVal" style="color:red;display:none" class="valClass">Please select Programme Year.</span>
                         </div>
                     </div>
-
-                </div>
-                <div class="row">
-
                     <div class="form-group col-lg-6">
                         <label><b>Programme Semester<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
@@ -57,6 +55,11 @@
                             <span id="ProgrammeSemesterVal" style="color:red;display:none" class="valClass">Please select Semester.</span>
                         </div>
                     </div>
+
+                </div>
+                <div class="row">
+
+                   
                     <div class="form-group col-lg-6">
                         <label><b>Semester Type<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
@@ -65,8 +68,6 @@
                             <span id="SemesterTypeVal" style="color:red;display:none" class="valClass">Please select Semester Type.</span>
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-lg-6">
                         <label><b>Course code<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
@@ -77,6 +78,9 @@
                             <span id="CourseCodeVal" style="color:red;display:none" class="valClass"></span>
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                    
                     <div class="form-group col-lg-6">
                         <label><b>Course Type<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">
@@ -85,8 +89,7 @@
                             <span id="CourseTypeVal" style="color:red;display:none" class="valClass">Please select Course Type.</span>
                         </div>
                     </div>
-                    <div class="row">
-                    </div>
+                   
                     <div class="form-group col-lg-6">
                         <label><b>Course Name<span class="requiredstar">*</span></b> </label>
                         <div class="position-relative has-icon-left">

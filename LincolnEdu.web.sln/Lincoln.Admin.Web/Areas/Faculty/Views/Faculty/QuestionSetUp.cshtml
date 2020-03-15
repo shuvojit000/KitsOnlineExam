@@ -166,6 +166,10 @@
                 ret = false;
                 $('#AnswerTextVal').css({ 'display': 'block' });
             }
+            else if ($('#QuestionMarks').val() == '') {
+                ret = false;
+                $('#QuestionMarksVal').css({ 'display': 'block' });
+            }
 
         }
         else if ($('input[name="QuestionType"]:checked').val() == 'O') {
@@ -193,11 +197,12 @@
                 ret = false;
                 $('#AnswerNoVal').css({ 'display': 'block' });
             }
+            else if ($('#QuestionMarks').val() == '') {
+                ret = false;
+                $('#QuestionMarksVal').css({ 'display': 'block' });
+            }
         }
-        else if ($('#QuestionMarks').val() == '') {
-            ret = false;
-            $('#QuestionMarksVal').css({ 'display': 'block' });
-        }
+        
         return ret;
     }
     function fnViewPaperDetails(paperDetailsID) {
@@ -251,4 +256,5 @@
     function fnLoadQuestionList() {
         $('.paperdetailsList').load('/Faculty/Faculty/QuestionList');
     }
+    
 </script>
