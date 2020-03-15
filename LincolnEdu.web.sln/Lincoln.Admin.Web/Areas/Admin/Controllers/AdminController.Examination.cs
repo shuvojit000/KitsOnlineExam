@@ -736,11 +736,11 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
 
         [HttpGet]
-        public JsonResult GetAssessmentById(string departmentId, string programmeVersioningId)
+        public JsonResult GetAssessmentById(string departmentId, string programmeVersioningId,string countryID)
         {
 
             return Json(GetAllAssessment().Where(a => a.ProgramVersioningID == Convert.ToInt32(programmeVersioningId)
-            && a.DepartmentID == Convert.ToInt32(departmentId)
+            && a.DepartmentID == Convert.ToInt32(departmentId) && a.CountryID==Convert.ToInt32(countryID)
             ), JsonRequestBehavior.AllowGet);
 
         }

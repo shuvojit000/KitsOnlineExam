@@ -86,3 +86,8 @@
     </div>
     <!--main contant end-->
 </div>
+<script>
+    $(document).on('blur', '#EmployeeCode', function () {
+        $('#UserName').val($(this).val());
+    })
+</script>

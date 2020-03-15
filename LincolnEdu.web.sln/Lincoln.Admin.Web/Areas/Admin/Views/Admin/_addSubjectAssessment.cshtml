@@ -311,13 +311,13 @@
             return false;
         return true;
     }
-    $(document).on("change", "#ProgrammeVersioningID", function () {
+    $(document).on("change", "#CountryCode", function () {
         $("#addtbody").empty();
         $.ajax({
             type: 'GET',
             url: '@Url.Action("GetAssessmentById", "Admin",new { area="Admin"})',
             dataType: 'json',
-            data: { programmeVersioningId: $("#ProgrammeVersioningID").val(), departmentId: $("#FacultyCode").val() },
+            data: { programmeVersioningId: $("#ProgrammeVersioningID").val(), departmentId: $("#FacultyCode").val(),countryID:$('#CountryCode').val() },
             success: function (res) {
 
                 $.each(res, function (i, state) {
