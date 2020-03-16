@@ -137,7 +137,12 @@
         $(e).closest('tr').closest('table').closest('tr').prev('tr.ctr').find('td:nth-child(1)').find('input#'+pid).attr('value', $(e).is(':checked'));
     }
      $(document).on("change","#AcademicID",function () {
-        $("#FacultyCode").empty();
+         $("#FacultyCode").empty().append('<option value="">Select Faculty</option>');
+         $("#results").empty().html('<table cellpadding="0" id="Grid" cellspacing="0" class="table table-striped table-bordered base-style Grid" style="width:100%"><tr><th></th><th>SL.NO</th><th>Semester</th</tr><table>');
+         $("#ProgrammeVersioningID").empty().append('<option value="">Select Programme</option>');
+         $("#CountryCode").empty().append('<option value="">Select Country</option>');
+         $("#AcademicYearCode").empty().append('<option value="">Select Programme Year</option>');
+         $('#EmployeeID').val('');
         $.ajax({
             type: 'POST',
             url: '@Url.Action("GetDepartmentDrop","Admin",new { area="Admin"})', // we are calling json method
@@ -146,9 +151,7 @@
 
             data: { academicID: $("#AcademicID").val()!=''?$("#AcademicID").val():"0"  },
             success: function (res) {
-                // states contains the JSON formatted list
-                // of states passed from the controller
-                $("#FacultyCode").append('<option value="">Select Faculty</option>');
+               
                 $.each(res, function (i, state) {
                     $("#FacultyCode").append('<option value="' + state.Value + '">' +
                          state.Text + '</option>');
@@ -162,17 +165,18 @@
         });
         return false;
     })
-    $(document).on("change", "#FacultyCode", function () {
-        $("#ProgrammeVersioningID").empty();
-        $("#CountryCode").empty();
-        $("#AcademicYearCode").empty();
+    $(document).on("change", "#FacultyCode", function () {        
+        $("#results").empty().html('<table cellpadding="0" id="Grid" cellspacing="0" class="table table-striped table-bordered base-style Grid" style="width:100%"><tr><th></th><th>SL.NO</th><th>Semester</th</tr><table>');
+         $("#ProgrammeVersioningID").empty().append('<option value="">Select Programme</option>');
+         $("#CountryCode").empty().append('<option value="">Select Country</option>');
+         $("#AcademicYearCode").empty().append('<option value="">Select Programme Year</option>');
+         $('#EmployeeID').val('');
         $.ajax({
             type: 'POST',
             url: '@Url.Action("GetProgDropWithVersion", "Admin",new { area="Admin"})',
             dataType: 'json',
             data: { departmentID: $("#FacultyCode").val()!=''?$("#FacultyCode").val():"0"  },
             success: function (res) {
-                $("#ProgrammeVersioningID").append('<option value="">Select Programme</option>');
                 $.each(res, function (i, state) {
                     $("#ProgrammeVersioningID").append('<option value="' + state.Value + '">' +
                         state.Text + '</option>');
@@ -187,10 +191,9 @@
 
 
     $(document).on("change", "#ProgrammeVersioningID", function () {
-        
-
-        $("#CountryCode").empty();
-        $("#AcademicYearCode").empty();
+       $("#results").empty().html('<table cellpadding="0" id="Grid" cellspacing="0" class="table table-striped table-bordered base-style Grid" style="width:100%"><tr><th></th><th>SL.NO</th><th>Semester</th</tr><table>');
+         $("#AcademicYearCode").empty().append('<option value="">Select Programme Year</option>');
+         $('#EmployeeID').val('');
         $.ajax({
             type: 'POST',
             url: '@Url.Action("ChangeProgramSelection", "Admin",new { area="Admin"})', // we are calling json method
@@ -198,7 +201,6 @@
             data: { programmeVersionID: $("#ProgrammeVersioningID").val()!=''?$("#ProgrammeVersioningID").val():"0"  },
             success: function (res) {
                 if (res != null) {
-                    $("#CountryCode").append('<option value="">Select Country</option>');
                     $.each(res.CountryList, function (i, state) {
                         $("#CountryCode").append('<option value="' + state.Value + '">' +
                              state.Text + '</option>');
@@ -216,8 +218,9 @@
         return false;
     });
 
-    $(document).on("change", "#CountryCode", function () {
-        $("#AcademicYearCode").empty();
+    $(document).on("change", "#CountryCode", function () {       
+         $("#results").empty().html('<table cellpadding="0" id="Grid" cellspacing="0" class="table table-striped table-bordered base-style Grid" style="width:100%"><tr><th></th><th>SL.NO</th><th>Semester</th</tr><table>');      
+         $('#EmployeeID').val('');
         $.ajax({
             type: 'POST',
             url: '@Url.Action("ChangeCountrySelection", "Admin",new { area="Admin"})',
@@ -226,16 +229,12 @@
                 countryID: $('#CountryCode').val()!=''?$("#CountryCode").val():"0"  },
             success: function (res) {
                 if (res != null) {
-                    $("#AcademicYearCode").append('<option value="">Select Programme Year</option>');
                     $.each(res.ProgYearList, function (i, state) {
                         $("#AcademicYearCode").append('<option value="' + state.Value + '">' +
                              state.Text + '</option>');
                     });
                 }
-                else {
-                    $("#AcademicYearCode").append('<option value="">Select Programme Year</option>');
-
-                }
+                
             },
             error: function (ex) {
                 alert('Failed to retrieve Programme year.' + ex);
