@@ -8,11 +8,10 @@
 <table class="table table-striped table-bordered base-style" id="dataTables-example" style="width:100%">
     <thead>
         <tr>
-            <th>SlNo</th>
+            <th>Sl No</th>
             <th>Question Text</th>
             <th>Section</th>
-            <th>Question Marks</th>
-            <th>Status</th>
+            <th>Max Marks</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -26,10 +25,9 @@
                 <tr>
                     <td>@item.QuestionNo</td>
 
-                    <td>@(Html.Raw(item.QuestionText))</td>
+                    <td>@Html.Raw(item.QuestionText)</td>
                     <td>@item.SectionName</td>
-                    <td>@item.QuestionMarks</td>
-                    <td>@item.Active</td>
+                    <td>@item.QuestionMarks</td>                  
                     <td>
                         <a href="javascript:void(0);" onclick="fnViewPaperDetails(@item.PaperDetailsID)" title="View"><i class="fa fa-eye"></i></a> &nbsp;
                         <a href="javascript:void(0);" onclick="fnAddPaperDetails(@item.PaperDetailsID,@item.ExaminationSectionID)" title="Edit"><i class="fa fa-edit"></i></a> &nbsp;
