@@ -1,0 +1,453 @@
+﻿
+@{
+    ViewBag.Title = "Exam";
+    Layout = "~/Areas/Student/Views/Shared/_ExamLayout.cshtml";
+}
+<div class="content-wrapper">
+    <div class="content-body">
+        <!-- Stats -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12">
+                <!--PAGE CONTENT -->
+                <div id="online">
+                    <div class="inner">
+                        <div>
+                            <div class="row bdstyl">
+                                <!-- GRID SHOW START -->
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <!-- BEGIN BASIC PORTLET-->
+                                        <div class="widgetk orange">
+                                            <div class="widgetk-title">
+                                                <div class="col-lg-4">
+                                                    Time Left: <span id="timer" class="timerclass">00 : 90 : 16</span>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    Online Examination [Bank IBPS OET-001]
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <a class="btnk btnk-primary float-right" style="margin-top:-6px;">
+                                                        <i class="fa fa-share"></i> &nbsp; <span>Submit Exam</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="widgetk-body">
+                                                <!--ONLINE ANSWER PAPER SHOW START -->
+                                                <!--==========================-->
+                                                <section class="main-page">
+                                                    <div class="containerk">
+                                                        <div class="row">
+                                                            <div class="col-xs-12 col-md-12 col-sm-12">
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <div id="navHeader">
+                                                                            <div id="navContainer" class="casNavDirectPanel hideOverFlowFF">
+                                                                                <div id="navigationPanelL" class="col-sm-5">
+                                                                                    <a id="1" onclick="goTo(1);" class="goTo">
+                                                                                        <span class="directNavElement icon2 question  ">
+                                                                                            <span class="directNavLabel lftL ">1</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                    <a id="2" onclick="goTo(2);" class="goTo">
+                                                                                        <span class="directNavElement icon2 question  ">
+                                                                                            <span class="directNavLabel lftL ">2</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                    <a id="3" onclick="goTo(3);" class="goTo">
+                                                                                        <span class="directNavElement icon2 question  ">
+                                                                                            <span class="directNavLabel lftL ">3</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                    <a id="4" onclick="goTo(4);" class="goTo">
+                                                                                        <span class="directNavElement icon2 question  ">
+                                                                                            <span class="directNavLabel lftL ">4</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                    <a id="5" onclick="goTo(5);" class="goTo">
+                                                                                        <span class="directNavElement icon2 question  ">
+                                                                                            <span class="directNavLabel lftL ">5</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                    <a id="6" onclick="goTo(6);" class="goTo">
+                                                                                        <span class="directNavElement icon2 question  ">
+                                                                                            <span class="directNavLabel lftL ">6</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                    <a id="7" onclick="goTo(7);" class="goTo">
+                                                                                        <span class="directNavElement icon2 question  ">
+                                                                                            <span class="directNavLabel lftL ">7</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                    <a id="8" onclick="goTo(8);" class="goTo">
+                                                                                        <span class="directNavElement icon2 question  ">
+                                                                                            <span class="directNavLabel lftL ">8</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                    <a id="9" onclick="goTo(9);" class="goTo">
+                                                                                        <span class="directNavElement icon2 question  ">
+                                                                                            <span class="directNavLabel lftL ">9</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                    <a id="10" onclick="goTo(10);" class="goTo">
+                                                                                        <span class="directNavElement icon2 question  ">
+                                                                                            <span class="directNavLabel lftS ">10</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                    <a id="11" onclick="goTo(11);" class="goTo">
+                                                                                        <span class="directNavElement icon2 question  ">
+                                                                                            <span class="directNavLabel lftS ">11</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                    <a id="12" onclick="goTo(12);" class="goTo">
+                                                                                        <span class="directNavElement icon2 question  ">
+                                                                                            <span class="directNavLabel lftS ">12</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                    <a id="13" onclick="goTo(13);" class="goTo">
+                                                                                        <span class="directNavElement icon2 question  ">
+                                                                                            <span class="directNavLabel lftS ">13</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                </div>
+                                                                                <div class="questionNavPanel col-sm-2">
+                                                                                    <div class="navIconLft icon2 castlenavleft activeNav">
+                                                                                        <a class="navLabel right noUnderline" title="Previous Question">Prev</a>
+                                                                                    </div>
+                                                                                    <div class="navCountElement">
+                                                                                        <span class="navCountLabel">
+                                                                                            <span id="lblCurrentQuestion">14</span>
+                                                                                        </span>
+                                                                                    </div>
+                                                                                    <div class="navIconRht icon2 castlenavright activeNav">
+                                                                                        <a class="navLabel left noUnderline" title="Next Question">Next</a>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div id="navigationPanel" class="col-sm-5">
+                                                                                    <a id="15" onclick="goTo(15);" class="goTo">
+                                                                                        <span class="directNavElement icon2 question  ">
+                                                                                            <span class="directNavLabel lftS ">15</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                    <a id="16" onclick="goTo(16);" class="goTo">
+                                                                                        <span class="directNavElement icon2 question">
+                                                                                            <span class="directNavLabel lftS ">16</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                    <a id="17" onclick="goTo(17);" class="goTo">
+                                                                                        <span class="directNavElement icon2 question">
+                                                                                            <span class="directNavLabel lftS ">17</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                    <a id="18" onclick="goTo(18);" class="goTo">
+                                                                                        <span class="directNavElement icon2 question">
+                                                                                            <span class="directNavLabel lftS ">18</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                    <a id="19" onclick="goTo(19);" class="goTo">
+                                                                                        <span class="directNavElement icon2 question">
+                                                                                            <span class="directNavLabel lftS ">19</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                    <a id="20" onclick="goTo(20);" class="goTo">
+                                                                                        <span class="directNavElement icon2 question">
+                                                                                            <span class="directNavLabel lftS medLabel">20</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                    <a id="21" onclick="goTo(21);" class="goTo">
+                                                                                        <span class="directNavElement icon2 question">
+                                                                                            <span class="directNavLabel lftS ">21</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                    <a id="22" onclick="goTo(22);" class="goTo">
+                                                                                        <span class="directNavElement icon2 question">
+                                                                                            <span class="directNavLabel lftS medLabel">22</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                    <a id="23" onclick="goTo(23);" class="goTo">
+                                                                                        <span class="directNavElement icon2 question">
+                                                                                            <span class="directNavLabel lftS ">23</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                    <a id="24" onclick="goTo(24);" class="goTo">
+                                                                                        <span class="directNavElement icon2 question">
+                                                                                            <span class="directNavLabel lftS ">24</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                    <a id="25" onclick="goTo(25);" class="goTo">
+                                                                                        <span class="directNavElement icon2 question">
+                                                                                            <span class="directNavLabel lftS ">25</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                    <a id="26" onclick="goTo(26);" class="goTo">
+                                                                                        <span class="directNavElement icon2 question">
+                                                                                            <span class="directNavLabel lftS ">26</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                    <a id="27" onclick="goTo(27);" class="goTo">
+                                                                                        <span class="directNavElement icon2 question">
+                                                                                            <span class="directNavLabel lftS ">27</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                    <a id="28" onclick="goTo(28);" class="goTo">
+                                                                                        <span class="directNavElement icon2 question">
+                                                                                            <span class="directNavLabel lftS ">28</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                    <a id="29" onclick="goTo(29);" class="goTo">
+                                                                                        <span class="directNavElement icon2 question">
+                                                                                            <span class="directNavLabel lftS ">29</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--SECTION PART START-->
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <div class="panelEx">
+                                                                            <center>
+                                                                                <a id="mark_next" style="cursor:pointer" class="load_more btnk btnk-primary"><span>General English</span></a>
+                                                                                <a id="save_next" style="cursor:pointer" class="load_more btnk btnk-primary"><span>Reasoning</span></a>
+                                                                                <a id="clear" class="clear btnk btnk-primary"><span>Quantitative Aptitude</span></a>
+                                                                                <a class="btnk btnk-primary"><span>General Awareness</span></a>
+                                                                            </center>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--SECTION PART END-->
+                                                                <div class="row">
+                                                                    <!--QUESTION BODY LEFT SECTION START-->
+                                                                    <div class="col-sm-2">
+                                                                        <div class="casLftPanel">
+                                                                            <div id="navMainPanel" class="casLftPanelLayout">
+                                                                                <!--<div id="timePanel" class="casLftPanelSect1 hideSection">
+                                                                                    <div class="casLftPanelBaseField casLftTimePnl">
+                                                                                        <span id="lblTimeRemaining" class="timeLabel italic">Time Remaining</span>
+                                                                                        <a id="toggleTime" class="collapsePnlHover far fa-minus-square"></a>
+                                                                                    </div>
+                                                                                    <div id="showTimePanel" class="casLftPanelBaseField clockField medWeight clockFieldTimePanel">
+                                                                                        <input name="txtTimer" type="text" maxlength="8" size="6" readonly="readonly" class="casLftPanelBaseField clockField medWeight" id="txtTimer">
+                                                                                        <input type="hidden" name="jsTimeSpent" id="jsTimeSpent">
+                                                                                        <input type="hidden" name="jsTotalTimeSpent" id="jsTotalTimeSpent">
+                                                                                    </div>
+                                                                                </div>-->
+                                                                                <!--<div id="timePanelDivider" class="casLftPanelSectDivider hideSection"></div>-->
+                                                                                <div id="allAnsweredPanel" class="casLftPanelSect22">
+                                                                                    <a id="toggleAnswered" class="collapsePnlHover fa fa-minus-square"></a>
+                                                                                    <div id="answeredPanel">
+                                                                                        <div id="NotAnswered" class="casLftPanelBaseField actionLink">
+                                                                                            <a onclick="return false;" id="lblUnansweredValue" href="javascript:__doPostBack('lblUnansweredValue','')">20</a>
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <div class="casLftPanelBaseField descLabel descLabelTop">Not Answered</div>
+
+                                                                                        <div style="clear:both"></div>
+                                                                                        <div id="ShowUnAnsweredPanel" class="ansPanel" style="display: none;">
+                                                                                            <div class="ansHd">
+                                                                                                <div class="ansHdLft alignLeft">
+                                                                                                    20 Unanswered
+                                                                                                </div>
+                                                                                                <div class="ansHdRht">
+                                                                                                    <div id="CloseUnAnsweredPanel" class="closeButton" style="cursor: pointer;"><div class="casLftPanelBaseField closeColor icon2 smarrowleft iconSizeSSSm"></div><div class="closeButtonLabel">Close</div></div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="ansBody alignLeft">
+                                                                                                <div id="questions_row_1" class="ansRow">
+                                                                                                    <a id="3" onclick="goTo(3);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft  labelOn"> 3</span></span></a> <a id="5" onclick="goTo(5);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft  labelOn"> 5</span></span></a> <a id="6" onclick="goTo(6);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft  labelOn"> 6</span></span></a> <a id="7" onclick="goTo(7);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft  labelOn"> 7</span></span></a> <a id="8" onclick="goTo(8);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft  labelOn"> 8</span></span></a> <a id="9" onclick="goTo(9);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft  labelOn"> 9</span></span></a> <a id="10" onclick="goTo(10);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft medLabel labelOn"> 10</span></span></a> <a id="11" onclick="goTo(11);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft medLabel labelOn"> 11</span></span></a> <a id="12" onclick="goTo(12);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft medLabel labelOn"> 12</span></span></a> <a id="13" onclick="goTo(13);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft medLabel labelOn"> 13</span></span></a> <a id="14" onclick="goTo(14);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft medLabel labelOn"> 14</span></span></a> <a id="15" onclick="goTo(15);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft medLabel labelOn"> 15</span></span></a> <a id="16" onclick="goTo(16);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft medLabel labelOn"> 16</span></span></a> <a id="17" onclick="goTo(17);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft medLabel labelOn"> 17</span></span></a> <a id="18" onclick="goTo(18);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft medLabel labelOn"> 18</span></span></a> <a id="19" onclick="goTo(19);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft medLabel labelOn"> 19</span></span></a> <a id="20" onclick="goTo(20);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft medLabel labelOn"> 20</span></span></a> <a id="21" onclick="goTo(21);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft medLabel labelOn"> 21</span></span></a> <a id="22" onclick="goTo(22);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft medLabel labelOn"> 22</span></span></a> <a id="23" onclick="goTo(23);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft medLabel labelOn"> 23</span></span></a>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="casLftPanelSectDivider subDivider"></div>
+
+                                                                                        <div style="clear:both;"></div>
+                                                                                        <div id="ShowAnsweredPanel" class="ansPanel" style="display: none;">
+                                                                                            <div class="ansHd">
+                                                                                                <div class="ansHdLft alignLeft">
+                                                                                                    3 Answered
+                                                                                                </div>
+                                                                                                <div class="ansHdRht">
+                                                                                                    <div id="CloseAnsweredPanel" class="closeButton" style="cursor: pointer;"><div class="casLftPanelBaseField closeColor icon2 smarrowleft iconSizeSSSm"></div> <div class="closeButtonLabel">Close</div></div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="ansBody alignLeft">
+                                                                                                <div id="questions_row_1" class="ansRow">
+                                                                                                    <a id="1" onclick="goTo(1);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft  labelOn"> 1</span></span></a> <a id="2" onclick="goTo(2);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft  labelOn"> 2</span></span></a> <a id="4" onclick="goTo(4);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft  labelOn"> 4</span></span></a>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <div id="Answered" class="casLftPanelBaseField actionLink answeredLblTop">
+                                                                                            <a onclick="return false;" id="lblAnsweredValue" href="javascript:__doPostBack('lblAnsweredValue','')">3</a>
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <div id="toggleAnsweredPanel" class="casLftPanelBaseField descLabel descLabelTop">Completed</div>
+                                                                                    </div>
+                                                                                    <div id="totalAnswersPanel" class="totalAnswers">
+                                                                                        <div id="Total" class="casLftPanelBaseField actionLink noUnderline totalAnsweredLblTop">
+                                                                                            <span id="lblTotal" class="totalAnswers">23</span>
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <div class="casLftPanelBaseField descLabel descLabelTop">Questions</div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div id="flagPanelDivider" class="casLftPanelSectDivider"></div>
+                                                                                <div id="flaggedPanel" class="casLftPanelSect2 casLftPanelSect3">
+                                                                                    <div class="casLftPanelBaseField flagImgPad">
+                                                                                        <a id="btnFlag" onclick="flagCurrentQuestion()" title="Flag Question" class="fa fa-flag iconSizeSm noUnderline passLink"></a>
+                                                                                    </div>
+                                                                                    <br>
+
+                                                                                    <div style="clear:both;"></div>
+                                                                                    <div id="ShowFlaggedAnsweredPanel" class="ansPanel" style="display: none;">
+                                                                                        <div class="ansHd">
+                                                                                            <div class="ansHdLft alignLeft">
+                                                                                                2 Flagged
+                                                                                            </div>
+                                                                                            <div class="ansHdRht">
+                                                                                                <div id="CloseFlaggedAnsweredPanel" class="closeButton" style="cursor: pointer;"><div class="casLftPanelBaseField closeColor icon2 smarrowleft iconSizeSSSm"></div> <div class="closeButtonLabel">Close</div></div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="ansBody alignLeft">
+                                                                                            <div id="questions_row_1" class="ansRow">
+                                                                                                <a id="2" onclick="goTo(2);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft  labelOn"> 2</span></span></a> <a id="3" onclick="goTo(3);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft  labelOn"> 3</span></span></a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <a id="btnPrevFlag" class="casLftPanelBaseField altColor icon2 smarrowleft iconSizeSSm noUnderline" onclick="goToPrevFlag()" title="Previously flagged question"></a>
+                                                                                    <div id="Flagged" class="casLftPanelBaseField actionLink flagActLnk">
+                                                                                        <a onclick="return false;" id="lblFlaggedValue" href="javascript:__doPostBack('lblFlaggedValue','')">2</a>
+                                                                                    </div>
+                                                                                    <a id="btnNextFlag" class="casLftPanelBaseField altColor icon2 smarrowright iconSizeSSm noUnderline" onclick="goToNextFlag()" title="Next flagged question"></a>
+                                                                                    <br>
+                                                                                    <div class="casLftPanelBaseField descLabel descLabelTop1">Flagged Questions</div>
+                                                                                </div>
+                                                                                <div class="casLftPanelSectDivider"></div>
+                                                                                <div id="helperPanel" class="casLftPanelSect4">
+                                                                                    <a id="lnkCalc" class="noUnderline" onclick="ShowCalculator();return false;">
+                                                                                        <span class="casLftPanelBaseField fa fa-calculator iconSizeMed descLabelTop1"></span>
+                                                                                    </a>
+                                                                                    <div id="btnCalcContent" class="casLftPanelBaseField descLabel helperContent calcRow">
+                                                                                        <a onclick="ShowCalculator();return false;" id="btnCalc" title="Display Calculator" class="defaultText" href="javascript:__doPostBack('btnCalc','')">Calculator</a>
+                                                                                    </div>
+                                                                                    <a id="lnkHelp" onclick="ShowHelp(helpSrcUrl);return false;" class="noUnderline noOutline">
+                                                                                        <span class="casLftPanelBaseField fa fa-question-circle iconSizeLrg helpPaddingLnk"></span>
+                                                                                    </a>
+                                                                                    <br>
+                                                                                    <div class="casLftPanelBaseField descLabel helperContent helpPadding">
+                                                                                        <a onclick="ShowHelp();return false;" id="btnHelp" title="Display Help System" class="defaultText" href="javascript:__doPostBack('btnHelp','')">Help</a>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div id="takeABreak">
+                                                                                    <div class="casLftPanelSectDivider"></div>
+                                                                                    <div id="breakPanel" class="casLftPanelSect7 casLftPanelBaseField flagImgPad">
+                                                                                        <a id="lnkTakeABreak" onclick="TakeABreak();" class="passLink" title="Take A Break">
+                                                                                            <span class="fa fa-hand-paper-o iconSizeSm noUnderline"></span>
+                                                                                        </a>
+                                                                                        <br>
+                                                                                        <a onclick="TakeABreak(); return false;" id="btnTakeABreak" title="Take A Break" class="defaultText descLabel" href="javascript:__doPostBack('btnTakeABreak','')">Take a Break</a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div><!-- /.col-sm-2 -->
+                                                                    <!--QUESTION BODY LEFT SECTION END-->
+                                                                    <!--QUESTION BODY RIGHT SECTION START-->
+                                                                    <div class="col-sm-10">
+                                                                        <div id="QuestionBody">
+                                                                            <div id="magnify">
+                                                                                <div class="small">
+                                                                                    <div id="QuestionContainerWrapper" class="QuestionContainer">
+
+                                                                                        <div class="textDirection">
+                                                                                            <!-- Show Generic Instructions for questions w/ sets -->
+                                                                                            <div id="HeaderSetInfoPanel">
+                                                                                                <p class="headerSetInfoPanel">Please use the following information to answer questions 3 – 4.</p>
+                                                                                            </div>
+                                                                                            <div class="textDirection" id="QuestionHeaderContainer"><p class="qHeader">William Shakespeare was an English poet, playwright, and actor, who was widely regarded as the greatest writer in the English language and the world's pre-eminent dramatist. He is often called England's national poet, and the "Bard of Avon."</p><hr></div>
+                                                                                        </div>
+
+
+                                                                                        <div id="QuestionContainer">
+                                                                                            <div class="Questionnaire">
+                                                                                                <div id="QuestionPageCtl_QuestionnaireContainer">
+                                                                                                    <div id="QuestionPageCtl_QuestionPanel3" class="SelectedCell">
+
+                                                                                                        <div class="EntryRow question-stem">
+                                                                                                            <div id="QuestionPageCtl_95067193237_StemWrapper" class="QuestionLabel">
+
+                                                                                                                <i>Multiple-choice:</i> <br><br>Of William Shakespeare's 38 plays, how many are categorized as historical plays? (Choose only one.) <span id="QuestionPageCtl_95067193237_lblLabelUnit"></span>
+
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <br>
+
+                                                                                                        <style>
+                                                                                                        </style>
+                                                                                                        <div class="EntryRow question-options">
+                                                                                                            <table id="radioList" class="radioWithProperWrap" border="0">
+                                                                                                                <tbody>
+                                                                                                                    <tr>
+                                                                                                                        <td><input id="radioList_0" type="radio" name="QuestionPageCtl$95067193237$radioList" value="A"><label for="radioList_0">8</label></td>
+                                                                                                                    </tr>
+                                                                                                                    <tr>
+                                                                                                                        <td><input id="radioList_1" type="radio" name="QuestionPageCtl$95067193237$radioList" value="B"><label for="radioList_1">10</label></td>
+                                                                                                                    </tr>
+                                                                                                                    <tr>
+                                                                                                                        <td><input id="radioList_2" type="radio" name="QuestionPageCtl$95067193237$radioList" value="C"><label for="radioList_2">13</label></td>
+                                                                                                                    </tr>
+                                                                                                                    <tr>
+                                                                                                                        <td><input id="radioList_3" type="radio" name="QuestionPageCtl$95067193237$radioList" value="D"><label for="radioList_3">16</label></td>
+                                                                                                                    </tr>
+                                                                                                                </tbody>
+                                                                                                            </table>
+
+                                                                                                        </div>
+
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div><!-- /.col-sm-10 -->
+                                                                    <!--QUESTION BODY RIGHT SECTION END-->
+                                                                </div><!-- /.row -->
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- /.container -->
+                                                </section>
+                                                <!--==========================-->
+                                                <!--ONLINE ANSWER PAPER SHOW END -->
+                                            </div>
+                                        </div>
+                                        <!-- END BASIC PORTLET-->
+                                    </div>
+                                </div>
+                                <!-- GRID SHOW END -->
+                                <div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--END PAGE CONTENT -->
+            </div>
+        </div>
+        <!--/ Stats -->
+    </div>
+    <div class="footerk">
+        <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2">
+            <span class="float-md-left d-block d-md-inline-block">
+                Copyright  &copy; 2019
+                <a class="text-bold-800 grey darken-2" href="http://kreativesit.com" target="_blank">KITS</a>
+            </span>
+            <span class="float-md-right d-none d-lg-block">ESA<i class="fa fa-home pink"></i></span>
+        </p>
+    </div>
+</div>
+

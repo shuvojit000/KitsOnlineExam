@@ -85,6 +85,7 @@
     <Compile Include="Request\ExaminationSectionRequestDTO.cs" />
     <Compile Include="Request\FacultyDashboardRequestDTO.cs" />
     <Compile Include="Request\LogInRequestDTO.cs" />
+    <Compile Include="Request\OnlineTestRequestDTO.cs" />
     <Compile Include="Request\PaperDetailsRequestDTO.cs" />
     <Compile Include="Request\PaperRequestDTO.cs" />
     <Compile Include="Request\ProgrammeRequestDTO.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Response\ExaminationSectionResponseDTO.cs" />
     <Compile Include="Response\FacultyDashboardResponseDTO.cs" />
     <Compile Include="Response\LogInResponseDTO.cs" />
+    <Compile Include="Response\OnlineTestResponseDTO.cs" />
     <Compile Include="Response\PaperDetailsResponseDTO.cs" />
     <Compile Include="Response\PaperResponseDTO.cs" />
     <Compile Include="Response\ProgrammeResponseDTO.cs" />

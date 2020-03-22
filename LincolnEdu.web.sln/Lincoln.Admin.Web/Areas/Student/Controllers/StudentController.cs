@@ -98,5 +98,8 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
             }
             return PartialView("_AnswerPaper", AVM);
         }
+
+
+        public ActionResult ExaminationView() => View();
     }
 }

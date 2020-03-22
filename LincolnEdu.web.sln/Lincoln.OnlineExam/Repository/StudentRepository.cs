@@ -12,7 +12,7 @@ using System.Globalization;
 
 namespace Lincoln.OnlineExam.Repository
 {
-   public class StudentRepository:IStudent
+    public class StudentRepository : IStudent
     {
         #region Student
 
@@ -159,6 +159,45 @@ namespace Lincoln.OnlineExam.Repository
         }
 
 
+        #endregion
+
+        #region Examination Test
+
+        public List<OnlineTestResponseDTO> GetStudentExamination(OnlineTestRequestDTO request)
+        {
+
+            var itemSet = new List<OnlineTestResponseDTO>();
+
+            SqlParameter loginID = new SqlParameter("@LoginID", SqlDbType.Int);
+            loginID.Value = DBNull.Value;
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = "GET";
+
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Student].[upGetOnlineTest]", loginID, type))
+            {
+                if (dr != null && dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        itemSet.Add(new OnlineTestResponseDTO()
+                        {
+                            LoginID = Convert.ToInt32(dr["LoginID"]),
+                            StudentName = object.ReferenceEquals(dr["StudentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["StudentName"]),
+                            CourseCode= object.ReferenceEquals(dr["CourseCode"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseCode"]),
+                            CourseName= object.ReferenceEquals(dr["CourseName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseName"]),
+                            EndDate= Convert.ToDateTime(dr["EndDate"]),
+                            ExamAttendance= object.ReferenceEquals(dr["ExamAttendance"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ExamAttendance"]),
+                            ExaminationName= object.ReferenceEquals(dr["ExaminationName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["ExaminationName"]),
+                            SLNo= Convert.ToInt32(dr["SLNo"]),
+                            StartDate= Convert.ToDateTime(dr["StartDate"]),
+                            Status= object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
+                        });
+                    }
+                }
+
+            }
+            return itemSet;
+        }
         #endregion
     }
 }

@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="KITS">
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/assets/images/ico/favicon.ico">
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/TestExam/bootstrap2Exam.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/TestExam/vendors.min.css">
+    <!-- END: Vendor CSS-->
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/TestExam/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/TestExam/components.min.css">
+    <!-- END: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/TestExam/main.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/TestExam/custom_icons.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/TestExam/ade-styles.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/TestExam/default.min.css">
+
+
+    <script type="text/javascript" src="~/Content/assets/TestExam/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/TestExam/jquery-ui-custom-1.11.4.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/TestExam/jquery-cookie-1.4.1.min.js"></script>
+    <script src="~/Content/assets/TestExam/jquery.popupoverlay.js" type="text/javascript"></script>
+    <script src="~/Content/assets/TestExam/jquery.belowfold.1.0.0.min.js" type="text/javascript"></script>
+    <script src="~/Content/assets/TestExam/script.js" type="text/javascript"></script>
+    <script src="~/Content/assets/TestExam/uiHelper.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+        var secKey = '';
+        var sessionResultsId = '58817727882';
+        var scrollDown = 'More Content Below';
+        var showTimerStatus = true;
+        var hide_seconds_until = 20000;
+        //where to go when the timer times out
+        var timeOutLocation = '';
+        var idleLocation = 'logout.aspx?key=' + secKey;
+        var isHybridEssayControl = '0';
+        var timeSpentInterval = Number('30000');
+        var currentQuestionNumber = '6';
+        var endOfExamTitle = 'End of Exam';
+        var nextConfirmTitle = 'Confirmation';
+        var nextConfirmCancelButton = 'Cancel';
+        var nextConfirmYesButton = 'Yes';
+        var goToNumber;
+        var secs_to_submit = 0;
+        var allowNavigation = true;
+        var pageId = '__Page';
+        var unansweredCount = '20';
+        var answeredCountValue = '3';
+        var flaggegCountValue = '2';
+        var navAllowed = 'True';
+        var updateTimeInterval;
+        calcMode = 'STANDARD';
+        var postOccured = false;
+        var NavigateAwayCatchEnabled = true;
+        var helpSrcUrl = '';
+        var attachments = "[]";
+        var closeText = "Close";
+        var breakText = "Break";
+        var exitConfirmText = 'You are either exiting the examination window or navigating in an unexpected way.';
+        var timer_warning_seconds_left = null; //currently only used on exam_simple but there is shared js
+        var timer_warning_color = null; //currently only used on exam_simple but there is shared js
+
+        $(document).ready(function () {
+
+        });//end of document ready event
+
+
+
+    </script>
+
+    <script type="text/javascript">
+        var isHighlightActive = false;
+        var hltr;
+        var questionBody = document.getElementById('QuestionContainerWrapper');
+        function ToggleHighlight() {
+            if (!isHighlightActive) {
+                hltr = new TextHighlighter(questionBody);
+                isHighlightActive = true;
+                $("#icoHighlight").css({ "color": "yellow" });
+            } else {
+                //hltr.removeHighlights();
+                hltr.destroy();
+
+                //hltr.unbindEvents(questionBody, hltr);
+                $(questionBody).removeClass(hltr.options.contextClass);
+
+                $("#icoHighlight").css({ "color": "#025EA8" }); //Default Castle icon color
+                isHighlightActive = false;
+            }
+        };
+
+
+
+    </script>
+
+</head>
+<!-- END: Head-->
+<!-- BEGIN: Body-->
+<body>
+
+    <!-- BEGIN: Content-->
+    <div class="content">
+      @RenderBody()
+    </div>
+    <!-- END: Content-->
+
+
+    <div id="dialog-TakeABreak" class="modalPopup">
+        <div id="takeABreakText">Warning: Your time is still running. Click "Resume Exam" below to continue your exam.</div>
+        <div id="timerContainer"></div>
+        <input id="takeABreakResume" type="button" onclick="ResumeExam();" value="Resume Exam" />
+    </div>
+
+
+</body>
+</html>

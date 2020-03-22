@@ -1,0 +1,1576 @@
+﻿/*body {
+  font-family: "Arial Bold", "Arial";
+}*/
+
+.panelEx{
+    margin-bottom: 20px;
+    /*background-color: #ffffff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);*/
+}
+
+.casHeader {
+    min-height:26px;
+    margin:0;
+    background-color:#A9A9A9;
+    background-color:rgba(74,74,74,.51);
+    padding-left:15px;
+    width:990px;
+    overflow: hidden
+}
+
+.casHeader2 {
+    height:46px;
+}
+
+.casHdLftElement {
+    display: inline-block;
+    float: left;
+    width: 25%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-right: 20px;
+    line-height: 1em;
+}
+
+.casHdCtrElement {
+    display: inline-block;
+    text-align: center;
+    /*word-wrap: break-word;*/
+    /*position: absolute;*/
+    width: 50%;
+    /*width: auto;*/
+    line-height: 1em;
+    /*padding-left: 15px;*/
+    padding-bottom: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.casHdRhtElement {
+    display:inline-block;
+    width:20%;
+    float:right;
+}
+
+.casHdRhtElementLogout {
+    width:8%;
+}
+
+.casHeaderBaseField {
+    display:inline-block;
+    color:white;
+}
+
+.headerLftLabel {
+    font-size: 13px;
+    padding-top: 5px;
+}
+
+.headerCtrLabel {
+    font-size:13px;
+    height: 100%;
+    padding-left: 4px;
+}
+
+.headerRhtLabel {
+    font-size:13px;
+    padding-left: 0px; 
+    padding-top: 5px;
+}
+
+.casSubmitButtonDisabled {
+    width: 126px;
+    min-height: 23px;
+    border-right: 2px solid #7E807E;
+    border-left: 2px solid #8E8E8E;
+    border-bottom: 3px solid #5D5D5D;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    background-color: #8E8E8E;
+    padding-top: 6px;
+    cursor: text;
+}
+
+.casSubmitButton {
+    width: 165px;
+    /*height:23px;*/
+    border-right:2px solid #009900;
+    border-left:2px solid #009900;
+    border-bottom:3px solid #006600;
+    border-bottom-left-radius:12px;
+    border-bottom-right-radius:12px;
+    background-color:#009900;
+    padding-top:6px;
+    cursor: pointer;
+    padding-bottom: 6px;
+}
+
+.casSubmitButton2Lines {
+    height: 43px;
+}
+
+.casSubmitButton3Lines {
+    height: 63px;
+}
+
+.casLogoutBtn {
+    width:126px;
+    height:23px;
+    border-right:2px solid #0071DA;
+    border-left:2px solid #0071DA;
+    border-bottom:3px solid #114898;
+    border-bottom-left-radius:12px;
+    border-bottom-right-radius:12px;
+    background-color:#0071DA;
+    padding-top:6px;
+    cursor: pointer;
+}
+
+.casLogoutBtnDisabled {
+    border-right: 2px solid #8A8A8A;
+    border-left: 2px solid #C0C0C0;
+    border-bottom: 3px solid #757575;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    background-color: #C0C0C0;
+    cursor: text;
+}
+
+.casLogoutButton {
+    width:90px;
+}
+
+.casSubmitButton2 {
+    width:126px;
+    min-height:23px;
+    border-right:2px solid #009900;
+    border-left:2px solid #009900;
+    border-bottom:3px solid #006600;
+    border-bottom-left-radius:12px;
+    border-bottom-right-radius:12px;
+    background-color:#009900;
+    padding-top:6px;
+    cursor: pointer;
+}
+
+.subPanel {
+    width: 165px;
+    border-top-left-radius:12px;
+    border-top-right-radius:12px;
+    display: inline-block;
+    padding-right: 8px;
+}
+
+.footPanel {
+    width: auto;
+    border-top-left-radius:12px;
+    border-top-right-radius:12px;
+    display: inline-block;
+    padding-right: 1em;
+    padding-left: 0.75em;
+}
+
+.btnConfirmLogout {
+    padding-bottom: 0.25em;
+    margin-bottom: 1.5em;
+}
+
+.subPanelContainer  {
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+}
+
+.subFooterContainer  {
+    margin-bottom: 1em;
+    margin-top: 3.5em;
+}
+
+.casSubmitIcon {
+    color:#ffffff;
+    font-size:17px;
+}
+
+.casSubmitLabel {
+    color:#ffffff;
+    font-size:14px;
+    font-weight:700;
+}
+
+.submitPosition {
+    position: relative; 
+    top: -2px;
+}
+
+.logoutFont {
+    font-weight: 500;
+}
+
+.casLogoutLabel {
+    position: relative;
+    top: 4px;
+}
+
+.casBody {
+    margin-top:15px;
+    width:990px;
+}
+
+.casAdaptWarning {
+    font-size: 14px;
+    color: #025191;
+    font-weight: bold;
+}
+
+.casAdaptFooter {
+    margin-left: 350px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.casLftPanel {
+    /*margin-top: 50px;*/
+    width:125px;
+    float:left;
+}
+
+.casLftPanelLayout {
+    margin-top:5px;
+    margin-left:20px;
+    width:106px;
+    height: auto;
+    background-color: #87CEFA;
+    background-color: rgba(128,197,253,.51);
+    border-radius:8px;
+}
+
+.casNavDirectPanel {
+    margin-left: auto;
+    margin-right: auto;
+    /*padding-left: 16%;*/
+}
+
+.casLftPanelSect1 {
+    /*margin-left:6px;
+    width:80px;*/
+    height:54px;
+    border-radius:8px;
+    padding-top:5px;
+    text-align:center;
+}
+
+.timePnlHghHide{
+    height:26px;
+}
+
+.casLftPanelSect22 {
+    margin-top:4px;
+    margin-bottom:8px;
+    margin-left:8px;
+    width:90px;
+    height:/*95px;*/ 120px;
+    background-color: #80c5fd;
+    background-color: rgba(128,197,253,.20);
+    border-radius:8px;
+    text-align:center;
+}
+
+.casLftPanelSect2 {
+    margin-top:2px;
+    margin-bottom:8px;
+    margin-left:13px;
+    width:80px;
+    height:95px;
+    background-color: #80c5fd;
+    background-color: rgba(128,197,253,.20);
+    border-radius:8px;
+    text-align:center;
+}
+
+.casLftPanelSect3 {
+    width: 90px;
+    height: auto;
+    margin-left: 8px;
+}
+
+.casLftPanelSect4 {
+    margin-top:8px;
+    margin-left:13px;
+    width:80px;
+    height: auto;
+    border-radius:8px;
+    text-align:center;
+}
+
+.casLftPanelSect5 {
+    margin-left:13px;
+    width:80px;
+    height: auto;
+    border-radius:8px;
+    text-align:center;
+}
+
+.casLftPanelSect6 {
+    margin-left:13px;
+    width:80px;
+    height: auto;
+    border-radius:8px;
+    text-align:center;
+}
+
+.casLftPanelSect7 {
+    margin-left: 13px;
+    width: 80px;
+    height: auto;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.warningText {
+    color: red;
+}
+
+.helperContent {
+    width: 100%;
+}
+
+.helpPadding {
+    padding-top: 2px;
+    padding-bottom: 8px;
+}
+
+.helpPaddingLnk {
+    padding-top: 9px;
+}
+
+.navButton {
+    border-radius: 12px;
+    background-color: #0078E7;
+    color: white;
+    border-left: 1px solid #0071DA;
+    border-bottom: 2px solid #114898;
+    border-top: 0px solid black;
+    border-right: 0px solid black;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    margin-bottom: 0.25em;
+    text-transform: uppercase;
+    background: #0078E7;
+}
+
+.footerExam {
+    font-size: 75%;
+    font-family: "Arial";
+    vertical-align: bottom;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+.footerContent {
+    display: table-cell;
+    vertical-align: bottom;
+    padding-left: 10px;
+    height: 100%;
+    padding-top: 2em;
+}
+
+.casLftPanelBaseField {
+    display:inline-block;
+    color:#025EA8;
+}
+
+.casLftTimePnl {
+    padding-top: 2px; 
+    white-space: nowrap;
+}
+
+.actionLink {
+    font-size:19px;
+    font-weight:700;
+    text-decoration:underline;
+    cursor: pointer;
+}
+
+.actionLink:hover {
+    color: #467DFF;
+}
+
+.descLabel {
+    font-size: 11px;
+    font-style: italic;
+}
+
+.descLabelTop {
+    padding-top: 2px;
+}
+
+.descLabelTop1 {
+    padding-top: 1px;
+}
+
+.answeredLblTop {
+    padding-top: 5px;
+}
+
+.totalAnsweredLblTop {
+   padding-top: 6px; 
+}
+
+.flagImgPad {
+    padding-top: 6px; 
+    padding-bottom: 5px;  
+}
+
+.flagActLnk {
+    padding-top: 6px; 
+    position: relative; 
+    top: -4px;
+}
+
+.QuestionLabel div {
+    line-height: 1.2;
+}
+
+.timeLabel {
+    font-size:11px;
+    display: inline-block;
+    width: 80px;
+}
+
+.altColor {
+    color:#0078E7;
+}
+
+.italic {
+     font-style:italic;
+}
+
+.medWeight {
+    font-weight: 700;
+}
+
+.clockField {
+    font-size:1.05em;
+    font-weight: 700;
+    margin-left: 9px;
+    padding-top: 6px; 
+    background: transparent; 
+    border: none;
+    width: 100%;
+}
+
+.clockFieldTimePanel {
+    padding-top: 0px;
+}
+
+#toggleTime {
+    color: #02457B; 
+    text-decoration: none; 
+    vertical-align: middle; 
+    margin-left: 2px;
+}
+
+#toggleAnswered {
+    color: #02457B; 
+    text-decoration: none; 
+    vertical-align: bottom; 
+    margin-left: 5.06em;
+}
+
+.disabledLink {
+    text-decoration: none !important;
+    cursor: text;
+}
+
+#answeredPanel {
+    margin-top: -0.5em;
+}
+
+.totalAnswers, .hideConfirmPnl, .answeredHide, .hideLogoutPnl, .hidAutoSubmit, .footerSummaryPnl, .dialogPanels, .modalPopup {
+    display: none;
+}
+
+.totalAnswersHeight {
+    margin-top: -1em;
+}
+
+.adjustAllAnsweredHeight {
+    height: 4.2em;
+}
+
+.navMainPanelBothHidden {
+    height:314px;
+}
+
+.navMainPanelTimeHidden {
+    height:362px;
+}
+
+.navMainPanelAnswersHidden {
+    height: 342px;
+}
+
+.casLftPanelSectDivider {
+    border-bottom:1px solid #ffffff;
+    border-bottom:1px solid rgba(255,255,255,.71);
+    width:106px;
+    height:1px;
+}
+
+.subDivider {
+    width:70px;
+    margin-left:5px;
+    padding-top:6px;
+}
+
+.iconSizeSSm {
+    font-size:24px;
+}
+
+.iconSizeSm {
+    font-size:26px;
+}
+
+.iconSizeMed {
+    font-size:28px;
+}
+
+.iconSizeLrg {
+    font-size:30px;
+}
+
+.directNavElement {
+    display:inline-block;
+    color:#f7f7f7;
+    font-size:30px;
+    padding-left:4px;
+    position:relative;
+    top:-23px;
+}
+
+.leftFirst {
+    padding-left:0px;
+}
+
+.directNavLabel {
+    font-family: "Arial";
+    font-weight: 700;
+    position: absolute;
+    top: 8px;
+    font-size: 14px;
+    color: #cccccc;
+}
+
+.lftS {
+    left:10px;
+}
+.lftL {
+    left:14px;
+}
+
+.lft {
+    left:16px;
+}
+
+.rht {
+    left:12px;
+}
+
+.first {
+    left:8px;
+}
+
+.lft.lrgLabel {
+    left:7px;
+}
+
+.rht.lrgLabel {
+    left:7px;
+}
+
+.lft.medLabel {
+    left:11px;
+}
+
+.rht.medLabel {
+    left:12px;
+}
+
+.labelHover {
+    color: #ffffff;
+}
+
+.elementHover, .elementOn {
+    color: #ff9900;
+}
+
+.directNavElement:hover {
+    color: #ff9900;
+    cursor: pointer;
+}
+
+.directNavElement:hover .directNavLabel {
+    color: #ffffff;
+}
+
+.questionNavPanel {
+    display:inline-block;
+    max-width:175px;
+    padding-left:10px;
+    padding-right:10px;
+    height: 3.75em; 
+}
+
+.navIconLft {
+    font-size:48px;
+    color:#0078E7;
+    float:left;
+    width:50px;
+    padding-right:5px;
+    cursor: pointer;
+}
+
+.navIconRht {
+    font-size:48px;
+    color:#0078E7;
+    float:right;
+    width:50px;
+    padding-left:5px;
+    cursor: pointer; /*margin-top:-43px;*/
+}
+
+.navCountElement {
+    float:left;
+    width:55px;
+    text-align:center;
+}
+
+.navCountLabel {
+    display: inline-block;
+    font-family: "Arial";
+    font-weight: 700;
+    position: relative;
+    left: -1px;
+    top: 7px;
+    font-size: 30px;
+    color: #0078E7;
+}
+
+.navLabel {
+    font-family: "Arial";
+    font-weight: 700;
+    position: relative;
+    left: 14px;
+    top: -64px;
+    font-size: 13px;
+    color: white;
+}
+
+.navLabel.left {
+    /*left:6px;*/
+    left: -2px;
+    padding: 1em 1em 1em 0.5em;
+}
+
+.navLabel.right {
+    /*left:6px;*/
+    left: 2px;
+    padding: 1em 0.5em 1em 1em;
+}
+
+.panelLabelHover {
+    color: #467DFF;
+}
+
+.casLftPanelBaseField.fa.fa-flag:hover,.casLftPanelBaseField.altColor.icon2.smarrowleft:hover,.casLftPanelBaseField.altColor.icon2.smarrowright:hover,.casLftPanelBaseField.fa.fa-question-circle:hover,.casLftPanelBaseField.fa.fa-calculator:hover{
+    cursor: pointer;
+    color: #467DFF;
+}
+
+/*********************************************************************/
+/* New CSS */
+/*********************************************************************/
+.disablePrev {
+    color: #B3D7F8;
+}
+
+.hideOverFlow {
+    width: auto;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin-right: 2px;
+}
+
+.hideOverFlowFF {
+   /*width: auto;*/ width:100%;
+   overflow-x: hidden;
+   overflow-y: hidden;
+   /*margin-right: 42px;*/
+}
+
+.counter {
+    position: relative;
+    z-index: 1;
+    /*margin-left: 210px;*/ /*width:16%; margin-left:42%;*/
+    padding-right: 8px;
+    padding-left: 8px;
+    background-color: white;
+}
+
+#navigationPanel {
+    white-space: nowrap;
+    /*margin-top: -30px;*/ margin-top:30px;
+    /*margin-left: 390px;*/ /*width:40%; margin-left:60%;*/
+    min-height: 30px;
+}
+
+#navigationPanelL {
+    white-space: nowrap;
+    /*margin-top: -30px;*/ margin-top: 30px; 
+    /*margin-left: 390px;*/ /*width:40%; margin-left:0px;*/
+    min-height: 30px;
+}    
+
+.navIconLftDisable {
+    font-size: 48px;
+    color: #B3D7F8;
+    float: left;
+    width: 55px;
+    cursor: pointer;
+}
+
+#oneQuestionExam {
+    width: 33.2px;
+    float: left;
+}
+
+.ffleftitems {
+    margin-left: 0px;
+}
+
+.ffleftitems1 {
+    margin-left: 25px;
+}
+
+.ffleftitems2 {
+    margin-left: 25px;
+}
+
+.ffleftitems3 {
+    margin-left: 25px;
+}
+
+.ffleftitems4 {
+    margin-left: 20px;
+}
+
+.ffleftitems5 {
+    margin-left: 15px;
+}
+
+.ffleftitems6 {
+    margin-left: 10px;
+}
+
+.ffleftitems7 {
+    margin-left: 5px;
+}
+
+.ffleftitems8 {
+    margin-left: 5px;
+}
+
+.ffleftitems9 {
+    margin-left: 2px;
+}
+
+.goTo {
+    text-decoration: inherit;
+    color: inherit;
+}
+
+.leftNavigationFirst {
+    margin-left: -220px; 
+}
+
+.leftNavigationFFFirst {
+    margin-left: -255px; 
+}
+
+.leftNavigationSecond {
+   margin-left: -260px; 
+}
+
+.leftNavigationFFSecond {
+    margin-left: -290px; 
+}
+
+.leftNavigationThird {
+    margin-left: -300px;
+}
+
+.leftNavigationFFThird {
+    margin-left: -325px;
+}
+
+.leftNavigationFourth {
+    margin-left: -340px;
+}
+
+.leftNavigationFFFourth {
+    margin-left: -360px;
+}
+
+.leftNavigationFifth {
+    margin-left: -380px;
+}
+
+.leftNavigationFFFifth {
+    margin-left: -395px;
+}
+
+.leftNavigationSixth {
+    margin-left: -420px;
+}
+
+.leftNavigationFFSixth {
+    margin-left: -430px;
+}
+
+.leftNavigationSeventh {
+    margin-left: -460px;
+}
+
+.leftNavigationFFSeventh {
+    margin-left: -465px;
+}
+
+.leftNavigationEighth {
+    margin-left: -500px;
+}
+
+.leftNavigationFFEighth {
+    margin-left: -500px;
+}
+
+.leftNavigationNineth, .leftNavigationDefault {
+    margin-left: -535px;
+}
+
+.leftNavigationFFNineth, .leftNavigationFFDefault {
+    margin-left: -535px;
+}
+
+.rightNavigationFirst {
+    margin-left: 140px;
+}
+
+.rightNavigationSecond {
+    margin-left: 145px;
+}
+
+.rightNavigationFFSecond {
+    margin-left: -0.7em;
+}
+
+.rightNavigationThird {
+   margin-left: 180px;  
+}
+
+.rightNavigationFFThird {
+   margin-left: -0.85em;  
+}
+
+.rightNavigationFourth {
+    margin-left: 185px;  
+}
+
+.rightNavigationFFFourth {
+   margin-left: -1em; 
+}
+
+.rightNavigationFifth {
+    margin-left: 185px;  
+}
+
+.rightNavigationFFFifth {
+    margin-left: -1.2em;  
+}
+
+.rightNavigationSixth {
+     margin-left: 185px;  
+}
+
+.rightNavigationFFSixth {
+      margin-left: -1.2em;
+}
+
+.rightNavigationSeventh {
+    margin-left: 188px;  
+}
+
+.rightNavigationFFSeventh {
+    margin-left: -1.2em;
+}
+
+.rightNavigationEighth{
+    margin-left: 188px;  
+}
+
+.rightNavigationFFEighth{
+    margin-left: -1em;  
+}
+
+.rightNavigationNineth{
+    margin-left: 190px;  
+}
+
+.rightNavigationFFNineth{
+    margin-left: -1.1em; 
+}
+
+.rightNavigationTenth, .rightNavigationDefault{ 
+    margin-left: 192px; 
+}
+
+.rightNavigationFFTenth, .rightNavigationFFDefault{
+    margin-left: -1.2em;  
+}
+
+.noUnderline {
+    text-decoration: none;    
+}
+
+.noOutline {
+   outline: none; 
+}
+
+/*Sliding Panels*/
+.unansPanel,.ansPanel,.flagPanel {
+    width: 495px;
+    /*height: 382px;*/ height:auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: #DFF1FF;
+    border: 1px solid #BADFFE;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    position: relative;
+    z-index: 10;
+    display: inline-block;
+    }
+
+    .unansHd,.ansHd,.flagHd {
+        height: 25px;
+        margin: 7px 0px 0px 7px;
+        font-size: 15px;
+        font-weight: 700;
+        color: #2C2C2C;
+    }
+
+    .unansHdLft,.ansHdLft,.flagHdLft {
+        display: inline-block;
+        width: 80%;
+    }
+
+    .unansHdRht,.ansHdRht,.flagHdRht {
+        display: inline-block;
+        float: right;
+        margin-right: 1em;
+}
+
+    .unansBody,.ansBody,.flagBody {
+        margin-left: 10px;
+    }
+
+    .narrow {
+            padding-left:1px;
+            position:relative;
+            top:0px;
+    }
+
+    .rowSpace {
+            margin-top: 4px;
+    }
+
+    .shiftLft {
+        left: 13px;
+    }
+
+    .shiftLft.lrgLabel {
+        left:4px;
+    }
+
+    .shiftLft.medLabel {
+        left:8px;
+    }
+
+    .labelOn {
+        color: #ffffff;
+    }
+
+    .unansRow,.ansRow, .flagRow, .calcRow {
+        padding-top: 4px;
+        padding-bottom: 10px;
+    }
+
+    .closeButton {
+        font-size: 13px;
+    }
+
+    .iconSizeSSSm {
+        font-size: 16px;
+    }
+
+    .closeButtonLabel{
+        display: inline-block;
+        position: relative;
+        top: -2px;
+    }
+
+    .closeColor {
+        color: #2c2c2c;
+    }
+
+    .directNavElement.narrow:hover {
+        color: #FF6600;
+        cursor: pointer;
+    }
+
+    .alignLeft {
+       text-align: left; 
+    }
+        
+    .flagRed {
+        color: #FF0000;
+    }
+
+.hideSection {
+    display: none;
+}
+
+/* Previous and Next Navigation */
+.activeNav{
+	color:#0078E7;
+}
+
+.disableNav{
+	color:#B3D7F8;
+}
+
+/* Left Navigation text*/
+.defaultText {
+    color: #2E75B5;
+    text-decoration: none;
+}
+
+#ShowUnAnsweredPanel, #ShowAnsweredPanel, #ShowFlaggedAnsweredPanel {
+    z-index: 11;
+    position: absolute;
+    display: block;
+}
+
+#ShowUnAnsweredPanel, #ShowAnsweredPanel {
+    margin-left: 85px;
+}
+
+ #ShowFlaggedAnsweredPanel {
+    margin-left: 75px;
+}
+
+.headerSetInfoPanel {
+    font-weight: 700;
+    font-style: normal;
+    font-size: 14px;
+    color: #025191;
+    line-height: 2em;
+}
+
+.casSubmitToOne {
+    margin-left: 145px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-left: 4px;
+    padding-right: 4px;
+    position: absolute;
+    margin-top: -25px;
+    border-radius: 12px;
+    background-color: #0078E7;
+    color: white;
+    border-left: 2px solid #0071DA;
+    border-bottom: 3px solid #114898;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.casSubmitToOneFFMargin {
+     margin-left: -6em;
+}
+
+.defaultBackground {
+    color: white;
+}
+
+.attachmentContainer{
+    float:none;
+}
+
+.attachmentPaneHeader {
+    height: 24px;
+    font-family: "Arial Bold", "Arial";
+    font-weight: 700;
+    font-style: normal;
+    font-size: 12px;
+    color: #4E4E4E;
+    line-height: 24px;
+} 
+
+div.attachmentPane {
+    position: relative;
+    width: 80%;
+    border: none;
+    padding: 2px;
+    margin: 2px;
+    margin-right: 2px;
+    /*margin-left: 160px;*/
+}
+
+.attachmentPane ul {
+     display: inline-grid;
+     margin-right: 1em;
+ }
+
+.attachmentPane a {
+    text-decoration: none;
+    font-family: "Arial Bold", "Arial";
+    font-weight: 700;
+    font-style: normal;
+    font-size: 11px;
+    color: #0033CC;
+    padding-left: 0.5em;
+}
+
+.attachmentPane a:hover {
+    text-decoration: underline;
+}
+
+.attachmentPaneHeader {
+    height: 24px;
+    font-family: "Arial Bold", "Arial";
+    font-weight: 700;
+    font-style: normal;
+    font-size: 12px;
+    color: #4E4E4E;
+    line-height: 24px;
+} 
+
+.liAttachments {
+    display: block;
+    line-height: 1.75em;
+    color: #0033CC;
+}
+
+  input[type="radio"]:checked, input[type="radio"]:active, input[type="radio"]:hover {
+    background-color: #cccccc ;
+    background-color: rgba(204, 204, 204, 1) ; 
+    border-radius: 6px;
+  }
+
+/*jQuery popup submit styling*/
+.ui-widget.success-dialog {
+    font-size: 15px;
+    font-weight: 700;
+    color: #2C2C2C;
+}
+
+/* UI update start */
+  .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-state-focus, .ui-state-focus .ui-icon, 
+  .ui-state-active .ui-icon, .ui-state-focus .ui-icon, .ui-dialog-titlebar-close .ui-state-hover .ui-state-focus .ui-state-active, 
+  .ui-dialog-titlebar-close .ui-state-hover, .ui-dialog-titlebar-close .ui-state-active, .ui-dialog-titlebar-close .ui-state-focus  {
+  
+    background: #DFF1FF !important;
+    border: 4px #DFF1FF solid !important;
+    outline:none;
+ }
+
+ .ui-dialog-titlebar-close {
+     background: #DFF1FF;
+    border: 2px #DFF1FF solid;
+ }
+
+  .ui-widget-content .ui-icon, .ui-dialog-titlebar-close .ui-state-focus, .ui-dialog-titlebar-close .ui-state-active{
+    background: #DFF1FF;
+    border: 2px #DFF1FF solid;
+ }
+ 
+
+.ui-button-icon-only .ui-icon {
+    left: 100%;
+    margin-left: 8px;
+}
+
+.ui-button-text {
+    font-size: 13px;
+    font-weight: 600;
+    font-family: sans-serif;
+    margin-left: -60px;
+    background: url('../images/120px-Caret_left_font_awesome.png') -21px -2px no-repeat;
+    background-size: 29px 19px;
+    background-origin: padding-box;
+    background-position: left center;
+     
+}
+
+.ui-button-icon-only .ui-button-text {
+    padding-right: 2em !important;
+    padding-left: 2em !important;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+     height: 20px;
+    margin: -10px 0 0;
+    padding: 1px;
+    position: absolute;
+    right: 0.3em;
+    top: 50%;
+    width: 40px;
+    z-index: 1;
+}
+
+ .ui-button .ui-button-text {
+    display: inline;
+    speak: none;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+
+     position: relative;
+     z-index: 2;
+     margin-right: -32px;
+ }
+
+ /* UI update end*/
+
+.ui-widget-content.success-dialog {
+    background: #DFF1FF;
+    border: 1px #DFF1FF solid ; 
+    color: #222222;
+}
+
+.ui-dialog.success-dialog .ui-dialog-content {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    overflow: auto;
+    position: relative;
+    margin: 0;
+}
+
+#CalculatorDialog .ui-button-text {
+    display: none;
+    background: none;
+    border: 0 none;
+     background-image: none;
+}
+
+.ui-dialog.success-dialog .ui-widget-header {
+    background: #DFF1FF;
+    border: 0;
+    color: #2C2C2C;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+
+.ui-dialog.success-dialog .ui-dialog-titlebar {
+    padding: 0.75em 1em;
+    position: relative;
+    font-size: 15px;
+}
+
+/*popup submit styling*/
+    .submitPanel {
+        width: 780px;
+        height: auto;
+        max-height: 600px;
+        overflow-y: auto;
+        min-height: 200px;
+        border: 1px solid #C0C0C0;
+        border-radius: 8px;
+        text-align: center !important;
+        margin-left: 25px;
+        padding-top: 20px;
+        background-color: white;
+    }
+
+    .logoutPanel {
+        width: auto;
+        height: auto;
+        overflow-y: hidden;
+        min-height: 150px;
+        border: 1px solid #C0C0C0;
+        border-radius: 8px;
+        text-align: center !important;
+        margin-left: 25px;
+        padding-top: 20px;
+        background-color: white;
+    }
+
+    .disableLogoutPop {
+        background-color: #C0C0C0;
+    }
+
+    .submit {
+        padding-left: 7px;
+    }
+
+    .submitPanelBackGround {
+         background-color: white;
+    }
+
+    .subHdTitle {
+        font-size: 14px;
+        font-weight: 700;
+        color: #333333;
+        margin-top: 0.75em;
+    }
+
+    .subHdSubTitle {
+        font-size: 17px;
+        font-weight: 900;
+        color: #333333;
+        padding-top: 3px;
+    }
+
+    .subHdWarning {
+        font-size: 13px;
+        font-weight: 400;
+        color: #333333;
+        padding-top: 10px;
+        font-style: italic;
+    }
+
+    .subHdUnansweredCount {
+        font-size: 13px;
+        font-weight: 600;
+        color: #333333;
+        padding-top: 14px;
+    }
+
+    .unansweredPanel {
+        height: auto;
+        width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-bottom: 1em;
+        padding-top: 0.5em;
+    }
+
+    .confirmSubmit {
+        height: 50px;
+    }
+
+    .cancelAction {
+        display: inline-block;
+        color: #999999;
+    }
+
+    .cancelLink {
+        text-decoration: underline;
+    }
+
+    .cancelLink a:hover, .collapsePnlHover {
+        cursor: pointer;
+    }
+
+    .casLftPanelBaseField.fa.fa-check-square-o {
+        color: #009900;
+        font-size: 20px;
+        position: relative;
+        top: 2px;
+    }
+
+    .confirmSubmitInputBox {
+        height: 32px;
+        width: 250px;
+        font-size: 20px;
+        text-align: center;
+        margin-top: 8px;
+    }
+
+/* jQuery belowfold css*/
+    .background {
+        background:url('../images/scrolldown-arrow.png') no-repeat;
+        position: relative;
+        width: 183px;
+        min-height: 48px;
+    }
+
+    .layer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        padding-top: 0.45em;
+    }
+
+    .layerContent {
+        color: white;
+        letter-spacing: 0.1em;
+        font-weight: 600;
+        font-size: 1.05em;
+        text-align: center;
+        width: 80%;
+        float: right;
+    }
+
+#HelpDialog {
+    overflow: visible !important;
+}
+
+.PrevOverrideIE {
+    color: white;
+}
+
+.FlagOverrideIE {
+    color: #467dff;
+}
+
+.liAttachments {
+    cursor: pointer;
+}
+
+.alignCenter {
+    text-align: center;
+}
+
+.cancelSubmitBasePadding {
+    padding-top:6px;
+    padding-bottom:5px;    
+}
+
+.confirmSubmitStyle {
+    position:relative;
+    top:-2px;
+}
+
+.logoutSubmitStyle {
+    position:relative;
+}
+
+.confirmIconLft {
+   padding-left:7px; 
+}
+
+.logoutIconLft {
+    padding-left:7px;
+    color: white;
+}
+
+.logoutTitle {
+    padding: 1em;
+    font-weight: 700;
+}
+
+.errorMessage {
+    color: red;
+}
+
+.logoutContainer {
+    width: 100%;
+}
+
+.logoutReturnCnt {
+    float: right; 
+    margin-right: 1.5em; 
+    line-height: 1.5em;
+}
+
+.logoutReturnTxt, .logoutSaveTxt {
+    display: inline-block; 
+    margin-bottom: 0.4em;
+}
+
+.logoutOrTxt {
+    width: 10%; 
+    line-height: 3em; 
+    font-size: 1.2em; 
+    font-weight: 600;
+}
+
+.logoutSaveLogoutCnt {
+   float: left; 
+   margin-left: 1.5em; 
+   line-height: 1.5em 
+}
+
+.clearBoth {
+    clear: both;
+}
+
+.ajax-loader {
+    position: fixed;
+    left: 40%;
+    top: 25%;
+    margin-left: -32px;
+    margin-top: -32px;
+    display: block;
+    z-index: 1;
+}
+.confirmChange-dialog .ui-dialog-buttonpane.ui-widget-content.ui-helper-clearfix, 
+.ui-button .ui-button-text:nth-of-type(1){
+    border: none;
+    background: none;
+}
+
+.confirmChange-dialog .ui-button .ui-button-text:nth-of-type(1){
+    display: block;
+    margin-right: 6em;
+    background: #0078E7;
+    border: 1px solid #0071DA;
+    line-height: 1.5em;
+    font-size: 1em;
+    color: white;
+    border-radius: 12px;
+} 
+
+#resultsHeader {
+    height: 15%;
+}
+
+#resultsIFrame {
+    height: 85%;
+    width: 99%;
+    position: absolute;
+    overflow: hidden;
+    border: none;
+}
+
+.hiddenField {
+    display: none;
+}
+
+#resultsHeaderContent {
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    line-height: 25px;
+}
+
+#belowfold-popup {
+    height: 75px !important;
+}
+
+#takeABreakResume {
+    padding-top: 10px;
+    padding-left: 115px;
+    font-weight: bold;
+}

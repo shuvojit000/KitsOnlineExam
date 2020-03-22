@@ -1,0 +1,109 @@
+﻿/******************************************************
+PASS Item Styles
+ *****************************************************/
+p{
+    margin:0;
+    padding: 0;
+
+}
+.textDirection {
+    /*font-family: "Open Sans Regular", "Open Sans";*/
+    font-family: "Arial";
+    font-style: normal;
+    font-size: 14px
+}
+.QuestionContainer {
+    background-color: #F9F9F9;
+    /*margin-left: 150px;*/
+    padding: 1em;
+    border-radius: 0.75em;
+    line-height: 1.8em;
+}
+.Questionnaire {
+    /*font-family: 'Open Sans Regular', 'Open Sans';*/
+    font-family: "Arial";
+    font-style: normal;
+    font-size: 14px;
+    color: #000000;
+    /*overflow-x: auto;*/
+
+} 
+/******************************************************
+ END PASS Item Styles
+ *****************************************************/
+/******************************************************
+ ADE / PASS Item Styles
+ *****************************************************/
+.adeTableNoBorders thead tr th, .adeTableNoBorders tbody tr td {
+    border: none;
+}
+.adeTableNoBorders {
+    border: none;
+}
+.adeTableHeaders tr:first-child td {
+    background-color: #999999;
+    color: #FFFFFF;
+    font-weight: bold;
+    text-align: center;
+}
+.adeTableSmall {
+    font-size: 10pt;
+}
+.adeTableMini {
+    font-size: 8pt;
+}
+ul, ol {
+    margin: 0;
+}
+ol > li > ol {
+    list-style-type: lower-alpha;
+    padding-left: 25px;
+}
+ol > li > ol > li > ol {
+    list-style-type: lower-roman;
+    padding-left: 25px;
+}
+ol > li > ol > li > ol > li > ol {
+    list-style-type: decimal;
+    padding-left: 25px;
+}
+ol > li > ol > li > ol > li > ol > li > ol {
+    list-style-type: lower-alpha;
+    padding-left: 25px;
+}
+ol > li > ol > li > ol > li > ol > li > ol > li > ol{
+    list-style-type: lower-roman;
+    padding-left: 25px;
+}
+ul > li > ul {
+    padding-left: 25px;
+}
+ul > li > ul > li > ul {
+    padding-left: 25px;
+}
+ul > li > ul > li > ul > li > ul {
+    padding-left: 25px;
+}
+ul > li > ul > li > ul > li > ul > li > ul {
+    padding-left: 25px;
+}
+ul > li > ul > li > ul > li > ul > li > ul > li > ul{
+    padding-left: 25px;
+}
+.ade-option-divider-container {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+    top: 9px;
+    line-height: 1.38 !important;
+
+}
+
+.ade-option-divider-numerator {
+    border-bottom: 1px solid black;
+    display: block;
+}
+/******************************************************
+ END ADE / PASS Item Styles
+ *****************************************************/

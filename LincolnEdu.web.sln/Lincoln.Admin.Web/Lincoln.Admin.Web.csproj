@@ -477,6 +477,22 @@
     <Content Include="Content\assets\js\scripts\ui\compact-menu.min.js" />
     <Content Include="Content\assets\js\scripts\ui\scrollable.js" />
     <Content Include="Content\assets\js\scripts\ui\scrollable.min.js" />
+    <Content Include="Content\assets\TestExam\ade-styles.css" />
+    <Content Include="Content\assets\TestExam\bootstrap.min.css" />
+    <Content Include="Content\assets\TestExam\bootstrap2Exam.css" />
+    <Content Include="Content\assets\TestExam\components.min.css" />
+    <Content Include="Content\assets\TestExam\custom_icons.css" />
+    <Content Include="Content\assets\TestExam\default.min.css" />
+    <Content Include="Content\assets\TestExam\jquery-1.11.3.min.js" />
+    <Content Include="Content\assets\TestExam\jquery-cookie-1.4.1.min.js" />
+    <Content Include="Content\assets\TestExam\jquery-ui-custom-1.11.4.min.js" />
+    <Content Include="Content\assets\TestExam\jquery.belowfold.1.0.0.min.js" />
+    <Content Include="Content\assets\TestExam\jquery.popupoverlay.js" />
+    <Content Include="Content\assets\TestExam\main.css" />
+    <Content Include="Content\assets\TestExam\reset.css" />
+    <Content Include="Content\assets\TestExam\script.js" />
+    <Content Include="Content\assets\TestExam\uiHelper.js" />
+    <Content Include="Content\assets\TestExam\vendors.min.css" />
     <Content Include="Content\assets\vendors\css\calendars\fullcalendar.min.css" />
     <Content Include="Content\assets\vendors\css\charts\chartist-plugin-tooltip.css" />
     <Content Include="Content\assets\vendors\css\charts\chartist.css" />
@@ -791,6 +807,8 @@
     <Content Include="Areas\Student\Views\Student\AnswerSetUp.cshtml" />
     <Content Include="Areas\Student\Views\Student\Dashboard.cshtml" />
     <Content Include="Areas\Student\Views\Student\_AnswerPaper.cshtml" />
+    <Content Include="Areas\Student\Views\Student\ExaminationView.cshtml" />
+    <Content Include="Areas\Student\Views\Shared\_ExamLayout.cshtml" />
     <None Include="Properties\PublishProfiles\LinclnAdmin.pubxml" />
     <None Include="Properties\PublishProfiles\LincLonAdmin.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -804,7 +822,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
