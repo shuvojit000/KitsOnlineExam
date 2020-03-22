@@ -1,4 +1,4 @@
-﻿
+﻿@model Tuple<Lincoln.Admin.Web.Models.StudentExamViewModel, List<Lincoln.Admin.Web.Models.ExamQuestionSectionViewModel>> 
 @{
     ViewBag.Title = "Exam";
     Layout = "~/Areas/Student/Views/Shared/_ExamLayout.cshtml";
@@ -208,10 +208,19 @@
                                                                     <div class="col-sm-12">
                                                                         <div class="panelEx">
                                                                             <center>
-                                                                                <a id="mark_next" style="cursor:pointer" class="load_more btnk btnk-primary"><span>General English</span></a>
+                                                                               @if (Model.Item2 != null && Model.Item2.Count() > 0)
+                                                                               {
+                                                                                   foreach (var sectionData in Model.Item2)
+                                                                                   {
+                                                                                    <a id="save_next" style="cursor:pointer" class="load_more btnk btnk-primary"><span>@sectionData.SectionName</span></a>
+                                                                                   }
+
+                                                                               }
+
+                                                                                @*<a id="mark_next" style="cursor:pointer" class="load_more btnk btnk-primary"><span>General English</span></a>
                                                                                 <a id="save_next" style="cursor:pointer" class="load_more btnk btnk-primary"><span>Reasoning</span></a>
                                                                                 <a id="clear" class="clear btnk btnk-primary"><span>Quantitative Aptitude</span></a>
-                                                                                <a class="btnk btnk-primary"><span>General Awareness</span></a>
+                                                                                <a class="btnk btnk-primary"><span>General Awareness</span></a>*@
                                                                             </center>
                                                                         </div>
                                                                     </div>

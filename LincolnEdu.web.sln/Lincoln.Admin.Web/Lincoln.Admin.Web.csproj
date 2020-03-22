@@ -165,7 +165,7 @@
     <Compile Include="Models\QuestionSectionViewModel.cs" />
     <Compile Include="Models\QuestionSetUpViewModel.cs" />
     <Compile Include="Models\StudentDashboardViewModel.cs" />
-    <Compile Include="Models\StudentViewModel.cs" />
+    <Compile Include="Models\StudentExamViewModel.cs" />
     <Compile Include="Models\SubjectAllocationViewModel.cs" />
     <Compile Include="Models\SubjectAssessmentViewModel.cs" />
     <Compile Include="Models\SubjectViewModel.cs" />
@@ -804,9 +804,7 @@
     <Content Include="Areas\Student\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Student\Views\Shared\_StudentLayout.cshtml" />
     <Content Include="Areas\Student\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Student\Views\Student\AnswerSetUp.cshtml" />
     <Content Include="Areas\Student\Views\Student\Dashboard.cshtml" />
-    <Content Include="Areas\Student\Views\Student\_AnswerPaper.cshtml" />
     <Content Include="Areas\Student\Views\Student\ExaminationView.cshtml" />
     <Content Include="Areas\Student\Views\Shared\_ExamLayout.cshtml" />
     <None Include="Properties\PublishProfiles\LinclnAdmin.pubxml" />

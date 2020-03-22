@@ -14,6 +14,8 @@ namespace Lincoln.OnlineExam.Repository
         List<StudentResponseDTO> GetAllStudent();
         StudentResponseDTO SelectStudent(StudentRequestDTO recordAttributer);
 
+        List<OnlineTestResponseDTO> GetStudentExamination(OnlineTestRequestDTO request);
+        List<ExamQuestionSectionResponseDTO> GetExamQuestionSection(ExamQuestionSectionRequestDTO request);
 
     }
 }

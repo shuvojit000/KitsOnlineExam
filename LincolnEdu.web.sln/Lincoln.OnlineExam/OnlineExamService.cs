@@ -10,11 +10,11 @@ namespace Lincoln.OnlineExam
 {
     public class OnlineExamService : IOnlineExam
     {
-        public List<FacultyDashboardResponseDTO> GetAllFacultyCourse(FacultyDashboardRequestDTO recordAttributer)
+        public List<FacultyDashboardResponseDTO> GetAllFacultyCourse(FacultyDashboardRequestDTO request)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.CommonRepository.GetAllFacultyCourse(recordAttributer);
+                return unitOfWork.CommonRepository.GetAllFacultyCourse(request);
             }
         }
         public LogInResponseDTO ValidateUser(LogInRequestDTO request, string Operation)
@@ -26,11 +26,11 @@ namespace Lincoln.OnlineExam
             }
             return result;
         }
-        public int UpdateStatus(UpdateStatusReuestDTO recordAttributer)
+        public int UpdateStatus(UpdateStatusReuestDTO request)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.CommonRepository.UpdateStatus(recordAttributer);
+                return unitOfWork.CommonRepository.UpdateStatus(request);
             }
         }
         public List<DropdownResponseDTO> GetDropdownData(string type)
@@ -43,11 +43,11 @@ namespace Lincoln.OnlineExam
         }
 
 
-        public int SaveCourse(CourseRequestDTO recordAttributer, string Operation)
+        public int SaveCourse(CourseRequestDTO request, string Operation)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.CommonRepository.SaveCourse(recordAttributer, Operation);
+                return unitOfWork.CommonRepository.SaveCourse(request, Operation);
             }
         }
         public List<CourseResponseDTO> GetAllCourse()
@@ -57,20 +57,20 @@ namespace Lincoln.OnlineExam
                 return unitOfWork.CommonRepository.GetAllCourse();
             }
         }
-        public CourseResponseDTO SelectCourse(CourseRequestDTO recordAttributer)
+        public CourseResponseDTO SelectCourse(CourseRequestDTO request)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.CommonRepository.SelectCourse(recordAttributer);
+                return unitOfWork.CommonRepository.SelectCourse(request);
             }
         }
 
 
-        public int SaveStudent(StudentRequestDTO recordAttributer, string Operation)
+        public int SaveStudent(StudentRequestDTO request, string Operation)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.UserRepository.SaveStudent(recordAttributer, Operation);
+                return unitOfWork.UserRepository.SaveStudent(request, Operation);
             }
         }
         public List<StudentResponseDTO> GetAllStudent()
@@ -80,21 +80,21 @@ namespace Lincoln.OnlineExam
                 return unitOfWork.UserRepository.GetAllStudent();
             }
         }
-        public StudentResponseDTO SelectStudent(StudentRequestDTO recordAttributer)
+        public StudentResponseDTO SelectStudent(StudentRequestDTO request)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.UserRepository.SelectStudent(recordAttributer);
+                return unitOfWork.UserRepository.SelectStudent(request);
             }
         }
 
 
 
-        public int SaveAcademicLevel(AcademicLevelRequestDTO recordAttributer, string Operation)
+        public int SaveAcademicLevel(AcademicLevelRequestDTO request, string Operation)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.CommonRepository.SaveAcademicLevel(recordAttributer, Operation);
+                return unitOfWork.CommonRepository.SaveAcademicLevel(request, Operation);
             }
         }
         public List<AcademicLevelResponseDTO> GetAllAcademicLevel()
@@ -104,20 +104,20 @@ namespace Lincoln.OnlineExam
                 return unitOfWork.CommonRepository.GetAllAcademicLevel();
             }
         }
-        public AcademicLevelResponseDTO SelectAcademicLevel(AcademicLevelRequestDTO recordAttributer)
+        public AcademicLevelResponseDTO SelectAcademicLevel(AcademicLevelRequestDTO request)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.CommonRepository.SelectAcademicLevel(recordAttributer);
+                return unitOfWork.CommonRepository.SelectAcademicLevel(request);
             }
         }
 
 
-        public int SaveDepartment(DepartmentRequestDTO recordAttributer, string Operation)
+        public int SaveDepartment(DepartmentRequestDTO request, string Operation)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.CommonRepository.SaveDepartment(recordAttributer, Operation);
+                return unitOfWork.CommonRepository.SaveDepartment(request, Operation);
             }
         }
         public List<DepartmentResponseDTO> GetAllDepartment()
@@ -127,20 +127,20 @@ namespace Lincoln.OnlineExam
                 return unitOfWork.CommonRepository.GetAllDepartment();
             }
         }
-        public DepartmentResponseDTO SelectDepartment(DepartmentRequestDTO recordAttributer)
+        public DepartmentResponseDTO SelectDepartment(DepartmentRequestDTO request)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.CommonRepository.SelectDepartment(recordAttributer);
+                return unitOfWork.CommonRepository.SelectDepartment(request);
             }
         }
 
 
-        public int SaveProgramme(ProgrammeRequestDTO recordAttributer, string Operation)
+        public int SaveProgramme(ProgrammeRequestDTO request, string Operation)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.CommonRepository.SaveProgramme(recordAttributer, Operation);
+                return unitOfWork.CommonRepository.SaveProgramme(request, Operation);
             }
         }
         public List<ProgrammeResponseDTO> GetAllProgramme()
@@ -157,21 +157,21 @@ namespace Lincoln.OnlineExam
                 return unitOfWork.CommonRepository.GetAllProgrammeWithVersion();
             }
         }
-        public ProgrammeResponseDTO SelectProgramme(ProgrammeRequestDTO recordAttributer)
+        public ProgrammeResponseDTO SelectProgramme(ProgrammeRequestDTO request)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.CommonRepository.SelectProgramme(recordAttributer);
+                return unitOfWork.CommonRepository.SelectProgramme(request);
             }
         }
 
 
 
-        public int SaveProgramVersioning(ProgramVersioningRequestDTO recordAttributer, string Operation)
+        public int SaveProgramVersioning(ProgramVersioningRequestDTO request, string Operation)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.CommonRepository.SaveProgramVersioning(recordAttributer, Operation);
+                return unitOfWork.CommonRepository.SaveProgramVersioning(request, Operation);
             }
         }
         public List<ProgramVersioningResponseDTO> GetAllProgramVersioning()
@@ -181,21 +181,21 @@ namespace Lincoln.OnlineExam
                 return unitOfWork.CommonRepository.GetAllProgramVersioning();
             }
         }
-        public ProgramVersioningResponseDTO SelectProgramVersioning(ProgramVersioningRequestDTO recordAttributer)
+        public ProgramVersioningResponseDTO SelectProgramVersioning(ProgramVersioningRequestDTO request)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.CommonRepository.SelectProgramVersioning(recordAttributer);
+                return unitOfWork.CommonRepository.SelectProgramVersioning(request);
             }
         }
 
 
 
-        public int SaveProgrammeSemester(ProgrammeSemesterRequestDTO recordAttributer, string Operation)
+        public int SaveProgrammeSemester(ProgrammeSemesterRequestDTO request, string Operation)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.CommonRepository.SaveProgrammeSemester(recordAttributer, Operation);
+                return unitOfWork.CommonRepository.SaveProgrammeSemester(request, Operation);
             }
         }
 
@@ -210,20 +210,20 @@ namespace Lincoln.OnlineExam
                 return unitOfWork.CommonRepository.GetAllProgrammeSemester();
             }
         }
-        public ProgrammeSemesterResponseDTO SelectProgrammeSemester(ProgrammeSemesterRequestDTO recordAttributer)
+        public ProgrammeSemesterResponseDTO SelectProgrammeSemester(ProgrammeSemesterRequestDTO request)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.CommonRepository.SelectProgrammeSemester(recordAttributer);
+                return unitOfWork.CommonRepository.SelectProgrammeSemester(request);
             }
         }
 
 
-        public int SaveExaminationName(ExaminationNameRequestDTO recordAttributer, string Operation)
+        public int SaveExaminationName(ExaminationNameRequestDTO request, string Operation)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.CommonRepository.SaveExaminationName(recordAttributer, Operation);
+                return unitOfWork.CommonRepository.SaveExaminationName(request, Operation);
             }
         }
         public List<ExaminationNameResponseDTO> GetAllExaminationName()
@@ -233,20 +233,20 @@ namespace Lincoln.OnlineExam
                 return unitOfWork.CommonRepository.GetAllExaminationName();
             }
         }
-        public ExaminationNameResponseDTO SelectExaminationName(ExaminationNameRequestDTO recordAttributer)
+        public ExaminationNameResponseDTO SelectExaminationName(ExaminationNameRequestDTO request)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.CommonRepository.SelectExaminationName(recordAttributer);
+                return unitOfWork.CommonRepository.SelectExaminationName(request);
             }
         }
 
 
-        public int SaveExaminationSection(ExaminationSectionRequestDTO recordAttributer, string Operation)
+        public int SaveExaminationSection(ExaminationSectionRequestDTO request, string Operation)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.CommonRepository.SaveExaminationSection(recordAttributer, Operation);
+                return unitOfWork.CommonRepository.SaveExaminationSection(request, Operation);
             }
         }
         public List<ExaminationSectionResponseDTO> GetAllExaminationSection()
@@ -256,19 +256,19 @@ namespace Lincoln.OnlineExam
                 return unitOfWork.CommonRepository.GetAllExaminationSection();
             }
         }
-        public ExaminationSectionResponseDTO SelectExaminationSection(ExaminationSectionRequestDTO recordAttributer)
+        public ExaminationSectionResponseDTO SelectExaminationSection(ExaminationSectionRequestDTO request)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.CommonRepository.SelectExaminationSection(recordAttributer);
+                return unitOfWork.CommonRepository.SelectExaminationSection(request);
             }
         }
 
-        public int SaveAssessment(AssessmentRequestDTO recordAttributer, string Operation)
+        public int SaveAssessment(AssessmentRequestDTO request, string Operation)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.CommonRepository.SaveAssessment(recordAttributer, Operation);
+                return unitOfWork.CommonRepository.SaveAssessment(request, Operation);
             }
         }
         public List<AssessmentResponseDTO> GetAllAssessment()
@@ -278,18 +278,18 @@ namespace Lincoln.OnlineExam
                 return unitOfWork.CommonRepository.GetAllAssessment();
             }
         }
-        public AssessmentResponseDTO SelectAssessment(AssessmentRequestDTO recordAttributer)
+        public AssessmentResponseDTO SelectAssessment(AssessmentRequestDTO request)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.CommonRepository.SelectAssessment(recordAttributer);
+                return unitOfWork.CommonRepository.SelectAssessment(request);
             }
         }
-        public int SaveSubjectAssessment(SubjectAssessmentRequestDTO recordAttributer, string Operation)
+        public int SaveSubjectAssessment(SubjectAssessmentRequestDTO request, string Operation)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.CommonRepository.SaveSubjectAssessment(recordAttributer, Operation);
+                return unitOfWork.CommonRepository.SaveSubjectAssessment(request, Operation);
             }
         }
         public List<SubjectAssessmentResponseDTO> GetAllSubjectAssessment()
@@ -299,19 +299,19 @@ namespace Lincoln.OnlineExam
                 return unitOfWork.CommonRepository.GetAllSubjectAssessment();
             }
         }
-        public SubjectAssessmentResponseDTO SelectSubjectAssessment(SubjectAssessmentRequestDTO recordAttributer)
+        public SubjectAssessmentResponseDTO SelectSubjectAssessment(SubjectAssessmentRequestDTO request)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.CommonRepository.SelectSubjectAssessment(recordAttributer);
+                return unitOfWork.CommonRepository.SelectSubjectAssessment(request);
             }
         }
 
-        public int SaveEmployee(EmployeeRequestDTO recordAttributer, string Operation)
+        public int SaveEmployee(EmployeeRequestDTO request, string Operation)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.UserRepository.SaveEmployee(recordAttributer, Operation);
+                return unitOfWork.UserRepository.SaveEmployee(request, Operation);
             }
         }
         public List<EmployeeResponseDTO> GetAllEmployee()
@@ -321,19 +321,19 @@ namespace Lincoln.OnlineExam
                 return unitOfWork.UserRepository.GetAllEmployee();
             }
         }
-        public EmployeeResponseDTO SelectEmployee(EmployeeRequestDTO recordAttributer)
+        public EmployeeResponseDTO SelectEmployee(EmployeeRequestDTO request)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.UserRepository.SelectEmployee(recordAttributer);
+                return unitOfWork.UserRepository.SelectEmployee(request);
             }
         }
 
-        public int SaveSubjectAllocation(SubjectAllocationRequestDTO recordAttributer, string Operation)
+        public int SaveSubjectAllocation(SubjectAllocationRequestDTO request, string Operation)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.CommonRepository.SaveSubjectAllocation(recordAttributer, Operation);
+                return unitOfWork.CommonRepository.SaveSubjectAllocation(request, Operation);
             }
         }
         public List<SubjectAllocationResponseDTO> GetAllSubjectAllocation()
@@ -343,49 +343,64 @@ namespace Lincoln.OnlineExam
                 return unitOfWork.CommonRepository.GetAllSubjectAllocation();
             }
         }
-        public SubjectAllocationResponseDTO SelectSubjectAllocation(SubjectAllocationRequestDTO recordAttributer)
+        public SubjectAllocationResponseDTO SelectSubjectAllocation(SubjectAllocationRequestDTO request)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.CommonRepository.SelectSubjectAllocation(recordAttributer);
+                return unitOfWork.CommonRepository.SelectSubjectAllocation(request);
             }
         }
 
-        public int SavePaper(PaperRequestDTO recordAttributer, string Operation)
+        public int SavePaper(PaperRequestDTO request, string Operation)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.QuestionRepository.SavePaper(recordAttributer, Operation);
+                return unitOfWork.QuestionRepository.SavePaper(request, Operation);
             }
         }
-        public PaperResponseDTO SelectPaper(PaperRequestDTO recordAttributer)
+        public PaperResponseDTO SelectPaper(PaperRequestDTO request)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.QuestionRepository.SelectPaper(recordAttributer);
+                return unitOfWork.QuestionRepository.SelectPaper(request);
             }
         }
-        public int SavePaperDetails(PaperDetailsRequestDTO recordAttributer, string Operation)
+        public int SavePaperDetails(PaperDetailsRequestDTO request, string Operation)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.QuestionRepository.SavePaperDetails(recordAttributer, Operation);
+                return unitOfWork.QuestionRepository.SavePaperDetails(request, Operation);
             }
         }
-        public List<PaperDetailsResponseDTO> GetAllPaperDetails(PaperDetailsRequestDTO recordAttributer)
+        public List<PaperDetailsResponseDTO> GetAllPaperDetails(PaperDetailsRequestDTO request)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.QuestionRepository.GetAllPaperDetails(recordAttributer);
+                return unitOfWork.QuestionRepository.GetAllPaperDetails(request);
             }
         }
-        public PaperDetailsResponseDTO SelectAllPaperDetails(PaperDetailsRequestDTO recordAttributer)
+        public PaperDetailsResponseDTO SelectAllPaperDetails(PaperDetailsRequestDTO request)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
-                return unitOfWork.QuestionRepository.SelectAllPaperDetails(recordAttributer);
+                return unitOfWork.QuestionRepository.SelectAllPaperDetails(request);
             }
         }
-        
+        public List<OnlineTestResponseDTO> GetStudentExamination(OnlineTestRequestDTO request)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.StudentRepository.GetStudentExamination(request);
+            }
+        }
+        public List<ExamQuestionSectionResponseDTO> GetExamQuestionSection(ExamQuestionSectionRequestDTO request)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.StudentRepository.GetExamQuestionSection(request);
+            }
+        }
+
+
     }
 }

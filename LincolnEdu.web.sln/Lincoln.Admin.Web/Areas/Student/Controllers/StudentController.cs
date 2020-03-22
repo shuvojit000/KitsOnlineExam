@@ -1,7 +1,9 @@
 ﻿using Lincoln.Admin.Web.Controllers;
 using Lincoln.Admin.Web.Models;
 using Lincoln.OnlineExam;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using static Lincoln.Admin.Web.FilterConfig;
 
@@ -20,86 +22,44 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
         // GET: Faculty/Faculty
         public ActionResult Dashboard()
         {
-            List<StudentDashboardViewModel> DVMList = new List<StudentDashboardViewModel>();
-            StudentDashboardViewModel DVM = new StudentDashboardViewModel();
-            DVM.CourseCode = "C001";
-            DVM.CourseID = 22;
-            DVM.CourseName = "C++";
-            DVMList.Add(DVM);
+            var model = new List<StudentDashboardViewModel>();
+            model = onlineExamService.GetStudentExamination(new OnlineExam.Request.OnlineTestRequestDTO()
+            {
+                LoginID = User.UserId
+            }).Select(a => new StudentDashboardViewModel()
+            {
+                LoginID = a.LoginID,
+                CourseCode = a.CourseCode,
+                CourseName = a.CourseName,
+                EndDate = a.EndDate,
+                ExamAttendance = a.ExamAttendance,
+                ExaminationName = a.ExaminationName,
+                SLNo = a.SLNo,
+                StartDate = a.StartDate,
+                Status = a.Status,
+                StudentName = a.StudentName
+            }).ToList();
 
-            StudentDashboardViewModel DVM1 = new StudentDashboardViewModel();
-            DVM1.CourseCode = "C002";
-            DVM1.CourseID = 23;
-            DVM1.CourseName = "C#";
-            DVMList.Add(DVM1);
-            return View(DVMList);
+            return View(model);
         }
-        public ActionResult AnswerSetup(string ID)
+
+
+        public ActionResult ExaminationView(string id)
         {
-            AnswerSetUpdViewModel AVM = new AnswerSetUpdViewModel();
-            AVM.CourseCode = "C001";
-            AVM.CourseName = "C++";
-            AVM.CourseID = 22;
-            AVM.QuestionText = "What Is your Age?";
-            AVM.OptionANo = 1;
-            AVM.OptionAText = "One";
-            AVM.OptionBNo = 2;
-            AVM.OptionBText = "Two";
-            AVM.OptionCNo = 3;
-            AVM.OptionCText = "Three";
-            AVM.OptionDNo = 4;
-            AVM.OptionDText = "Four";
-            AVM.OptionENo = 5;
-            AVM.OptionEText = "Five";
+            var model = new StudentExamViewModel();
+            var questionSectionViewmodel = new List<ExamQuestionSectionViewModel>();
 
-
-
-            if (ID == "22")
-            {
-                AVM.CourseID = 22;
-                AVM.QuestionType = "S";
-            }
-            else
-            {
-                AVM.CourseCode = "C002";
-                AVM.CourseName = "C#";
-                AVM.CourseID = 23;
-                AVM.QuestionType = "O";
-            }
-
-            return View(AVM);
+            questionSectionViewmodel = onlineExamService.GetExamQuestionSection(new OnlineExam.Request.ExamQuestionSectionRequestDTO() {
+                CourseID=Convert.ToInt32(id)
+            }).
+            Select(a => new ExamQuestionSectionViewModel() {
+                ExaminationSectionID=a.ExaminationSectionID,
+                QuestionNo=a.QuestionNo,
+                SectionName=a.SectionName
+            }).ToList();
+            var tupleData = new Tuple<StudentExamViewModel, List<ExamQuestionSectionViewModel>>(model, questionSectionViewmodel);
+            return View(tupleData);
+            
         }
-
-        public PartialViewResult AnswerPaper(string id)
-        {
-            AnswerSetUpdViewModel AVM = new AnswerSetUpdViewModel();
-           
-            AVM.QuestionText = "What Is your Age?";
-            AVM.OptionANo = 1;
-            AVM.OptionAText = "One";
-            AVM.OptionBNo = 2;
-            AVM.OptionBText = "Two";
-            AVM.OptionCNo = 3;
-            AVM.OptionCText = "Three";
-            AVM.OptionDNo = 4;
-            AVM.OptionDText = "Four";
-            AVM.OptionENo = 5;
-            AVM.OptionEText = "Five";
-
-            if (id == "22")
-            {
-                AVM.CourseID = 22;
-                AVM.QuestionType = "S";
-            }
-            else
-            {
-                AVM.CourseID = 23;
-                AVM.QuestionType = "O";
-            }
-            return PartialView("_AnswerPaper", AVM);
-        }
-
-
-        public ActionResult ExaminationView() => View();
     }
 }

@@ -169,7 +169,7 @@ namespace Lincoln.OnlineExam.Repository
             var itemSet = new List<OnlineTestResponseDTO>();
 
             SqlParameter loginID = new SqlParameter("@LoginID", SqlDbType.Int);
-            loginID.Value = DBNull.Value;
+            loginID.Value = request.LoginID;
             SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
             type.Value = "GET";
 
@@ -191,6 +191,36 @@ namespace Lincoln.OnlineExam.Repository
                             SLNo= Convert.ToInt32(dr["SLNo"]),
                             StartDate= Convert.ToDateTime(dr["StartDate"]),
                             Status= object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
+                        });
+                    }
+                }
+
+            }
+            return itemSet;
+        }
+        public List<ExamQuestionSectionResponseDTO> GetExamQuestionSection(ExamQuestionSectionRequestDTO request)
+        {
+
+            var itemSet = new List<ExamQuestionSectionResponseDTO>();
+
+            SqlParameter courseID = new SqlParameter("@CourseID", SqlDbType.Int);
+            courseID.Value = request.CourseID;
+            SqlParameter questionNo = new SqlParameter("@QuestionNo", SqlDbType.Int);
+            questionNo.Value = request.QuestionNo;
+            SqlParameter sectionName = new SqlParameter("@SectionName", SqlDbType.Int);
+            sectionName.Value = request.SectionName;
+
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Student].[upGetQuestionSection]", courseID, questionNo, sectionName))
+            {
+                if (dr != null && dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        itemSet.Add(new ExamQuestionSectionResponseDTO()
+                        {
+                            QuestionNo = Convert.ToInt32(dr["QuestionNo"]),
+                            ExaminationSectionID = Convert.ToInt32(dr["ExaminationSectionID"]),
+                            SectionName = object.ReferenceEquals(dr["SectionName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["SectionName"]),
                         });
                     }
                 }
