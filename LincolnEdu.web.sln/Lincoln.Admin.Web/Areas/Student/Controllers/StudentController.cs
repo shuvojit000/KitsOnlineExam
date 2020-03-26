@@ -48,7 +48,13 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
         {
             var model = new StudentExamViewModel();
             var questionSectionViewmodel = new List<ExamQuestionSectionViewModel>();
-
+            model = onlineExamService.GetStudentExamination(new OnlineExam.Request.OnlineTestRequestDTO()
+            {
+                LoginID = User.UserId
+            }).Where(a=>a.SLNo==Convert.ToInt32(id)).Select(a => new StudentExamViewModel()
+            {                
+                ExaminationName = a.ExaminationName,
+            }).FirstOrDefault();
             questionSectionViewmodel = onlineExamService.GetExamQuestionSection(new OnlineExam.Request.ExamQuestionSectionRequestDTO() {
                 CourseID=Convert.ToInt32(id)
             }).

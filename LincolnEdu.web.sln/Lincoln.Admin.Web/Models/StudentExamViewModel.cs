@@ -7,7 +7,7 @@ namespace Lincoln.Admin.Web.Models
 {
     public class StudentExamViewModel
     {
-
+        public string ExaminationName { get; set; }
     }
     public class ExamQuestionSectionViewModel
     {

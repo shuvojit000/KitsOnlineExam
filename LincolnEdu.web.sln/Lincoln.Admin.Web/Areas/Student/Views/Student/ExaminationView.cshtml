@@ -1,4 +1,4 @@
-﻿@model Tuple<Lincoln.Admin.Web.Models.StudentExamViewModel, List<Lincoln.Admin.Web.Models.ExamQuestionSectionViewModel>> 
+﻿@model Tuple<Lincoln.Admin.Web.Models.StudentExamViewModel, List<Lincoln.Admin.Web.Models.ExamQuestionSectionViewModel>>
 @{
     ViewBag.Title = "Exam";
     Layout = "~/Areas/Student/Views/Shared/_ExamLayout.cshtml";
@@ -20,10 +20,10 @@
                                         <div class="widgetk orange">
                                             <div class="widgetk-title">
                                                 <div class="col-lg-4">
-                                                    Time Left: <span id="timer" class="timerclass">00 : 90 : 16</span>
+                                                    Time Left: <span id="timer" class="timerclass"></span>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    Online Examination [Bank IBPS OET-001]
+                                                    @Model.Item1.ExaminationName
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <a class="btnk btnk-primary float-right" style="margin-top:-6px;">
@@ -208,19 +208,19 @@
                                                                     <div class="col-sm-12">
                                                                         <div class="panelEx">
                                                                             <center>
-                                                                               @if (Model.Item2 != null && Model.Item2.Count() > 0)
-                                                                               {
-                                                                                   foreach (var sectionData in Model.Item2)
-                                                                                   {
-                                                                                    <a id="save_next" style="cursor:pointer" class="load_more btnk btnk-primary"><span>@sectionData.SectionName</span></a>
-                                                                                   }
+                                                                                @if (Model.Item2 != null && Model.Item2.Count() > 0)
+                                                                                {
+                                                                                    foreach (var sectionData in Model.Item2)
+                                                                                    {
+                                                                                        <a id="save_next" style="cursor:pointer" class="load_more btnk btnk-primary"><span>@sectionData.SectionName</span></a>
+                                                                                    }
 
-                                                                               }
+                                                                                }
 
                                                                                 @*<a id="mark_next" style="cursor:pointer" class="load_more btnk btnk-primary"><span>General English</span></a>
-                                                                                <a id="save_next" style="cursor:pointer" class="load_more btnk btnk-primary"><span>Reasoning</span></a>
-                                                                                <a id="clear" class="clear btnk btnk-primary"><span>Quantitative Aptitude</span></a>
-                                                                                <a class="btnk btnk-primary"><span>General Awareness</span></a>*@
+                                                                                    <a id="save_next" style="cursor:pointer" class="load_more btnk btnk-primary"><span>Reasoning</span></a>
+                                                                                    <a id="clear" class="clear btnk btnk-primary"><span>Quantitative Aptitude</span></a>
+                                                                                    <a class="btnk btnk-primary"><span>General Awareness</span></a>*@
                                                                             </center>
                                                                         </div>
                                                                     </div>
@@ -459,4 +459,18 @@
         </p>
     </div>
 </div>
+<script src="~/Content/assets/TestExam/jquery.countdownTimer.js"></script>
+<script>
+    $(function () {
+        $("#timer").countdowntimer({
+            hours:2,
+            minutes: 1,
+            seconds:60,
+            timeUp: timeisUp
+        });
+        function timeisUp() {
+            alert('End');
+        }
+    });
+</script>
 
