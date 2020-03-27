@@ -228,6 +228,58 @@ namespace Lincoln.OnlineExam.Repository
             }
             return itemSet;
         }
+
+
+        public List<PaperDetailsResponseDTO> GetQuestionPaper(ExamQuestionSectionRequestDTO request)
+        {
+            var itemSet = new List<PaperDetailsResponseDTO>();
+
+            SqlParameter courseID = new SqlParameter("@CourseID", SqlDbType.Int);
+            courseID.Value = request.CourseID;
+            SqlParameter questionNo = new SqlParameter("@QuestionNo", SqlDbType.Int);
+            questionNo.Value = request.QuestionNo;
+            SqlParameter sectionName = new SqlParameter("@SectionName", SqlDbType.Int);
+            sectionName.Value = request.SectionName;
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Student].[upGetQuestionPaper]", courseID, questionNo, sectionName))
+            {
+                if (dr != null && dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        itemSet.Add(new PaperDetailsResponseDTO()
+                        {
+                            PaperID= Convert.ToInt32(dr["PaperID"]),
+                            CourseID= Convert.ToInt32(dr["CourseID"]),
+                            ExaminationSectionID = Convert.ToInt32(dr["ExaminationSectionID"]),
+                            PaperDetailsID = Convert.ToInt32(dr["PaperDetailsID"]),
+                            QuestionType = object.ReferenceEquals(dr["QuestionType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["QuestionType"]),
+                            QuestionNo = Convert.ToInt32(dr["QuestionNo"]),
+                            QuestionText = object.ReferenceEquals(dr["QuestionText"], DBNull.Value) ? string.Empty : Convert.ToString(dr["QuestionText"]),
+                            TextOrImageQuestion = object.ReferenceEquals(dr["TextOrImageQuestion"], DBNull.Value) ? string.Empty : Convert.ToString(dr["TextOrImageQuestion"]),
+                            AudioOrVideoQuestion = object.ReferenceEquals(dr["AudioOrVideoQuestion"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AudioOrVideoQuestion"]),
+                            QuestionMarks = Convert.ToDecimal(dr["QuestionMarks"]),
+                            OptionANo = Convert.ToInt32(dr["OptionANo"]),
+                            OptionAText = object.ReferenceEquals(dr["OptionAText"], DBNull.Value) ? string.Empty : Convert.ToString(dr["OptionAText"]),
+                            OptionBNo = Convert.ToInt32(dr["OptionBNo"]),
+                            OptionBText = object.ReferenceEquals(dr["OptionBText"], DBNull.Value) ? string.Empty : Convert.ToString(dr["OptionBText"]),
+                            OptionCNo = Convert.ToInt32(dr["OptionCNo"]),
+                            OptionCText = object.ReferenceEquals(dr["OptionCText"], DBNull.Value) ? string.Empty : Convert.ToString(dr["OptionCText"]),
+                            OptionDNo = Convert.ToInt32(dr["OptionDNo"]),
+                            OptionDText = object.ReferenceEquals(dr["OptionDText"], DBNull.Value) ? string.Empty : Convert.ToString(dr["OptionDText"]),
+                            OptionENo = Convert.ToInt32(dr["OptionENo"]),
+                            OptionEText = object.ReferenceEquals(dr["OptionEText"], DBNull.Value) ? string.Empty : Convert.ToString(dr["OptionEText"]),
+                            AnswerNo = Convert.ToInt32(dr["AnswerNo"]),
+                            AnswerText = object.ReferenceEquals(dr["AnswerText"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AnswerText"]),
+                            SectionMarks = Convert.ToDecimal(dr["SectionMarks"]),
+                            Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"])
+                        });
+                    }
+                }
+
+            }
+            return itemSet;
+        }
+
         #endregion
     }
 }

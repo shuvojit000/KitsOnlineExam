@@ -16,6 +16,7 @@ namespace Lincoln.OnlineExam.Repository
 
         List<OnlineTestResponseDTO> GetStudentExamination(OnlineTestRequestDTO request);
         List<ExamQuestionSectionResponseDTO> GetExamQuestionSection(ExamQuestionSectionRequestDTO request);
+        List<PaperDetailsResponseDTO> GetQuestionPaper(ExamQuestionSectionRequestDTO request);
 
     }
 }

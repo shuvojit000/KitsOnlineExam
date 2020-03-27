@@ -400,7 +400,13 @@ namespace Lincoln.OnlineExam
                 return unitOfWork.StudentRepository.GetExamQuestionSection(request);
             }
         }
-
+        public List<PaperDetailsResponseDTO> GetQuestionPaper(ExamQuestionSectionRequestDTO request)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.StudentRepository.GetQuestionPaper(request);
+            }
+        }
 
     }
 }
