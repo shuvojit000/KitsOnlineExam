@@ -82,6 +82,7 @@ namespace Lincoln.OnlineExam
 
         List<ExamQuestionSectionResponseDTO> GetExamQuestionSection(ExamQuestionSectionRequestDTO request);
         List<PaperDetailsResponseDTO> GetQuestionPaper(ExamQuestionSectionRequestDTO request);
+        int SaveExaminationTest(ExaminationTestRequestDTO recordAttributer, string Operation);
 
 
     }

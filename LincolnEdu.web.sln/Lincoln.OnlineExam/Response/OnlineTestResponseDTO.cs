@@ -12,6 +12,7 @@ namespace Lincoln.OnlineExam.Response
         public int? LoginID { get; set; }
         public string StudentName { get; set; }
         public string ExaminationName { get; set; }
+        public int? CourseID { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string CourseCode { get; set; }

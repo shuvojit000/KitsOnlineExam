@@ -808,6 +808,9 @@
     <Content Include="Areas\Student\Views\Student\Dashboard.cshtml" />
     <Content Include="Areas\Student\Views\Student\ExaminationView.cshtml" />
     <Content Include="Areas\Student\Views\Shared\_ExamLayout.cshtml" />
+    <Content Include="Areas\Student\Views\Student\_QuestionSheet.cshtml" />
+    <Content Include="Areas\Student\Views\Student\_LeftSuggestionPanel.cshtml" />
+    <Content Include="Areas\Student\Views\Student\_HeaderButton.cshtml" />
     <None Include="Properties\PublishProfiles\LinclnAdmin.pubxml" />
     <None Include="Properties\PublishProfiles\LincLonAdmin.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />

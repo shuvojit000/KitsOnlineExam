@@ -182,6 +182,7 @@ namespace Lincoln.OnlineExam.Repository
                         itemSet.Add(new OnlineTestResponseDTO()
                         {
                             LoginID = Convert.ToInt32(dr["LoginID"]),
+                            CourseID = Convert.ToInt32(dr["CourseID"]),
                             StudentName = object.ReferenceEquals(dr["StudentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["StudentName"]),
                             CourseCode= object.ReferenceEquals(dr["CourseCode"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseCode"]),
                             CourseName= object.ReferenceEquals(dr["CourseName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseName"]),
@@ -207,7 +208,7 @@ namespace Lincoln.OnlineExam.Repository
             courseID.Value = request.CourseID;
             SqlParameter questionNo = new SqlParameter("@QuestionNo", SqlDbType.Int);
             questionNo.Value = request.QuestionNo;
-            SqlParameter sectionName = new SqlParameter("@SectionName", SqlDbType.Int);
+            SqlParameter sectionName = new SqlParameter("@SectionName", SqlDbType.VarChar);
             sectionName.Value = request.SectionName;
 
             using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Student].[upGetQuestionSection]", courseID, questionNo, sectionName))
@@ -218,7 +219,8 @@ namespace Lincoln.OnlineExam.Repository
                     {
                         itemSet.Add(new ExamQuestionSectionResponseDTO()
                         {
-                            QuestionNo = Convert.ToInt32(dr["QuestionNo"]),
+                            MaxQuestionNo = Convert.ToInt32(dr["MaxQuestionNo"]),
+                            MinQuestionNo = Convert.ToInt32(dr["MinQuestionNo"]),
                             ExaminationSectionID = Convert.ToInt32(dr["ExaminationSectionID"]),
                             SectionName = object.ReferenceEquals(dr["SectionName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["SectionName"]),
                         });
@@ -238,7 +240,7 @@ namespace Lincoln.OnlineExam.Repository
             courseID.Value = request.CourseID;
             SqlParameter questionNo = new SqlParameter("@QuestionNo", SqlDbType.Int);
             questionNo.Value = request.QuestionNo;
-            SqlParameter sectionName = new SqlParameter("@SectionName", SqlDbType.Int);
+            SqlParameter sectionName = new SqlParameter("@SectionName", SqlDbType.VarChar);
             sectionName.Value = request.SectionName;
             using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Student].[upGetQuestionPaper]", courseID, questionNo, sectionName))
             {
@@ -279,6 +281,36 @@ namespace Lincoln.OnlineExam.Repository
             }
             return itemSet;
         }
+
+
+        public int SaveExaminationTest(ExaminationTestRequestDTO recordAttributer, string Operation)
+        {
+            SqlParameter studentID = new SqlParameter("@StudentID", SqlDbType.Int);
+            studentID.Value = recordAttributer.StudentID;
+
+            SqlParameter questionNo = new SqlParameter("@QuestionNo", SqlDbType.Int);
+            questionNo.Value = recordAttributer.QuestionNo;
+            SqlParameter answerNo = new SqlParameter("@AnswerNo", SqlDbType.Int);
+            answerNo.Value = recordAttributer.AnswerNo;
+            SqlParameter answerText = new SqlParameter("@AnswerText", SqlDbType.VarChar);
+            answerText.Value = recordAttributer.AnswerText;
+            SqlParameter isAnswer = new SqlParameter("@IsAnswer", SqlDbType.VarChar);
+            isAnswer.Value = recordAttributer.IsAnswer;
+            
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = Operation;
+
+            SqlParameter status = new SqlParameter("@Status", SqlDbType.Int);
+            status.Value = recordAttributer.Status;
+            status.Direction = ParameterDirection.InputOutput;
+
+            SqlServerHelper.ExecuteNonQueryProc("[ln.Student].[upSaveExaminationTest]", studentID, questionNo,answerNo,answerText,isAnswer, type, status);
+
+            recordAttributer.Status = Convert.ToInt32(status.Value);
+            return recordAttributer.Status;
+
+        }
+
 
         #endregion
     }

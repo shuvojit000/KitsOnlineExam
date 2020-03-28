@@ -1,0 +1,110 @@
+﻿@model Lincoln.Admin.Web.Models.QuestionSetUpViewModel
+
+<div id="magnify">
+    <div class="small">
+        <div id="QuestionContainerWrapper" class="QuestionContainer">
+
+            <div class="textDirection">
+                <!-- Show Generic Instructions for questions w/ sets -->
+                <div id="HeaderSetInfoPanel">
+                    @*@Html.TextAreaFor(a =>a.QuestionText, new { @class = "form-control" })*@
+                    @Html.Raw(Model.QuestionText)
+                </div>
+
+
+                <div id="QuestionContainer">
+                    <div class="Questionnaire">
+                        <div id="QuestionPageCtl_QuestionnaireContainer">
+                            <div id="QuestionPageCtl_QuestionPanel3" class="SelectedCell">
+
+                                <div class="EntryRow question-stem">
+                                    @*<div id="QuestionPageCtl_95067193237_StemWrapper" class="QuestionLabel">
+
+                                            <i>Multiple-choice:</i> <br><br>Of William Shakespeare's 38 plays, how many are categorized as historical plays? (Choose only one.) <span id="QuestionPageCtl_95067193237_lblLabelUnit"></span>
+
+                                        </div>*@
+
+                                </div>
+                                <br>
+
+                                <style>
+                                </style>
+                                <div class="EntryRow question-options">
+                                    @if (Model.QuestionType == "S")
+                                    {
+                                        @Html.TextAreaFor(a => a.AnswerText, new { @class = "form-control" })
+
+
+                                    }
+                                    @if (Model.QuestionType == "O")
+                                    {
+                                        <table id="radioList" class="radioWithProperWrap" border="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <input type="radio" name="AnswerNo" value="1">
+                                                        <label for="radioList_0">@Model.OptionAText</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="radio" name="AnswerNo" value="2">
+                                                        <label for="radioList_1">@Model.OptionBText</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="radio" name="AnswerNo" value="3">
+                                                        <label for="radioList_2">@Model.OptionCText</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="radio" name="AnswerNo" value="4">
+                                                        <label for="radioList_3">@Model.OptionDText</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="radio" name="AnswerNo" value="5">
+                                                        <label for="radioList_4">@Model.OptionEText</label>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    }
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+       // CKEDITOR.plugins.addExternal('ckeditor_wiris', 'https://www.wiris.net/demo/plugins/ckeditor/', 'plugin.js');
+       // CKEDITOR.replace('QuestionText', {
+       //     allowedContent: true,
+       //     extraPlugins: 'ckeditor_wiris',
+       //     readOnly: true,
+       //     on:
+       //{
+       //    instanceReady: function (evt) {
+       //        debugger;
+       //        // Hide the editor top bar.
+       //        $('.cke_top').css({'display':'none'});
+       //    }
+       //}
+       // });
+        if ('@Model.QuestionType' == "S") {
+
+            CKEDITOR.replace('AnswerText', {
+                filebrowserImageBrowseUrl: '/Home/uploadPartial',
+                filebrowserImageUploadUrl: '/Home/uploadnow',
+                extraPlugins: 'ckeditor_wiris',
+                allowedContent: true
+            });
+
+        }
+    </script>

@@ -10,6 +10,7 @@ namespace Lincoln.Admin.Web.Models
         public int SLNo { get; set; }
         public int? LoginID { get; set; }
         public string StudentName { get; set; }
+        public int? CourseID { get; set; }
         public string ExaminationName { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

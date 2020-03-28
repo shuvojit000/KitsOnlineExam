@@ -83,6 +83,7 @@
     <Compile Include="Request\EmployeeRequestDTO.cs" />
     <Compile Include="Request\ExaminationNameRequestDTO.cs" />
     <Compile Include="Request\ExaminationSectionRequestDTO.cs" />
+    <Compile Include="Request\ExaminationTestRequestDTO.cs" />
     <Compile Include="Request\ExamQuestionSectionRequestDTO.cs" />
     <Compile Include="Request\FacultyDashboardRequestDTO.cs" />
     <Compile Include="Request\LogInRequestDTO.cs" />

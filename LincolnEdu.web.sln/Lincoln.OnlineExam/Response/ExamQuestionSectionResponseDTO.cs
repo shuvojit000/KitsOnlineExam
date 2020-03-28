@@ -10,6 +10,7 @@ namespace Lincoln.OnlineExam.Response
     {
         public string SectionName { get; set; }
         public int? ExaminationSectionID { get; set; }
-        public int? QuestionNo { get; set; }
+        public int? MaxQuestionNo { get; set; }
+        public int? MinQuestionNo { get; set; }
     }
 }
