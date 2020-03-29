@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lincoln.OnlineExam.Request
+namespace Lincoln.OnlineExam.Response
 {
-    public class ExaminationTestRequestDTO
+    public class StudentExaminationTestResponseDTO
     {
+        public int? ExaminationTestID { get; set; }
         public int? StudentID { get; set; }
         public int? QuestionNo { get; set; }
         public int? AnswerNo { get; set; }
         public string AnswerText { get; set; }
-        public int? IsAnswer { get; set; }
-        public int Status { get; set; }
-        public int? LoginID { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime ModifiedOn { get; set; }
     }
 }

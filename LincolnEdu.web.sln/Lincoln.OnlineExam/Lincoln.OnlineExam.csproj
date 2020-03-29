@@ -94,6 +94,7 @@
     <Compile Include="Request\ProgrammeSemesterRequestDTO.cs" />
     <Compile Include="Request\ProgramVersioningRequestDTO.cs" />
     <Compile Include="Request\QuestionSectionRequestDTO.cs" />
+    <Compile Include="Request\StudentExaminationSheetResponseDTO.cs" />
     <Compile Include="Request\StudentRequestDTO.cs" />
     <Compile Include="Request\SubjectAllocationRequestDTO.cs" />
     <Compile Include="Request\SubjectAssessmentRequestDTO.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Response\ProgrammeSemesterResponseDTO.cs" />
     <Compile Include="Response\ProgramVersioningResponseDTO.cs" />
     <Compile Include="Response\QuestionSectionResponseDTO.cs" />
+    <Compile Include="Response\StudentExaminationTestResponseDTO.cs" />
     <Compile Include="Response\StudentResponseDTO.cs" />
     <Compile Include="Response\SubjectAllocationResponseDTO.cs" />
     <Compile Include="Response\SubjectAssessmentResponseDTO.cs" />

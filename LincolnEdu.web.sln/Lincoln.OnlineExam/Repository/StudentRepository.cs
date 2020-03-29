@@ -282,11 +282,42 @@ namespace Lincoln.OnlineExam.Repository
             return itemSet;
         }
 
+        public List<StudentExaminationTestResponseDTO> GetExaminationTest(ExaminationTestRequestDTO request)
+        {
+            var itemSet = new List<StudentExaminationTestResponseDTO>();
+
+            SqlParameter loginID = new SqlParameter("@LoginID", SqlDbType.Int);
+            loginID.Value = request.LoginID;
+            SqlParameter isAnswer = new SqlParameter("@IsAnswer", SqlDbType.Int);
+            isAnswer.Value = request.IsAnswer;
+            SqlParameter questionNo = new SqlParameter("@QuestionNo", SqlDbType.Int);
+            questionNo.Value = request.QuestionNo;
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Student].[upGetExaminationTest]", loginID, isAnswer,questionNo))
+            {
+                if (dr != null && dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        itemSet.Add(new StudentExaminationTestResponseDTO()
+                        {
+                            ExaminationTestID= Convert.ToInt32(dr["ExaminationTestID"]),
+                            AnswerNo= Convert.ToInt32(dr["AnswerNo"]),
+                            AnswerText= object.ReferenceEquals(dr["AnswerText"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AnswerText"]),
+                            QuestionNo= Convert.ToInt32(dr["QuestionNo"]),
+                            StudentID= Convert.ToInt32(dr["StudentID"])
+                        });
+                    }
+                }
+
+            }
+            return itemSet;
+        }
+
 
         public int SaveExaminationTest(ExaminationTestRequestDTO recordAttributer, string Operation)
         {
-            SqlParameter studentID = new SqlParameter("@StudentID", SqlDbType.Int);
-            studentID.Value = recordAttributer.StudentID;
+            SqlParameter loginID = new SqlParameter("@LoginID", SqlDbType.Int);
+            loginID.Value = recordAttributer.LoginID;
 
             SqlParameter questionNo = new SqlParameter("@QuestionNo", SqlDbType.Int);
             questionNo.Value = recordAttributer.QuestionNo;
@@ -304,7 +335,41 @@ namespace Lincoln.OnlineExam.Repository
             status.Value = recordAttributer.Status;
             status.Direction = ParameterDirection.InputOutput;
 
-            SqlServerHelper.ExecuteNonQueryProc("[ln.Student].[upSaveExaminationTest]", studentID, questionNo,answerNo,answerText,isAnswer, type, status);
+            SqlServerHelper.ExecuteNonQueryProc("[ln.Student].[upSaveExaminationTest]", loginID, questionNo,answerNo,answerText,isAnswer, type, status);
+
+            recordAttributer.Status = Convert.ToInt32(status.Value);
+            return recordAttributer.Status;
+
+        }
+
+        public int SaveExaminationSheet(StudentExaminationSheetResponseDTO recordAttributer, string Operation)
+        {
+            SqlParameter loginID = new SqlParameter("@LoginID", SqlDbType.Int);
+            loginID.Value = recordAttributer.LoginID;
+
+            SqlParameter paperID = new SqlParameter("@PaperID", SqlDbType.Int);
+            paperID.Value = recordAttributer.PaperID;
+
+            SqlParameter paperDetailsID = new SqlParameter("@PaperDetailsID", SqlDbType.Int);
+            paperDetailsID.Value = recordAttributer.PaperDetailsID;
+
+            SqlParameter totalTime = new SqlParameter("@TotalTime", SqlDbType.Int);
+            totalTime.Value = recordAttributer.TotalTime;
+
+            SqlParameter examinationDuration = new SqlParameter("@ExaminationDuration", SqlDbType.VarChar);
+            examinationDuration.Value = recordAttributer.ExaminationDuration;
+
+            SqlParameter createdBy = new SqlParameter("@CreatedBy", SqlDbType.VarChar);
+            createdBy.Value = recordAttributer.CreatedBy;
+
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = Operation;
+
+            SqlParameter status = new SqlParameter("@Status", SqlDbType.Int);
+            status.Value = recordAttributer.Status;
+            status.Direction = ParameterDirection.InputOutput;
+
+            SqlServerHelper.ExecuteNonQueryProc("[ln.Student].[upSaveExaminationSheet]", loginID, paperID, paperDetailsID, totalTime, examinationDuration, createdBy,type, status);
 
             recordAttributer.Status = Convert.ToInt32(status.Value);
             return recordAttributer.Status;
