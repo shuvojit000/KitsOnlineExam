@@ -15,5 +15,8 @@ namespace Lincoln.OnlineExam.Response
         public string AnswerText { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime ModifiedOn { get; set; }
+        public int IsAnswer { get; set; }
+
+
     }
 }

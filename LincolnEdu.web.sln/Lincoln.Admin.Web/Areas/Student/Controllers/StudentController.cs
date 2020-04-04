@@ -77,6 +77,13 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
         {
             var model = new QuestionSetUpViewModel();
 
+            var anseredQuestion = onlineExamService.GetExaminationTest(new OnlineExam.Request.ExaminationTestRequestDTO()
+            {
+                LoginID = Convert.ToInt32(User.UserId),
+                QuestionNo = Convert.ToInt32(questionNo),
+                IsAnswer = null
+            }).FirstOrDefault();
+
             model = onlineExamService.GetQuestionPaper(new OnlineExam.Request.ExamQuestionSectionRequestDTO()
             {
                 CourseID = Convert.ToInt32(courseID),
@@ -85,38 +92,109 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
             })
                 .Select(a => new QuestionSetUpViewModel()
                 {
-                    QuestionType=a.QuestionType,
-                    QuestionText =a.QuestionText,
-                    OptionANo=a.OptionANo,
-                    OptionAText=a.OptionAText,
-                    OptionBNo=a.OptionBNo,
-                    OptionBText=a.OptionBText,
-                    OptionCNo=a.OptionCNo,
-                    OptionCText=a.OptionCText,
-                    OptionDNo=a.OptionDNo,
-                    OptionDText=a.OptionDText,
-                    OptionENo=a.OptionENo,
-                    OptionEText=a.OptionEText
-
+                    PaperDetailsID = a.PaperDetailsID,
+                    PaperID = a.PaperID,
+                    QuestionType = a.QuestionType,
+                    QuestionText = a.QuestionText,
+                    OptionANo = a.OptionANo,
+                    OptionAText = a.OptionAText,
+                    OptionBNo = a.OptionBNo,
+                    OptionBText = a.OptionBText,
+                    OptionCNo = a.OptionCNo,
+                    OptionCText = a.OptionCText,
+                    OptionDNo = a.OptionDNo,
+                    OptionDText = a.OptionDText,
+                    OptionENo = a.OptionENo,
+                    OptionEText = a.OptionEText,
+                    AnswerNo = anseredQuestion?.AnswerNo,
+                    AnswerText = anseredQuestion?.AnswerText,
+                    IsAnswer = anseredQuestion?.IsAnswer ?? 0
                 }).FirstOrDefault();
 
 
             return PartialView("_QuestionSheet", model);
         }
 
-        public PartialViewResult LeftSuggestionPanel()
+        public PartialViewResult LeftSuggestionPanel(string id)
         {
-            return PartialView("_LeftSuggestionPanel");
+            var model = new ExamLeftPanelViewModel();
+
+            var item = onlineExamService.GetAttemptQuestion(new OnlineExam.Request.ExaminationTestRequestDTO()
+            {
+                LoginID = User.UserId,
+                CourseID = Convert.ToInt32(id)
+            }, "GET")
+                 .Select(a => new ExamLeftPanelViewModel()
+                 {
+                     AnswerTotal = a.AnswerTotal,
+                     FlagTotal = a.FlagTotal,
+                     QuestionNo = a.QuestionNo,
+                     QuestionTotal = a.QuestionTotal,
+                     StudentID = a.StudentID,
+                     CoureseID = Convert.ToInt32(id),
+                 })
+                 .FirstOrDefault();
+            model.CoureseID = Convert.ToInt32(id);
+            model.AnswerTotal = item?.AnswerTotal ?? 0;
+            model.FlagTotal = item?.FlagTotal ?? 0;
+            model.QuestionTotal = item?.QuestionTotal ?? 0;
+            model.StudentID = item?.StudentID;
+            model.NotAnsweredList = new List<int>();
+            model.FlagedList = new List<int>();
+            model.CompletedList = new List<int>();
+            model.NotAnsweredList = onlineExamService.GetAttemptQuestion(new OnlineExam.Request.ExaminationTestRequestDTO()
+            {
+                LoginID = User.UserId,
+                CourseID = Convert.ToInt32(id)
+            }, "NOTANSWER")?.Select(a => Convert.ToInt32(a.QuestionNo)).ToList();
+            model.FlagedList = onlineExamService.GetAttemptQuestion(new OnlineExam.Request.ExaminationTestRequestDTO()
+            {
+                LoginID = User.UserId,
+                CourseID = Convert.ToInt32(id)
+            }, "FLAG")?.Select(a => Convert.ToInt32(a.QuestionNo)).ToList();
+            model.CompletedList = onlineExamService.GetAttemptQuestion(new OnlineExam.Request.ExaminationTestRequestDTO()
+            {
+                LoginID = User.UserId,
+                CourseID = Convert.ToInt32(id)
+            }, "COMPLETED")?.Select(a => Convert.ToInt32(a.QuestionNo)).ToList();
+
+            return PartialView("_LeftSuggestionPanel", model);
         }
-        public PartialViewResult HeaderButton()
+        public PartialViewResult HeaderButton(string id)
         {
-            return PartialView("_HeaderButton");
+            var model = new ExamHeaderButtonViewModel();
+            model.CourseID = Convert.ToInt32(id);
+            return PartialView("_HeaderButton", model);
+        }
+
+        public PartialViewResult CalculatorWindow()
+        {
+            return PartialView("_CalculatorWindow");
         }
 
         [HttpPost]
         public JsonResult SaveExaminationSheet(QuestionSetUpViewModel model)
         {
-            return Json("");
+            return Json(onlineExamService.SaveExaminationSheet(new OnlineExam.Request.StudentExaminationSheetResponseDTO()
+            {
+
+                LoginID = User.UserId,
+                PaperDetailsID = model.PaperDetailsID,
+                PaperID = model.PaperID,
+
+            }, "INSERT"), JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult SaveExaminationTest(QuestionSetUpViewModel model)
+        {
+            return Json(onlineExamService.SaveExaminationTest(new OnlineExam.Request.ExaminationTestRequestDTO()
+            {
+                AnswerNo = model.AnswerNo,
+                AnswerText = model.AnswerText,
+                IsAnswer = model.IsAnswer == -1 ? 0 : 1,
+                LoginID = User.UserId,
+                QuestionNo = model.QuestionNo
+            }, model.IsAnswer > 0 ? "UPDATE" : "INSERT"), JsonRequestBehavior.AllowGet);
         }
     }
 }

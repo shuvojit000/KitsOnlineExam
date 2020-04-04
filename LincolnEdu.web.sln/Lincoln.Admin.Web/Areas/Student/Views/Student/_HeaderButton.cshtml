@@ -1,41 +1,43 @@
-﻿<div id="navContainer" class="casNavDirectPanel hideOverFlowFF">
+﻿@model Lincoln.Admin.Web.Models.ExamHeaderButtonViewModel
+
+<div id="navContainer" class="casNavDirectPanel hideOverFlowFF">
     <div id="navigationPanelL" class="col-sm-5">
-        <a id="1" onclick="goTo(1);" class="goTo">
+        <a id="1" onclick="goTo(1,'@Model.CourseID');" class="goTo">
             <span class="directNavElement icon2 question  ">
                 <span class="directNavLabel lftL ">1</span>
             </span>
         </a>
-        <a id="2" onclick="goTo(2);" class="goTo">
+        <a id="2" onclick="goTo(2,'@Model.CourseID');" class="goTo">
             <span class="directNavElement icon2 question  ">
                 <span class="directNavLabel lftL ">2</span>
             </span>
         </a>
-        <a id="3" onclick="goTo(3);" class="goTo">
+        <a id="3" onclick="goTo(3,'@Model.CourseID');" class="goTo">
             <span class="directNavElement icon2 question  ">
                 <span class="directNavLabel lftL ">3</span>
             </span>
         </a>
-        <a id="4" onclick="goTo(4);" class="goTo">
+        <a id="4" onclick="goTo(4,'@Model.CourseID');" class="goTo">
             <span class="directNavElement icon2 question  ">
                 <span class="directNavLabel lftL ">4</span>
             </span>
         </a>
-        <a id="5" onclick="goTo(5);" class="goTo">
+        <a id="5" onclick="goTo(5,'@Model.CourseID');" class="goTo">
             <span class="directNavElement icon2 question  ">
                 <span class="directNavLabel lftL ">5</span>
             </span>
         </a>
-        <a id="6" onclick="goTo(6);" class="goTo">
+        <a id="6" onclick="goTo(6,'@Model.CourseID');" class="goTo">
             <span class="directNavElement icon2 question  ">
                 <span class="directNavLabel lftL ">6</span>
             </span>
         </a>
-        <a id="7" onclick="goTo(7);" class="goTo">
+        <a id="7" onclick="goTo(7,'@Model.CourseID');" class="goTo">
             <span class="directNavElement icon2 question  ">
                 <span class="directNavLabel lftL ">7</span>
             </span>
         </a>
-        <a id="8" onclick="goTo(8);" class="goTo">
+        <a id="8" onclick="goTo(8,'@Model.CourseID');" class="goTo">
             <span class="directNavElement icon2 question  ">
                 <span class="directNavLabel lftL ">8</span>
             </span>

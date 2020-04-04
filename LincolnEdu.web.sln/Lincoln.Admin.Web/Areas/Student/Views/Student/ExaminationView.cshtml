@@ -42,7 +42,7 @@
                                                                 <div class="row">
                                                                     <div class="col-sm-12">
                                                                         <div id="navHeader">
-                                                                            @{ Html.RenderAction("HeaderButton", "Student", new { area = "Student" });}
+                                                                            @{ Html.RenderAction("HeaderButton", "Student", new { area = "Student", id = Model.Item1.CourseID });}
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -73,7 +73,7 @@
                                                                     <!--QUESTION BODY LEFT SECTION START-->
                                                                     <div class="col-sm-2">
                                                                         <div class="casLftPanel">
-                                                                            @{ Html.RenderAction("LeftSuggestionPanel", "Student", new { area = "Student" });}
+                                                                            @{ Html.RenderAction("LeftSuggestionPanel", "Student", new { area = "Student", id = Model.Item1.CourseID });}
                                                                         </div>
                                                                     </div><!-- /.col-sm-2 -->
                                                                     <!--QUESTION BODY LEFT SECTION END-->
@@ -125,18 +125,37 @@
         </p>
     </div>
 </div>
+@*<div class="modal fade" id="myModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body recoPas">
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+<div id="dialog">
+    @{Html.RenderAction("CalculatorWindow", "Student", new { area = "Student" }); }
+</div>
 <script src="~/Content/assets/TestExam/jquery.countdownTimer.js"></script>
 <script>
     $(function () {
         $("#timer").countdowntimer({
-            hours: 2,
-            minutes: 1,
-            seconds: 60,
+            hours: 1,
+            minutes: 0,
+            seconds: 0,
             timeUp: timeisUp
         });
         function timeisUp() {
             alert('End');
         }
+        $('#dialog').dialog({
+            autoOpen: false,
+        });
     });
     function fnSetQuestionSheet(courseID, questionNo, sectionName) {
         $('#QuestionBody').load('/Student/Student/QuestionSheet/' + courseID + '/' + questionNo + '/' + sectionName);
@@ -144,7 +163,86 @@
     function fnSubmitSheet(courseID) {
 
     }
-    function fnSaveExaminationTest(courseID) {
+    function fnSaveExaminationTest() {
+        courseID = '@Model.Item1.CourseID';
+
+        var isAnsQues = false;
+        if (typeof $('input[name="AnswerNo"]:checked').val() !== 'undefined' && $('input[name="AnswerNo"]:checked').val() != '') {
+            isAnsQues = true;
+        }
+        else if (typeof $('input[name="AnswerText"]').val() !== 'undefined' && $('input[name="AnswerText"]').val() != '') {
+            isAnsQues = true;
+        }
+        if (isAnsQues) {
+
+            var model = {
+                QuestionNo: $('#QuestionNo').val(),
+                IsAnswer: $('#IsAnswer').val(),
+                //AnswerText: $('input[name="AnswerText"]').val(),
+                AnswerNo: $('input[name="AnswerNo"]:checked').val()
+            };
+            $.ajax({
+                url: '@Url.Action("SaveExaminationTest", "Student",new {area= "Student" })',
+                data: JSON.stringify(model),
+                type: 'POST',
+                cache: false,
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result == 0) {
+                        alert('Error in your requst.');
+                    }
+                    fnRefreshLeftPanel();
+                },
+                error: function (e) {
+                    alert('Error in your requst.');
+                }
+            });
+
+        }
+        else {
+            fnRefreshLeftPanel();
+        }
+    }
+
+    function flagCurrentQuestion() {
+        courseID = '@Model.Item1.CourseID';
+
+        var model = {
+            QuestionNo: $('#QuestionNo').val(),
+            IsAnswer: -1,
+        };
+        $.ajax({
+            url: '@Url.Action("SaveExaminationTest", "Student",new {area= "Student" })',
+            data: JSON.stringify(model),
+            type: 'POST',
+            cache: false,
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                if (result == 0) {
+                    alert('Error in your requst.');
+                }
+                fnRefreshLeftPanel();
+            },
+            error: function (e) {
+                alert('Error in your requst.');
+            }
+        });
 
     }
+    function goTo(questionNo, courseID) {
+        fnSaveExaminationTest();
+        $('#QuestionBody').load('/Student/Student/QuestionSheet/' + courseID + '/' + questionNo + '/');
+       
+    }
+
+    function ShowCalculator() {
+        $('#dialog').dialog('open');
+    }
+
+    function fnRefreshLeftPanel() {
+        $('.casLftPanel').load('/Student/Student/LeftSuggestionPanel/@Model.Item1.CourseID');
+    }
+
 </script>

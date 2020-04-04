@@ -1,4 +1,6 @@
-﻿<div id="navMainPanel" class="casLftPanelLayout">
+﻿@model Lincoln.Admin.Web.Models.ExamLeftPanelViewModel
+
+<div id="navMainPanel" class="casLftPanelLayout">
     <!--<div id="timePanel" class="casLftPanelSect1 hideSection">
         <div class="casLftPanelBaseField casLftTimePnl">
             <span id="lblTimeRemaining" class="timeLabel italic">Time Remaining</span>
@@ -15,7 +17,7 @@
         <a id="toggleAnswered" class="collapsePnlHover fa fa-minus-square"></a>
         <div id="answeredPanel">
             <div id="NotAnswered" class="casLftPanelBaseField actionLink">
-                <a onclick="return false;" id="lblUnansweredValue" href="javascript:__doPostBack('lblUnansweredValue','')">20</a>
+                <a onclick="return false;" id="lblUnansweredValue" href="javascript:__doPostBack('lblUnansweredValue','')">@(Convert.ToInt32(Model.QuestionTotal) - Convert.ToInt32(Model.AnswerTotal))</a>
             </div>
             <br>
             <div class="casLftPanelBaseField descLabel descLabelTop">Not Answered</div>
@@ -24,7 +26,7 @@
             <div id="ShowUnAnsweredPanel" class="ansPanel" style="display: none;">
                 <div class="ansHd">
                     <div class="ansHdLft alignLeft">
-                        20 Unanswered
+                        @(Model.QuestionTotal - Model.AnswerTotal) Unanswered
                     </div>
                     <div class="ansHdRht">
                         <div id="CloseUnAnsweredPanel" class="closeButton" style="cursor: pointer;"><div class="casLftPanelBaseField closeColor icon2 smarrowleft iconSizeSSSm"></div><div class="closeButtonLabel">Close</div></div>
@@ -32,7 +34,14 @@
                 </div>
                 <div class="ansBody alignLeft">
                     <div id="questions_row_1" class="ansRow">
-                        <a id="3" onclick="goTo(3);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft  labelOn"> 3</span></span></a> <a id="5" onclick="goTo(5);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft  labelOn"> 5</span></span></a> <a id="6" onclick="goTo(6);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft  labelOn"> 6</span></span></a> <a id="7" onclick="goTo(7);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft  labelOn"> 7</span></span></a> <a id="8" onclick="goTo(8);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft  labelOn"> 8</span></span></a> <a id="9" onclick="goTo(9);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft  labelOn"> 9</span></span></a> <a id="10" onclick="goTo(10);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft medLabel labelOn"> 10</span></span></a> <a id="11" onclick="goTo(11);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft medLabel labelOn"> 11</span></span></a> <a id="12" onclick="goTo(12);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft medLabel labelOn"> 12</span></span></a> <a id="13" onclick="goTo(13);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft medLabel labelOn"> 13</span></span></a> <a id="14" onclick="goTo(14);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft medLabel labelOn"> 14</span></span></a> <a id="15" onclick="goTo(15);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft medLabel labelOn"> 15</span></span></a> <a id="16" onclick="goTo(16);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft medLabel labelOn"> 16</span></span></a> <a id="17" onclick="goTo(17);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft medLabel labelOn"> 17</span></span></a> <a id="18" onclick="goTo(18);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft medLabel labelOn"> 18</span></span></a> <a id="19" onclick="goTo(19);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft medLabel labelOn"> 19</span></span></a> <a id="20" onclick="goTo(20);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft medLabel labelOn"> 20</span></span></a> <a id="21" onclick="goTo(21);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft medLabel labelOn"> 21</span></span></a> <a id="22" onclick="goTo(22);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft medLabel labelOn"> 22</span></span></a> <a id="23" onclick="goTo(23);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft medLabel labelOn"> 23</span></span></a>
+                        @if (Model.NotAnsweredList != null && Model.NotAnsweredList.Count() > 0)
+                        {
+                            foreach (var item in Model.NotAnsweredList)
+                            {
+                                <a id="@item" onclick="goTo('@item','@Model.CoureseID');" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft  labelOn"> @item</span></span></a>
+                            }
+                        }
+
                     </div>
                 </div>
             </div>
@@ -42,7 +51,7 @@
             <div id="ShowAnsweredPanel" class="ansPanel" style="display: none;">
                 <div class="ansHd">
                     <div class="ansHdLft alignLeft">
-                        3 Answered
+                        @Model.AnswerTotal Answered
                     </div>
                     <div class="ansHdRht">
                         <div id="CloseAnsweredPanel" class="closeButton" style="cursor: pointer;"><div class="casLftPanelBaseField closeColor icon2 smarrowleft iconSizeSSSm"></div> <div class="closeButtonLabel">Close</div></div>
@@ -50,20 +59,27 @@
                 </div>
                 <div class="ansBody alignLeft">
                     <div id="questions_row_1" class="ansRow">
-                        <a id="1" onclick="goTo(1);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft  labelOn"> 1</span></span></a> <a id="2" onclick="goTo(2);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft  labelOn"> 2</span></span></a> <a id="4" onclick="goTo(4);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft  labelOn"> 4</span></span></a>
+                        @if (Model.CompletedList != null && Model.CompletedList.Count() > 0)
+                        {
+                            foreach (var item in Model.CompletedList)
+                            {
+                                <a id="@item" onclick="goTo('@item','@Model.CoureseID');" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft  labelOn"> @item</span></span></a>
+                            }
+                        }
+
                     </div>
                 </div>
             </div>
 
             <div id="Answered" class="casLftPanelBaseField actionLink answeredLblTop">
-                <a onclick="return false;" id="lblAnsweredValue" href="javascript:__doPostBack('lblAnsweredValue','')">3</a>
+                <a onclick="return false;" id="lblAnsweredValue" href="javascript:__doPostBack('lblAnsweredValue','')">@Model.AnswerTotal</a>
             </div>
             <br>
             <div id="toggleAnsweredPanel" class="casLftPanelBaseField descLabel descLabelTop">Completed</div>
         </div>
         <div id="totalAnswersPanel" class="totalAnswers">
             <div id="Total" class="casLftPanelBaseField actionLink noUnderline totalAnsweredLblTop">
-                <span id="lblTotal" class="totalAnswers">23</span>
+                <span id="lblTotal" class="totalAnswers">@Model.QuestionTotal</span>
             </div>
             <br>
             <div class="casLftPanelBaseField descLabel descLabelTop">Questions</div>
@@ -80,7 +96,7 @@
         <div id="ShowFlaggedAnsweredPanel" class="ansPanel" style="display: none;">
             <div class="ansHd">
                 <div class="ansHdLft alignLeft">
-                    2 Flagged
+                    @Model.FlagTotal Flagged
                 </div>
                 <div class="ansHdRht">
                     <div id="CloseFlaggedAnsweredPanel" class="closeButton" style="cursor: pointer;"><div class="casLftPanelBaseField closeColor icon2 smarrowleft iconSizeSSSm"></div> <div class="closeButtonLabel">Close</div></div>
@@ -88,15 +104,20 @@
             </div>
             <div class="ansBody alignLeft">
                 <div id="questions_row_1" class="ansRow">
-                    <a id="2" onclick="goTo(2);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft  labelOn"> 2</span></span></a> <a id="3" onclick="goTo(3);" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft  labelOn"> 3</span></span></a>
-                </div>
+                    @if (Model.FlagedList != null && Model.FlagedList.Count() > 0)
+                    {
+                        foreach (var item in Model.FlagedList)
+                        {
+                            <a id="@item" onclick="goTo('@item','@Model.CoureseID');" class="goTo"> <span class="directNavElement narrow rowSpace icon2 question elementOn"> <span class="directNavLabel shiftLft  labelOn"> @item</span></span></a>
+                        }
+                    } </div>
             </div>
         </div>
-        <a id="btnPrevFlag" class="casLftPanelBaseField altColor icon2 smarrowleft iconSizeSSm noUnderline" onclick="goToPrevFlag()" title="Previously flagged question"></a>
+        @*<a id="btnPrevFlag" class="casLftPanelBaseField altColor icon2 smarrowleft iconSizeSSm noUnderline" onclick="goToPrevFlag()" title="Previously flagged question"></a>*@
         <div id="Flagged" class="casLftPanelBaseField actionLink flagActLnk">
-            <a onclick="return false;" id="lblFlaggedValue" href="javascript:__doPostBack('lblFlaggedValue','')">2</a>
+            <a onclick="return false;" id="lblFlaggedValue" href="javascript:__doPostBack('lblFlaggedValue','')">@Model.FlagTotal</a>
         </div>
-        <a id="btnNextFlag" class="casLftPanelBaseField altColor icon2 smarrowright iconSizeSSm noUnderline" onclick="goToNextFlag()" title="Next flagged question"></a>
+        @*<a id="btnNextFlag" class="casLftPanelBaseField altColor icon2 smarrowright iconSizeSSm noUnderline" onclick="goToNextFlag()" title="Next flagged question"></a>*@
         <br>
         <div class="casLftPanelBaseField descLabel descLabelTop1">Flagged Questions</div>
     </div>

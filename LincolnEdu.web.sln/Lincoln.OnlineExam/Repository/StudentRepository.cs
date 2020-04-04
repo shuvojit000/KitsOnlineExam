@@ -301,10 +301,11 @@ namespace Lincoln.OnlineExam.Repository
                         itemSet.Add(new StudentExaminationTestResponseDTO()
                         {
                             ExaminationTestID= Convert.ToInt32(dr["ExaminationTestID"]),
-                            AnswerNo= Convert.ToInt32(dr["AnswerNo"]),
+                            AnswerNo= dr["AnswerNo"]!= DBNull.Value? Convert.ToInt32(dr["AnswerNo"]):0,
                             AnswerText= object.ReferenceEquals(dr["AnswerText"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AnswerText"]),
                             QuestionNo= Convert.ToInt32(dr["QuestionNo"]),
-                            StudentID= Convert.ToInt32(dr["StudentID"])
+                            StudentID= Convert.ToInt32(dr["StudentID"]),
+                            IsAnswer= Convert.ToInt32(dr["IsAnswer"]),
                         });
                     }
                 }
@@ -313,6 +314,41 @@ namespace Lincoln.OnlineExam.Repository
             return itemSet;
         }
 
+
+
+
+        public List<LeftPanelFeedResponseDTO> GetAttemptQuestion(ExaminationTestRequestDTO request,string Operation)
+        {
+            var itemSet = new List<LeftPanelFeedResponseDTO>();
+
+            SqlParameter loginID = new SqlParameter("@LoginID", SqlDbType.Int);
+            loginID.Value = request.LoginID;
+            SqlParameter courseID = new SqlParameter("@CourseID", SqlDbType.Int);
+            courseID.Value = request.CourseID;
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.VarChar);
+            type.Value = Operation;
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Student].[upGetAttemptQuestion]", loginID, courseID, type))
+            {
+                if (dr != null && dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        itemSet.Add(new LeftPanelFeedResponseDTO()
+                        {
+                            StudentID = SqlServerHelper.HasColumn(dr,"StudentID")? Convert.ToInt32(dr["StudentID"]):0,
+                            AnswerTotal= SqlServerHelper.HasColumn(dr, "AnswerTotal") ? Convert.ToInt32(dr["AnswerTotal"]):0,
+                            FlagTotal= SqlServerHelper.HasColumn(dr, "FlagTotal") ? Convert.ToInt32(dr["FlagTotal"]):0,
+                            QuestionTotal= SqlServerHelper.HasColumn(dr, "QuestionTotal") ? Convert.ToInt32(dr["QuestionTotal"]):0,
+                            QuestionNo = SqlServerHelper.HasColumn(dr, "QuestionNo") ? Convert.ToInt32(dr["QuestionNo"]) : 0,
+
+
+                        });
+                    }
+                }
+
+            }
+            return itemSet;
+        }
 
         public int SaveExaminationTest(ExaminationTestRequestDTO recordAttributer, string Operation)
         {
@@ -378,5 +414,7 @@ namespace Lincoln.OnlineExam.Repository
 
 
         #endregion
+        
+
     }
 }

@@ -429,6 +429,13 @@ namespace Lincoln.OnlineExam
                 return unitOfWork.StudentRepository.SaveExaminationSheet(recordAttributer, Operation);
             }
         }
+        public List<LeftPanelFeedResponseDTO> GetAttemptQuestion(ExaminationTestRequestDTO request, string Operation)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.StudentRepository.GetAttemptQuestion(request, Operation);
+            }
+        }
 
     }
 }

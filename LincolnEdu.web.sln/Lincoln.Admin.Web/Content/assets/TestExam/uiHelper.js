@@ -13,7 +13,7 @@ $(document).ready(function () {
         checkTimePnlCookie();
     });
     
-    $('#toggleAnswered').click(function () {
+    $(document).on('click', '#toggleAnswered',function () {
         $("#answeredPanel").slideToggle("fast");
         if ($.cookie('answeredcollapsed') === 'on') {
             $.cookie('answeredcollapsed', 'off');
@@ -23,7 +23,7 @@ $(document).ready(function () {
         checkAnsweredPnlCookie();
     });
 
-    $('#lblUnansweredValue').click(function () {
+    $(document).on('click', '#lblUnansweredValue',function () {
         var pnlIsVisible = $('#ShowUnAnsweredPanel').is(":visible");
         var answeredCount = $('#lblUnansweredValue').text();
 
@@ -61,7 +61,7 @@ $(document).ready(function () {
         
     });
 
-    $('#CloseUnAnsweredPanel').click(function () {
+    $(document).on('click','#CloseUnAnsweredPanel',function () {
         var pnlIsVisible = $('#ShowUnAnsweredPanel').is(":visible");
         if (!pnlIsVisible) {
             $('#ShowUnAnsweredPanel').toggle('slide', 'right', 400);
@@ -70,7 +70,7 @@ $(document).ready(function () {
         }
     });
 
-    $('#lblAnsweredValue').click(function () {
+    $(document).on('click','#lblAnsweredValue',function () {
         var pnlIsVisible = $('#ShowAnsweredPanel').is(":visible");
         var answeredCount = $('#lblAnsweredValue').text();
 
@@ -109,7 +109,7 @@ $(document).ready(function () {
         
     });
     
-    $('#CloseAnsweredPanel').click(function () {
+    $(document).on('click', '#CloseAnsweredPanel',function () {
         var pnlIsVisible = $('#ShowAnsweredPanel').is(":visible");
         if (!pnlIsVisible) {
             $('#ShowAnsweredPanel').toggle('slide', 'right', 400);
@@ -118,7 +118,7 @@ $(document).ready(function () {
         }
     });
 
-    $('#lblFlaggedValue').click(function () {
+    $(document).on('click', '#lblFlaggedValue',function () {
         var pnlIsVisible = $('#ShowFlaggedAnsweredPanel').is(":visible");
         var answeredCount = $('#lblFlaggedValue').text();
 
@@ -156,7 +156,7 @@ $(document).ready(function () {
 
     });
 
-    $('#CloseFlaggedAnsweredPanel').click(function () {
+    $(document).on('click', '#CloseFlaggedAnsweredPanel',function () {
         var pnlIsVisible = $('#ShowFlaggedAnsweredPanel').is(":visible");
         if (!pnlIsVisible) {
             $('#ShowFlaggedAnsweredPanel').toggle('slide', 'right', 400);

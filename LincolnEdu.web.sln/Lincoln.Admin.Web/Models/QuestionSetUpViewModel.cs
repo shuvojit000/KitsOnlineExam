@@ -36,6 +36,7 @@ namespace Lincoln.Admin.Web.Models
         public int? AnswerNo { get; set; }
         public string AnswerText { get; set; }
         public string Active { get; set; }
+        public int IsAnswer { get; set; }
         public List<SelectListItem> ProgramList { get; set; }
         public List<SelectListItem> ProgrammeYearList { get; set; }
         public List<SelectListItem> CourseList { get; set; }

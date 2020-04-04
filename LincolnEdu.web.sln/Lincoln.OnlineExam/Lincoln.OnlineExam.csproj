@@ -111,6 +111,7 @@
     <Compile Include="Response\ExaminationSectionResponseDTO.cs" />
     <Compile Include="Response\ExamQuestionSectionResponseDTO.cs" />
     <Compile Include="Response\FacultyDashboardResponseDTO.cs" />
+    <Compile Include="Response\LeftPanelFeedResponseDTO.cs" />
     <Compile Include="Response\LogInResponseDTO.cs" />
     <Compile Include="Response\OnlineTestResponseDTO.cs" />
     <Compile Include="Response\PaperDetailsResponseDTO.cs" />
