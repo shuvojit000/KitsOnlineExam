@@ -211,7 +211,7 @@
             var model = {
                 QuestionNo: $('#QuestionNo').val(),
                 IsAnswer: $('#IsAnswer').val(),
-                //AnswerText: $('input[name="AnswerText"]').val(),
+                AnswerText:$('input[name="QuestionType"]:checked').val()=="S"?CKEDITOR.instances['AnswerText'].getData():"",
                 AnswerNo: $('input[name="AnswerNo"]:checked').val()
             };
             $.ajax({

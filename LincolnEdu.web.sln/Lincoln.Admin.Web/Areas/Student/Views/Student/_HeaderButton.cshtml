@@ -79,7 +79,7 @@
     </div>
     <div class="questionNavPanel col-sm-2">
         <div class="navIconLft icon2 castlenavleft activeNav">
-            <a class="navLabel right noUnderline" title="Previous Question">Prev</a>
+            <a class="navLabel right noUnderline" onclick="goTo('@Model.Previous','@Model.CourseID');" title="Previous Question">Prev</a>
         </div>
         <div class="navCountElement">
             <span class="navCountLabel">
@@ -87,10 +87,10 @@
             </span>
         </div>
         <div class="navIconRht icon2 castlenavright activeNav">
-            <a class="navLabel left noUnderline" title="Next Question">Next</a>
+            <a class="navLabel left noUnderline" onclick="goTo('@Model.Next','@Model.CourseID');" title="Next Question">Next</a>
         </div>
     </div>
-    <div id="navigationPanel" class="col-sm-5">
+    <div id="navigationPanel" class="col-sm-5" >
         @for (int i = Model.SecondLengthStart; i <= Model.SecondLengthEnd; i++)
         {
             <a id="@i"  onclick="goTo('@i','@Model.CourseID');" class="goTo">
