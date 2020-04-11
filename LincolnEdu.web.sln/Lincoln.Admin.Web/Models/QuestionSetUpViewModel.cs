@@ -46,5 +46,8 @@ namespace Lincoln.Admin.Web.Models
         public List<SelectListItem> FacultyList { get; set; }
         public List<SelectListItem> ExamSectionList { get; set; }
 
+
+        public int? ExaminationDuration { get; set; }
+        public int? TotalTime { get; set; }
     }
 }

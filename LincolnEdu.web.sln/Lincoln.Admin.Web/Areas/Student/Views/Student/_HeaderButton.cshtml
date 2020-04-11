@@ -2,7 +2,7 @@
 
 <div id="navContainer" class="casNavDirectPanel hideOverFlowFF">
     <div id="navigationPanelL" class="col-sm-5">
-        <a id="1" onclick="goTo(1,'@Model.CourseID');" class="goTo">
+        @*<a id="1" onclick="goTo(1,'@Model.CourseID');" class="goTo">
             <span class="directNavElement icon2 question  ">
                 <span class="directNavLabel lftL ">1</span>
             </span>
@@ -66,7 +66,16 @@
             <span class="directNavElement icon2 question  ">
                 <span class="directNavLabel lftS ">13</span>
             </span>
-        </a>
+        </a>*@
+        @for (int i = Model.FirstLengthStart; i <= Model.FirstLengthEnd; i++)
+        {
+            <a id="@i" onclick="goTo('@i','@Model.CourseID');" class="goTo">
+                <span class="directNavElement icon2 question  ">
+                    <span class="directNavLabel lftL ">@i</span>
+                </span>
+            </a>
+        }
+
     </div>
     <div class="questionNavPanel col-sm-2">
         <div class="navIconLft icon2 castlenavleft activeNav">
@@ -74,7 +83,7 @@
         </div>
         <div class="navCountElement">
             <span class="navCountLabel">
-                <span id="lblCurrentQuestion">14</span>
+                <span id="lblCurrentQuestion">@Model.Current</span>
             </span>
         </div>
         <div class="navIconRht icon2 castlenavright activeNav">
@@ -82,7 +91,15 @@
         </div>
     </div>
     <div id="navigationPanel" class="col-sm-5">
-        <a id="15" onclick="goTo(15);" class="goTo">
+        @for (int i = Model.SecondLengthStart; i <= Model.SecondLengthEnd; i++)
+        {
+            <a id="@i"  onclick="goTo('@i','@Model.CourseID');" class="goTo">
+                <span class="directNavElement icon2 question  ">
+                    <span class="directNavLabel lftS ">@i</span>
+                </span>
+            </a>
+        }
+        @*<a id="15" onclick="goTo(15);" class="goTo">
             <span class="directNavElement icon2 question  ">
                 <span class="directNavLabel lftS ">15</span>
             </span>
@@ -156,6 +173,6 @@
             <span class="directNavElement icon2 question">
                 <span class="directNavLabel lftS ">29</span>
             </span>
-        </a>
+        </a>*@
     </div>
 </div>

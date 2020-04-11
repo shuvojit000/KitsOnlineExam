@@ -160,10 +160,22 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
 
             return PartialView("_LeftSuggestionPanel", model);
         }
-        public PartialViewResult HeaderButton(string id)
+        public PartialViewResult HeaderButton(string courseID, string questionNo)
         {
             var model = new ExamHeaderButtonViewModel();
-            model.CourseID = Convert.ToInt32(id);
+            model.CourseID = Convert.ToInt32(courseID);
+            var index = Convert.ToInt32(questionNo);
+            var total = 25;
+            model.Current = index;
+            model.Total = total;
+            model.Previous = (index - 1) < 0 ? 0 : index - 1;
+            model.Next = index + 1 > total ? index : index + 1;
+            model.FirstLengthStart = index - 13 <= 0 ? 1 : index - 13;
+            model.FirstLengthEnd = (index - 1) < 0 ? 0 : index - 1;
+            model.SecondLengthStart = index + 1 > total ? index : index + 1;
+            model.SecondLengthEnd = index + 15 > total ? total : index + 15;
+
+
             return PartialView("_HeaderButton", model);
         }
 
@@ -181,7 +193,8 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
                 LoginID = User.UserId,
                 PaperDetailsID = model.PaperDetailsID,
                 PaperID = model.PaperID,
-
+                ExaminationDuration = model.ExaminationDuration,
+                TotalTime = model.TotalTime
             }, "INSERT"), JsonRequestBehavior.AllowGet);
         }
         [HttpPost]

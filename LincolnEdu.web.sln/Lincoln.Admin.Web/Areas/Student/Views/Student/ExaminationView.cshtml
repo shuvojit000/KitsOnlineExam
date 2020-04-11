@@ -27,7 +27,7 @@
                                                     @Model.Item1.ExaminationName
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <a class="btnk btnk-primary float-right" onclick="fnSubmitSheet('@Model.Item1.CourseID')" style="margin-top:-6px;">
+                                                    <a class="btnk btnk-primary float-right" onclick="fnSubmitSheet()" style="margin-top:-6px;">
                                                         <i class="fa fa-share"></i> &nbsp; <span>Submit Exam</span>
                                                     </a>
                                                 </div>
@@ -42,7 +42,7 @@
                                                                 <div class="row">
                                                                     <div class="col-sm-12">
                                                                         <div id="navHeader">
-                                                                            @{ Html.RenderAction("HeaderButton", "Student", new { area = "Student", id = Model.Item1.CourseID });}
+                                                                            @{ Html.RenderAction("HeaderButton", "Student", new { area = "Student", courseID = Model.Item1.CourseID, questionNo="1" });}
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -148,10 +148,10 @@
             hours: 1,
             minutes: 0,
             seconds: 0,
-            timeUp: timeisUp
+            timeUp: timeisUp,
         });
         function timeisUp() {
-            alert('End');
+            fnSubmitSheet(true);
         }
         $('#dialog').dialog({
             autoOpen: false,
@@ -160,7 +160,40 @@
     function fnSetQuestionSheet(courseID, questionNo, sectionName) {
         $('#QuestionBody').load('/Student/Student/QuestionSheet/' + courseID + '/' + questionNo + '/' + sectionName);
     }
-    function fnSubmitSheet(courseID) {
+    function fnSubmitSheet(isTimeUp) {
+        courseID = '@Model.Item1.CourseID';
+        var time = $('#timer').html().split(':');
+        var hour = time[0];
+        var minute = time[1];
+        var second = time[2];
+        var totalSecond = hour * 60 * 60 + minute * 60 + second;
+
+
+        var model = {
+            PaperDetailsID: $('input[name="PaperDetailsID"]').val(),
+            PaperID: $('input[name="PaperID"]').val(),
+            ExaminationDuration: 3600,
+            TotalTime: isTimeUp ? 0 : totalSecond
+        };
+        $.ajax({
+            url: '@Url.Action("SaveExaminationSheet", "Student",new {area= "Student" })',
+            data: JSON.stringify(model),
+            type: 'POST',
+            cache: false,
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                if (result == 0) {
+                    alert('Error in your requst.');
+                }
+                else {
+                    window.location.href = '@Url.Action("Dashboard", "Student", new {area="Student" })';
+                }
+            },
+            error: function (e) {
+                alert('Error in your requst.');
+            }
+        });
 
     }
     function fnSaveExaminationTest() {
@@ -234,7 +267,7 @@
     function goTo(questionNo, courseID) {
         fnSaveExaminationTest();
         $('#QuestionBody').load('/Student/Student/QuestionSheet/' + courseID + '/' + questionNo + '/');
-       
+        fnArrangeHeaderbutton(questionNo, courseID);
     }
 
     function ShowCalculator() {
@@ -244,5 +277,7 @@
     function fnRefreshLeftPanel() {
         $('.casLftPanel').load('/Student/Student/LeftSuggestionPanel/@Model.Item1.CourseID');
     }
-
+    function fnArrangeHeaderbutton(questionNo, courseID) {
+        $('#navHeader').load('/Student/Student/HeaderButton/' + courseID + '/' + questionNo);
+    }
 </script>

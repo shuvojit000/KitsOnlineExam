@@ -17,10 +17,7 @@ namespace Lincoln.Admin.Web.Models
         public int? MaxQuestionNo { get; set; }
         public int? MinQuestionNo { get; set; }
     }
-    public class ExamHeaderButtonViewModel
-    {
-        public int CourseID { get; set; }
-    }
+    
     public class ExamLeftPanelViewModel
     {
         public int? StudentID { get; set; }
@@ -32,6 +29,20 @@ namespace Lincoln.Admin.Web.Models
         public List<int> NotAnsweredList { get; set; }
         public List<int> CompletedList { get; set; }
         public List<int> FlagedList { get; set; }
+    }
+    public class ExamHeaderButtonViewModel
+    {
+        public int Current { get; set; }
+        public int Previous { get; set; }
+        public int Next { get; set; }
+        public int Total { get; set; }
+        public int FirstLengthStart { get; set; }
+        public int FirstLengthEnd { get; set; }
+        public int SecondLengthStart { get; set; }
+        public int SecondLengthEnd { get; set; }
+
+        public int? CourseID { get; set; }
+
     }
    
 }

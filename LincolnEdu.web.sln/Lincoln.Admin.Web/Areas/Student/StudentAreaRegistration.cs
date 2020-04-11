@@ -20,6 +20,11 @@ namespace Lincoln.Admin.Web.Areas.Student
                new { action = "LeftSuggestionPanel", id = UrlParameter.Optional }
            );
             context.MapRoute(
+              "Student_HeaderButton",
+              "Student/{controller}/{action}/{courseID}/{questionNo}",
+              new { action = "HeaderButton", courseID = UrlParameter.Optional, questionNo = UrlParameter.Optional }
+          );
+            context.MapRoute(
                 "Student_QuestionSheet",
                 "Student/{controller}/{action}/{courseID}/{questionNo}/{sectionName}",
                 new { action = "QuestionSheet", courseID = UrlParameter.Optional, questionNo = UrlParameter.Optional, sectionName = UrlParameter.Optional }
