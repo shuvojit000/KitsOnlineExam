@@ -69,7 +69,7 @@
         </a>*@
         @for (int i = Model.FirstLengthStart; i <= Model.FirstLengthEnd; i++)
         {
-            <a id="@i" onclick="goTo('@i','@Model.CourseID');" class="goTo">
+            <a id="h-@i" onclick="goTo('@i','@Model.CourseID');" class="goTo">
                 <span class="directNavElement icon2 question  ">
                     <span class="directNavLabel lftL ">@i</span>
                 </span>
@@ -93,7 +93,7 @@
     <div id="navigationPanel" class="col-sm-5" >
         @for (int i = Model.SecondLengthStart; i <= Model.SecondLengthEnd; i++)
         {
-            <a id="@i"  onclick="goTo('@i','@Model.CourseID');" class="goTo">
+            <a id="h-@i"  onclick="goTo('@i','@Model.CourseID');" class="goTo">
                 <span class="directNavElement icon2 question  ">
                     <span class="directNavLabel lftS ">@i</span>
                 </span>

@@ -1,22 +1,22 @@
 ﻿@model Lincoln.Admin.Web.Models.QuestionSetUpViewModel
-@{ 
+@{
 
 }
 
 <div id="magnify">
     <div class="small">
         <div id="QuestionContainerWrapper" class="QuestionContainer">
-            @Html.HiddenFor(a=>a.QuestionNo)
+            @Html.HiddenFor(a => a.QuestionNo)
             @Html.HiddenFor(a => a.IsAnswer)
             @Html.HiddenFor(a => a.PaperID)
             @Html.HiddenFor(a => a.PaperDetailsID)
-            @Html.HiddenFor(a=>a.QuestionType)
+            @Html.HiddenFor(a => a.QuestionType)
             <div class="textDirection">
-              
+
                 <!-- Show Generic Instructions for questions w/ sets -->
                 <div id="HeaderSetInfoPanel">
                     @*@Html.TextAreaFor(a =>a.QuestionText, new { @class = "form-control" })*@
-                     @Html.Raw(Model.QuestionText)
+                    @Html.Raw(Model.QuestionText)
                 </div>
 
 
@@ -40,46 +40,46 @@
                                 <div class="EntryRow question-options">
                                     @if (Model.QuestionType == "S")
                                     {
-                                    @Html.TextAreaFor(a => a.AnswerText, new { @class = "form-control" })
+                                        @Html.TextAreaFor(a => a.AnswerText, new { @class = "form-control" })
 
 
                                     }
                                     @if (Model.QuestionType == "O")
                                     {
-                                    <table id="radioList" class="radioWithProperWrap" border="0">
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <input type="radio" name="AnswerNo" value="1"  @(Model.AnswerNo == 1 ? "checked" : "")>
-                                                    <label for="radioList_0">@Model.OptionAText</label>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input type="radio" name="AnswerNo" value="2"  @(Model.AnswerNo == 2 ? "checked" : "")>
-                                                    <label for="radioList_1">@Model.OptionBText</label>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input type="radio" name="AnswerNo" value="3"  @(Model.AnswerNo ==3 ? "checked" : "")>
-                                                    <label for="radioList_2">@Model.OptionCText</label>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input type="radio" name="AnswerNo" value="4"  @(Model.AnswerNo ==4 ? "checked" : "")>
-                                                    <label for="radioList_3">@Model.OptionDText</label>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input type="radio" name="AnswerNo" value="5"  @(Model.AnswerNo == 5 ? "checked" : "")>
-                                                    <label for="radioList_4">@Model.OptionEText</label>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                        <table id="radioList" class="radioWithProperWrap" border="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <input type="radio" name="AnswerNo" value="1" @(Model.AnswerNo == 1 ? "checked" : "")>
+                                                        <label for="radioList_0">@Model.OptionAText</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="radio" name="AnswerNo" value="2" @(Model.AnswerNo == 2 ? "checked" : "")>
+                                                        <label for="radioList_1">@Model.OptionBText</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="radio" name="AnswerNo" value="3" @(Model.AnswerNo == 3 ? "checked" : "")>
+                                                        <label for="radioList_2">@Model.OptionCText</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="radio" name="AnswerNo" value="4" @(Model.AnswerNo == 4 ? "checked" : "")>
+                                                        <label for="radioList_3">@Model.OptionDText</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="radio" name="AnswerNo" value="5" @(Model.AnswerNo == 5 ? "checked" : "")>
+                                                        <label for="radioList_4">@Model.OptionEText</label>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     }
                                 </div>
 
@@ -116,4 +116,6 @@
         });
 
     }
+
+   
 </script>

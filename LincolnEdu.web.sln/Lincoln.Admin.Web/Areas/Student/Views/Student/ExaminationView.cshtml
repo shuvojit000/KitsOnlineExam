@@ -158,7 +158,9 @@
         });
     });
     function fnSetQuestionSheet(courseID, questionNo, sectionName) {
+        fnArrangeHeaderbutton(questionNo, courseID);
         $('#QuestionBody').load('/Student/Student/QuestionSheet/' + courseID + '/' + questionNo + '/' + sectionName);
+        fnSaveExaminationTest();
     }
     function fnSubmitSheet(isTimeUp) {
         courseID = '@Model.Item1.CourseID';
