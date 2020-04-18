@@ -166,9 +166,9 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
             model.CourseID = Convert.ToInt32(courseID);
             var index = Convert.ToInt32(questionNo);
             var total = 25;
-            model.Current = index;
+            model.Current = index==0?1:index;
             model.Total = total;
-            model.Previous = (index - 1) < 0 ? 0 : index - 1;
+            model.Previous = (index - 1) <= 0 ? 1 : index - 1;
             model.Next = index + 1 > total ? index : index + 1;
             model.FirstLengthStart = index - 13 <= 0 ? 1 : index - 13;
             model.FirstLengthEnd = (index - 1) < 0 ? 0 : index - 1;

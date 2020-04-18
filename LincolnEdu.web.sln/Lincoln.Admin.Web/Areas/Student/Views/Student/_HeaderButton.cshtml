@@ -1,88 +1,22 @@
 ﻿@model Lincoln.Admin.Web.Models.ExamHeaderButtonViewModel
+<div id="navContainer" class="hideOverFlowFF">
+    <div id="navigationPanelL" class="navPanelL">
+            @for (int i = Model.FirstLengthStart; i <= Model.FirstLengthEnd; i++)
+            {
+                <a id="@i" onclick="goTo('@i','@Model.CourseID');" class="goTo">
+                    <span class="directNavElement icon2 question  ">
+                        <span class="directNavLabel lftS ">@i</span>
+                    </span>
+                </a>
+            }
+        </div>
 
-<div id="navContainer" class="casNavDirectPanel hideOverFlowFF">
-    <div id="navigationPanelL" class="col-sm-5">
-        @*<a id="1" onclick="goTo(1,'@Model.CourseID');" class="goTo">
-            <span class="directNavElement icon2 question  ">
-                <span class="directNavLabel lftL ">1</span>
-            </span>
-        </a>
-        <a id="2" onclick="goTo(2,'@Model.CourseID');" class="goTo">
-            <span class="directNavElement icon2 question  ">
-                <span class="directNavLabel lftL ">2</span>
-            </span>
-        </a>
-        <a id="3" onclick="goTo(3,'@Model.CourseID');" class="goTo">
-            <span class="directNavElement icon2 question  ">
-                <span class="directNavLabel lftL ">3</span>
-            </span>
-        </a>
-        <a id="4" onclick="goTo(4,'@Model.CourseID');" class="goTo">
-            <span class="directNavElement icon2 question  ">
-                <span class="directNavLabel lftL ">4</span>
-            </span>
-        </a>
-        <a id="5" onclick="goTo(5,'@Model.CourseID');" class="goTo">
-            <span class="directNavElement icon2 question  ">
-                <span class="directNavLabel lftL ">5</span>
-            </span>
-        </a>
-        <a id="6" onclick="goTo(6,'@Model.CourseID');" class="goTo">
-            <span class="directNavElement icon2 question  ">
-                <span class="directNavLabel lftL ">6</span>
-            </span>
-        </a>
-        <a id="7" onclick="goTo(7,'@Model.CourseID');" class="goTo">
-            <span class="directNavElement icon2 question  ">
-                <span class="directNavLabel lftL ">7</span>
-            </span>
-        </a>
-        <a id="8" onclick="goTo(8,'@Model.CourseID');" class="goTo">
-            <span class="directNavElement icon2 question  ">
-                <span class="directNavLabel lftL ">8</span>
-            </span>
-        </a>
-        <a id="9" onclick="goTo(9);" class="goTo">
-            <span class="directNavElement icon2 question  ">
-                <span class="directNavLabel lftL ">9</span>
-            </span>
-        </a>
-        <a id="10" onclick="goTo(10);" class="goTo">
-            <span class="directNavElement icon2 question  ">
-                <span class="directNavLabel lftS ">10</span>
-            </span>
-        </a>
-        <a id="11" onclick="goTo(11);" class="goTo">
-            <span class="directNavElement icon2 question  ">
-                <span class="directNavLabel lftS ">11</span>
-            </span>
-        </a>
-        <a id="12" onclick="goTo(12);" class="goTo">
-            <span class="directNavElement icon2 question  ">
-                <span class="directNavLabel lftS ">12</span>
-            </span>
-        </a>
-        <a id="13" onclick="goTo(13);" class="goTo">
-            <span class="directNavElement icon2 question  ">
-                <span class="directNavLabel lftS ">13</span>
-            </span>
-        </a>*@
-        @for (int i = Model.FirstLengthStart; i <= Model.FirstLengthEnd; i++)
-        {
-            <a id="h-@i" onclick="goTo('@i','@Model.CourseID');" class="goTo">
-                <span class="directNavElement icon2 question  ">
-                    <span class="directNavLabel lftL ">@i</span>
-                </span>
-            </a>
-        }
-
-    </div>
-    <div class="questionNavPanel col-sm-2">
+    <div class="questionNavPanel navPanelM">
         <div class="navIconLft icon2 castlenavleft activeNav">
             <a class="navLabel right noUnderline" onclick="goTo('@Model.Previous','@Model.CourseID');" title="Previous Question">Prev</a>
         </div>
         <div class="navCountElement">
-            <span class="navCountLabel">
+            <span class="navCountLabel" style="text-align:center">
                 <span id="lblCurrentQuestion">@Model.Current</span>
             </span>
         </div>
@@ -90,89 +24,15 @@
             <a class="navLabel left noUnderline" onclick="goTo('@Model.Next','@Model.CourseID');" title="Next Question">Next</a>
         </div>
     </div>
-    <div id="navigationPanel" class="col-sm-5" >
+
+    <div id="navigationPanel" class="navPanelR">
         @for (int i = Model.SecondLengthStart; i <= Model.SecondLengthEnd; i++)
         {
-            <a id="h-@i"  onclick="goTo('@i','@Model.CourseID');" class="goTo">
-                <span class="directNavElement icon2 question  ">
+            <a id="@i" onclick="goTo('@i','@Model.CourseID');" class="goTo">
+                <span class="directNavElement icon2 question">
                     <span class="directNavLabel lftS ">@i</span>
                 </span>
             </a>
         }
-        @*<a id="15" onclick="goTo(15);" class="goTo">
-            <span class="directNavElement icon2 question  ">
-                <span class="directNavLabel lftS ">15</span>
-            </span>
-        </a>
-        <a id="16" onclick="goTo(16);" class="goTo">
-            <span class="directNavElement icon2 question">
-                <span class="directNavLabel lftS ">16</span>
-            </span>
-        </a>
-        <a id="17" onclick="goTo(17);" class="goTo">
-            <span class="directNavElement icon2 question">
-                <span class="directNavLabel lftS ">17</span>
-            </span>
-        </a>
-        <a id="18" onclick="goTo(18);" class="goTo">
-            <span class="directNavElement icon2 question">
-                <span class="directNavLabel lftS ">18</span>
-            </span>
-        </a>
-        <a id="19" onclick="goTo(19);" class="goTo">
-            <span class="directNavElement icon2 question">
-                <span class="directNavLabel lftS ">19</span>
-            </span>
-        </a>
-        <a id="20" onclick="goTo(20);" class="goTo">
-            <span class="directNavElement icon2 question">
-                <span class="directNavLabel lftS medLabel">20</span>
-            </span>
-        </a>
-        <a id="21" onclick="goTo(21);" class="goTo">
-            <span class="directNavElement icon2 question">
-                <span class="directNavLabel lftS ">21</span>
-            </span>
-        </a>
-        <a id="22" onclick="goTo(22);" class="goTo">
-            <span class="directNavElement icon2 question">
-                <span class="directNavLabel lftS medLabel">22</span>
-            </span>
-        </a>
-        <a id="23" onclick="goTo(23);" class="goTo">
-            <span class="directNavElement icon2 question">
-                <span class="directNavLabel lftS ">23</span>
-            </span>
-        </a>
-        <a id="24" onclick="goTo(24);" class="goTo">
-            <span class="directNavElement icon2 question">
-                <span class="directNavLabel lftS ">24</span>
-            </span>
-        </a>
-        <a id="25" onclick="goTo(25);" class="goTo">
-            <span class="directNavElement icon2 question">
-                <span class="directNavLabel lftS ">25</span>
-            </span>
-        </a>
-        <a id="26" onclick="goTo(26);" class="goTo">
-            <span class="directNavElement icon2 question">
-                <span class="directNavLabel lftS ">26</span>
-            </span>
-        </a>
-        <a id="27" onclick="goTo(27);" class="goTo">
-            <span class="directNavElement icon2 question">
-                <span class="directNavLabel lftS ">27</span>
-            </span>
-        </a>
-        <a id="28" onclick="goTo(28);" class="goTo">
-            <span class="directNavElement icon2 question">
-                <span class="directNavLabel lftS ">28</span>
-            </span>
-        </a>
-        <a id="29" onclick="goTo(29);" class="goTo">
-            <span class="directNavElement icon2 question">
-                <span class="directNavLabel lftS ">29</span>
-            </span>
-        </a>*@
     </div>
 </div>

@@ -5,6 +5,98 @@
  * Licensed under MIT (http://kreativesit.com/LICENSE)
  */
 
+#activek {
+    color:#2ebe05;
+} 
+
+.navPanelL {
+    white-space: nowrap;
+    float: left;
+    width: 44.1%;
+    /*background-color: #DDD;*/
+    margin-top:30px;
+}
+.navPanelM {
+    float: left;
+    width: 13%;
+    /*background-color: #ff0000;*/
+}
+.navPanelR {
+    white-space: nowrap;
+    float: right;
+    width: 42.9%;
+    /*background-color: #CCC;*/
+    margin-top: 30px;
+}
+
+.kmdbx {
+    text-align: center;
+}
+/*--------------------------------------------*/
+/*----------Media Screen Start---------------*/
+/*# Mini-Mobile
+only screen and (min-width: 320px)*/
+@media (min-width: 320px) {
+}
+/*# Mobile
+only screen and (min-width: 480px)*/
+@media (min-width: 480px) {
+    .kltbx {width:33%;}
+    .kmdbx {width:34%; margin-left:33%; margin-top:-20px;}
+    .krtbx {margin-left:67%; margin-top:-20px;}
+
+    .navPanelL {white-space: nowrap; float: left; width: 35%; margin-top: 30px;}
+    .navPanelM {float: left; width: 29%;}
+    .navPanelR {white-space: nowrap; float: right; width: 34%; margin-top: 30px;}
+
+    .col-sm-2k {
+        float: left;
+        width: 10%;
+    }
+    .col-sm-10k {
+        float: right;
+        width: 90%;
+        padding-left: 12%;
+    }
+}
+/*# Tablet
+only screen and (min-width: 768px)*/
+@media (min-width: 768px) {
+    .kltbx {}
+    .kmdbx {margin-top: 0px;}
+    .krtbx {margin-top:0px;}
+
+    .navPanelL {white-space: nowrap; float: left; width: 44.1%; margin-top: 30px;}
+    .navPanelM {float: left; width: 13%;}
+    .navPanelR {white-space: nowrap; float: right; width: 42.9%; margin-top: 30px;}
+
+    .col-sm-2k, .col-sm-10k {
+        position: relative;
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+}
+/*# Desktop
+only screen and (min-width: 992px)*/
+@media (min-width: 992px) {
+    
+}
+/*# Huge
+only screen and (min-width: 1280px)*/
+@media (min-width: 1280px) {
+}
+/*----------Media Screen End---------------*/
+/*----------------------------------------*/
+
+
+
+
+
+
+
+
+
 .btxt{font-weight:bolder;}
 
 .popover, .tooltip, address {
@@ -605,6 +697,13 @@ pre {
     padding-left: 15px;
 }
 
+/*.col-sm-2k, .col-sm-10k {
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+}*/
+
 .col {
     -webkit-flex-basis: 0;
     -ms-flex-preferred-size: 0;
@@ -948,6 +1047,23 @@ pre {
         -ms-flex: 0 0 16.66667%;
         flex: 0 0 16.66667%;
         max-width: 16.66667%;
+    }
+
+    .col-sm-2k {
+        -webkit-box-flex: 0;
+        -webkit-flex: 0 0 10.66667%;
+        -moz-box-flex: 0;
+        -ms-flex: 0 0 10.66667%;
+        flex: 0 0 10.66667%;
+        max-width: 10.66667%;
+    }
+    .col-sm-10k {
+        -webkit-box-flex: 0;
+        -webkit-flex: 0 0 89.33333%;
+        -moz-box-flex: 0;
+        -ms-flex: 0 0 89.33333%;
+        flex: 0 0 89.33333%;
+        max-width: 89.33333%;
     }
 
     .col-sm-3 {

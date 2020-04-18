@@ -3,6 +3,7 @@
     ViewBag.Title = "Exam";
     Layout = "~/Areas/Student/Views/Shared/_ExamLayout.cshtml";
 }
+
 <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
 <div class="content-wrapper">
     <div class="content-body">
@@ -13,7 +14,7 @@
                 <div id="online">
                     <div class="inner">
                         <div>
-                            <div class="row bdstyl">
+                            <div class="bdstyl">
                                 <!-- GRID SHOW START -->
                                 <div class="row-fluid">
                                     <div class="span12">
@@ -21,15 +22,21 @@
                                         <div class="widgetk orange">
                                             <div class="widgetk-title">
                                                 <div class="col-lg-4">
-                                                    Time Left: <span id="timer" class="timerclass"></span>
+                                                    <div class="kltbx">
+                                                        Time Left: <span id="timer" class="timerclass"></span>
+                                                    </div>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    @Model.Item1.ExaminationName
+                                                    <div class="kmdbx">
+                                                        @Model.Item1.ExaminationName
+                                                    </div>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <a class="btnk btnk-primary float-right" onclick="fnSubmitSheet()" style="margin-top:-6px;">
-                                                        <i class="fa fa-share"></i> &nbsp; <span>Submit Exam</span>
-                                                    </a>
+                                                    <div class="krtbx">
+                                                        <a class="btnk btnk-primary float-right" onclick="fnSubmitSheet()" style="margin-top:-6px;">
+                                                            <i class="fa fa-share"></i> &nbsp; <span>Submit Exam</span>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="widgetk-body">
@@ -71,14 +78,14 @@
                                                                 <!--SECTION PART END-->
                                                                 <div class="row">
                                                                     <!--QUESTION BODY LEFT SECTION START-->
-                                                                    <div class="col-sm-2">
+                                                                    <div class="col-sm-2k">
                                                                         <div class="casLftPanel">
                                                                             @{ Html.RenderAction("LeftSuggestionPanel", "Student", new { area = "Student", id = Model.Item1.CourseID });}
                                                                         </div>
                                                                     </div><!-- /.col-sm-2 -->
                                                                     <!--QUESTION BODY LEFT SECTION END-->
                                                                     <!--QUESTION BODY RIGHT SECTION START-->
-                                                                    <div class="col-sm-10">
+                                                                    <div class="col-sm-10k">
                                                                         <div id="QuestionBody">
                                                                             @{Html.RenderAction("QuestionSheet", "Student", new
                                                                                 {
@@ -115,7 +122,7 @@
         </div>
         <!--/ Stats -->
     </div>
-    <div class="footerk">
+    @*<div class="footerk">
         <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2">
             <span class="float-md-left d-block d-md-inline-block">
                 Copyright  &copy; 2019
@@ -123,7 +130,7 @@
             </span>
             <span class="float-md-right d-none d-lg-block">ESA<i class="fa fa-home pink"></i></span>
         </p>
-    </div>
+    </div>*@
 </div>
 @*<div class="modal fade" id="myModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog">
@@ -157,7 +164,7 @@
             autoOpen: false,
         });
     });
-    function fnSetQuestionSheet(courseID, questionNo, sectionName) {
+     function fnSetQuestionSheet(courseID, questionNo, sectionName) {
         fnArrangeHeaderbutton(questionNo, courseID);
         $('#QuestionBody').load('/Student/Student/QuestionSheet/' + courseID + '/' + questionNo + '/' + sectionName);
         fnSaveExaminationTest();

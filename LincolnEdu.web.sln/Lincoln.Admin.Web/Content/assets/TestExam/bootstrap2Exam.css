@@ -1099,6 +1099,15 @@ pre code {
 	left: 0px;
 }
 
+.col-sm-2k, col-sm-10k {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    top: 0px;
+    left: 0px;
+}
+
 .col-xs-1,
 .col-xs-2,
 .col-xs-3,
@@ -1165,25 +1174,35 @@ pre code {
   .container {
     max-width: 750px;
   }
-  .col-sm-1,
-  .col-sm-2,
-  .col-sm-3,
-  .col-sm-4,
-  .col-sm-5,
-  .col-sm-6,
-  .col-sm-7,
-  .col-sm-8,
-  .col-sm-9,
-  .col-sm-10,
-  .col-sm-11 {
-    float: left;
-  }
-  .col-sm-1 {
-    width: 8.333333333333332%;
-  }
+    .col-sm-1,
+    .col-sm-2, 
+    .col-sm-3,
+    .col-sm-4,
+    .col-sm-5,
+    .col-sm-6,
+    .col-sm-7,
+    .col-sm-8,
+    .col-sm-9,
+    .col-sm-10,
+    .col-sm-11 {
+        float: left;
+    }
+
+    .col-sm-2k, .col-sm-10k {
+        float: left;
+    }
+    .col-sm-1 {
+        width: 8.333333333333332%;
+    }
   .col-sm-2 {
     width: 16.666666666666664%;
   }
+    .col-sm-2k {
+        width: 10.666666666666664%;
+    }
+    .col-sm-10k {
+        width: 89.33333333333334%;
+    }
   .col-sm-3 {
     width: 25%;
   }

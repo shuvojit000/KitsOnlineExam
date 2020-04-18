@@ -2,6 +2,13 @@
   font-family: "Arial Bold", "Arial";
 }*/
 
+
+
+
+
+
+
+
 .panelEx{
     margin-bottom: 20px;
     /*background-color: #ffffff;
@@ -234,13 +241,13 @@
 
 .casLftPanel {
     /*margin-top: 50px;*/
-    width:125px;
-    float:left;
+    width: 125px;
+    float: left;
 }
 
 .casLftPanelLayout {
     margin-top:5px;
-    margin-left:20px;
+    /*margin-left:20px;*/
     width:106px;
     height: auto;
     background-color: #87CEFA;
@@ -248,11 +255,10 @@
     border-radius:8px;
 }
 
-.casNavDirectPanel {
+/*.casNavDirectPanel {
     margin-left: auto;
     margin-right: auto;
-    /*padding-left: 16%;*/
-}
+}*/
 
 .casLftPanelSect1 {
     /*margin-left:6px;
@@ -568,12 +574,34 @@
     color: #cccccc;
 }
 
+
 .lftS {
-    left:10px;
+    left: 14px; /*1-digit-number //Small ---[button - question numering top main panel]*/
 }
+
+.lftM {
+    left: 11px; /*2-digit-number //Medium ---[button - question numering top main panel]*/
+}
+
 .lftL {
-    left:14px;
+    left: 7px; /*3-digit-number //Large ---[button - question numering top main panel]*/
 }
+
+
+
+.LPnlftS {
+    left: 12px; /*1-digit-number //Small ---[button - question numering left panel]*/
+}
+
+.LPnlftM {
+    left: 8px; /*2-digit-number //Medium ---[button - question numering left panel]*/
+}
+
+.LPnlftL {
+    left: 4px; /*3-digit-number //Large ---[button - question numering left panel]*/
+}
+
+
 
 .lft {
     left:16px;
@@ -622,10 +650,10 @@
 
 .questionNavPanel {
     display:inline-block;
-    max-width:175px;
+    /*max-width:175px;
     padding-left:10px;
     padding-right:10px;
-    height: 3.75em; 
+    height: 3.75em;*/ 
 }
 
 .navIconLft {
@@ -633,7 +661,7 @@
     color:#0078E7;
     float:left;
     width:50px;
-    padding-right:5px;
+    /*padding-right:5px;*/
     cursor: pointer;
 }
 
@@ -642,8 +670,8 @@
     color:#0078E7;
     float:right;
     width:50px;
-    padding-left:5px;
-    cursor: pointer; /*margin-top:-43px;*/
+    /*padding-left:5px;*/
+    cursor: pointer;
 }
 
 .navCountElement {
@@ -705,11 +733,11 @@
     width: auto;
     overflow-x: hidden;
     overflow-y: hidden;
-    margin-right: 2px;
+    /*margin-right: 2px;*/
 }
 
 .hideOverFlowFF {
-   /*width: auto;*/ width:100%;
+   width: auto; 
    overflow-x: hidden;
    overflow-y: hidden;
    /*margin-right: 42px;*/
@@ -725,17 +753,15 @@
 }
 
 #navigationPanel {
-    white-space: nowrap;
-    /*margin-top: -30px;*/ margin-top:30px;
-    /*margin-left: 390px;*/ /*width:40%; margin-left:60%;*/
-    min-height: 30px;
+    /*white-space: nowrap;*/
+    /*margin-top:60px;*/
+    /*min-height: 30px;*/
 }
 
 #navigationPanelL {
-    white-space: nowrap;
-    /*margin-top: -30px;*/ margin-top: 30px; 
-    /*margin-left: 390px;*/ /*width:40%; margin-left:0px;*/
-    min-height: 30px;
+    /*white-space: nowrap;*/
+    /*margin-top: 30px;*/
+   /* min-height: 30px;*/
 }    
 
 .navIconLftDisable {
