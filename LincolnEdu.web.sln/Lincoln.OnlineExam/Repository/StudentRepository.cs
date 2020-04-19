@@ -273,7 +273,8 @@ namespace Lincoln.OnlineExam.Repository
                             AnswerNo = Convert.ToInt32(dr["AnswerNo"]),
                             AnswerText = object.ReferenceEquals(dr["AnswerText"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AnswerText"]),
                             SectionMarks = Convert.ToDecimal(dr["SectionMarks"]),
-                            Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"])
+                            Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
+                            SectionName = object.ReferenceEquals(dr["SectionName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["SectionName"])
                         });
                     }
                 }

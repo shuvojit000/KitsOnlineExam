@@ -16,7 +16,7 @@
         <a id="toggleAnswered" class="collapsePnlHover fa fa-minus-square"></a>
         <div id="answeredPanel">
             <div id="NotAnswered" class="casLftPanelBaseField actionLink">
-                <a onclick="return false;" id="lblUnansweredValue" href="javascript:__doPostBack('lblUnansweredValue','')">@(Convert.ToInt32(Model.QuestionTotal) - Convert.ToInt32(Model.AnswerTotal))</a>
+                <a onclick="return false;" id="lblUnansweredValue" href="javascript:void(0);">@(Convert.ToInt32(Model.QuestionTotal) - Convert.ToInt32(Model.AnswerTotal))</a>
             </div>
             <br>
             <div class="casLftPanelBaseField descLabel descLabelTop">Not Answered</div>
@@ -41,7 +41,7 @@
                             {
                                 <a id="@item" onclick="goTo('@item','@Model.CoureseID');" class="goTo">
                                     <span class="directNavElement narrow rowSpace icon2 question elementOn">
-                                        <span class="directNavLabel labelOn LPnlftS"> @item</span>
+                                        <span class="directNavLabel shiftLft  labelOn @(item.ToString().Length == 1 ? " " : item.ToString().Length ==2? "medLabel":" ")"> @item</span>
                                     </span>
                                 </a>
                             }
@@ -71,7 +71,7 @@
                             {
                                 <a id="@item" onclick="goTo('@item','@Model.CoureseID');" class="goTo">
                                     <span class="directNavElement narrow rowSpace icon2 question elementOn">
-                                        <span class="directNavLabel labelOn LPnlftS"> @item</span>
+                                        <span class="directNavLabel shiftLft  labelOn @(item.ToString().Length == 1 ? " " : item.ToString().Length ==2? "medLabel":" ")"> @item</span>
                                     </span>
                                 </a>
                             }
@@ -80,7 +80,7 @@
                 </div>
             </div>
             <div id="Answered" class="casLftPanelBaseField actionLink answeredLblTop">
-                <a onclick="return false;" id="lblAnsweredValue" href="javascript:__doPostBack('lblAnsweredValue','')">@Model.AnswerTotal</a>
+                <a onclick="return false;" id="lblAnsweredValue" href="javascript:void(0);">@Model.AnswerTotal</a>
             </div>
             <br>
             <div id="toggleAnsweredPanel" class="casLftPanelBaseField descLabel descLabelTop">Completed</div>
@@ -120,7 +120,7 @@
                         {
                             <a id="@item" onclick="goTo('@item','@Model.CoureseID');" class="goTo">
                                 <span class="directNavElement narrow rowSpace icon2 question elementOn">
-                                    <span class="directNavLabel labelOn LPnlftS"> @item</span>
+                                    <span class="directNavLabel shiftLft  labelOn @(item.ToString().Length == 1 ? " " : item.ToString().Length ==2? "medLabel":" ")"> @item</span>
                                 </span>
                             </a>
                         }
@@ -130,7 +130,7 @@
         </div>
         @*<a id="btnPrevFlag" class="casLftPanelBaseField altColor icon2 smarrowleft iconSizeSSm noUnderline" onclick="goToPrevFlag()" title="Previously flagged question"></a>*@
         <div id="Flagged" class="casLftPanelBaseField actionLink flagActLnk">
-            <a onclick="return false;" id="lblFlaggedValue" href="javascript:__doPostBack('lblFlaggedValue','')">@Model.FlagTotal</a>
+            <a onclick="return false;" id="lblFlaggedValue" href="javascript:void(0);">@Model.FlagTotal</a>
         </div>
         @*<a id="btnNextFlag" class="casLftPanelBaseField altColor icon2 smarrowright iconSizeSSm noUnderline" onclick="goToNextFlag()" title="Next flagged question"></a>*@
         <br>
@@ -142,14 +142,14 @@
             <span class="casLftPanelBaseField fa fa-calculator iconSizeMed descLabelTop1"></span>
         </a>
         <div id="btnCalcContent" class="casLftPanelBaseField descLabel helperContent calcRow">
-            <a onclick="ShowCalculator();return false;" id="btnCalc" title="Display Calculator" class="defaultText" href="javascript:__doPostBack('btnCalc','')">Calculator</a>
+            <a onclick="ShowCalculator();return false;" id="btnCalc" title="Display Calculator" class="defaultText" href="javascript:void(0);">Calculator</a>
         </div>
         <a id="lnkHelp" onclick="ShowHelp(helpSrcUrl);return false;" class="noUnderline noOutline">
             <span class="casLftPanelBaseField fa fa-question-circle iconSizeLrg helpPaddingLnk"></span>
         </a>
         <br>
         <div class="casLftPanelBaseField descLabel helperContent helpPadding">
-            <a onclick="ShowHelp();return false;" id="btnHelp" title="Display Help System" class="defaultText" href="javascript:__doPostBack('btnHelp','')">Help</a>
+            <a onclick="ShowHelp();return false;" id="btnHelp" title="Display Help System" class="defaultText" href="javascript:void(0);">Help</a>
         </div>
     </div>
     <div id="takeABreak">
@@ -159,7 +159,7 @@
                 <span class="fa fa-hand-paper-o iconSizeSm noUnderline"></span>
             </a>
             <br>
-            <a onclick="TakeABreak(); return false;" id="btnTakeABreak" title="Take A Break" class="defaultText descLabel" href="javascript:__doPostBack('btnTakeABreak','')">Take a Break</a>
+            <a onclick="TakeABreak(); return false;" id="btnTakeABreak" title="Take A Break" class="defaultText descLabel" href="javascript:void(0);">Take a Break</a>
         </div>
     </div>
 </div>

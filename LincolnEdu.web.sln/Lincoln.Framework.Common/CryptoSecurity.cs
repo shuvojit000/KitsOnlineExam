@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Lincoln.Framework.Common
 {
-    public class Cryptography
+    public static class CryptoSecurity
     {
-        public string encrypt(string encryptString)
+        public static string encrypt(string encryptString)
         {
             string EncryptionKey = "LINCLONEMS123@";
             byte[] clearBytes = Encoding.Unicode.GetBytes(encryptString);
@@ -34,7 +31,7 @@ namespace Lincoln.Framework.Common
             return encryptString;
         }
 
-        public string Decrypt(string cipherText)
+        public static string Decrypt(string cipherText)
         {
             string EncryptionKey = "LINCLONEMS123@";
             cipherText = cipherText.Replace(" ", "+");

@@ -1,5 +1,6 @@
 ﻿using Lincoln.Admin.Web.Controllers;
 using Lincoln.Admin.Web.Models;
+using Lincoln.Framework.Common;
 using Lincoln.OnlineExam;
 using System;
 using System.Collections.Generic;
@@ -49,25 +50,33 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
         {
             var model = new StudentExamViewModel();
             var questionSectionViewmodel = new List<ExamQuestionSectionViewModel>();
-            model = onlineExamService.GetStudentExamination(new OnlineExam.Request.OnlineTestRequestDTO()
+            if (!string.IsNullOrEmpty(id))
             {
-                LoginID = User.UserId
-            }).Where(a => a.CourseID == Convert.ToInt32(id)).Select(a => new StudentExamViewModel()
-            {
-                ExaminationName = a.ExaminationName,
-                CourseID = a.CourseID
-            }).FirstOrDefault();
-            questionSectionViewmodel = onlineExamService.GetExamQuestionSection(new OnlineExam.Request.ExamQuestionSectionRequestDTO()
-            {
-                CourseID = Convert.ToInt32(id)
-            }).
-            Select(a => new ExamQuestionSectionViewModel()
-            {
-                ExaminationSectionID = a.ExaminationSectionID,
-                MaxQuestionNo = a.MaxQuestionNo,
-                MinQuestionNo = a.MinQuestionNo,
-                SectionName = a.SectionName
-            }).ToList();
+                var returnID = CryptoSecurity.Decrypt(id);
+
+                model = onlineExamService.GetStudentExamination(new OnlineExam.Request.OnlineTestRequestDTO()
+                {
+                    LoginID = User.UserId
+                }).Where(a => a.CourseID == Convert.ToInt32(returnID)).Select(a => new StudentExamViewModel()
+                {
+                    ExaminationName = a.ExaminationName,
+                    CourseID = a.CourseID
+                }).FirstOrDefault();
+                questionSectionViewmodel = onlineExamService.GetExamQuestionSection(new OnlineExam.Request.ExamQuestionSectionRequestDTO()
+                {
+                    CourseID = Convert.ToInt32(returnID)
+                }).
+                Select(a => new ExamQuestionSectionViewModel()
+                {
+                    ExaminationSectionID = a.ExaminationSectionID,
+                    MaxQuestionNo = a.MaxQuestionNo,
+                    MinQuestionNo = a.MinQuestionNo,
+                    SectionName = a.SectionName
+                }).ToList();
+               
+            }
+
+
             var tupleData = new Tuple<StudentExamViewModel, List<ExamQuestionSectionViewModel>>(model, questionSectionViewmodel);
             return View(tupleData);
 
@@ -106,9 +115,11 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
                     OptionDText = a.OptionDText,
                     OptionENo = a.OptionENo,
                     OptionEText = a.OptionEText,
+                    SectionName = a.SectionName,
                     AnswerNo = anseredQuestion?.AnswerNo,
                     AnswerText = anseredQuestion?.AnswerText,
-                    IsAnswer = anseredQuestion?.IsAnswer ?? 0
+                    IsAnswer = anseredQuestion?.IsAnswer ?? 0,
+
                 }).FirstOrDefault();
 
 
@@ -166,14 +177,14 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
             model.CourseID = Convert.ToInt32(courseID);
             var index = Convert.ToInt32(questionNo);
             var total = 25;
-            model.Current = index==0?1:index;
+            model.Current = index == 0 ? 1 : index;
             model.Total = total;
             model.Previous = (index - 1) <= 0 ? 1 : index - 1;
             model.Next = index + 1 > total ? index : index + 1;
             model.FirstLengthStart = index - 13 <= 0 ? 1 : index - 13;
             model.FirstLengthEnd = (index - 1) < 0 ? 0 : index - 1;
             model.SecondLengthStart = index + 1 > total ? index : index + 1;
-            model.SecondLengthEnd = index + 15 > total ? total : index + 15;
+            model.SecondLengthEnd = index == total ? 0 : index + 15 > total ? total : index + 15;
 
 
             return PartialView("_HeaderButton", model);

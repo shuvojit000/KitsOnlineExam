@@ -1,15 +1,15 @@
 ﻿@model Lincoln.Admin.Web.Models.ExamHeaderButtonViewModel
 <div id="navContainer" class="hideOverFlowFF">
     <div id="navigationPanelL" class="navPanelL">
-            @for (int i = Model.FirstLengthStart; i <= Model.FirstLengthEnd; i++)
+        @for (int i = Model.FirstLengthStart; i <= Model.FirstLengthEnd; i++)
             {
-                <a id="@i" onclick="goTo('@i','@Model.CourseID');" class="goTo">
-                    <span class="directNavElement icon2 question  ">
-                        <span class="directNavLabel lftS ">@i</span>
-                    </span>
-                </a>
-            }
-        </div>
+            <a id="@i" onclick="goTo('@i','@Model.CourseID');" class="goTo">
+                <span class="directNavElement icon2 question  ">
+                    <span class="directNavLabel  @(i.ToString().Length == 1 ? "lftS" : i.ToString().Length ==2? "lftM":"lftL") ">@i</span>
+                </span>
+            </a>
+        }
+    </div>
 
     <div class="questionNavPanel navPanelM">
         <div class="navIconLft icon2 castlenavleft activeNav">
@@ -30,7 +30,7 @@
         {
             <a id="@i" onclick="goTo('@i','@Model.CourseID');" class="goTo">
                 <span class="directNavElement icon2 question">
-                    <span class="directNavLabel lftS ">@i</span>
+                    <span class="directNavLabel @(i.ToString().Length == 1 ? "lftS" : i.ToString().Length ==2? "lftM":"lftL") ">@i</span>
                 </span>
             </a>
         }

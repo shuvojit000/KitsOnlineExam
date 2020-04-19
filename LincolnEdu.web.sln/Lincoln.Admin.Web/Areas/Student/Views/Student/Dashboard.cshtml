@@ -1,4 +1,4 @@
-﻿
+﻿@using Lincoln.Framework.Common;
 @model IEnumerable<Lincoln.Admin.Web.Models.StudentDashboardViewModel>
 @{
     ViewBag.Title = "Dashboard";
@@ -31,7 +31,7 @@
                             <td>
                                 @if (item.ExamAttendance == "I")
                                 {
-                                    <a href="@Url.Action("ExaminationView","Student",new {area="Student",id=item.CourseID })" class="btn btn-success" title="Start">Exam Start Now</a>
+                                    <a href="@Url.Action("ExaminationView","Student",new {area="Student",id=CryptoSecurity.encrypt(item.CourseID.ToString()) })" class="btn btn-success" title="Start">Exam Start Now</a>
                                         }
                             </td>
                         </tr>

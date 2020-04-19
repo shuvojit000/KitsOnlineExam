@@ -3,7 +3,12 @@
     ViewBag.Title = "Exam";
     Layout = "~/Areas/Student/Views/Shared/_ExamLayout.cshtml";
 }
-
+<style>
+    .sectionBack {
+        background: #F37B53;
+    }
+</style>
+<link href="~/Content/assets/HighPiorityjqueryLib/jquery-ui.css" rel="stylesheet" />
 <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
 <div class="content-wrapper">
     <div class="content-body">
@@ -49,7 +54,7 @@
                                                                 <div class="row">
                                                                     <div class="col-sm-12">
                                                                         <div id="navHeader">
-                                                                            @{ Html.RenderAction("HeaderButton", "Student", new { area = "Student", courseID = Model.Item1.CourseID, questionNo="1" });}
+                                                                            @{ Html.RenderAction("HeaderButton", "Student", new { area = "Student", courseID = Model.Item1.CourseID, questionNo = "1" });}
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -62,7 +67,7 @@
                                                                                 {
                                                                                     foreach (var sectionData in Model.Item2)
                                                                                     {
-                                                                                        <a id="save_next" style="cursor:pointer" onclick="fnSetQuestionSheet('@Model.Item1.CourseID','@sectionData.MinQuestionNo','@sectionData.SectionName')" class="load_more btnk btnk-primary"><span>@sectionData.SectionName</span></a>
+                                                                                        <a id="sect-@sectionData.SectionName" style="cursor:pointer" onclick="fnSetQuestionSheet('@Model.Item1.CourseID','@sectionData.MinQuestionNo','@sectionData.SectionName')" class="load_more btnk btnk-primary secdata"><span>@sectionData.SectionName</span></a>
                                                                                     }
 
                                                                                 }
@@ -94,7 +99,6 @@
                                                                                     questionNo = Model.Item2?.FirstOrDefault().MinQuestionNo.ToString() ?? string.Empty,
                                                                                     sectionName = Model.Item2?.FirstOrDefault().SectionName.ToString() ?? string.Empty
                                                                                 });}
-
                                                                         </div>
                                                                     </div><!-- /.col-sm-10 -->
                                                                     <!--QUESTION BODY RIGHT SECTION END-->
@@ -123,14 +127,14 @@
         <!--/ Stats -->
     </div>
     @*<div class="footerk">
-        <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2">
-            <span class="float-md-left d-block d-md-inline-block">
-                Copyright  &copy; 2019
-                <a class="text-bold-800 grey darken-2" href="http://kreativesit.com" target="_blank">KITS</a>
-            </span>
-            <span class="float-md-right d-none d-lg-block">ESA<i class="fa fa-home pink"></i></span>
-        </p>
-    </div>*@
+            <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2">
+                <span class="float-md-left d-block d-md-inline-block">
+                    Copyright  &copy; 2019
+                    <a class="text-bold-800 grey darken-2" href="http://kreativesit.com" target="_blank">KITS</a>
+                </span>
+                <span class="float-md-right d-none d-lg-block">ESA<i class="fa fa-home pink"></i></span>
+            </p>
+        </div>*@
 </div>
 @*<div class="modal fade" id="myModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog">
@@ -145,9 +149,11 @@
         </div>
     </div>*@
 
-<div id="dialog">
+
+<div id="dialog" title="Calculator">
     @{Html.RenderAction("CalculatorWindow", "Student", new { area = "Student" }); }
 </div>
+
 <script src="~/Content/assets/TestExam/jquery.countdownTimer.js"></script>
 <script>
     $(function () {
@@ -164,7 +170,10 @@
             autoOpen: false,
         });
     });
-     function fnSetQuestionSheet(courseID, questionNo, sectionName) {
+    function ShowCalculator() {
+        $('#dialog').dialog('open');
+    }
+    function fnSetQuestionSheet(courseID, questionNo, sectionName) {
         fnArrangeHeaderbutton(questionNo, courseID);
         $('#QuestionBody').load('/Student/Student/QuestionSheet/' + courseID + '/' + questionNo + '/' + sectionName);
         fnSaveExaminationTest();
@@ -220,7 +229,7 @@
             var model = {
                 QuestionNo: $('#QuestionNo').val(),
                 IsAnswer: $('#IsAnswer').val(),
-                AnswerText:$('input[name="QuestionType"]:checked').val()=="S"?CKEDITOR.instances['AnswerText'].getData():"",
+                AnswerText: $('input[name="QuestionType"]:checked').val() == "S" ? CKEDITOR.instances['AnswerText'].getData() : "",
                 AnswerNo: $('input[name="AnswerNo"]:checked').val()
             };
             $.ajax({
@@ -279,9 +288,7 @@
         fnArrangeHeaderbutton(questionNo, courseID);
     }
 
-    function ShowCalculator() {
-        $('#dialog').dialog('open');
-    }
+    
 
     function fnRefreshLeftPanel() {
         $('.casLftPanel').load('/Student/Student/LeftSuggestionPanel/@Model.Item1.CourseID');

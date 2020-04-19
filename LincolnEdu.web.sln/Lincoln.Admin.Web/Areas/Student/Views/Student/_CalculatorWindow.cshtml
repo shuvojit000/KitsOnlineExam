@@ -1,162 +1,394 @@
-﻿<style>
-    @@import url(https://fonts.googleapis.com/css?family=Droid+Sans+Mono|Pacifico|Oxygen);
+﻿
+<link href="~/Content/assets/calStyle/calculator.css" rel="stylesheet" />
 
-    /*body {
-        background-color: darkkhaki;
-    }
 
-    p {
-        margin: 0;
-        font-family: Pacifico;
-        position: relative;
-        left: 5%;
-    }*/
-
-    .calculator {
-        position: relative;
-        margin: 1em auto;
-        padding: 1em 0;
-        /*display: block-inline;*/
-        width: 350px;
-        background-color: #444;
-        border-radius: 25px;
-        box-shadow: 5px 5px 15px 3px #111;
-        font-family: 'Oxygen';
-    }
-
-    .calc-row {
-        text-align: center;
-    }
-
-        .calc-row div.screen {
-            /*font-family: Droid Sans Mono;*/
-            display: table;
-            width: 85%;
-            background-color: #aaa;
-            text-align: right;
-            font-size: 2em;
-            min-height: 1.2em;
-            margin-left: 0.5em;
-            padding-right: 0.5em;
-            border: 1px solid #888;
-            color: #333;
-        }
-
-        .calc-row div {
-            text-align: center;
-            display: inline-block;
-            font-weight: bold;
-            border: 1px solid #555;
-            background-color: #eee;
-            padding: 10px 0;
-            margin: 7px 5px;
-            border-radius: 15px;
-            box-shadow: 2px 2px 1px 1px #222;
-            width: 50px;
-        }
-
-            .calc-row div.zero {
-                width: 112px;
-            }
-
-            .calc-row div.zero {
-                margin-right: 5px;
-            }
-</style>
-
-<div class="calculator">
-    <p>FreeCodeCalc</p>
-    <div class="calc-row">
-        <div class="screen"></div>
+<main class="containercal">
+    <div id="calculator">
+        <div class="top-part">
+            @*<div class="top_cal">
+                    <h5 class="branding_cal">Calculator</h5>
+                    <div class="window">
+                        <div class="minimize button_cal" role="button">
+                            <img class="icon_cal icons8-Minus-Math-" src="~/Content/assets/calStyle/1a.png">
+                        </div>
+                        <div class="maximize button_cal" role="button">
+                            <img class="icon_cal icons8-Rectangle" src="~/Content/assets/calStyle/2b.png">
+                        </div>
+                        <button class="close button_cal" role="button" data-dismiss="modal" aria-hidden="true">
+                            <img class="icon_cal icons8-Multiply" src="~/Content/assets/calStyle/3c.png">
+                        </button>
+                    </div>
+                </div>*@
+            <div class="type">
+                <div class="column_cal menucal">
+                    <div class="calculator-menu button-top" role="button">
+                        <img class="icon_cal icons8-Menu" src="~/Content/assets/calStyle/4d.png">
+                    </div>
+                    <label class="calculator-chosen">STANDARD</label>
+                </div>
+                <div class="column_cal history">
+                    <div class="button-top" role="button">
+                        <img class="icon_cal icons8-Past" src="~/Content/assets/calStyle/5e.png">
+                    </div>
+                </div>
+            </div>
+            <div class="screen_cal">
+                <div class="history-screen_cal">
+                    <input id="history" name="history" type="text" value="" disabled>
+                </div>
+                <div class="main-screen_cal">
+                    <input id="main_cal" name="main" value="" type="text" disabled>
+                </div>
+            </div>
+            <div class="bottom">
+                <div class="memory">
+                    <div role="button">MC</div>
+                    <div role="button">MR</div>
+                    <div role="button">M+</div>
+                    <div role="button">M-</div>
+                    <div role="button">MS</div>
+                    <div role="button">M&darr;</div>
+                </div>
+            </div>
+        </div>
+        <section class="bottom-part">
+            <div class="features">
+                <div class="sub-menucal">
+                    <div class="row_cal">
+                        <div id="percentage" class="button_cal image sign" data-value="%" role="button">
+                            <img class="icon_cal icons8-Percentage" src="~/Content/assets/calStyle/6f.png">
+                        </div>
+                        <div id="sqrt" class="button_cal image sign" data-value="sqrt" role="button">
+                            <img class="icon_cal icons8-Square-Root" src="~/Content/assets/calStyle/7g.png">
+                        </div>
+                        <div id="sqr" class="button_cal sign" data-value="sqr" role="button">
+                            <span class="x-sign">
+                                <sub>x</sub>
+                            </span>
+                            <span>
+                                <sup>2</sup>
+                            </span>
+                        </div>
+                        <div id="fraction" class="button_cal sign" data-value="1/x" role="button">
+                            <span>
+                                <sup>1</sup>
+                            </span>
+                            <span>&frasl;</span>
+                            <span class="x-sign">
+                                <sub><em>x</em></sub>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-menucal">
+                    <div class="row_cal">
+                        <div id="clear-entry" class="button_cal sign" data-value="CE" role="button">CE</div>
+                        <div id="clear" class="button_cal sign" data-value="C" role="button">C</div>
+                        <div id="clear-element" class="button_cal image sign" data-value="CS" role="button">
+                            <img class="icon_cal icons8-Clear-Symbol" src="~/Content/assets/calStyle/8h.png">
+                        </div>
+                        <div id="divide" class="button_cal image sign" data-value="/" role="button">
+                            <img class="icon_cal icons8-Divide" src="~/Content/assets/calStyle/9i.png">
+                        </div>
+                    </div>
+                    <div class="row_cal">
+                        <div class="button_cal number_cal" role="button" data-value="7">7</div>
+                        <div class="button_cal number_cal" role="button" data-value="8">8</div>
+                        <div class="button_cal number_cal" role="button" data-value="9">9</div>
+                        <div id="multiply" class="button_cal image sign" data-value="*" role="button">
+                            <img class="icon_cal icons8-Multiply" src="~/Content/assets/calStyle/10j.png">
+                        </div>
+                    </div>
+                    <div class="row_cal">
+                        <div class="button_cal number_cal" role="button" data-value="4">4</div>
+                        <div class="button_cal number_cal" role="button" data-value="5">5</div>
+                        <div class="button_cal number_cal" role="button" data-value="6">6</div>
+                        <div id="minus" class="button_cal image sign" data-value="-" role="button">
+                            <img class="icon_cal icons8-Minus-Math-" src="~/Content/assets/calStyle/11k.png">
+                        </div>
+                    </div>
+                    <div class="row_cal">
+                        <div class="button_cal number_cal" role="button" data-value="1">1</div>
+                        <div class="button_cal number_cal" role="button" data-value="2">2</div>
+                        <div class="button_cal number_cal" role="button" data-value="3">3</div>
+                        <div id="plus" class="button_cal image sign" data-value="+" role="button">
+                            <img class="icon_cal icons8-Plus-Math" src="~/Content/assets/calStyle/12l.png">
+                        </div>
+                    </div>
+                    <div class="row_cal">
+                        <div id="plus-minus" class="button_cal image sign" data-value="+-" role="button">
+                            <img class="icon_cal icons8-Plus-Minus" src="~/Content/assets/calStyle/13m.png">
+                        </div>
+                        <div class="button_cal number_cal" role="button" data-value="0">0</div>
+                        <div id="dot" class="button_cal dot sign" data-value="." role="button">.</div>
+                        <div id="equal" class="button_cal image equals sign" data-value="=" role="button">
+                            <img class="icon_cal icons8-Equal-Sign" src="~/Content/assets/calStyle/14n.png" width="32" height="32">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-
-    <div class="calc-row">
-        <div class="button">C</div><div class="button">CE</div><div class="button backspace">back</div><div class="button plus-minus">+/-</div><div class="button">%</div>
-    </div>
-
-    <div class="calc-row">
-        <div class="button">7</div><div class="button">8</div><div class="button">9</div><div class="button divice">/</div><div class="button root">sqrt</div>
-    </div>
-
-    <div class="calc-row">
-        <div class="button">4</div><div class="button">5</div><div class="button">6</div><div class="button multiply">*</div><div class="button inverse">1/x</div>
-    </div>
-
-    <div class="calc-row">
-        <div class="button">1</div><div class="button">2</div><div class="button">3</div><div class="button">-</div><div class="button pi">pi</div>
-    </div>
-
-    <div class="calc-row">
-        <div class="button zero">0</div><div class="button decimal">.</div><div class="button">+</div><div class="button equal">=</div>
-    </div>
-</div>
+</main>
 <script>
-    $(document).ready(function () {
-        var result = 0;
-        var prevEntry = 0;
-        var operation = null;
-        var currentEntry = '0';
-        //updateScreen(result);
+    (function () {
+        'use strict';
+        // result
+        var result;
+        // current number
+        var currNum;
+        // prev result
+        var prevResult;
+        // history
+        var history;
+        // prev btn pressed
+        var prevBtn;
+        // math operation
+        var mathOp;
+        // prev math operation
+        var prevMathOp;
+        // math operation counter
+        var mathOpCount;
+        // math op pressed?
+        var mathOpPress;
+        // init
+        var isInit;
+        // main screen
+        var mainScreen = document.querySelector('#main_cal');
+        // history screen
+        var historyScreen = document.querySelector('#history');
 
-        $('.button').on('click', function (evt) {
-            var buttonPressed = $(this).html();
-            console.log(buttonPressed);
+        // attach click events to buttons
+        Array.prototype.forEach.call(document.querySelectorAll('.button_cal'), function (btn) {
+            btn.addEventListener('click', function (e) {
+                // `e.currentTarget` or `this`
+                var btnClicked = e.currentTarget.getAttribute('data-value');
+                input(btnClicked);
+            });
+        });
 
-            if (buttonPressed === "C") {
-                result = 0;
-                currentEntry = '0';
-            } else if (buttonPressed === "CE") {
-                currentEntry = '0';
-            } else if (buttonPressed === "back") {
-                //currentEntry = currentEntry.substring(0, currentEntry.length-1);
-            } else if (buttonPressed === "+/-") {
-                currentEntry *= -1;
-            } else if (buttonPressed === '.') {
-                currentEntry += '.';
-            } else if (isNumber(buttonPressed)) {
-                if (currentEntry === '0') currentEntry = buttonPressed;
-                else currentEntry = currentEntry + buttonPressed;
-            } else if (isOperator(buttonPressed)) {
-                prevEntry = parseFloat(currentEntry);
-                operation = buttonPressed;
-                currentEntry = '';
-            } else if (buttonPressed === '%') {
-                currentEntry = currentEntry / 100;
-            } else if (buttonPressed === 'sqrt') {
-                currentEntry = Math.sqrt(currentEntry);
-            } else if (buttonPressed === '1/x') {
-                currentEntry = 1 / currentEntry;
-            } else if (buttonPressed === 'pi') {
-                currentEntry = Math.PI;
-            } else if (buttonPressed === '=') {
-                currentEntry = operate(prevEntry, currentEntry, operation);
-                operation = null;
+        // initialize
+        function init() {
+            result = null;
+            currNum = 0;
+            prevBtn = null;
+            mathOp = null;
+            prevMathOp = null;
+            mathOpCount = 0;
+            history = '';
+            mathOpPress = false;
+            isInit = true;
+            updateMainScreen(0);
+            updateHistoryScreen(history);
+        }
+
+        //
+        function input(btn) {
+
+            // copy prev math op
+            if (!isNaN(prevBtn) && btn !== '=' && btn !== 'C' && btn !== 'CE' && btn !== 'CS' && btn !== '.') {
+                prevMathOp = mathOp;
             }
 
-            updateScreen(currentEntry);
-        });
-    });
+            switch (btn) {
+                case '+': mathOpPress = true; mathOp = addition; break;
+                case '-': mathOpPress = true; mathOp = subtraction; break;
+                case '/': mathOpPress = true; mathOp = division; break;
+                case '*': mathOpPress = true; mathOp = multiplication; break;
+                case 'C': init(); break;
+            }
 
-    updateScreen = function (displayValue) {
-        var displayValue = displayValue.toString();
-        $('.screen').html(displayValue.substring(0, 10));
-    };
+            handler(btn);
 
-    isNumber = function (value) {
-        return !isNaN(value);
-    }
 
-    isOperator = function (value) {
-        return value === '/' || value === '*' || value === '+' || value === '-';
-    };
+            var fontSize = parseFloat(mainScreen.style.fontSize);
+            // return to default main screen size
+            if (fontSize < 3 && currNum.length < 11) {
+                mainScreen.style.fontSize = '3rem';
+            }
 
-    operate = function (a, b, operation) {
-        a = parseFloat(a);
-        b = parseFloat(b);
-        console.log(a, b, operation);
-        if (operation === '+') return a + b;
-        if (operation === '-') return a - b;
-        if (operation === '*') return a * b;
-        if (operation === '/') return a / b;
-    }
+            console.log('Result: ' + result);
+            console.log('Prev result: ' + prevResult);
+            console.log('current number: ' + currNum);
+            console.log('btn: ' + btn);
+            console.log('Prev Math Op: ' + prevMathOp);
+            console.log('Math Op Counter: ' + mathOpCount);
+            console.log('Prev btn: ' + prevBtn);
+            console.log('History: ' + history);
+            console.log('Main Screen ' + mainScreen.value);
+            console.log('*'.repeat(15));
+        }
+
+        //
+        function handler(btn) {
+            // return if C wasn't pressed when divide by zero was done
+            if (btn !== 'C' && result === 'Result is undefined' || result === 'Cannot divide by zero') {
+                return;
+            }
+
+            // update history
+            if (btn !== '=' && btn !== 'C' && btn !== 'CE' && btn !== 'CS') {
+                history = (isNaN(prevBtn) && isNaN(btn)) ? history.slice(0, -1) + btn : history + btn;
+            }
+
+            // btn clicked is `Number` or `.`
+            if (!isNaN(btn) || btn === '.') {
+                if (btn === '.' && /^\d+$/.test(currNum)) {
+                    currNum = currNum + btn;
+                } else if (!isNaN(btn)) {
+                    currNum = (!isNaN(prevBtn) && prevBtn !== null && mainScreen.value !== '0') || prevBtn === '.' ? currNum + btn : btn;
+                }
+                mathOpPress = false;
+                updateMainScreen(currNum);
+                // btn clicked is `Sign`
+            } else {
+
+                // update history
+                if (btn === '-' || btn === '+' || btn === '*' || btn === '/') {
+                    // for example, when `-` is pressed, add `0 -` to history screen
+                    if ((prevBtn === null || prevBtn === '=') && !isInit) {
+                        history = '0' + btn;
+                        mathOpCount++;
+                    }
+
+                    if (!historyScreen.value.length && mainScreen.value.length) {
+                        history = mainScreen.value + btn;
+                    }
+                }
+
+                // if math op was pressed and result is null
+                if (mathOp && result === null) {
+                    result = Number(currNum);
+                }
+
+                // count percents
+                if (btn === '%') {
+                    history = history.slice(0, -(currNum.length + 1));
+                    currNum = percentage(currNum, result);
+                    history += currNum + ' ';
+                    updateMainScreen(currNum);
+                    // count square or square root
+                } else if (btn === 'sqr' || btn === 'sqrt' || btn === '1/x') {
+                    history = history.slice(0, -(currNum.length + btn.length)) + (btn === '1/x' ? '1/(' + currNum + ') ' : btn + '(' + currNum + ') ');
+                    currNum = (btn === 'sqr') ? square(currNum) : (btn === 'sqrt') ? squareRoot(currNum) : fraction(currNum);
+                    updateMainScreen(currNum);
+                    updateHistoryScreen(history);
+                }
+
+                // count result
+                if (btn === '=') {
+                    // if math op exists
+                    if (mathOp) {
+                        mathOpCount = 0;
+                        // if last button pressed is `mathOperation`
+                        // like `+, - etc.` before `=` was pressed
+                        if (mathOpPress) {
+                            mathOp(prevResult);
+                            // if last button pressed is `digit` before `=` was pressed
+                        } else {
+                            mathOp(Number(currNum));
+                        }
+
+                        history = '';
+                        prevBtn = btn;
+
+                        updateMainScreen(result);
+                        updateHistoryScreen(history);
+
+                        return;
+                    }
+                }
+
+                // count math ops
+                // if sign was pressed and prev btn isn't sign and except some buttons
+                if (isNaN(btn) && (!isNaN(prevBtn) || prevBtn === '%' || prevBtn === 'sqr' || prevBtn === 'sqrt' || prevBtn === '1/x') &&
+                    btn !== '=' && btn !== 'C' && btn !== 'CE' && btn !== 'CS' && btn !== '.' && btn !== '%' && btn !== 'sqr' & btn !== 'sqrt' && btn !== '1/x') {
+                    mathOpCount++;
+                }
+
+                // count result in row_cal
+                if (mathOpCount >= 2 && (!isNaN(prevBtn) || prevBtn === 'sqrt' || prevBtn === 'sqr' || prevBtn === '1/x' || prevBtn === '%') && btn !== 'CE' && btn !== 'CS') {
+                    prevMathOp(Number(currNum));
+                    updateMainScreen(result);
+                }
+
+                if (btn === 'CE' && history.length > 0) {
+                    history = history.slice(0, -(currNum.length));
+                    currNum = '0';
+                    updateMainScreen(0);
+                } else if (btn === 'CS') {
+                    if (result != mainScreen.value) {
+                        currNum = currNum.slice(0, -1);
+                        history = history.slice(0, -1);
+                        if (!currNum.length) {
+                            currNum = '0';
+                        }
+                        updateMainScreen(currNum);
+                    } else {
+                        return;
+                    }
+                }
+
+                if (result !== null && btn !== 'CE' && btn !== 'CS') {
+                    updateHistoryScreen(history);
+                }
+            }
+
+            prevBtn = btn;
+            prevResult = result;
+            isInit = false;
+        }
+
+        function updateMainScreen(val) {
+
+            val = String(val);
+
+            if (val.length > 10) {
+                mainScreen.style.fontSize = '1.75rem';
+                val = Math.round(val * 10000000000000000) / 10000000000000000;
+            }
+
+            mainScreen.value = val;
+        }
+
+        function updateHistoryScreen(history) {
+            historyScreen.value = history;
+        }
+
+        function addition(val) {
+            result += val;
+        }
+
+        function subtraction(val) {
+            result -= val;
+        }
+
+        function division(val) {
+            result /= val;
+        }
+
+        function multiplication(val) {
+            result *= val;
+        }
+
+        function square(val) {
+            return val * val;
+        }
+
+        function squareRoot(val) {
+            return Math.sqrt(val);
+        }
+
+        function percentage(val, res) {
+            return res * val / 100;
+        }
+
+        function fraction(val) {
+            return 1 / val;
+        }
+
+        init();
+
+    })();
+
 </script>
