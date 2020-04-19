@@ -12,7 +12,7 @@
     </div>
 
     <div class="questionNavPanel navPanelM">
-        <div class="navIconLft icon2 castlenavleft activeNav">
+        <div class="navIconLft icon2 castlenavleft  @(Model.Current==1?"disableNav ":"activeNav")">
             <a class="navLabel right noUnderline" onclick="goTo('@Model.Previous','@Model.CourseID');" title="Previous Question">Prev</a>
         </div>
         <div class="navCountElement">
@@ -20,7 +20,7 @@
                 <span id="lblCurrentQuestion">@Model.Current</span>
             </span>
         </div>
-        <div class="navIconRht icon2 castlenavright activeNav">
+        <div class="navIconRht icon2 castlenavright @(Model.Current==Model.Total?"disableNav ":"activeNav")">
             <a class="navLabel left noUnderline" onclick="goTo('@Model.Next','@Model.CourseID');" title="Next Question">Next</a>
         </div>
     </div>

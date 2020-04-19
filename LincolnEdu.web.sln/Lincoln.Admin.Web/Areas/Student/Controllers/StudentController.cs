@@ -181,10 +181,10 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
             model.Total = total;
             model.Previous = (index - 1) <= 0 ? 1 : index - 1;
             model.Next = index + 1 > total ? index : index + 1;
-            model.FirstLengthStart = index - 13 <= 0 ? 1 : index - 13;
+            model.FirstLengthStart = index - 14 <= 0 ? 1 : index - 14;
             model.FirstLengthEnd = (index - 1) < 0 ? 0 : index - 1;
             model.SecondLengthStart = index + 1 > total ? index : index + 1;
-            model.SecondLengthEnd = index == total ? 0 : index + 15 > total ? total : index + 15;
+            model.SecondLengthEnd = index == total ? 0 : index + 14 > total ? total : index + 14;
 
 
             return PartialView("_HeaderButton", model);
