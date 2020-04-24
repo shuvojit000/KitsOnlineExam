@@ -1,4 +1,4 @@
-﻿
+﻿@using Lincoln.Framework.Common;
 @model IEnumerable<Lincoln.Admin.Web.Models.FacultyDashboardViewModel>
 @{
     ViewBag.Title = "Dashboard";
@@ -29,7 +29,7 @@
                             <div class="card-content">
                                 <div class="media align-items-stretch">
                                     <div class="p-2 bg-gradient-x-primary white media-body">
-                                        <h5>Course:</h5> &nbsp; <a href="@Url.Action("QuestionSetUp", "Faculty", new { area = "Faculty", id = item.CourseID })" class="color"><span>@item.CourseName (@item.CourseCode)</span></a>
+                                        <h5>Course:</h5> &nbsp; <a href="@Url.Action("QuestionSetUp", "Faculty", new { area = "Faculty", id = CryptoSecurity.encrypt(item.CourseID.ToString()) })" class="color"><span>@item.CourseName (@item.CourseCode)</span></a>
                                         <h5>No of Question: </h5>&nbsp; <span class="color">@item.NoOfQuestion</span>
                                         <h5>No of Question: </h5> <span class="color">@item.SectionInQuestion</span>
                                     </div>

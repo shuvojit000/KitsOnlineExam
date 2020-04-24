@@ -1,5 +1,6 @@
 ﻿using Lincoln.Admin.Web.Controllers;
 using Lincoln.Admin.Web.Models;
+using Lincoln.Framework.Common;
 using Lincoln.OnlineExam;
 using System;
 using System.Collections.Generic;
@@ -46,10 +47,10 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
         }
         public ActionResult QuestionSetUp(string id)
         {
+            var returnID = CryptoSecurity.Decrypt(id);
             var model = new QuestionSetUpViewModel();
-
-            model.CourseID = Convert.ToInt32(id);
-            model.ExamSectionList = GetAllExaminationSection().Where(a => a.CourseID == Convert.ToInt32(id) && a.Active == "A").Select(c => new SelectListItem
+            model.CourseID = Convert.ToInt32(returnID);
+            model.ExamSectionList = GetAllExaminationSection().Where(a => a.CourseID == Convert.ToInt32(returnID) && a.Active == "A").Select(c => new SelectListItem
             {
                 Text = c.SectionName,
                 Value = c.ExaminationSectionID.ToString()
