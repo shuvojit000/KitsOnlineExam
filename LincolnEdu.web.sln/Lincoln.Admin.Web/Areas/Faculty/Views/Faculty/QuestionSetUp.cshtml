@@ -64,8 +64,8 @@
 <script>
 
     $(document).on("change", "#ExaminationSectionID", function () {
-
-        if ($('#ExaminationSectionID').val()!='' && $('#ExaminationSectionID').val()!=null) {
+        if ($('#ExaminationSectionID').val() != '' && $('#ExaminationSectionID').val() != null) {
+            fnLoadQuestionList($('#ExaminationSectionID').val());
             $.ajax({
                 url: '@Url.Action("AddQuestion", "Faculty",new {area= "Faculty" })',
                 data: {examSectionID:$('#ExaminationSectionID').val()},
@@ -74,7 +74,6 @@
                 contentType: "application/json;charset=utf-8",
                 dataType: 'html',
                 success: function (result) {
-
                       $('.paperdetails').html(result);
                 },
                 error: function (e) {
@@ -82,15 +81,34 @@
                 }
          });
         }
-        else {
-            fnResetScreen();
-        }
     });
 
-    function fnResetScreen() {
+    function fnResetScreen(examSectionID) {
 
-        $('#ExaminationSectionID').val('');
-        $('.paperdetails').html('');
+        if (examSectionID!='') {
+            $.ajax({
+                url: '@Url.Action("AddQuestion", "Faculty",new {area= "Faculty" })',
+                data: { examSectionID: examSectionID },
+                type: 'GET',
+                cache: false,
+                contentType: "application/json;charset=utf-8",
+                dataType: 'html',
+                success: function (result) {
+
+                    $('.paperdetails').html(result);
+                },
+                error: function (e) {
+                    alert('Error in your requst.');
+                }
+            });
+        }
+        else {
+            $('#ExaminationSectionID').val('');
+            $('.paperdetails').html('');
+        }
+        
+
+       
     }
 
     function fnSavePaperDetails() {
@@ -131,8 +149,8 @@
                 success: function (result) {
                     if (result > 0) {
                         alert('Question Saved Successfully.');
-                        fnResetScreen();
-                        fnLoadQuestionList();
+                        fnResetScreen($('#ExaminationSectionID').val());
+                        fnLoadQuestionList($('#ExaminationSectionID').val());
 
                     } else {
                         alert('Error in your requst.');
@@ -162,6 +180,15 @@
                 ret = false;
                 $('#QuestionMarksVal').css({ 'display': 'block' });
             }
+            else if (parseInt($('#RemainingMarks').val()) < parseInt($('#QuestionMarks').val())) {
+                ret = false;
+                alert('Question marks should be less than and equal with remaing marks.');
+            }
+            else if ($('#RemainingMarks').val() == 0) {
+                ret = false;
+                alert('You cannot add more question in this section.');           
+            }
+           
 
         }
         else if ($('input[name="QuestionType"]:checked').val() == 'O') {
@@ -192,6 +219,14 @@
             else if ($('#QuestionMarks').val() == '') {
                 ret = false;
                 $('#QuestionMarksVal').css({ 'display': 'block' });
+            }
+            else if (parseInt($('#RemainingMarks').val()) < parseInt($('#QuestionMarks').val())) {
+                ret = false;
+                alert('Question marks should be less than and equal with remaing marks.');
+            }
+            else if ($('#RemainingMarks').val() == 0) {
+                ret = false;
+                alert('You cannot add more question in this section.');
             }
         }
 
@@ -233,8 +268,8 @@
                 success: function (result) {
                     if (result > 0) {
                         alert('Question has been deleted Successfully.');
-                        fnResetScreen();
-                        fnLoadQuestionList();
+                        fnResetScreen($('#ExaminationSectionID').val());
+                        fnLoadQuestionList($('#ExaminationSectionID').val());
                     }
                 },
                 error: function (e) {
@@ -243,7 +278,7 @@
             });
         }
     }
-    function fnLoadQuestionList() {
-        $('.paperdetailsList').load('/Faculty/Faculty/QuestionList');
+    function fnLoadQuestionList(id) {
+        $('.paperdetailsList').load('/Faculty/Faculty/QuestionList/'+id);
     }
 </script>

@@ -163,9 +163,19 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
             return PartialView("_AddQuestion", model);
         }
 
-        public PartialViewResult QuestionList()
+        public PartialViewResult QuestionList(string id)
         {
-            return PartialView("_listQuestion", GetPaperDetails());
+
+            if (!string.IsNullOrEmpty(id))
+            {
+                return PartialView("_listQuestion", GetPaperDetails().Where(a=>a.ExaminationSectionID==Convert.ToUInt32(id)).ToList());
+            }
+            else
+            {
+                return PartialView("_listQuestion", GetPaperDetails());
+            }
+
+           
         }
 
         public PartialViewResult QuestionView(string id)
@@ -328,8 +338,8 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
             {
 
                 CreatedBy = User.UserId,
-                PaperDetailsID = model.PaperDetailsID
-
+                PaperDetailsID = model.PaperDetailsID,
+                Active="I"
 
             }, "DELETE");
 
