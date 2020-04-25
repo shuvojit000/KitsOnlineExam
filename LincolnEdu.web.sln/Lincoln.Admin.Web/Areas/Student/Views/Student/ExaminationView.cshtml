@@ -221,7 +221,7 @@
         if (typeof $('input[name="AnswerNo"]:checked').val() !== 'undefined' && $('input[name="AnswerNo"]:checked').val() != '') {
             isAnsQues = true;
         }
-        else if (typeof $('input[name="AnswerText"]').val() !== 'undefined' && $('input[name="AnswerText"]').val() != '') {
+        else if (typeof CKEDITOR.instances['AnswerText'].getData() !== 'undefined' && CKEDITOR.instances['AnswerText'].getData() != '') {
             isAnsQues = true;
         }
         if (isAnsQues) {
@@ -229,7 +229,7 @@
             var model = {
                 QuestionNo: $('#QuestionNo').val(),
                 IsAnswer: $('#IsAnswer').val(),
-                AnswerText: $('input[name="QuestionType"]:checked').val() == "S" ? CKEDITOR.instances['AnswerText'].getData() : "",
+                AnswerText: $('input[name="QuestionType"]').val() == "S" ? CKEDITOR.instances['AnswerText'].getData() : "",
                 AnswerNo: $('input[name="AnswerNo"]:checked').val()
             };
             $.ajax({
