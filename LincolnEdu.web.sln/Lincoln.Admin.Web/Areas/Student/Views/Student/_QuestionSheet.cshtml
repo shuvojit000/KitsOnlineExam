@@ -15,8 +15,8 @@
 
                 <!-- Show Generic Instructions for questions w/ sets -->
                 <div id="HeaderSetInfoPanel">
-                    @*@Html.TextAreaFor(a =>a.QuestionText, new { @class = "form-control" })*@
-                    @Html.Raw(Model.QuestionText)
+                    @Html.TextAreaFor(a =>a.QuestionText, new { @class = "form-control" })
+                    @*@Html.Raw(Model.QuestionText)*@
                 </div>
 
 
@@ -97,20 +97,18 @@
         $('.secdata').removeClass('sectionBack');
         $('#sect-@Model.SectionName').addClass("sectionBack");
     });
-    // CKEDITOR.plugins.addExternal('ckeditor_wiris', 'https://www.wiris.net/demo/plugins/ckeditor/', 'plugin.js');
-    // CKEDITOR.replace('QuestionText', {
-    //     allowedContent: true,
-    //     extraPlugins: 'ckeditor_wiris',
-    //     readOnly: true,
-    //     on:
-    //{
-    //    instanceReady: function (evt) {
-    //        debugger;
-    //        // Hide the editor top bar.
-    //        $('.cke_top').css({'display':'none'});
-    //    }
-    //}
-    // });
+     CKEDITOR.plugins.addExternal('ckeditor_wiris', 'https://www.wiris.net/demo/plugins/ckeditor/', 'plugin.js');
+     CKEDITOR.replace('QuestionText', {
+         allowedContent: true,
+         extraPlugins: 'ckeditor_wiris',
+         readOnly: true,
+         on:
+    {
+        instanceReady: function (evt) {
+            $('.cke_top').css({'display':'none'});
+        }
+    }
+     });
     if ('@Model.QuestionType' == "S") {
 
         CKEDITOR.replace('AnswerText', {

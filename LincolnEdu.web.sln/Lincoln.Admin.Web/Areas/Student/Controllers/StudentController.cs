@@ -176,7 +176,10 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
             var model = new ExamHeaderButtonViewModel();
             model.CourseID = Convert.ToInt32(courseID);
             var index = Convert.ToInt32(questionNo);
-            var total = 25;
+            var total = onlineExamService.GetExamQuestionSection(new OnlineExam.Request.ExamQuestionSectionRequestDTO()
+            {
+                CourseID = Convert.ToInt32(courseID)
+            }).OrderByDescending(a=>a.ExaminationSectionID).FirstOrDefault().MaxQuestionNo.Value;
             model.Current = index == 0 ? 1 : index;
             model.Total = total;
             model.Previous = (index - 1) <= 0 ? 1 : index - 1;
