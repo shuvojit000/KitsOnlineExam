@@ -180,11 +180,11 @@
                 ret = false;
                 $('#QuestionMarksVal').css({ 'display': 'block' });
             }
-            else if (parseInt($('#RemainingMarks').val()) < parseInt($('#QuestionMarks').val())) {
+            else if (parseInt($('#RemainingMarks').val()) < parseInt($('#QuestionMarks').val()) && $('#PaperDetailsID').val()==0) {
                 ret = false;
                 alert('Question marks should be less than and equal with remaing marks.');
             }
-            else if ($('#RemainingMarks').val() == 0) {
+            else if ($('#RemainingMarks').val() == 0 && $('#PaperDetailsID').val() == 0) {
                 ret = false;
                 alert('You cannot add more question in this section.');           
             }
@@ -220,11 +220,11 @@
                 ret = false;
                 $('#QuestionMarksVal').css({ 'display': 'block' });
             }
-            else if (parseInt($('#RemainingMarks').val()) < parseInt($('#QuestionMarks').val())) {
+            else if (parseInt($('#RemainingMarks').val()) < parseInt($('#QuestionMarks').val()) && $('#PaperDetailsID').val() == 0) {
                 ret = false;
                 alert('Question marks should be less than and equal with remaing marks.');
             }
-            else if ($('#RemainingMarks').val() == 0) {
+            else if ($('#RemainingMarks').val() == 0 && $('#PaperDetailsID').val() == 0) {
                 ret = false;
                 alert('You cannot add more question in this section.');
             }

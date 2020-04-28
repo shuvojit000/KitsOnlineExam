@@ -91,6 +91,10 @@
                                                                     <!--QUESTION BODY LEFT SECTION END-->
                                                                     <!--QUESTION BODY RIGHT SECTION START-->
                                                                     <div class="col-sm-10k">
+                                                                        <div id="HeaderSetInfoPanel">
+                                                                            @Html.TextArea("QuestionText", new { @class = "form -control" })
+                                                                            @*@Html.Raw(Model.QuestionText)*@
+                                                                        </div>
                                                                         <div id="QuestionBody">
                                                                             @{Html.RenderAction("QuestionSheet", "Student", new
                                                                                 {
@@ -170,6 +174,18 @@
             autoOpen: false,
         });
     });
+    CKEDITOR.plugins.addExternal('ckeditor_wiris', 'https://www.wiris.net/demo/plugins/ckeditor/', 'plugin.js');
+    CKEDITOR.replace('QuestionText', {
+        allowedContent: true,
+        extraPlugins: 'ckeditor_wiris',
+        readOnly: true,
+        on:
+   {
+       instanceReady: function (evt) {
+           $($('.cke_top')[0]).css({ 'display': 'none' });
+       }
+   }
+    });
     function ShowCalculator() {
         $('#dialog').dialog('open');
     }
@@ -221,7 +237,7 @@
         if (typeof $('input[name="AnswerNo"]:checked').val() !== 'undefined' && $('input[name="AnswerNo"]:checked').val() != '') {
             isAnsQues = true;
         }
-        else if (typeof CKEDITOR.instances['AnswerText'].getData() !== 'undefined' && CKEDITOR.instances['AnswerText'].getData() != '') {
+        else if (typeof CKEDITOR.instances['AnswerText'] !== 'undefined' && CKEDITOR.instances['AnswerText'].getData() != '') {
             isAnsQues = true;
         }
         if (isAnsQues) {
