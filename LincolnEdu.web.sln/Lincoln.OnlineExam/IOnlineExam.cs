@@ -15,17 +15,9 @@ namespace Lincoln.OnlineExam
         List<StudentResponseDTO> GetAllStudent();
         StudentResponseDTO SelectStudent(StudentRequestDTO recordAttributer);
 
-       
-
         int SaveCourse(CourseRequestDTO recordAttributer, string Operation);
-
         List<CourseResponseDTO> GetAllCourse();
-
-        CourseResponseDTO SelectCourse(CourseRequestDTO recordAttributer);
-
-       
-     
-
+        CourseResponseDTO SelectCourse(CourseRequestDTO recordAttributer); 
 
         int SaveAcademicLevel(AcademicLevelRequestDTO recordAttributer, string Operation);
         List<AcademicLevelResponseDTO> GetAllAcademicLevel();
@@ -87,5 +79,11 @@ namespace Lincoln.OnlineExam
         List<StudentExaminationTestResponseDTO> GetExaminationTest(ExaminationTestRequestDTO request);
         int SaveExaminationSheet(StudentExaminationSheetResponseDTO recordAttributer, string Operation);
         List<LeftPanelFeedResponseDTO> GetAttemptQuestion(ExaminationTestRequestDTO request, string Operation);
+
+        List<OnlineExamAppResponseDTO> GetAllOnlineExamApp(AdminOnlineExamRequestDTO request);
+        List<OnlineExamAppResponseDTO> GetAllOnlineExamEvaluation(AdminOnlineExamRequestDTO request);
+        List<OnlineExamAppResponseDTO> GetAllOnlineExamSchedule(AdminOnlineExamRequestDTO request);
+        List<OnlineExamAppResponseDTO> GetAllOnlineExamResult(AdminOnlineExamRequestDTO request);
+        int SaveExaminationConfiguration(AdminOnlineExamRequestDTO recordAttributer, string Operation);
     }
 }

@@ -437,5 +437,44 @@ namespace Lincoln.OnlineExam
             }
         }
 
+
+
+
+        public List<OnlineExamAppResponseDTO> GetAllOnlineExamApp(AdminOnlineExamRequestDTO request)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.GetAllOnlineExamApp(request);
+            }
+        }
+        public List<OnlineExamAppResponseDTO> GetAllOnlineExamEvaluation(AdminOnlineExamRequestDTO request)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.GetAllOnlineExamEvaluation(request);
+            }
+        }
+        public List<OnlineExamAppResponseDTO> GetAllOnlineExamSchedule(AdminOnlineExamRequestDTO request)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.GetAllOnlineExamSchedule(request);
+            }
+        }
+        public List<OnlineExamAppResponseDTO> GetAllOnlineExamResult(AdminOnlineExamRequestDTO request)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.GetAllOnlineExamResult(request);
+            }
+        }
+        public int SaveExaminationConfiguration(AdminOnlineExamRequestDTO recordAttributer, string Operation)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.SaveExaminationConfiguration(recordAttributer, Operation);
+            }
+        }
+
     }
 }

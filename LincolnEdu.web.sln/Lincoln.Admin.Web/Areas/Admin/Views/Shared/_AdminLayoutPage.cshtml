@@ -175,6 +175,27 @@
                     </ul>
                 </li>
                 <li class="nav-item">
+                    <a href="#"><i class="ft-edit"></i><span class="menu-title" data-i18n="">Online Examination</span></a>
+                    <ul class="menu-content">
+
+
+                        <li>
+                            <a class="menu-item" href="@Url.Action("OnlineExaminationApp","Admin",new {area="Admin" })">Online Examination Application</a>
+                        </li>
+                        <li>
+                            <a class="menu-item" href="@Url.Action("ExamScheduling","Admin",new {area="Admin" })">Examination Scheduling</a>
+                        </li>
+
+                        <li>
+                            <a class="menu-item" href="@Url.Action("EvaluationAllotment","Admin",new {area="Admin" })">Evaluation Allotment</a>
+                        </li>
+                        <li>
+                            <a class="menu-item" href="@Url.Action("ResultApproval","Admin",new {area="Admin" })">Result Approval</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="nav-item">
                     <a href="@Url.Action("LogOut","Home",new {area="" })"><i class="ft-power"></i><span class="menu-title" data-i18n="">Logout</span></a>
                 </li>
             </ul>

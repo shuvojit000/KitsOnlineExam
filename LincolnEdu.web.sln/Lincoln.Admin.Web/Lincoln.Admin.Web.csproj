@@ -138,6 +138,7 @@
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.Examination.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.Faculty.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminController.OnlineExaminationController.cs" />
     <Compile Include="Areas\Faculty\Controllers\FacultyController.cs" />
     <Compile Include="Areas\Faculty\FacultyAreaRegistration.cs" />
     <Compile Include="Areas\Student\Controllers\StudentController.cs" />
@@ -148,6 +149,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AcademicViewModel.cs" />
+    <Compile Include="Models\AdminOnlineExaminationViewModel.cs" />
     <Compile Include="Models\AssessmentViewModel.cs" />
     <Compile Include="Models\BatchViewModel.cs" />
     <Compile Include="Models\CourseViewModel.cs" />
@@ -834,6 +836,14 @@
     <Content Include="Areas\Student\Views\Student\_LeftSuggestionPanel.cshtml" />
     <Content Include="Areas\Student\Views\Student\_HeaderButton.cshtml" />
     <Content Include="Areas\Student\Views\Student\_CalculatorWindow.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\OnlineExaminationApp.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_listOnlineExaminationApp.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\ExamSchedule.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_listExamSchedule.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\EvaluationAllotment.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_listEvaluationAllotment.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\ResultApproval.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_listResultApproval.cshtml" />
     <None Include="Properties\PublishProfiles\LinclnAdmin.pubxml" />
     <None Include="Properties\PublishProfiles\LincLonAdmin.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />

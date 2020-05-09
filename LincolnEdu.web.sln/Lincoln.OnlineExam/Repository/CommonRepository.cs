@@ -60,11 +60,6 @@ namespace Lincoln.OnlineExam.Repository
         }
         #endregion
 
-
-
-
-
-
         #region AcademicLevel
 
 
@@ -310,7 +305,6 @@ namespace Lincoln.OnlineExam.Repository
 
         }
         #endregion
-
 
         #region Programme
 
@@ -634,7 +628,6 @@ namespace Lincoln.OnlineExam.Repository
         }
         #endregion
 
-
         #region Programme Semester
 
         public int SaveProgrammeSemester(ProgrammeSemesterRequestDTO recordAttributer, string Operation)
@@ -795,7 +788,6 @@ namespace Lincoln.OnlineExam.Repository
 
       
         #endregion
-
 
         #region Course
 
@@ -1221,7 +1213,6 @@ namespace Lincoln.OnlineExam.Repository
 
         }
         #endregion
-
 
         #region Examination Section
 
@@ -1706,6 +1697,8 @@ namespace Lincoln.OnlineExam.Repository
         }
         #endregion
 
+        #region Tracher Courses
+
         public List<FacultyDashboardResponseDTO> GetAllFacultyCourse(FacultyDashboardRequestDTO recordAttributer)
         {
             var itemSet = new List<FacultyDashboardResponseDTO>();
@@ -1743,5 +1736,213 @@ namespace Lincoln.OnlineExam.Repository
             return itemSet;
 
         }
+
+        #endregion
+
+
+        #region Online Exam Application 
+
+        public List<OnlineExamAppResponseDTO> GetAllOnlineExamApp(AdminOnlineExamRequestDTO request)
+        {
+            var itemSet = new List<OnlineExamAppResponseDTO>();
+
+            SqlParameter courseID = new SqlParameter("@CourseID", SqlDbType.Int);
+            courseID.Value = request.CourseID;
+            SqlParameter departmentID = new SqlParameter("@DepartmentID", SqlDbType.Int);
+            departmentID.Value = request.DepartmentID;
+            SqlParameter programmeID = new SqlParameter("@ProgrammeID", SqlDbType.Int);
+            programmeID.Value = request.ProgrammeID;
+            SqlParameter programmeVersioningID = new SqlParameter("@ProgrammeVersioningID", SqlDbType.Int);
+            programmeVersioningID.Value = request.ProgrammeVersioningID;
+            SqlParameter programmeSemesterID = new SqlParameter("@ProgrammeSemesterID", SqlDbType.Int);
+            programmeSemesterID.Value = request.ProgrammeSemesterID;
+            SqlParameter countryID = new SqlParameter("@CountryID", SqlDbType.Int);
+            countryID.Value = request.CountryID;
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = "GET";
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Admin].[upGetExamination]", courseID, departmentID, programmeID, programmeVersioningID,
+                programmeSemesterID, countryID, type))
+            {
+                if (dr != null && dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        itemSet.Add(new OnlineExamAppResponseDTO()
+                        {
+                            StudentID = Convert.ToInt32(dr["StudentID"]),
+                            StudentName = object.ReferenceEquals(dr["StudentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["StudentName"]),
+                            Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
+                            CreatedBy = Convert.ToInt32(dr["CreatedBy"]),
+                        });
+
+                    }
+                }
+            }
+            return itemSet;
+        }
+
+        #endregion
+
+
+        #region Online Exam Evaluation 
+
+        public List<OnlineExamAppResponseDTO> GetAllOnlineExamEvaluation(AdminOnlineExamRequestDTO request)
+        {
+            var itemSet = new List<OnlineExamAppResponseDTO>();
+
+            SqlParameter courseID = new SqlParameter("@CourseID", SqlDbType.Int);
+            courseID.Value = request.CourseID;
+            SqlParameter departmentID = new SqlParameter("@DepartmentID", SqlDbType.Int);
+            departmentID.Value = request.DepartmentID;
+            SqlParameter programmeID = new SqlParameter("@ProgrammeID", SqlDbType.Int);
+            programmeID.Value = request.ProgrammeID;
+            SqlParameter programmeVersioningID = new SqlParameter("@ProgrammeVersioningID", SqlDbType.Int);
+            programmeVersioningID.Value = request.ProgrammeVersioningID;
+            SqlParameter programmeSemesterID = new SqlParameter("@ProgrammeSemesterID", SqlDbType.Int);
+            programmeSemesterID.Value = request.ProgrammeSemesterID;
+            SqlParameter countryID = new SqlParameter("@CountryID", SqlDbType.Int);
+            countryID.Value = request.CountryID;
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = "GET";
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Admin].[upGetEvaluation]",courseID,departmentID,programmeID,programmeVersioningID,
+                programmeSemesterID,countryID, type))
+            {
+                if (dr != null && dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        itemSet.Add(new OnlineExamAppResponseDTO()
+                        {
+                            StudentID = Convert.ToInt32(dr["StudentID"]),                            
+                            StudentName = object.ReferenceEquals(dr["StudentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["StudentName"]),
+                            EmployeeName = object.ReferenceEquals(dr["EmployeeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["EmployeeName"]),
+                            Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
+                            CreatedBy = Convert.ToInt32(dr["CreatedBy"]),
+                        });
+
+                    }
+                }
+            }
+            return itemSet;
+        }
+
+        #endregion
+
+        #region Online Exam Schedule
+
+        public List<OnlineExamAppResponseDTO> GetAllOnlineExamSchedule(AdminOnlineExamRequestDTO request)
+        {
+            var itemSet = new List<OnlineExamAppResponseDTO>();
+
+            SqlParameter courseID = new SqlParameter("@CourseID", SqlDbType.Int);
+            courseID.Value = request.CourseID;
+            SqlParameter departmentID = new SqlParameter("@DepartmentID", SqlDbType.Int);
+            departmentID.Value = request.DepartmentID;
+            SqlParameter programmeID = new SqlParameter("@ProgrammeID", SqlDbType.Int);
+            programmeID.Value = request.ProgrammeID;
+            SqlParameter programmeVersioningID = new SqlParameter("@ProgrammeVersioningID", SqlDbType.Int);
+            programmeVersioningID.Value = request.ProgrammeVersioningID;
+            SqlParameter programmeSemesterID = new SqlParameter("@ProgrammeSemesterID", SqlDbType.Int);
+            programmeSemesterID.Value = request.ProgrammeSemesterID;
+            SqlParameter countryID = new SqlParameter("@CountryID", SqlDbType.Int);
+            countryID.Value = request.CountryID;
+            SqlParameter employeeID = new SqlParameter("@EmployeeID", SqlDbType.Int);
+            employeeID.Value = request.EmployeeID;
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = "GET";
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Admin].[upGetScheduling]", courseID, departmentID, programmeID, programmeVersioningID,
+                programmeSemesterID, countryID,employeeID, type))
+            {
+                if (dr != null && dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        itemSet.Add(new OnlineExamAppResponseDTO()
+                        {
+                            StudentID = Convert.ToInt32(dr["StudentID"]),
+                            StudentName = object.ReferenceEquals(dr["StudentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["StudentName"]),
+                            CreatedBy = Convert.ToInt32(dr["CreatedBy"]),
+                        });
+
+                    }
+                }
+            }
+            return itemSet;
+        }
+
+        #endregion
+
+        #region Online Exam Result
+
+        public List<OnlineExamAppResponseDTO> GetAllOnlineExamResult(AdminOnlineExamRequestDTO request)
+        {
+            var itemSet = new List<OnlineExamAppResponseDTO>();
+
+            SqlParameter courseID = new SqlParameter("@CourseID", SqlDbType.Int);
+            courseID.Value = request.CourseID;
+            SqlParameter departmentID = new SqlParameter("@DepartmentID", SqlDbType.Int);
+            departmentID.Value = request.DepartmentID;
+            SqlParameter programmeID = new SqlParameter("@ProgrammeID", SqlDbType.Int);
+            programmeID.Value = request.ProgrammeID;
+            SqlParameter programmeVersioningID = new SqlParameter("@ProgrammeVersioningID", SqlDbType.Int);
+            programmeVersioningID.Value = request.ProgrammeVersioningID;
+            SqlParameter programmeSemesterID = new SqlParameter("@ProgrammeSemesterID", SqlDbType.Int);
+            programmeSemesterID.Value = request.ProgrammeSemesterID;
+            SqlParameter countryID = new SqlParameter("@CountryID", SqlDbType.Int);
+            countryID.Value = request.CountryID;
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = "GET";
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Admin].[upGetResult]", courseID, departmentID, programmeID, programmeVersioningID,
+                programmeSemesterID, countryID, type))
+            {
+                if (dr != null && dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        itemSet.Add(new OnlineExamAppResponseDTO()
+                        {
+                            StudentID = Convert.ToInt32(dr["StudentID"]),
+                            StudentName = object.ReferenceEquals(dr["StudentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["StudentName"]),
+                            Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
+                            CreatedBy = Convert.ToInt32(dr["CreatedBy"]),
+                        });
+
+                    }
+                }
+            }
+            return itemSet;
+        }
+
+        #endregion
+
+        #region Save All online Examination  Application 
+
+        public int SaveExaminationConfiguration(AdminOnlineExamRequestDTO recordAttributer, string Operation)
+        {
+
+            SqlParameter courseID = new SqlParameter("@CourseID", SqlDbType.Int);
+            courseID.Value = recordAttributer.CourseID;
+
+            SqlParameter examinationXML = new SqlParameter("@ExaminationXML", SqlDbType.Xml);
+            examinationXML.Value = recordAttributer.ExaminationXML;
+
+            SqlParameter createdBy = new SqlParameter("@CreatedBy", SqlDbType.Int);
+            createdBy.Value = recordAttributer.CreatedBy;
+           
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = Operation;
+
+            SqlParameter status = new SqlParameter("@Status", SqlDbType.Int);
+            status.Value = 0;
+            status.Direction = ParameterDirection.InputOutput;
+
+            SqlServerHelper.ExecuteNonQueryProc("[ln.Admin].[upSaveExaminationConfiguration]", courseID, examinationXML, createdBy, type, status);
+
+            return Convert.ToInt32(status.Value);
+
+        }
+
+        #endregion
+
     }
 }
