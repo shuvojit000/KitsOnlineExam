@@ -102,7 +102,11 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.ProgramList = new List<SelectListItem>();
             model.ProgYearList = new List<SelectListItem>();
             model.SemisterList = new List<SelectListItem>();
-
+            var EmpList = onlineExamService.GetAllEmployee().Where(a => a.Status == "A").ToList();
+            model.EmployeeList = EmpList?.Select(a => new SelectListItem() { Text = a.EmployeeName.ToString(), Value = a.EmployeeID.ToString() })
+                .ToList().GroupBy(n => new { n.Text, n.Value })
+                                       .Select(g => g.FirstOrDefault())
+                                       .ToList();
             return View(model);
         }
 

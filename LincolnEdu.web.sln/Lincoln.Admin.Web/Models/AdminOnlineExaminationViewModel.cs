@@ -25,7 +25,7 @@ namespace Lincoln.Admin.Web.Models
         public List<SelectListItem> ProgYearList { get; set; }
         public List<SelectListItem> CountryList { get; set; }
         public List<SelectListItem> DepartmentList { get; set; }
-
+        public List<SelectListItem> EmployeeList { get; set; }
 
         public int? StudentID { get; set; }
         public string StudentName { get; set; }
@@ -37,5 +37,6 @@ namespace Lincoln.Admin.Web.Models
         public int? ExaminationDuration { get; set; }
         public string ReviewStatus { get; set; }
         public decimal? MarksObtained { get; set; }
+        public decimal? MaximumMarks { get; set; }
     }
 }
