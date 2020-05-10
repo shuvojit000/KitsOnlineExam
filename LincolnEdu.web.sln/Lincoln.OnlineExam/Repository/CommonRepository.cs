@@ -1932,11 +1932,14 @@ namespace Lincoln.OnlineExam.Repository
             SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
             type.Value = Operation;
 
+            SqlParameter dBStatus = new SqlParameter("@DBStatus", SqlDbType.Char);
+            dBStatus.Value = string.Empty;
+
             SqlParameter status = new SqlParameter("@Status", SqlDbType.Int);
             status.Value = 0;
             status.Direction = ParameterDirection.InputOutput;
 
-            SqlServerHelper.ExecuteNonQueryProc("[ln.Admin].[upSaveExaminationConfiguration]", courseID, examinationXML, createdBy, type, status);
+            SqlServerHelper.ExecuteNonQueryProc("[ln.Admin].[upSaveExaminationConfiguration]", courseID, examinationXML, createdBy, type, dBStatus, status);
 
             return Convert.ToInt32(status.Value);
 

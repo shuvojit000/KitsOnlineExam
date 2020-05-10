@@ -68,7 +68,7 @@
             <label><b>Intake<span class="requiredstar">*</span> </b></label>
             <div class="position-relative has-icon-left">
                 @*@Html.DropDownListFor(a => a.ProgrammeYear, Model.ProgYearList, "Select Programme Year", new { @class = "custom-select block" })*@
-                <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
+                @*<span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>*@
             </div>
         </div>
     </div>
@@ -77,8 +77,8 @@
         <div class="form-group col-lg-6">
             <label><b>Employee List<span class="requiredstar">*</span></b></label>
             <div class="position-relative has-icon-left">
-                @Html.DropDownListFor(a => a.EmployeeID, Model.SemisterList, "Select Semester", new { @class = "custom-select block" })
-                <span id="SemisterCodeVal" style="color:red;display:none" class="valClass">Please select Semester.</span>
+                @Html.DropDownListFor(a => a.EmployeeID, Model.EmployeeList, "Select Employee", new { @class = "custom-select block" })
+                <span id="EmployeeIDVal" style="color:red;display:none" class="valClass">Please select Employee.</span>
             </div>
         </div>
     </div>
@@ -96,12 +96,9 @@
                 </div>
             </div>
             <div class="form-group col-lg-6">
-                <label>Time Duration<span class="requiredstar">*</span> </label>
-                <div class="position-relative has-icon-left">
-                    @Html.TextBoxFor(a => a.ExaminationTime, new { @class = "form-control" })
-                    <div class="form-control-position">
-                       
-                    </div>
+                <label>Time<span class="requiredstar">*</span> </label>
+                <div class="position-relative">
+                    @Html.TextBoxFor(a => a.ExaminationTime, new { @class = "form-control" })                    
                     <span id="ExaminationTimeVal" style="color:red;display:none" class="valClass"></span>
                 </div>
             </div>
@@ -109,12 +106,16 @@
         </div>
         <div class="row">
             <div class="form-group col-lg-6">
+                <label>Duration<span class="requiredstar">*</span> </label>
+                <div class="position-relative">
+                    @Html.TextBoxFor(a => a.ExaminationDuration, new { @class = "form-control" })
+                    <span id="ExaminationDurationVal" style="color:red;display:none" class="valClass"></span>
+                </div>
+            </div>
+            <div class="form-group col-lg-6">
                 <label>Maximum Marks<span class="requiredstar">*</span> </label>
-                <div class="position-relative has-icon-left">
-                    @Html.TextBoxFor(a => a.MaximumMarks, new { @class = "form-control" })
-                    <div class="form-control-position">
-                        <i class="fa fa-calendar"></i>
-                    </div>
+                <div class="position-relative ">
+                    @Html.TextBoxFor(a => a.MaximumMarks, new { @class = "form-control" })                    
                     <span id="MaximumMarksVal" style="color:red;display:none" class="valClass"></span>
                 </div>
             </div>           
@@ -127,15 +128,28 @@
 
 
     <button type="button" onclick="fnSaveExamSchedule()" class="btn btn-primary">
-            <i class="fa fa-check-square-o"></i> Save
-        </button>
-        <button type="button" onclick="fnResetScreen()" class="btn btn-danger">
+        <i class="fa fa-check-square-o"></i> Save
+    </button>
+    <button type="button" onclick="fnResetScreen()" class="btn btn-danger">
             <i class="fa fa-check-square-o"></i> Clear
-            </button>
+    </button>
 </div>
 
 
 <script>
+    $(function () {
+        $('li a[href="/Admin/Admin/ExamiSchedule"]').parent('li').addClass('active');
+    });
+    function fnResetScreen() {
+        $("#AcademicID").val('');
+        $("#DepartmentID").empty().append('<option value="">Select Faculty</option>');
+        $("#ProgrammeVersioningID").empty().append('<option value="">Select Programme</option>');
+        $("#CountryID").empty().append('<option value="">Select Country</option>');
+        $("#ProgrammeYear").empty().append('<option value="">Select Programme Year</option>');
+        $("#ProgrammeSemesterID").empty().append('<option value="">Select Semester</option>');
+        $("#CourseID").empty().append('<option value="">Select Course</option>');
+        $('#ExamScheduleDiv').empty();
+    }
     $(document).on("focus", "#ExaminationDate", function () {
         $('#ExaminationDate').datetimepicker({
             format: 'DD/MM/YYYY',
@@ -143,10 +157,6 @@
             daysOfWeekDisabled: [6]
         });
 
-    });
-   
-    $(function () {
-        $('li a[href="/Admin/Admin/ExaminationSchedule"]').parent('li').addClass('active');
     });
     $(document).on("change", "#AcademicID", function () {
         $("#DepartmentID").empty();
@@ -156,14 +166,10 @@
             dataType: 'json',
             data: { academicID: $("#AcademicID").val() != '' ? $("#AcademicID").val() : "0" },
             success: function (res) {
-                // states contains the JSON formatted list
-                // of states passed from the controller
                 $("#DepartmentID").append('<option value="">Select Faculty</option>');
                 $.each(res, function (i, state) {
                     $("#DepartmentID").append('<option value="' + state.Value + '">' +
                          state.Text + '</option>');
-                    // here we are adding option for States
-
                 });
             },
             error: function (ex) {
@@ -173,18 +179,17 @@
         return false;
     })
     $(document).on("change", "#DepartmentID", function () {
-        $("#ProgrammeVersioningID").empty();
-        $("#CountryID").empty();
-        $("#ProgrammeYear").empty();
-        $("#ProgrammeSemesterID").empty();
-        $("#CourseID").empty();
+        $("#ProgrammeVersioningID").empty().append('<option value="">Select Programme</option>');
+        $("#CountryID").empty().append('<option value="">Select Country</option>');
+        $("#ProgrammeYear").empty().append('<option value="">Select Programme Year</option>');
+        $("#ProgrammeSemesterID").empty().append('<option value="">Select Semester</option>');
+        $("#CourseID").empty().append('<option value="">Select Course</option>');
         $.ajax({
             type: 'POST',
             url: '@Url.Action("GetProgDropWithVersion","Admin",new { area="Admin"})',
             dataType: 'json',
             data: { departmentID: $("#DepartmentID").val() != '' ? $("#DepartmentID").val() : "0" },
             success: function (res) {
-                $("#ProgrammeVersioningID").append('<option value="">Select Programme</option>');
                 $.each(res, function (i, state) {
                     $("#ProgrammeVersioningID").append('<option value="' + state.Value + '">' +
                         state.Text + '</option>');
@@ -199,11 +204,10 @@
 
 
     $(document).on("change", "#ProgrammeVersioningID", function () {
-
-        $("#CountryID").empty();
-        $("#ProgrammeYear").empty();
-        $("#ProgrammeSemesterID").empty();
-        $("#CourseID").empty();
+        $("#CountryID").empty().append('<option value="">Select Country</option>');
+        $("#ProgrammeYear").empty().append('<option value="">Select Programme Year</option>');
+        $("#ProgrammeSemesterID").empty().append('<option value="">Select Semester</option>');
+        $("#CourseID").empty().append('<option value="">Select Course</option>');
         $.ajax({
             type: 'POST',
             url: '@Url.Action("ChangeProgramSelection", "Admin",new { area="Admin"})', // we are calling json method
@@ -211,7 +215,6 @@
             data: { programmeVersionID: $("#ProgrammeVersioningID").val() != '' ? $("#ProgrammeVersioningID").val() : "0" },
             success: function (res) {
                 if (res != null) {
-                    $("#CountryID").append('<option value="">Select Country</option>');
                     $.each(res.CountryList, function (i, state) {
                         $("#CountryID").append('<option value="' + state.Value + '">' +
                              state.Text + '</option>');
@@ -230,9 +233,9 @@
     });
 
     $(document).on("change", "#CountryID", function () {
-        $("#ProgrammeYear").empty();
-        $("#ProgrammeSemesterID").empty();
-        $("#CourseID").empty();
+        $("#ProgrammeYear").empty().append('<option value="">Select Programme Year</option>');
+        $("#ProgrammeSemesterID").empty().append('<option value="">Select Semester</option>');
+        $("#CourseID").empty().append('<option value="">Select Course</option>');
         $.ajax({
             type: 'POST',
             url: '@Url.Action("ChangeCountrySelection", "Admin",new { area="Admin"})',
@@ -243,7 +246,6 @@
             },
             success: function (res) {
                 if (res != null) {
-                    $("#ProgrammeYear").append('<option value="">Select Programme Year</option>');
                     $.each(res.ProgYearList, function (i, state) {
                         $("#ProgrammeYear").append('<option value="' + state.Value + '">' +
                              state.Text + '</option>');
@@ -262,8 +264,8 @@
     });
 
     $(document).on("change", "#ProgrammeYear", function () {
-        $("#ProgrammeSemesterID").empty();
-        $("#CourseID").empty();
+        $("#ProgrammeSemesterID").empty().append('<option value="">Select Semester</option>');
+        $("#CourseID").empty().append('<option value="">Select Course</option>');
         $.ajax({
             type: 'POST',
             url: '@Url.Action("ChangeProgramYearSelection", "Admin",new { area="Admin"})',
@@ -275,7 +277,6 @@
             },
             success: function (res) {
                 if (res != null) {
-                    $("#ProgrammeSemesterID").append('<option value="">Select Semester</option>');
                     $.each(res.ProgSEMList, function (i, state) {
                         $("#ProgrammeSemesterID").append('<option value="' + state.Value + '">' +
                              state.Text + '</option>');
@@ -296,7 +297,7 @@
 
 
     $(document).on("change", "#ProgrammeSemesterID", function () {
-        $("#CourseID").empty();
+        $("#CourseID").empty().append('<option value="">Select Course</option>');
         $.ajax({
             type: 'POST',
             url: '@Url.Action("GetCourseExam", "Admin",new { area="Admin"})',
@@ -308,7 +309,6 @@
                 programmeSem: $('#ProgrammeSemesterID').val() != '' ? $("#ProgrammeSemesterID").val() : "0"
             },
             success: function (res) {
-                $("#CourseID").append('<option value="">Select Course</option>');
                 $.each(res, function (i, state) {
                     $("#CourseID").append('<option value="' + state.Value + '">' +
                         state.Text + '</option>');
@@ -330,7 +330,7 @@
             }
             $.ajax({
                 type: 'POST',
-                url: '@Url.Action("OnlineExaminationAppList", "Admin",new { area="Admin"})',
+                url: '@Url.Action("ExamScheduleList", "Admin",new { area="Admin"})',
                 dataType: 'json',
                 contentType: "application/json;charset=utf-8",
                 data: JSON.stringify(model),
@@ -345,6 +345,8 @@
 
     });
     function fnSaveExamSchedule() {
+
+
 
     }
 </script>
