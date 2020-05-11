@@ -52,7 +52,7 @@
             <label><b>Programme Semester<span class="requiredstar">*</span></b></label>
             <div class="position-relative has-icon-left">
                 @Html.DropDownListFor(a => a.ProgrammeSemesterID, Model.SemisterList, "Select Semester", new { @class = "custom-select block" })
-                <span id="SemisterCodeVal" style="color:red;display:none" class="valClass">Please select Semester.</span>
+                <span id="ProgrammeSemesterIDVal" style="color:red;display:none" class="valClass">Please select Semester.</span>
             </div>
         </div>
     </div>
@@ -90,7 +90,7 @@
                 <div class="position-relative has-icon-left">
                     @Html.TextBoxFor(a => a.ExaminationDate, new { @class = "form-control" })
                     <div class="form-control-position">
-                       
+                        <i class="fa fa-calendar"></i>
                     </div>
                     <span id="ExaminationDateVal" style="color:red;display:none" class="valClass"></span>
                 </div>
@@ -113,7 +113,7 @@
                 </div>
             </div>
             <div class="form-group col-lg-6">
-                <label>Maximum Marks<span class="requiredstar">*</span> </label>
+                <label>Maximum Marks</label>
                 <div class="position-relative ">
                     @Html.TextBoxFor(a => a.MaximumMarks, new { @class = "form-control" })                    
                     <span id="MaximumMarksVal" style="color:red;display:none" class="valClass"></span>
@@ -320,18 +320,20 @@
         });
         return false;
     });
-    $(document).on("change", "#CourseID", function () {
-        if ($('#CourseID').val()!='') {
-            var model={
+    $(document).on("change", "#EmployeeID", function () {
+        if ($('#EmployeeID').val() != '') {
+            var model = {
+                DepartmentID: $("#DepartmentID").val(),
                 ProgrammeVersioningID: $("#ProgrammeVersioningID").val() != '' ? $("#ProgrammeVersioningID").val() : "0",
                 CountryID: $('#CountryID').val() != '' ? $("#CountryID").val() : "0",
                 ProgrammeSemesterID: $('#ProgrammeSemesterID').val() != '' ? $("#ProgrammeSemesterID").val() : "0",
-                CourseID: $('#CourseID').val() != '' ? $("#CourseID").val() : "0"
+                CourseID: $('#CourseID').val() != '' ? $("#CourseID").val() : "0",
+                EmployeeID: $("#EmployeeID").val(),
             }
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("ExamScheduleList", "Admin",new { area="Admin"})',
-                dataType: 'json',
+                dataType: 'html',
                 contentType: "application/json;charset=utf-8",
                 data: JSON.stringify(model),
                 success: function (res) {
@@ -345,9 +347,88 @@
 
     });
     function fnSaveExamSchedule() {
+        $('.valClass').css({ 'display': 'none' });
+        if ($('#AcademicID').val() == '') {
+            $('#AcademicIDVal').css({ 'display': 'block' });
+        }
+        else if ($('#DepartmentID').val() == '') {
+            $('#DepartmentIDVal').css({ 'display': 'block' });
+        }
+        else if ($('#ProgrammeVersioningID').val() == '') {
+            $('#ProgramCodeVal').css({ 'display': 'block' });
+        }
 
-
-
+        else if ($('#CountryID').val() == '') {
+            $('#CountryCodeVal').css({ 'display': 'block' });
+        }
+        else if ($('#ProgrammeSemesterID').val() == '') {
+            $('#ProgrammeSemesterIDVal').css({ 'display': 'block' });
+        }
+        else if ($('#EmployeeID').val() == '') {
+            $('#EmployeeIDVal').css({ 'display': 'block' });
+        }
+        else if ($('#ExaminationDate').val() == '') {
+            $('#ExaminationDateVal').html('Date is required.');
+            $('#ExaminationDateVal').css({ 'display': 'block' });
+        }
+        else if ($('#ExaminationTime').val() == '') {
+            $('#ExaminationTimeVal').html('Examination Time is required.');
+            $('#ExaminationTimeVal').css({ 'display': 'block' });
+        }
+        else if ($('#ExaminationDuration').val() == '') {
+            $('#ExaminationDurationVal').html('Examination Duration is required.');
+            $('#ExaminationDurationVal').css({ 'display': 'block' });
+        }
+        else {
+            var model = {
+                DepartmentID: $("#DepartmentID").val(),
+                ProgrammeVersioningID: $("#ProgrammeVersioningID").val() != '' ? $("#ProgrammeVersioningID").val() : "0",
+                CountryID: $('#CountryID').val() != '' ? $("#CountryID").val() : "0",
+                ProgrammeSemesterID: $('#ProgrammeSemesterID').val() != '' ? $("#ProgrammeSemesterID").val() : "0",
+                CourseID: $('#CourseID').val() != '' ? $("#CourseID").val() : "0",
+                EmployeeID: $("#EmployeeID").val(),
+                ExaminationDate: $('#ExaminationDate').val(),
+                ExaminationTime: $('#ExaminationTime').val(),
+                ExaminationDuration: $('#ExaminationDuration').val()
+            };
+            $.ajax({
+                url: '@Url.Action("SaveOnlineExaminationSchedule", "Admin",new {area="Admin" })',
+                data: JSON.stringify(model),
+                type: 'POST',
+                cache: false,
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result > 0) {
+                        if (result > 0) {
+                            alert('Your request has been processed successfully.');
+                            fnResetScreen();
+                        }
+                        else {
+                            alert('Error in your requst.');
+                        }
+                    }
+                },
+                error: function (e) {
+                    alert('Error in your requst.');
+                }
+            });
+        }
+    }
+    function fnResetScreen() {
+        $("#AcademicID").val('');
+        $("#DepartmentID").empty().append('<option value="">Select Faculty</option>');
+        $("#ProgrammeVersioningID").empty().append('<option value="">Select Programme</option>');
+        $("#CountryID").empty().append('<option value="">Select Country</option>');
+        $("#ProgrammeYear").empty().append('<option value="">Select Programme Year</option>');
+        $("#ProgrammeSemesterID").empty().append('<option value="">Select Semester</option>');
+        $("#CourseID").empty().append('<option value="">Select Course</option>');
+        $("#EmployeeID").empty().append('<option value="">Select Employee</option>');
+        $('#ExaminationDate').val('');
+        $('#ExaminationTime').val('');
+        $('#ExaminationDuration').val('');
+        $('#MaximumMarks').val('');
+        $('#ExamScheduleDiv').empty();
     }
 </script>
 

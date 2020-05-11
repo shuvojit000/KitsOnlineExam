@@ -1861,6 +1861,7 @@ namespace Lincoln.OnlineExam.Repository
                         {
                             StudentID = Convert.ToInt32(dr["StudentID"]),
                             StudentName = object.ReferenceEquals(dr["StudentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["StudentName"]),
+                            Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
                             CreatedBy = Convert.ToInt32(dr["CreatedBy"]),
                         });
 

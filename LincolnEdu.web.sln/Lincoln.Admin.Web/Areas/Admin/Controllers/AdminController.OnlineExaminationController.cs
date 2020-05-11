@@ -119,7 +119,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 DepartmentID = model.DepartmentID,
                 ProgrammeVersioningID = model.ProgrammeVersioningID,
                 ProgrammeSemesterID = model.ProgrammeSemesterID,
-                CountryID = model.CountryID
+                CountryID = model.CountryID,
+                EmployeeID=model.EmployeeID
             })
                 .Select(a => new AdminOnlineExaminationViewModel()
                 {
@@ -136,7 +137,52 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             return PartialView("_listExamSchedule", GetAllExamSchedule(model));
         }
 
+        [HttpPost]
+        public JsonResult SaveOnlineExaminationSchedule(AdminOnlineExaminationViewModel model)
+        {
 
+            var models =new  List<AdminOnlineExaminationViewModel>();
+
+            var studentlst = GetAllExamSchedule(model);
+            if (studentlst.Any())
+            {
+                models.AddRange(studentlst.Select(a => new AdminOnlineExaminationViewModel()
+                {
+                    CourseID = model.CourseID,
+                    StudentID = a.StudentID,
+                    ExaminationDate = model.ExaminationDate,
+                    ExaminationTime = model.ExaminationTime,
+                    ExaminationDuration = model.ExaminationDuration,
+                }));
+            }
+
+            XElement xEle = null;
+            if (models.Any())
+            {
+                xEle = new XElement("ExaminationConfigurations",
+                        from item in models
+                        select new XElement("ExaminationConfiguration",
+                                     new XElement("CourseID", item.CourseID),
+                                       new XElement("StudentID", item.StudentID),
+                                       new XElement("PaymentStatus", item.PaymentStatus),
+                                       new XElement("ExaminationDate", item.ExaminationDate),
+                                       new XElement("ExaminationTime", item.ExaminationTime),
+                                       new XElement("ExaminationDuration", item.ExaminationDuration),
+                                       new XElement("EmployeeID", item.EmployeeID),
+                                       new XElement("ReviewStatus", item.ReviewStatus),
+                                       new XElement("MarksObtained", item.MarksObtained ?? default(decimal))
+                                   ));
+            }
+
+            var result = onlineExamService.SaveExaminationConfiguration(new OnlineExam.Request.AdminOnlineExamRequestDTO()
+            {
+                CourseID = models.FirstOrDefault().CourseID,
+                ExaminationXML = xEle.ToString().Trim(),
+                CreatedBy = User.UserId
+            }, "Scheduling");
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
 
