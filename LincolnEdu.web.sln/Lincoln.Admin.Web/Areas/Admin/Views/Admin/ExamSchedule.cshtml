@@ -5,136 +5,146 @@
 }
 @model Lincoln.Admin.Web.Models.AdminOnlineExaminationViewModel
 
-<div class="content-body">
-    <div class="row">
-        <div class="form-group col-lg-6">
-            <label><b>MQF Level <span class="requiredstar">*</span> </b></label>
-            <div class="position-relative has-icon-left">
-                @Html.DropDownListFor(a => a.AcademicID, Model.AcademicList, "Select MQF Level", new { @class = "custom-select block" })
-                <span id="AcademicIDVal" style="color:red;display:none" class="valClass">Please select MQF Level.</span>
+<div class="content-wrapper">
+    <div class="content-body">
+        <section id="basic-form-layouts">
+            <div class="row">
+                <div class="col-12">
+                    <div class="cardk">
+                        <div class="card-header">
+                            <h4 class="card-title">Examination Schedule</h4>
 
-            </div>
-        </div>
-        <div class="form-group col-lg-6">
-            <label><b>Faculty<span class="requiredstar">*</span> </b></label>
-            <div class="position-relative has-icon-left">
-                @Html.DropDownListFor(a => a.DepartmentID, Model.DepartmentList, "Select Faculty", new { @class = "custom-select block" })
-                <span id="FacultyCodeVal" style="color:red;display:none" class="valClass">Please select Faculty.</span>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-lg-6">
-            <label><b>Programme<span class="requiredstar">*</span> </b></label>
-            <div class="position-relative has-icon-left">
-                @Html.DropDownListFor(a => a.ProgrammeVersioningID, Model.ProgramList, "Select Programme", new { @class = "custom-select block" })
-                <span id="ProgramCodeVal" style="color:red;display:none" class="valClass">Please select Programme.</span>
-            </div>
-        </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-lg-6">
+                                    <label><b>MQF Level <span class="requiredstar">*</span> </b></label>
+                                    <div class="position-relative has-icon-left">
+                                        @Html.DropDownListFor(a => a.AcademicID, Model.AcademicList, "Select MQF Level", new { @class = "custom-select block" })
+                                        <span id="AcademicIDVal" style="color:red;display:none" class="valClass">Please select MQF Level.</span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label><b>Faculty<span class="requiredstar">*</span> </b></label>
+                                    <div class="position-relative has-icon-left">
+                                        @Html.DropDownListFor(a => a.DepartmentID, Model.DepartmentList, "Select Faculty", new { @class = "custom-select block" })
+                                        <span id="FacultyCodeVal" style="color:red;display:none" class="valClass">Please select Faculty.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-lg-6">
+                                    <label><b>Programme<span class="requiredstar">*</span> </b></label>
+                                    <div class="position-relative has-icon-left">
+                                        @Html.DropDownListFor(a => a.ProgrammeVersioningID, Model.ProgramList, "Select Programme", new { @class = "custom-select block" })
+                                        <span id="ProgramCodeVal" style="color:red;display:none" class="valClass">Please select Programme.</span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label><b>Country<span class="requiredstar">*</span> </b></label>
+                                    <div class="position-relative has-icon-left">
+                                        @Html.DropDownListFor(a => a.CountryID, Model.CountryList, "Select Country", new { @class = "custom-select block" })
+                                        <span id="CountryCodeVal" style="color:red;display:none" class="valClass">Please select Country.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-lg-6">
+                                    <label><b>Programme Year<span class="requiredstar">*</span> </b></label>
+                                    <div class="position-relative has-icon-left">
+                                        @Html.DropDownListFor(a => a.ProgrammeYear, Model.ProgYearList, "Select Programme Year", new { @class = "custom-select block" })
+                                        <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label><b>Programme Semester<span class="requiredstar">*</span></b></label>
+                                    <div class="position-relative has-icon-left">
+                                        @Html.DropDownListFor(a => a.ProgrammeSemesterID, Model.SemisterList, "Select Semester", new { @class = "custom-select block" })
+                                        <span id="ProgrammeSemesterIDVal" style="color:red;display:none" class="valClass">Please select Semester.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-lg-6">
+                                    <label><b>Course<span class="requiredstar">*</span> </b></label>
+                                    <div class="position-relative has-icon-left">
+                                        @Html.DropDownListFor(a => a.CourseID, Model.CourseList, "Select Course", new { @class = "custom-select block" })
+                                        <span id="CourseIDVal" style="color:red;display:none" class="valClass">Please select Course.</span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label><b>Intake<span class="requiredstar">*</span> </b></label>
+                                    <div class="position-relative has-icon-left">
+                                        @*@Html.DropDownListFor(a => a.ProgrammeYear, Model.ProgYearList, "Select Programme Year", new { @class = "custom-select block" })*@
+                                        @*<span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-lg-6">
+                                    <label><b>Employee List<span class="requiredstar">*</span></b></label>
+                                    <div class="position-relative has-icon-left">
+                                        @Html.DropDownListFor(a => a.EmployeeID, Model.EmployeeList, "Select Employee", new { @class = "custom-select block" })
+                                        <span id="EmployeeIDVal" style="color:red;display:none" class="valClass">Please select Employee.</span>
+                                    </div>
+                                </div>
+                            </div>
 
-        <div class="form-group col-lg-6">
-            <label><b>Country<span class="requiredstar">*</span> </b></label>
-            <div class="position-relative has-icon-left">
-                @Html.DropDownListFor(a => a.CountryID, Model.CountryList, "Select Country", new { @class = "custom-select block" })
-                <span id="CountryCodeVal" style="color:red;display:none" class="valClass">Please select Country.</span>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-lg-6">
-            <label><b>Programme Year<span class="requiredstar">*</span> </b></label>
-            <div class="position-relative has-icon-left">
-                @Html.DropDownListFor(a => a.ProgrammeYear, Model.ProgYearList, "Select Programme Year", new { @class = "custom-select block" })
-                <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
-            </div>
-        </div>
-        <div class="form-group col-lg-6">
-            <label><b>Programme Semester<span class="requiredstar">*</span></b></label>
-            <div class="position-relative has-icon-left">
-                @Html.DropDownListFor(a => a.ProgrammeSemesterID, Model.SemisterList, "Select Semester", new { @class = "custom-select block" })
-                <span id="ProgrammeSemesterIDVal" style="color:red;display:none" class="valClass">Please select Semester.</span>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-lg-6">
-            <label><b>Course<span class="requiredstar">*</span> </b></label>
-            <div class="position-relative has-icon-left">
-                @Html.DropDownListFor(a => a.CourseID, Model.CourseList, "Select Course", new { @class = "custom-select block" })
-                <span id="CourseIDVal" style="color:red;display:none" class="valClass">Please select Course.</span>
-            </div>
-        </div>
-        <div class="form-group col-lg-6">
-            <label><b>Intake<span class="requiredstar">*</span> </b></label>
-            <div class="position-relative has-icon-left">
-                @*@Html.DropDownListFor(a => a.ProgrammeYear, Model.ProgYearList, "Select Programme Year", new { @class = "custom-select block" })*@
-                @*<span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>*@
-            </div>
-        </div>
-    </div>
-    <div class="row">
-       
-        <div class="form-group col-lg-6">
-            <label><b>Employee List<span class="requiredstar">*</span></b></label>
-            <div class="position-relative has-icon-left">
-                @Html.DropDownListFor(a => a.EmployeeID, Model.EmployeeList, "Select Employee", new { @class = "custom-select block" })
-                <span id="EmployeeIDVal" style="color:red;display:none" class="valClass">Please select Employee.</span>
-            </div>
-        </div>
-    </div>
-   
-    <div class="panel panel-default">
-        <div class="row">
-            <div class="form-group col-lg-6">
-                <label>Examination  Date<span class="requiredstar">*</span> </label>
-                <div class="position-relative has-icon-left">
-                    @Html.TextBoxFor(a => a.ExaminationDate, new { @class = "form-control" })
-                    <div class="form-control-position">
-                        <i class="fa fa-calendar"></i>
+                            <div class="panel panel-default">
+                                <div class="row">
+                                    <div class="form-group col-lg-6">
+                                        <label>Examination  Date<span class="requiredstar">*</span> </label>
+                                        <div class="position-relative has-icon-left">
+                                            @Html.TextBoxFor(a => a.ExaminationDate, new { @class = "form-control" })
+                                            <div class="form-control-position">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <span id="ExaminationDateVal" style="color:red;display:none" class="valClass"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label>Time<span class="requiredstar">*</span> </label>
+                                        <div class="position-relative">
+                                            @Html.TextBoxFor(a => a.ExaminationTime, new { @class = "form-control" })
+                                            <span id="ExaminationTimeVal" style="color:red;display:none" class="valClass"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-lg-6">
+                                        <label>Duration<span class="requiredstar">*</span> </label>
+                                        <div class="position-relative">
+                                            @Html.TextBoxFor(a => a.ExaminationDuration, new { @class = "form-control" })
+                                            <span id="ExaminationDurationVal" style="color:red;display:none" class="valClass"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label>Maximum Marks</label>
+                                        <div class="position-relative ">
+                                            @Html.TextBoxFor(a => a.MaximumMarks, new { @class = "form-control" })
+                                            <span id="MaximumMarksVal" style="color:red;display:none" class="valClass"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="ExamScheduleDiv"></div>
+
+                            <center>
+                                <button type="button" onclick="fnSaveExamSchedule()" class="btn btn-primary">
+                                    <i class="fa fa-check-square-o"></i> Save
+                                </button>
+                                <button type="button" onclick="fnResetScreen()" class="btn btn-danger">
+                                    <i class="fa fa-check-square-o"></i> Clear
+                                </button>
+                            </center>
+                        </div>
                     </div>
-                    <span id="ExaminationDateVal" style="color:red;display:none" class="valClass"></span>
                 </div>
             </div>
-            <div class="form-group col-lg-6">
-                <label>Time<span class="requiredstar">*</span> </label>
-                <div class="position-relative">
-                    @Html.TextBoxFor(a => a.ExaminationTime, new { @class = "form-control" })                    
-                    <span id="ExaminationTimeVal" style="color:red;display:none" class="valClass"></span>
-                </div>
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="form-group col-lg-6">
-                <label>Duration<span class="requiredstar">*</span> </label>
-                <div class="position-relative">
-                    @Html.TextBoxFor(a => a.ExaminationDuration, new { @class = "form-control" })
-                    <span id="ExaminationDurationVal" style="color:red;display:none" class="valClass"></span>
-                </div>
-            </div>
-            <div class="form-group col-lg-6">
-                <label>Maximum Marks</label>
-                <div class="position-relative ">
-                    @Html.TextBoxFor(a => a.MaximumMarks, new { @class = "form-control" })                    
-                    <span id="MaximumMarksVal" style="color:red;display:none" class="valClass"></span>
-                </div>
-            </div>           
-
-        </div>
+        </section>
     </div>
-
-
-    <div id="ExamScheduleDiv"></div>
-
-
-    <button type="button" onclick="fnSaveExamSchedule()" class="btn btn-primary">
-        <i class="fa fa-check-square-o"></i> Save
-    </button>
-    <button type="button" onclick="fnResetScreen()" class="btn btn-danger">
-            <i class="fa fa-check-square-o"></i> Clear
-    </button>
 </div>
-
 
 <script>
     $(function () {
@@ -322,6 +332,8 @@
     });
     $(document).on("change", "#EmployeeID", function () {
         if ($('#EmployeeID').val() != '') {
+            $('#overlay').show();
+
             var model = {
                 DepartmentID: $("#DepartmentID").val(),
                 ProgrammeVersioningID: $("#ProgrammeVersioningID").val() != '' ? $("#ProgrammeVersioningID").val() : "0",
@@ -337,12 +349,17 @@
                 contentType: "application/json;charset=utf-8",
                 data: JSON.stringify(model),
                 success: function (res) {
+                    $('#overlay').hide();
                     $('#ExamScheduleDiv').html(res);
                 },
                 error: function (ex) {
+                    $('#overlay').hide();
                    console.log(ex);
                 }
             });
+        }
+        else {
+            $('#ExamScheduleDiv').empty();
         }
 
     });
@@ -380,6 +397,7 @@
             $('#ExaminationDurationVal').css({ 'display': 'block' });
         }
         else {
+            $('#overlay').show();
             var model = {
                 DepartmentID: $("#DepartmentID").val(),
                 ProgrammeVersioningID: $("#ProgrammeVersioningID").val() != '' ? $("#ProgrammeVersioningID").val() : "0",
@@ -401,15 +419,18 @@
                 success: function (result) {
                     if (result > 0) {
                         if (result > 0) {
+                            $('#overlay').hide();
                             alert('Your request has been processed successfully.');
                             fnResetScreen();
                         }
                         else {
+                            $('#overlay').hide();
                             alert('Error in your requst.');
                         }
                     }
                 },
                 error: function (e) {
+                    $('#overlay').hide();
                     alert('Error in your requst.');
                 }
             });

@@ -9,6 +9,7 @@ namespace Lincoln.OnlineExam.Response
     public class OnlineExamAppResponseDTO
     {
         public int? StudentID { get; set; }
+        public int? EmployeeId { get; set; }
         public string EmployeeName { get; set; }
         public string StudentName { get; set; }
         public string Status { get; set;}

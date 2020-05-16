@@ -16,6 +16,7 @@ namespace Lincoln.Admin.Web.Models
         public int? ProgrammeSemesterID { get; set; }
         public int? CountryID { get; set; }
         public int? EmployeeID { get; set; }
+        public string EmployeeName { get; set; }
         public int ? ProgrammeYear { get; set; }
 
         public List<SelectListItem> AcademicList { get; set; }

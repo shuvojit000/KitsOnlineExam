@@ -1813,7 +1813,8 @@ namespace Lincoln.OnlineExam.Repository
                     {
                         itemSet.Add(new OnlineExamAppResponseDTO()
                         {
-                            StudentID = Convert.ToInt32(dr["StudentID"]),                            
+                            StudentID = Convert.ToInt32(dr["StudentID"]),
+                            EmployeeId = Convert.ToInt32(dr["EmployeeId"]),
                             StudentName = object.ReferenceEquals(dr["StudentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["StudentName"]),
                             EmployeeName = object.ReferenceEquals(dr["EmployeeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["EmployeeName"]),
                             Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),

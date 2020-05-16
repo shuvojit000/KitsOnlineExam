@@ -9,7 +9,7 @@
             <th>Sl No</th>
             <th>Student Name</th>
             <th>Payment Status</th>
-            <th>Action</th>
+            <th><input type="checkbox" class="checkall" ></th>
         </tr>
     </thead>
     <tbody>
@@ -37,7 +37,12 @@
     </tbody>
 </table>
 <script>
-    $('#dataTables-example').dataTable();
+    $('#dataTables-example').dataTable({
+        'columnDefs': [{
+            'targets': [3], // column index (start from 0)
+            'orderable': false, // set orderable false for selected columns
+        }]
+    });
     
 </script>
 

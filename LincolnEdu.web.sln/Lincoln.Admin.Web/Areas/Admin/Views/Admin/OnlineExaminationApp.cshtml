@@ -3,82 +3,110 @@
     ViewBag.Title = "Online Examination Application";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayoutPage.cshtml";
 }
-<div class="content-body">
-    <div class="row">
-        <div class="form-group col-lg-6">
-            <label><b>MQF Level <span class="requiredstar">*</span> </b></label>
-            <div class="position-relative has-icon-left">
-                @Html.DropDownListFor(a => a.AcademicID, Model.AcademicList, "Select MQF Level", new { @class = "custom-select block" })
-                <span id="AcademicIDVal" style="color:red;display:none" class="valClass">Please select MQF Level.</span>
+
+<div class="content-wrapper">
+    <section id="basic-form-layouts">
+        <div class="row">
+            <div class="col-12">
+                <div class="cardk">
+                    <div class="card-header">
+                        <h4 class="card-title">Examination Application</h4>
+
+                    </div>
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="form-group col-lg-6">
+                                <label><b>MQF Level <span class="requiredstar">*</span> </b></label>
+                                <div class="position-relative has-icon-left">
+                                    @Html.DropDownListFor(a => a.AcademicID, Model.AcademicList, "Select MQF Level", new { @class = "custom-select block" })
+                                    <span id="AcademicIDVal" style="color:red;display:none" class="valClass">Please select MQF Level.</span>
+
+                                </div>
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label><b>Faculty<span class="requiredstar">*</span> </b></label>
+                                <div class="position-relative has-icon-left">
+                                    @Html.DropDownListFor(a => a.DepartmentID, Model.DepartmentList, "Select Faculty", new { @class = "custom-select block" })
+                                    <span id="FacultyCodeVal" style="color:red;display:none" class="valClass">Please select Faculty.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-lg-6">
+                                <label><b>Programme<span class="requiredstar">*</span> </b></label>
+                                <div class="position-relative has-icon-left">
+                                    @Html.DropDownListFor(a => a.ProgrammeVersioningID, Model.ProgramList, "Select Programme", new { @class = "custom-select block" })
+                                    <span id="ProgramCodeVal" style="color:red;display:none" class="valClass">Please select Programme.</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-lg-6">
+                                <label><b>Country<span class="requiredstar">*</span> </b></label>
+                                <div class="position-relative has-icon-left">
+                                    @Html.DropDownListFor(a => a.CountryID, Model.CountryList, "Select Country", new { @class = "custom-select block" })
+                                    <span id="CountryCodeVal" style="color:red;display:none" class="valClass">Please select Country.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-lg-6">
+                                <label><b>Programme Year<span class="requiredstar">*</span> </b></label>
+                                <div class="position-relative has-icon-left">
+                                    @Html.DropDownListFor(a => a.ProgrammeYear, Model.ProgYearList, "Select Programme Year", new { @class = "custom-select block" })
+                                    <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label><b>Programme Semester<span class="requiredstar">*</span></b></label>
+                                <div class="position-relative has-icon-left">
+                                    @Html.DropDownListFor(a => a.ProgrammeSemesterID, Model.SemisterList, "Select Semester", new { @class = "custom-select block" })
+                                    <span id="SemisterCodeVal" style="color:red;display:none" class="valClass">Please select Semester.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-lg-6">
+                                <label><b>Course<span class="requiredstar">*</span> </b></label>
+                                <div class="position-relative has-icon-left">
+                                    @Html.DropDownListFor(a => a.CourseID, Model.CourseList, "Select Course", new { @class = "custom-select block" })
+                                    <span id="CourseIDVal" style="color:red;display:none" class="valClass">Please select Course.</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div id="StudentListDiv">
+
+
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group col-lg-6">
+
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label>&nbsp;</label>
+                            <div class="position-relative has-icon-left">
+                                <button type="button" onclick="fnSaveOnlineExamApplication()" class="btn btn-primary">
+                                    <i class="fa fa-check-square-o"></i> Save
+                                </button>
+                                <button type="button" onclick="fnResetScreen()" class="btn btn-danger">
+                                    <i class="fa fa-check-square-o"></i> Clear
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>
-        <div class="form-group col-lg-6">
-            <label><b>Faculty<span class="requiredstar">*</span> </b></label>
-            <div class="position-relative has-icon-left">
-                @Html.DropDownListFor(a => a.DepartmentID, Model.DepartmentList, "Select Faculty", new { @class = "custom-select block" })
-                <span id="FacultyCodeVal" style="color:red;display:none" class="valClass">Please select Faculty.</span>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-lg-6">
-            <label><b>Programme<span class="requiredstar">*</span> </b></label>
-            <div class="position-relative has-icon-left">
-                @Html.DropDownListFor(a => a.ProgrammeVersioningID, Model.ProgramList, "Select Programme", new { @class = "custom-select block" })
-                <span id="ProgramCodeVal" style="color:red;display:none" class="valClass">Please select Programme.</span>
-            </div>
-        </div>
+    </section>
 
-        <div class="form-group col-lg-6">
-            <label><b>Country<span class="requiredstar">*</span> </b></label>
-            <div class="position-relative has-icon-left">
-                @Html.DropDownListFor(a => a.CountryID, Model.CountryList, "Select Country", new { @class = "custom-select block" })
-                <span id="CountryCodeVal" style="color:red;display:none" class="valClass">Please select Country.</span>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-lg-6">
-            <label><b>Programme Year<span class="requiredstar">*</span> </b></label>
-            <div class="position-relative has-icon-left">
-                @Html.DropDownListFor(a => a.ProgrammeYear, Model.ProgYearList, "Select Programme Year", new { @class = "custom-select block" })
-                <span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>
-            </div>
-        </div>
-        <div class="form-group col-lg-6">
-            <label><b>Programme Semester<span class="requiredstar">*</span></b></label>
-            <div class="position-relative has-icon-left">
-                @Html.DropDownListFor(a => a.ProgrammeSemesterID, Model.SemisterList, "Select Semester", new { @class = "custom-select block" })
-                <span id="SemisterCodeVal" style="color:red;display:none" class="valClass">Please select Semester.</span>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-lg-6">
-            <label><b>Course<span class="requiredstar">*</span> </b></label>
-            <div class="position-relative has-icon-left">
-                @Html.DropDownListFor(a => a.CourseID, Model.CourseList, "Select Course", new { @class = "custom-select block" })
-                <span id="CourseIDVal" style="color:red;display:none" class="valClass">Please select Course.</span>
-            </div>
-        </div>
-
-    </div>
-
-    <div id="StudentListDiv">
-
-
-    </div>
-
-
-    <button type="button" onclick="fnSaveOnlineExamApplication()" class="btn btn-primary">
-        <i class="fa fa-check-square-o"></i> Save
-    </button>
-    <button type="button" onclick="fnResetScreen()" class="btn btn-danger">
-        <i class="fa fa-check-square-o"></i> Clear
-    </button>
+   
 </div>
-
 
 <script>
     $(function () {
@@ -129,7 +157,7 @@
     });
 
 
-    $(document).on("change", "#ProgrammeVersioningID", function () {      
+    $(document).on("change", "#ProgrammeVersioningID", function () {
         $("#CountryID").empty().append('<option value="">Select Country</option>');
         $("#ProgrammeYear").empty().append('<option value="">Select Programme Year</option>');
         $("#ProgrammeSemesterID").empty().append('<option value="">Select Semester</option>');
@@ -157,7 +185,7 @@
         return false;
     });
 
-    $(document).on("change", "#CountryID", function () {      
+    $(document).on("change", "#CountryID", function () {
         $("#ProgrammeYear").empty().append('<option value="">Select Programme Year</option>');
         $("#ProgrammeSemesterID").empty().append('<option value="">Select Semester</option>');
         $("#CourseID").empty().append('<option value="">Select Course</option>');
@@ -188,7 +216,7 @@
         return false;
     });
 
-    $(document).on("change", "#ProgrammeYear", function () {       
+    $(document).on("change", "#ProgrammeYear", function () {
         $("#ProgrammeSemesterID").empty().append('<option value="">Select Semester</option>');
         $("#CourseID").empty().append('<option value="">Select Course</option>');
         $.ajax({
@@ -248,6 +276,7 @@
     });
     $(document).on("change", "#CourseID", function () {
         if ($('#CourseID').val() != '') {
+            $('#overlay').show();
             var model = {
                 ProgrammeVersioningID: $("#ProgrammeVersioningID").val() != '' ? $("#ProgrammeVersioningID").val() : "0",
                 CountryID: $('#CountryID').val() != '' ? $("#CountryID").val() : "0",
@@ -261,12 +290,17 @@
                 contentType: "application/json;charset=utf-8",
                 data: JSON.stringify(model),
                 success: function (res) {
+                    $('#overlay').hide();
                     $('#StudentListDiv').html(res);
                 },
                 error: function (ex) {
+                    $('#overlay').hide();
                     console.log(ex);
                 }
             });
+        }
+        else {
+            $('#StudentListDiv').empty();
         }
 
     });
@@ -279,7 +313,9 @@
                 PaymentStatus: $(this).is(':checked') ? 'A' : 'I'
             });
         });
-        if (studentrecord.length>0) {
+        if (studentrecord.length > 0) {
+            $('#overlay').show();
+
             $.ajax({
                 url: '@Url.Action("SaveOnlineExamination", "Admin",new {area="Admin" })',
                 data: JSON.stringify(studentrecord),
@@ -289,14 +325,18 @@
                 dataType: "json",
                 success: function (result) {
                     if (result > 0) {
+
                         alert('Your request has been processed successfully.');
+                        $('#overlay').hide();
                         fnResetScreen();
                     }
                     else {
+                        $('#overlay').hide();
                         alert('Error in your requst.');
                     }
                 },
                 error: function (e) {
+                    $('#overlay').hide();
                     alert('Error in your requst.');
                 }
             });
@@ -315,4 +355,14 @@
         $("#CourseID").empty().append('<option value="">Select Course</option>');
         $('#StudentListDiv').empty();
     }
+    $(document).on('click', '.checkall', function () {
+
+        if ($(this).is(':checked')) {
+            $('.students').prop('checked', true);
+        }
+        else {
+            $('.students').prop('checked', false);
+        }
+    });
+
 </script>
