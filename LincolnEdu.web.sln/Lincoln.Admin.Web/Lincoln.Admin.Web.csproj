@@ -149,6 +149,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AcademicViewModel.cs" />
+    <Compile Include="Models\AdminAnswerReviewViewModels.cs" />
     <Compile Include="Models\AdminOnlineExaminationViewModel.cs" />
     <Compile Include="Models\AssessmentViewModel.cs" />
     <Compile Include="Models\BatchViewModel.cs" />
@@ -844,6 +845,7 @@
     <Content Include="Areas\Admin\Views\Admin\_listEvaluationAllotment.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\ResultApproval.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\_listResultApproval.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\AnswerSheet.cshtml" />
     <None Include="Properties\PublishProfiles\LinclnAdmin.pubxml" />
     <None Include="Properties\PublishProfiles\LincLonAdmin.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />

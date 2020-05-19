@@ -72,7 +72,7 @@
                                 </div>
                                 
                                     <div class="form-group col-lg-6">
-                                        <label><b>Employee List<span class="requiredstar">*</span></b></label>
+                                        <label><b>Employee <span class="requiredstar">*</span></b></label>
                                         <div class="position-relative has-icon-left">
                                             @Html.DropDownListFor(a => a.EmployeeID, Model.EmployeeList, "Select Employee", new { @class = "custom-select block" })
                                             <span id="EmployeeIDVal" style="color:red;display:none" class="valClass">Please select Employee.</span>
@@ -281,7 +281,6 @@
                 data: JSON.stringify(model),
                 success: function (res) {
                     $('#overlay').hide();
-                    console.log(res);
                     $('#evaluationDiv').html(res);
                 },
                 error: function (ex) {

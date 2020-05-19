@@ -84,6 +84,8 @@ namespace Lincoln.OnlineExam
         List<OnlineExamAppResponseDTO> GetAllOnlineExamEvaluation(AdminOnlineExamRequestDTO request);
         List<OnlineExamAppResponseDTO> GetAllOnlineExamSchedule(AdminOnlineExamRequestDTO request);
         List<OnlineExamAppResponseDTO> GetAllOnlineExamResult(AdminOnlineExamRequestDTO request);
+        List<AdminAnswerReviewResponseDTO> GetAnserReview(AdminOnlineExamRequestDTO request);
         int SaveExaminationConfiguration(AdminOnlineExamRequestDTO recordAttributer, string Operation);
+        int SaveResultApproval(AdminOnlineExamRequestDTO recordAttributer);
     }
 }

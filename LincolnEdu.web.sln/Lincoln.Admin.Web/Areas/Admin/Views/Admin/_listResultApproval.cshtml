@@ -1,1 +1,42 @@
-﻿
+﻿@model IEnumerable<Lincoln.Admin.Web.Models.AdminOnlineExaminationViewModel>
+@using Lincoln.Framework.Common;
+@{
+
+    int sl = 1;
+}
+<table class="table table-striped table-bordered base-style" id="dataTables-example" style="width:100%">
+    <thead>
+        <tr>
+            <th>Sl No</th>
+            <th>Student Name</th>
+            <th>Status</th>
+            <th>Answer Script</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count() > 0)
+            {
+
+
+                foreach (var item in Model)
+                {
+                <tr>
+                    <td>@sl</td>
+                    <td>@item.StudentName</td>
+                    <td>@item.Status</td>
+                    <td><a target="_blank" href="@Url.Action("AnswerSheet", "Admin",new {area="Admin",
+                                StudentID =CryptoSecurity.encrypt(item.StudentID.ToString()),
+                                CourseID =CryptoSecurity.encrypt(item.CourseID.ToString()),
+                                EmployeeID =CryptoSecurity.encrypt(item.EmployeeID.ToString())                                
+                            })">Click Here</a></td>
+                </tr>
+                sl++;
+            }
+        }
+
+    </tbody>
+</table>
+<script>
+    $('#dataTables-example').dataTable();
+
+</script>

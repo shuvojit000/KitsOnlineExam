@@ -15,6 +15,7 @@ namespace Lincoln.OnlineExam.Request
         public int? ProgrammeSemesterID { get; set; }
         public int? CountryID { get; set; }
         public int? EmployeeID { get; set; }
+        public int? StudentID { get; set; }
         public string ExaminationXML { get; set; }
         public int  CreatedBy { get; set; }
         public int Status { get; set; }

@@ -1,0 +1,190 @@
+﻿@model IEnumerable<Lincoln.Admin.Web.Models.AdminAnswerReviewViewModels>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Answer Script</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/css/bootstrap.min.css">
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <style>
+        #overlay {
+            background: #ffffff;
+            color: #666666;
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            z-index: 5000;
+            top: 0;
+            left: 0;
+            float: left;
+            text-align: center;
+            padding-top: 20%;
+            opacity: .80;
+        }
+
+        .spinner {
+            margin: 0 auto;
+            height: 64px;
+            width: 64px;
+            animation: rotate 0.8s infinite linear;
+            border: 5px solid #00796b;
+            border-right-color: transparent;
+            border-radius: 50%;
+        }
+
+        @@keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="overlay" style="display:none;">
+        <div class="spinner"></div>
+        <br />
+        <h3><b>Loading.....</b></h3>
+    </div>
+    <div class="container">
+        @*<div class="row">
+            <div class="col-md-6">Student Name</div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">Course</div>
+
+        </div>*@
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Question No</th>
+                    <th>Question Text</th>
+                    @if (ViewBag.QuestionType == "S")
+                    {
+                        <th>Student Answer Text</th>
+
+                    }
+                    else
+                    {
+                        <th>Answer No</th>
+                        <th>Student Answer No</th>
+
+                    }
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @if (Model != null && Model.Count() > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.QuestionNo</td>
+                            <td>@Html.Raw(item.QuestionText)</td>
+                            @if (item.QuestionType == "S")
+                            {
+                                <td>@Html.Raw(item.AnswerTextByStudent)</td>
+                                <td>
+                                    <input type="text" class="studentRemarks form-control" data-qNo="@item.QuestionNo" data-padetId="@item.PaperDetailsID"
+                                           data-eid="@ViewBag.EmployeeID" data-sid="@ViewBag.StudentID" data-cid="@ViewBag.CourseID">
+                                </td>
+                            }
+                            else
+                            {
+                                <td>@item.AnswerNo</td>
+                                <td>@item.AnswerNoByStudent</td>
+                                <td>
+                                    <input type="text" class="studentRemarks form-control" data-qNo="@item.QuestionNo" data-padetId="@item.PaperDetailsID" data-eid="@ViewBag.EmployeeID"
+                                           data-sid="@ViewBag.StudentID" data-cid="@ViewBag.CourseID"
+                                           value="@(item.AnswerNo==item.AnswerNoByStudent?item.QuestionMarks.ToString():"0")">
+                                </td>
+                            }
+
+                        </tr>
+                    }
+                }
+
+
+            </tbody>
+        </table>
+
+        <div class="row">
+            <button type="button" onclick="fnSaveResult()" class="btn btn-primary">
+                <i class="fa fa-check-square-o"></i> Save
+            </button>
+            <button type="button" onclick="fnResetWindow()" class="btn btn-danger">
+                <i class="fa fa-check-square-o"></i> Close
+            </button>
+        </div>
+    </div>
+    <script>
+
+        function fnSaveResult() {
+            $('#overlay').show();
+            var models = [];
+            $('.studentRemarks').each(function () {
+                models.push({
+                    strStudentID: $(this).attr('data-sid'),
+                    strEmployeeID: $(this).attr('data-eid'),
+                    strCourseID: $(this).attr('data-cid'),
+                    PaperDetailsID: $(this).attr('data-padetId'),
+                    QuestionNo: $(this).attr('data-qNo'),
+                    MarksObtained: $(this).val()
+                });
+            });
+            if (models.length > 0) {
+
+                $.ajax({
+                    url: '@Url.Action("SaveResultApproval", "Admin",new {area="Admin" })',
+                    data: JSON.stringify(models),
+                    type: 'POST',
+                    cache: false,
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    success: function (result) {
+                        if (result > 0) {
+                            if (result > 0) {
+                                $('#overlay').hide();
+                                alert('Your request has been processed successfully.');
+                                fnResetWindow();
+                            }
+                            else {
+                                $('#overlay').hide();
+                                alert('Error in your requst.');
+                            }
+                        }
+                    },
+                    error: function (e) {
+                        $('#overlay').hide();
+                        alert('Error in your requst.');
+                    }
+                });
+
+
+            }
+            else {
+                alert('Nothing to save.');
+                $('#overlay').hide();
+            }
+        }
+        function fnResetWindow() {
+            var x = confirm('Are You sure want to exit:');
+            if (x) {
+                window.close();
+            }
+        }
+    </script>
+</body>
+</html>

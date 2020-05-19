@@ -468,11 +468,26 @@ namespace Lincoln.OnlineExam
                 return unitOfWork.CommonRepository.GetAllOnlineExamResult(request);
             }
         }
+        public List<AdminAnswerReviewResponseDTO> GetAnserReview(AdminOnlineExamRequestDTO request)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.GetAnserReview(request);
+            }
+        }
         public int SaveExaminationConfiguration(AdminOnlineExamRequestDTO recordAttributer, string Operation)
         {
             using (var unitOfWork = new OnlineExamUnitOfWork())
             {
                 return unitOfWork.CommonRepository.SaveExaminationConfiguration(recordAttributer, Operation);
+            }
+        }
+
+        public int SaveResultApproval(AdminOnlineExamRequestDTO recordAttributer)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.SaveResultApproval(recordAttributer);
             }
         }
 

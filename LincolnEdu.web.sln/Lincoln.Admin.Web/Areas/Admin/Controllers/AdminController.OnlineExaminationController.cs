@@ -1,9 +1,8 @@
 ﻿using Lincoln.Admin.Web.Models;
-using Lincoln.OnlineExam.Response;
+using Lincoln.Framework.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
 namespace Lincoln.Admin.Web.Areas.Admin.Controllers
@@ -42,7 +41,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 {
                     StudentID = a.StudentID,
                     StudentName = a.StudentName,
-                    PaymentStatus = a.Status,
+                    Status = a.Status,
+                    PaymentStatus=a.PaymentStatus,
                     CreatedBy = a.CreatedBy
                 }).ToList();
 
@@ -71,7 +71,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                                        new XElement("ExaminationDuration", item.ExaminationDuration),
                                        new XElement("EmployeeID", item.EmployeeID),
                                        new XElement("ReviewStatus", item.ReviewStatus),
-                                       new XElement("MarksObtained", item.MarksObtained?? default(decimal))
+                                       new XElement("MarksObtained", item.MarksObtained ?? default(decimal))
                                    ));
             }
 
@@ -120,7 +120,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 ProgrammeVersioningID = model.ProgrammeVersioningID,
                 ProgrammeSemesterID = model.ProgrammeSemesterID,
                 CountryID = model.CountryID,
-                EmployeeID=model.EmployeeID
+                EmployeeID = model.EmployeeID
             })
                 .Select(a => new AdminOnlineExaminationViewModel()
                 {
@@ -141,7 +141,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
         public JsonResult SaveOnlineExaminationSchedule(AdminOnlineExaminationViewModel model)
         {
 
-            var models =new  List<AdminOnlineExaminationViewModel>();
+            var models = new List<AdminOnlineExaminationViewModel>();
 
             var studentlst = GetAllExamSchedule(model);
             if (studentlst.Any())
@@ -183,6 +183,17 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult GetMaximumMarks(AdminOnlineExaminationViewModel model)
+        {
+            var maxMarks = GetAllExaminationSection().Where(a => a.AcademicID == model.AcademicID
+              && a.CourseID == model.CourseID && a.ProgrammeVersioningID == model.ProgrammeVersioningID && a.SemisterCode == model.ProgrammeSemesterID
+            ).Sum(a => a.MaximumMarks);
+
+            return Json(maxMarks, JsonRequestBehavior.AllowGet);
+        }
+
         #endregion
 
 
@@ -209,7 +220,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
         private List<AdminOnlineExaminationViewModel> GetAllEvaluationAllotment(AdminOnlineExaminationViewModel model)
         {
-           
+
             var itemSet = new List<AdminOnlineExaminationViewModel>();
             itemSet = onlineExamService.GetAllOnlineExamEvaluation(new OnlineExam.Request.AdminOnlineExamRequestDTO()
             {
@@ -225,8 +236,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                     StudentName = a.StudentName,
                     Status = a.Status,
                     CreatedBy = a.CreatedBy,
-                    EmployeeID=a.EmployeeId,
-                    EmployeeName=a.EmployeeName
+                    EmployeeID = a.EmployeeId,
+                    EmployeeName = a.EmployeeName
                 }).ToList();
 
             return itemSet;
@@ -248,7 +259,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 {
                     CourseID = model.CourseID,
                     StudentID = a.StudentID,
-                    EmployeeID=model.EmployeeID!=null&& model.EmployeeID!=0?model.EmployeeID: a.EmployeeID
+                    EmployeeID = model.EmployeeID != null && model.EmployeeID != 0 ? model.EmployeeID : a.EmployeeID
                 }));
             }
 
@@ -315,7 +326,11 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                     StudentID = a.StudentID,
                     StudentName = a.StudentName,
                     Status = a.Status,
-                    CreatedBy = a.CreatedBy
+                    CourseID = a.CourseID,
+                    CreatedBy = a.CreatedBy,
+                    EmployeeID=a.EmployeeId,
+                    EmployeeName=a.EmployeeName,
+                    CourseName=a.CourseName
                 }).ToList();
 
             return itemSet;
@@ -324,8 +339,89 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
         {
             return PartialView("_listResultApproval", GetAllResultApproval(model));
         }
+        private List<AdminAnswerReviewViewModels> GetAllResultReview(AdminOnlineExaminationViewModel model)
+        {
+            var itemSet = new List<AdminAnswerReviewViewModels>();
+            itemSet = onlineExamService.GetAnserReview(new OnlineExam.Request.AdminOnlineExamRequestDTO()
+            {
+                CourseID = model.CourseID,
+                DepartmentID = model.DepartmentID,
+                ProgrammeVersioningID = model.ProgrammeVersioningID,
+                ProgrammeSemesterID = model.ProgrammeSemesterID,
+                CountryID = model.CountryID,
+                StudentID=model.StudentID
+            })
+                .Select(a => new AdminAnswerReviewViewModels()
+                {
+                    AnswerNo = a.AnswerNo,
+                    AnswerNoByStudent = a.AnswerNoByStudent,
+                    AnswerText = a.AnswerText,
+                    AnswerTextByStudent = a.AnswerTextByStudent,
+                    PaperDetailsID = a.PaperDetailsID,
+                    PaperID = a.PaperID,
+                    QuestionMarks = a.QuestionMarks,
+                    QuestionMarksObtain = a.QuestionMarksObtain,
+                    QuestionNo = a.QuestionNo,
+                    QuestionText = a.QuestionText,
+                    QuestionType = a.QuestionType
 
+                }).ToList();
 
+            return itemSet;
+        }
+        public ActionResult AnswerSheet(string StudentID, string CourseID,string EmployeeID)
+        {
+
+            try
+            {
+                if (!string.IsNullOrEmpty(StudentID) && !string.IsNullOrEmpty(CourseID))
+                {
+                    var studentID = CryptoSecurity.Decrypt(StudentID);
+                    var courseID = CryptoSecurity.Decrypt(CourseID);
+                    var itemslist = GetAllResultReview(new Models.AdminOnlineExaminationViewModel() { StudentID = Convert.ToInt32(studentID), CourseID = Convert.ToInt32(courseID) });
+
+                    ViewBag.QuestionType = itemslist.FirstOrDefault()?.QuestionType;
+                    ViewBag.EmployeeID = EmployeeID;
+                    ViewBag.CourseID = CourseID;
+                    ViewBag.StudentID = StudentID;
+
+                    return View(itemslist);
+                }
+            }
+            catch (Exception)
+            {
+
+                return View("Error");
+            }
+            return View("Error");
+
+        }
+        [HttpPost]
+        public JsonResult SaveResultApproval(List<AdminOnlineExaminationViewModel> models)
+        {
+            XElement xEle = null;
+            if (models.Any())
+            {
+                xEle = new XElement("ResultApprovals",
+                        from item in models
+                        select new XElement("ResultApproval",
+                                     new XElement("PaperDetailsID", item.PaperDetailsID),
+                                       new XElement("QuestionNo", item.QuestionNo),
+                                       new XElement("MarksObtained", item.MarksObtained ?? default(decimal))
+                                   ));
+            }
+
+            var result = onlineExamService.SaveResultApproval(new OnlineExam.Request.AdminOnlineExamRequestDTO()
+            {
+                CourseID =Convert.ToInt32( CryptoSecurity.Decrypt( models.FirstOrDefault().strCourseID)),
+                StudentID= Convert.ToInt32(CryptoSecurity.Decrypt(models.FirstOrDefault().strStudentID)),
+                EmployeeID= Convert.ToInt32(CryptoSecurity.Decrypt(models.FirstOrDefault().strEmployeeID)),
+                ExaminationXML = xEle.ToString().Trim(),
+                CreatedBy = User.UserId
+            });
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
         #endregion 
     }
 }

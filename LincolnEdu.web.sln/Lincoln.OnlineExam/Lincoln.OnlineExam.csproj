@@ -103,6 +103,7 @@
     <Compile Include="Request\SubjectRequestDTO.cs" />
     <Compile Include="Request\UpdateStatusReuestDTO.cs" />
     <Compile Include="Response\AcademicLevelResponseDTO.cs" />
+    <Compile Include="Response\AdminAnswerReviewResponseDTO.cs" />
     <Compile Include="Response\AssessmentResponseDTO.cs" />
     <Compile Include="Response\BatchResponseDTO.cs" />
     <Compile Include="Response\CourseResponseDTO.cs" />

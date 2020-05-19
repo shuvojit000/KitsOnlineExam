@@ -10,12 +10,14 @@ namespace Lincoln.Admin.Web.Models
     {
         public int? AcademicID { get; set; }
         public int? CourseID { get; set; }
+        public string strCourseID { get; set; }
         public int? DepartmentID { get; set; }
         public int? ProgrammeID { get; set; }
         public int? ProgrammeVersioningID { get; set; }
         public int? ProgrammeSemesterID { get; set; }
         public int? CountryID { get; set; }
         public int? EmployeeID { get; set; }
+        public string strEmployeeID { get; set; }
         public string EmployeeName { get; set; }
         public int ? ProgrammeYear { get; set; }
 
@@ -29,15 +31,19 @@ namespace Lincoln.Admin.Web.Models
         public List<SelectListItem> EmployeeList { get; set; }
 
         public int? StudentID { get; set; }
+        public string strStudentID { get; set; }
         public string StudentName { get; set; }
         public string Status { get; set; }
         public int? CreatedBy { get; set; }
-        public string PaymentStatus { get; set; }
         public DateTime? ExaminationDate { get; set; }
         public string ExaminationTime { get; set; }
         public int? ExaminationDuration { get; set; }
         public string ReviewStatus { get; set; }
         public decimal? MarksObtained { get; set; }
         public decimal? MaximumMarks { get; set; }
+        public string CourseName { get; set; }
+        public int? PaperDetailsID { get; set; }
+        public int? QuestionNo { get; set; }
+        public string PaymentStatus { get; set; }
     }
 }

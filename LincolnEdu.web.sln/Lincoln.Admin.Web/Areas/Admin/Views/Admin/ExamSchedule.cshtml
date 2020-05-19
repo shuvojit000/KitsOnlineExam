@@ -82,7 +82,7 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-lg-6">
-                                    <label><b>Employee List<span class="requiredstar">*</span></b></label>
+                                    <label><b>Employee<span class="requiredstar">*</span></b></label>
                                     <div class="position-relative has-icon-left">
                                         @Html.DropDownListFor(a => a.EmployeeID, Model.EmployeeList, "Select Employee", new { @class = "custom-select block" })
                                         <span id="EmployeeIDVal" style="color:red;display:none" class="valClass">Please select Employee.</span>
@@ -121,7 +121,7 @@
                                     <div class="form-group col-lg-6">
                                         <label>Maximum Marks</label>
                                         <div class="position-relative ">
-                                            @Html.TextBoxFor(a => a.MaximumMarks, new { @class = "form-control" })
+                                            @Html.TextBoxFor(a => a.MaximumMarks, new { @class = "form-control" , @readonly="readonly"})
                                             <span id="MaximumMarksVal" style="color:red;display:none" class="valClass"></span>
                                         </div>
                                     </div>
@@ -329,6 +329,35 @@
             }
         });
         return false;
+    });
+    $(document).on("change", "#CourseID", function () {
+        if ($('#CourseID').val() != '') {
+            $('#overlay').show();
+            var model = {
+                DepartmentID: $("#DepartmentID").val(),
+                ProgrammeVersioningID: $("#ProgrammeVersioningID").val() != '' ? $("#ProgrammeVersioningID").val() : "0",
+                CountryID: $('#CountryID').val() != '' ? $("#CountryID").val() : "0",
+                ProgrammeSemesterID: $('#ProgrammeSemesterID').val() != '' ? $("#ProgrammeSemesterID").val() : "0",
+                CourseID: $('#CourseID').val() != '' ? $("#CourseID").val() : "0",
+            }
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetMaximumMarks", "Admin",new { area="Admin"})',
+                dataType: 'html',
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify(model),
+                success: function (res) {
+                    $('#overlay').hide();
+                    $('#MaximumMarks').val(res);
+                },
+                error: function (ex) {
+                    $('#overlay').hide();
+                    console.log(ex);
+                }
+            });
+
+
+        }
     });
     $(document).on("change", "#EmployeeID", function () {
         if ($('#EmployeeID').val() != '') {

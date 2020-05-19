@@ -1772,6 +1772,7 @@ namespace Lincoln.OnlineExam.Repository
                             StudentID = Convert.ToInt32(dr["StudentID"]),
                             StudentName = object.ReferenceEquals(dr["StudentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["StudentName"]),
                             Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
+                            PaymentStatus = object.ReferenceEquals(dr["PaymentStatus"], DBNull.Value) ? string.Empty : Convert.ToString(dr["PaymentStatus"]),
                             CreatedBy = Convert.ToInt32(dr["CreatedBy"]),
                         });
 
@@ -1904,9 +1905,64 @@ namespace Lincoln.OnlineExam.Repository
                         itemSet.Add(new OnlineExamAppResponseDTO()
                         {
                             StudentID = Convert.ToInt32(dr["StudentID"]),
+                            EmployeeId = Convert.ToInt32(dr["EmployeeId"]),
+                            CourseID = Convert.ToInt32(dr["CourseID"]),
                             StudentName = object.ReferenceEquals(dr["StudentName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["StudentName"]),
                             Status = object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
                             CreatedBy = Convert.ToInt32(dr["CreatedBy"]),
+                            EmployeeName= object.ReferenceEquals(dr["EmployeeName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["EmployeeName"]),
+                            CourseName = object.ReferenceEquals(dr["CourseName"], DBNull.Value) ? string.Empty : Convert.ToString(dr["CourseName"]),
+                        });
+
+                    }
+                }
+            }
+            return itemSet;
+        }
+
+
+        public List<AdminAnswerReviewResponseDTO> GetAnserReview(AdminOnlineExamRequestDTO request)
+        {
+            var itemSet = new List<AdminAnswerReviewResponseDTO>();
+
+            SqlParameter courseID = new SqlParameter("@CourseID", SqlDbType.Int);
+            courseID.Value = request.CourseID;
+            SqlParameter departmentID = new SqlParameter("@DepartmentID", SqlDbType.Int);
+            departmentID.Value = request.DepartmentID;
+            SqlParameter programmeID = new SqlParameter("@ProgrammeID", SqlDbType.Int);
+            programmeID.Value = request.ProgrammeID;
+            SqlParameter programmeVersioningID = new SqlParameter("@ProgrammeVersioningID", SqlDbType.Int);
+            programmeVersioningID.Value = request.ProgrammeVersioningID;
+            SqlParameter programmeSemesterID = new SqlParameter("@ProgrammeSemesterID", SqlDbType.Int);
+            programmeSemesterID.Value = request.ProgrammeSemesterID;
+            SqlParameter countryID = new SqlParameter("@CountryID", SqlDbType.Int);
+            countryID.Value = request.CountryID;
+            SqlParameter studentID = new SqlParameter("@StudentID", SqlDbType.Int);
+            studentID.Value = request.StudentID;
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = "RESULT";
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Admin].[upGetResult]", courseID, departmentID, programmeID, programmeVersioningID,
+                programmeSemesterID, countryID, studentID, type))
+            {
+                if (dr != null && dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        itemSet.Add(new AdminAnswerReviewResponseDTO()
+                        {
+                            
+                            AnswerNo= object.ReferenceEquals(dr["AnswerNo"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AnswerNo"]),
+                            AnswerNoByStudent = object.ReferenceEquals(dr["AnswerNoByStudent"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AnswerNoByStudent"]),
+                            AnswerText = object.ReferenceEquals(dr["AnswerText"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AnswerText"]),
+                            AnswerTextByStudent = object.ReferenceEquals(dr["AnswerTextByStudent"], DBNull.Value) ? string.Empty : Convert.ToString(dr["AnswerTextByStudent"]),
+                            PaperDetailsID = Convert.ToInt32(dr["PaperDetailsID"]),
+                            PaperID = Convert.ToInt32(dr["PaperID"]),
+                            QuestionMarks = Convert.ToDecimal(dr["QuestionMarks"]),
+                            QuestionMarksObtain= Convert.ToDecimal(dr["QuestionMarksObtain"]),
+                            QuestionNo = Convert.ToInt32(dr["QuestionNo"]),
+                            QuestionText = object.ReferenceEquals(dr["QuestionText"], DBNull.Value) ? string.Empty : Convert.ToString(dr["QuestionText"]),
+                            QuestionType = object.ReferenceEquals(dr["QuestionType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["QuestionType"])
+
                         });
 
                     }
@@ -1942,6 +1998,33 @@ namespace Lincoln.OnlineExam.Repository
             status.Direction = ParameterDirection.InputOutput;
 
             SqlServerHelper.ExecuteNonQueryProc("[ln.Admin].[upSaveExaminationConfiguration]", courseID, examinationXML, createdBy, type, dBStatus, status);
+
+            return Convert.ToInt32(status.Value);
+
+        }
+
+        public int SaveResultApproval(AdminOnlineExamRequestDTO recordAttributer)
+        {
+            SqlParameter studentID = new SqlParameter("@StudentID", SqlDbType.Int);
+            studentID.Value = recordAttributer.StudentID;
+
+            SqlParameter employeeID = new SqlParameter("@EmployeeID", SqlDbType.Int);
+            employeeID.Value = recordAttributer.EmployeeID;
+
+            SqlParameter courseID = new SqlParameter("@CourseID", SqlDbType.Int);
+            courseID.Value = recordAttributer.CourseID;
+
+            SqlParameter examinationXML = new SqlParameter("@ExaminationXML", SqlDbType.Xml);
+            examinationXML.Value = recordAttributer.ExaminationXML;
+
+            SqlParameter createdBy = new SqlParameter("@CreatedBy", SqlDbType.Int);
+            createdBy.Value = recordAttributer.CreatedBy;
+
+            SqlParameter status = new SqlParameter("@Status", SqlDbType.Int);
+            status.Value = 0;
+            status.Direction = ParameterDirection.InputOutput;
+
+            SqlServerHelper.ExecuteNonQueryProc("[ln.Admin].[upSaveResultApproval]", studentID, employeeID, courseID, examinationXML, createdBy, status);
 
             return Convert.ToInt32(status.Value);
 
