@@ -144,6 +144,7 @@
     });
 
     function fnAddExaminationSection(id) {
+        debugger;
         if (id != null && id != '') {
             $('.modal-body').load('/Admin/Admin/AddExaminationSection/' + id, function () { $("#myModal").modal('show'); });
         }

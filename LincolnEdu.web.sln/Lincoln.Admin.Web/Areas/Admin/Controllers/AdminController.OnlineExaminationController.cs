@@ -376,8 +376,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             {
                 if (!string.IsNullOrEmpty(StudentID) && !string.IsNullOrEmpty(CourseID))
                 {
-                    var studentID = CryptoSecurity.Decrypt(StudentID);
-                    var courseID = CryptoSecurity.Decrypt(CourseID);
+                    var studentID = StudentID;
+                    var courseID = CourseID;
                     var itemslist = GetAllResultReview(new Models.AdminOnlineExaminationViewModel() { StudentID = Convert.ToInt32(studentID), CourseID = Convert.ToInt32(courseID) });
 
                     ViewBag.QuestionType = itemslist.FirstOrDefault()?.QuestionType;
@@ -413,9 +413,9 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             var result = onlineExamService.SaveResultApproval(new OnlineExam.Request.AdminOnlineExamRequestDTO()
             {
-                CourseID =Convert.ToInt32( CryptoSecurity.Decrypt( models.FirstOrDefault().strCourseID)),
-                StudentID= Convert.ToInt32(CryptoSecurity.Decrypt(models.FirstOrDefault().strStudentID)),
-                EmployeeID= Convert.ToInt32(CryptoSecurity.Decrypt(models.FirstOrDefault().strEmployeeID)),
+                CourseID =Convert.ToInt32( models.FirstOrDefault().strCourseID),
+                StudentID= Convert.ToInt32(models.FirstOrDefault().strStudentID),
+                EmployeeID= Convert.ToInt32(models.FirstOrDefault().strEmployeeID),
                 ExaminationXML = xEle.ToString().Trim(),
                 CreatedBy = User.UserId
             });

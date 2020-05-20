@@ -25,9 +25,9 @@
                     <td>@item.StudentName</td>
                     <td>@item.Status</td>
                     <td><a target="_blank" href="@Url.Action("AnswerSheet", "Admin",new {area="Admin",
-                                StudentID =CryptoSecurity.encrypt(item.StudentID.ToString()),
-                                CourseID =CryptoSecurity.encrypt(item.CourseID.ToString()),
-                                EmployeeID =CryptoSecurity.encrypt(item.EmployeeID.ToString())                                
+                                StudentID =item.StudentID.ToString(),
+                                CourseID =item.CourseID.ToString(),
+                                EmployeeID =item.EmployeeID.ToString()                                
                             })">Click Here</a></td>
                 </tr>
                 sl++;

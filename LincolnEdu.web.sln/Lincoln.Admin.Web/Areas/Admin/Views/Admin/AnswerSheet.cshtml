@@ -56,31 +56,20 @@
         <h3><b>Loading.....</b></h3>
     </div>
     <div class="container">
-        @*<div class="row">
-            <div class="col-md-6">Student Name</div>
-
-        </div>
-        <div class="row">
-            <div class="col-md-6">Course</div>
-
-        </div>*@
-
+       
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>Question No</th>
                     <th>Question Text</th>
-                    @if (ViewBag.QuestionType == "S")
-                    {
+                   
                         <th>Student Answer Text</th>
 
-                    }
-                    else
-                    {
+                   
                         <th>Answer No</th>
                         <th>Student Answer No</th>
 
-                    }
+                  
                     <th>Remarks</th>
                 </tr>
             </thead>
@@ -93,24 +82,18 @@
                         <tr>
                             <td>@item.QuestionNo</td>
                             <td>@Html.Raw(item.QuestionText)</td>
-                            @if (item.QuestionType == "S")
-                            {
+                           
                                 <td>@Html.Raw(item.AnswerTextByStudent)</td>
-                                <td>
-                                    <input type="text" class="studentRemarks form-control" data-qNo="@item.QuestionNo" data-padetId="@item.PaperDetailsID"
-                                           data-eid="@ViewBag.EmployeeID" data-sid="@ViewBag.StudentID" data-cid="@ViewBag.CourseID">
-                                </td>
-                            }
-                            else
-                            {
+                               
+                        
                                 <td>@item.AnswerNo</td>
                                 <td>@item.AnswerNoByStudent</td>
                                 <td>
                                     <input type="text" class="studentRemarks form-control" data-qNo="@item.QuestionNo" data-padetId="@item.PaperDetailsID" data-eid="@ViewBag.EmployeeID"
                                            data-sid="@ViewBag.StudentID" data-cid="@ViewBag.CourseID"
-                                           value="@(item.AnswerNo==item.AnswerNoByStudent?item.QuestionMarks.ToString():"0")">
+                                           value="@(item.AnswerNo==item.AnswerNoByStudent && item.QuestionType=="O"?item.QuestionMarks.ToString():"0")">
                                 </td>
-                            }
+                           
 
                         </tr>
                     }
