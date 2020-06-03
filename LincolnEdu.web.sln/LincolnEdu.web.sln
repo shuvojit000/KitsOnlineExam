@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lincoln.Framework.Common", "Lincoln.Framework.Common\Lincoln.Framework.Common.csproj", "{3BF815C0-6FF5-4859-A5E7-809610BD2B87}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lincoln.Utility.EmailSending", "Lincoln.Utility.EmailSending\Lincoln.Utility.EmailSending.csproj", "{E0E9DB2C-9740-49EE-ADDF-7E970F75227E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{3BF815C0-6FF5-4859-A5E7-809610BD2B87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BF815C0-6FF5-4859-A5E7-809610BD2B87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BF815C0-6FF5-4859-A5E7-809610BD2B87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0E9DB2C-9740-49EE-ADDF-7E970F75227E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0E9DB2C-9740-49EE-ADDF-7E970F75227E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0E9DB2C-9740-49EE-ADDF-7E970F75227E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0E9DB2C-9740-49EE-ADDF-7E970F75227E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,6 +55,7 @@ Global
 		{02936113-4598-4D00-A7EC-C266ECE846A8} = {58E6CFCC-E23B-4517-A767-FC93130F5810}
 		{B1F8E715-8A88-4BB3-9191-C60774F3621B} = {8A5DAF8B-3780-4C19-90F3-217A6BE83FDA}
 		{3BF815C0-6FF5-4859-A5E7-809610BD2B87} = {B1F8E715-8A88-4BB3-9191-C60774F3621B}
+		{E0E9DB2C-9740-49EE-ADDF-7E970F75227E} = {A45ECC8E-FC2A-4E6C-8161-8CD7BBF668BF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C01106C5-0362-480A-BA1B-8BBA1B0EB5C8}

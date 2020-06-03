@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3BF815C0-6FF5-4859-A5E7-809610BD2B87}</ProjectGuid>
+    <ProjectGuid>{E0E9DB2C-9740-49EE-ADDF-7E970F75227E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Lincoln.Framework.Common</RootNamespace>
-    <AssemblyName>Lincoln.Framework.Common</AssemblyName>
+    <RootNamespace>Lincoln.Utility.EmailSending</RootNamespace>
+    <AssemblyName>Lincoln.Utility.EmailSending</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -41,7 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CryptoSecurity.cs" />
+    <Compile Include="BaseEmailSender.cs" />
+    <Compile Include="EmailConfigurationSection.cs" />
+    <Compile Include="IEmailSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
