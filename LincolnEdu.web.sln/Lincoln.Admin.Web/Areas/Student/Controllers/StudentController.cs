@@ -119,7 +119,7 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
                     AnswerNo = anseredQuestion?.AnswerNo,
                     AnswerText = anseredQuestion?.AnswerText,
                     IsAnswer = anseredQuestion?.IsAnswer ?? 0,
-
+                    QuestionMarks=a.QuestionMarks
                 }).FirstOrDefault();
 
 

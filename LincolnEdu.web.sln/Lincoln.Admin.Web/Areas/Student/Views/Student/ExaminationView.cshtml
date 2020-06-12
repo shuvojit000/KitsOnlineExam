@@ -27,6 +27,9 @@
                                         <div class="widgetk orange">
                                             <div class="widgetk-title">
                                                 <div class="col-lg-4">
+                                                    <div class="col-sm-6 kltbx">
+                                                        Full Marks: <span id="FullMarksExam" class="timerclass">100</span>
+                                                    </div>
                                                     <div class="kltbx">
                                                         Time Left: <span id="timer" class="timerclass"></span>
                                                     </div>
@@ -44,6 +47,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <button id="btnMax" class="nav-link-expand">M</button>
                                             <div class="widgetk-body">
                                                 <!--ONLINE ANSWER PAPER SHOW START -->
                                                 <!--==========================-->
@@ -106,6 +110,10 @@
                                                                         </div>
                                                                     </div><!-- /.col-sm-10 -->
                                                                     <!--QUESTION BODY RIGHT SECTION END-->
+                                                                    <span class="labelqM lblPos">
+                                                                        <span>Question Marks</span>
+                                                                        <span id="MaxMarksQuestion">0</span>
+                                                                    </span>
                                                                 </div><!-- /.row -->
                                                             </div>
                                                         </div>
@@ -160,6 +168,29 @@
 
 <script src="~/Content/assets/TestExam/jquery.countdownTimer.js"></script>
 <script>
+    $(document).ready(function () {
+        $(document).bind("contextmenu", function (e) {
+            return false;
+        });
+    });
+    document.onkeypress = function (event) {
+        event = (event || window.event);
+        if (event.keyCode == 123) {
+            return false;
+        }
+    }
+    document.onmousedown = function (event) {
+        event = (event || window.event);
+        if (event.keyCode == 123) {
+            return false;
+        }
+    }
+    document.onkeydown = function (event) {
+        event = (event || window.event);
+        if (event.keyCode == 123) {
+            return false;
+        }
+    }
     $(function () {
         $("#timer").countdowntimer({
             hours: 1,
@@ -179,8 +210,8 @@
         allowedContent: true,
         extraPlugins: 'ckeditor_wiris',
         readOnly: true,
-        resize_enabled:false,
-        removePlugins:'elementspath',
+        resize_enabled: false,
+        removePlugins: 'elementspath',
         on:
    {
        instanceReady: function (evt) {
@@ -197,13 +228,14 @@
         fnSaveExaminationTest();
     }
     function fnSubmitSheet(isTimeUp) {
+        debugger;
         courseID = '@Model.Item1.CourseID';
         var time = $('#timer').html().split(':');
         var hour = time[0];
         var minute = time[1];
         var second = time[2];
         var totalSecond = hour * 60 * 60 + minute * 60 + second;
-
+        var isAllow = false;
 
         var model = {
             PaperDetailsID: $('input[name="PaperDetailsID"]').val(),
@@ -211,25 +243,37 @@
             ExaminationDuration: 3600,
             TotalTime: isTimeUp ? 0 : totalSecond
         };
-        $.ajax({
-            url: '@Url.Action("SaveExaminationSheet", "Student",new {area= "Student" })',
-            data: JSON.stringify(model),
-            type: 'POST',
-            cache: false,
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            success: function (result) {
-                if (result == 0) {
+        if (typeof isTimeUp === 'undefined') {
+            if (confirm("Are you sure?")) {
+                isAllow = true;
+            }
+        }
+        else {
+            isAllow = true;
+        }
+
+        if (isAllow) {
+            $.ajax({
+                url: '@Url.Action("SaveExaminationSheet", "Student",new {area= "Student" })',
+                data: JSON.stringify(model),
+                type: 'POST',
+                cache: false,
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result == 0) {
+                        alert('Error in your requst.');
+                    }
+                    else {
+                        window.location.href = '@Url.Action("Dashboard", "Student", new {area="Student" })';
+                    }
+                },
+                error: function (e) {
                     alert('Error in your requst.');
                 }
-                else {
-                    window.location.href = '@Url.Action("Dashboard", "Student", new {area="Student" })';
-                }
-            },
-            error: function (e) {
-                alert('Error in your requst.');
-            }
-        });
+            });
+        }
+
 
     }
     function fnSaveExaminationTest() {
@@ -306,7 +350,7 @@
         fnArrangeHeaderbutton(questionNo, courseID);
     }
 
-    
+
 
     function fnRefreshLeftPanel() {
         $('.casLftPanel').load('/Student/Student/LeftSuggestionPanel/@Model.Item1.CourseID');

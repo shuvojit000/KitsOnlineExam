@@ -9,7 +9,7 @@ namespace Lincoln.Framework.Common
     {
         public static string encrypt(string encryptString)
         {
-            string EncryptionKey = "LINCLONEMS123@";
+            string EncryptionKey = "AAA";
             byte[] clearBytes = Encoding.Unicode.GetBytes(encryptString);
             using (Aes encryptor = Aes.Create())
             {
@@ -33,7 +33,7 @@ namespace Lincoln.Framework.Common
 
         public static string Decrypt(string cipherText)
         {
-            string EncryptionKey = "LINCLONEMS123@";
+            string EncryptionKey = "AAA";
             cipherText = cipherText.Replace(" ", "+");
             byte[] cipherBytes = Convert.FromBase64String(cipherText);
             using (Aes encryptor = Aes.Create())

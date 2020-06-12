@@ -31,7 +31,10 @@
                             <td>
                                 @if (item.ExamAttendance == "I")
                                 {
-                                    <a href="@Url.Action("ExaminationView","Student",new {area="Student",id=CryptoSecurity.encrypt(item.CourseID.ToString()) })" class="btn btn-success" title="Start">Exam Start Now</a>
+                                    <a href="@Url.Action("ExaminationView","Student",new {area="Student",id=CryptoSecurity.encrypt(item.CourseID.ToString()) })" 
+                                        @*onclick="fnExamPage('@CryptoSecurity.encrypt(item.CourseID.ToString())')"*@
+
+                                        class="btn btn-success" title="Start">Exam Start Now</a>
                                         }
                             </td>
                         </tr>
@@ -46,4 +49,10 @@
 </div>
 <script>
     $('#examList').dataTable();
+    function fnExamPage(courseId)
+    {
+        
+        window.open("@Url.Action("ExaminationView","Student",new { area = "Student" })?id=" + courseId, "newWin", "width=" + screen.availWidth + ",height=" + screen.availHeight);
+    }
+
 </script>
