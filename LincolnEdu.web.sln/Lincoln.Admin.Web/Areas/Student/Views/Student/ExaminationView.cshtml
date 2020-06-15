@@ -7,6 +7,17 @@
     .sectionBack {
         background: #F37B53;
     }
+
+    .labelqM {
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+    }
+
+    .lblPos {
+        position: absolute;
+        right: 0px;
+        margin-top: 0px;
+    }
 </style>
 <link href="~/Content/assets/HighPiorityjqueryLib/jquery-ui.css" rel="stylesheet" />
 <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
@@ -30,7 +41,7 @@
                                                     <div class="col-sm-6 kltbx">
                                                         Full Marks: <span id="FullMarksExam" class="timerclass">100</span>
                                                     </div>
-                                                    <div class="kltbx">
+                                                    <div class="col-sm-6 kltbx">
                                                         Time Left: <span id="timer" class="timerclass"></span>
                                                     </div>
                                                 </div>
@@ -47,7 +58,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button id="btnMax" class="nav-link-expand">M</button>
+                                           
                                             <div class="widgetk-body">
                                                 <!--ONLINE ANSWER PAPER SHOW START -->
                                                 <!--==========================-->
@@ -76,10 +87,7 @@
 
                                                                                 }
 
-                                                                                @*<a id="mark_next" style="cursor:pointer" class="load_more btnk btnk-primary"><span>General English</span></a>
-                                                                                    <a id="save_next" style="cursor:pointer" class="load_more btnk btnk-primary"><span>Reasoning</span></a>
-                                                                                    <a id="clear" class="clear btnk btnk-primary"><span>Quantitative Aptitude</span></a>
-                                                                                    <a class="btnk btnk-primary"><span>General Awareness</span></a>*@
+                                                                               
                                                                             </center>
                                                                         </div>
                                                                     </div>
@@ -138,40 +146,19 @@
         </div>
         <!--/ Stats -->
     </div>
-    @*<div class="footerk">
-            <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2">
-                <span class="float-md-left d-block d-md-inline-block">
-                    Copyright  &copy; 2019
-                    <a class="text-bold-800 grey darken-2" href="http://kreativesit.com" target="_blank">KITS</a>
-                </span>
-                <span class="float-md-right d-none d-lg-block">ESA<i class="fa fa-home pink"></i></span>
-            </p>
-        </div>*@
+   
 </div>
-@*<div class="modal fade" id="myModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-
-                    <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body recoPas">
-                </div>
-            </div>
-        </div>
-    </div>*@
-
 
 <div id="dialog" title="Calculator">
     @{Html.RenderAction("CalculatorWindow", "Student", new { area = "Student" }); }
 </div>
-
 <script src="~/Content/assets/TestExam/jquery.countdownTimer.js"></script>
 <script>
     $(document).ready(function () {
         $(document).bind("contextmenu", function (e) {
             return false;
         });
+       
     });
     document.onkeypress = function (event) {
         event = (event || window.event);
@@ -181,7 +168,7 @@
     }
     document.onmousedown = function (event) {
         event = (event || window.event);
-        if (event.keyCode == 123) {
+        if (event.keyCode == 123 || event.keyCode == 27) {
             return false;
         }
     }

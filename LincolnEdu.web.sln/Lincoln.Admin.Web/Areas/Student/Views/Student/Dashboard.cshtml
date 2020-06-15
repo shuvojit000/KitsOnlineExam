@@ -31,9 +31,9 @@
                             <td>
                                 @if (item.ExamAttendance == "I")
                                 {
-                                    <a href="@Url.Action("ExaminationView","Student",new {area="Student",id=CryptoSecurity.encrypt(item.CourseID.ToString()) })" 
-                                        @*onclick="fnExamPage('@CryptoSecurity.encrypt(item.CourseID.ToString())')"*@
-
+                                    <a 
+                                       @*href="@Url.Action("ExaminationView","Student",new {area="Student",id=CryptoSecurity.encrypt(item.CourseID.ToString()) })"*@ 
+                                        onclick="fnExamPage('@CryptoSecurity.encrypt(item.CourseID.ToString())')"
                                         class="btn btn-success" title="Start">Exam Start Now</a>
                                         }
                             </td>
@@ -49,10 +49,52 @@
 </div>
 <script>
     $('#examList').dataTable();
-    function fnExamPage(courseId)
+     function fnExamPage(courseId)
     {
-        
-        window.open("@Url.Action("ExaminationView","Student",new { area = "Student" })?id=" + courseId, "newWin", "width=" + screen.availWidth + ",height=" + screen.availHeight);
+        debugger;
+        // Opera 8.0+
+        var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+
+        // Firefox 1.0+
+        var isFirefox = typeof InstallTrigger !== 'undefined';
+
+        // Safari 3.0+ "[object HTMLElementConstructor]"
+        var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
+
+        // Internet Explorer 6-11
+        var isIE = /*@@cc_on!@@*/false || !!document.documentMode;
+
+        // Edge 20+
+        var isEdge = !isIE && !!window.StyleMedia;
+
+        // Chrome 1 - 79
+        var isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+
+        // Edge (based on chromium) detection
+        var isEdgeChromium = isChrome && (navigator.userAgent.indexOf("Edg") != -1);
+
+        // Blink engine detection
+        var isBlink = (isChrome || isOpera) && !!window.CSS;
+
+        if (isOpera || isSafari || isIE || isEdge || isChrome || isEdgeChromium) {
+            alert('You are not allowed to this browser for exam.');
+            //var output = 'Detecting browsers by ducktyping:<hr>';
+            //output += 'isFirefox: ' + isFirefox + '<br>';
+            //output += 'isChrome: ' + isChrome + '<br>';
+            //output += 'isSafari: ' + isSafari + '<br>';
+            //output += 'isOpera: ' + isOpera + '<br>';
+            //output += 'isIE: ' + isIE + '<br>';
+            //output += 'isEdge: ' + isEdge + '<br>';
+            //output += 'isEdgeChromium: ' + isEdgeChromium + '<br>';
+            //output += 'isBlink: ' + isBlink + '<br>';
+            //alert(output);
+        }
+        else {
+            window.location.href = "@Url.Action("ExaminationView","Student",new { area = "Student" })?id=" + courseId;
+        }
+
+
+        //window.open("@Url.Action("ExaminationView","Student",new { area = "Student" })?id=" + courseId, "newWin", "width=" + screen.availWidth + ",height=" + screen.availHeight);
     }
 
 </script>

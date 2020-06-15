@@ -287,8 +287,6 @@
     <Content Include="Content\assets\images\portrait\small\avatar-s-1.png" />
     <Content Include="Content\assets\js\core\app-menu.min.js" />
     <Content Include="Content\assets\js\core\app.min.js" />
-    <Content Include="Content\assets\js\core\screenfull.min.js" />
-    <Content Include="Content\assets\js\core\supportsrn.min.js" />
     <Content Include="Content\assets\js\scripts\cards\card-charts.min.js" />
     <Content Include="Content\assets\js\scripts\cards\card-ecommerce.min.js" />
     <Content Include="Content\assets\js\scripts\cards\card-maps.min.js" />
