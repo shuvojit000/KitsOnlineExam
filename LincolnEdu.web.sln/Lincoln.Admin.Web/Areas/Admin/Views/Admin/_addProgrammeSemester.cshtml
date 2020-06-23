@@ -86,9 +86,7 @@
         $.ajax({
             type: 'POST',
             url: '@Url.Action("GetDepartmentDrop","Admin",new { area="Admin"})', // we are calling json method
-
             dataType: 'json',
-
             data: { academicID: $("#AcademicID").val() != '' ? $("#AcademicID").val() : "0" },
             success: function (res) {
                 // states contains the JSON formatted list
