@@ -58,10 +58,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="widgetk-title">
+                                            <div class="widgetk-title" style="background:#2a2e30">
                                                 <div class="col-lg-4">
                                                     <div class="col-sm-6 kltbx">
-                                                       Name: <span id="FullMarksExam" class="timerclass">100</span>
+                                                       Name: @User.FirstName @User.LastName
                                                     </div>
                                                    
                                                 </div>
@@ -72,7 +72,7 @@
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <div class="krtbx">
-                                                        StudentId: 
+                                                        StudentId: @User.UserName
                                                     </div>
                                                 </div>
                                             </div>
@@ -201,9 +201,14 @@
             minutes: 0,
             seconds: 0,
             timeUp: timeisUp,
+            beforeExpiryTime: "00:00:15:00",
+            beforeExpiryTimeFunction: beforeExpiryFunc
         });
         function timeisUp() {
             fnSubmitSheet(true);
+        }
+        function beforeExpiryFunc() {
+            alert('15 min left.');
         }
         $('#dialog').dialog({
             autoOpen: false,
