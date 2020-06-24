@@ -45,14 +45,75 @@
             </tbody>
         </table>
 
+        <div class="col-lg-12">
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">
+                                <label class="modal-title text-text-bold-600">Guideline for Online Examination</label>
+                            </h4>
+                            <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body recoPas">
+                            Steps For Accessing Your Exam Online:
+
+                            Close all programs, including email
+                            Click on the Click here to open the exam link provided in the email from The College.
+                            Click "Log In For Your Exam Here" at the bottom of the screen.
+                            Have your Proctor enter the Username and Password provided in the email from The College and click enter.
+                            To begin the exam, click on the link to the appropriate exam listed under Online Assessments.
+
+                            Before starting the exam:
+
+                            Please verify that the student's last name appears correctly within the User ID box.
+
+                            During the exam:
+
+                            The student may not use his or her textbook, course notes, or receive help from a proctor or any other outside source.
+                            Students must complete the 50-question multiple-choice exam within the 75-minute time frame allotted for the exam.
+                            Students must not stop the session and then return to it. This is especially important in the online environment where the system will "time-out" and not allow the student or you to reenter the exam site.
+                            <div class="modal-footer">
+                                <button type="button" id="agreebtn" data-id="" onclick="fnAgree(this)" class="btn btn-success">
+                                    <i class="fa fa-check-square-o"></i> I agree
+                                </button>
+                                <button type="button" onclick="fnDecline(this)" class="btn btn-danger">
+                                    <i class="fa fa-question-circle"></i> I Decline
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 <script>
     $('#examList').dataTable();
      function fnExamPage(courseId)
     {
+         $('#myModal #agreebtn').attr('data-id', courseId);
+         $("#myModal").modal('show');
+        //window.open("@Url.Action("ExaminationView","Student",new { area = "Student" })?id=" + courseId, "newWin", "width=" + screen.availWidth + ",height=" + screen.availHeight);
+     }
+    function fnAgree(e) {
         debugger;
-        // Opera 8.0+
+        var courseId = $(e).attr('data-id');
+        if (courseId!='') {
+            window.location.href = "@Url.Action("ExaminationView","Student",new { area = "Student" })?id=" + courseId;
+        }
+        else {
+            alert('Something went wrong.');
+
+        }
+
+    }
+    function fnDecline(e) {
+        $('#myModal #agreebtn').attr('data-id', '');
+        $("#myModal").modal('hide');
+    }
+    function IsAllowed() {
         var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
 
         // Firefox 1.0+
@@ -88,13 +149,12 @@
             //output += 'isEdgeChromium: ' + isEdgeChromium + '<br>';
             //output += 'isBlink: ' + isBlink + '<br>';
             //alert(output);
+            return true;
         }
         else {
-            window.location.href = "@Url.Action("ExaminationView","Student",new { area = "Student" })?id=" + courseId;
+            return false;
         }
 
-
-        //window.open("@Url.Action("ExaminationView","Student",new { area = "Student" })?id=" + courseId, "newWin", "width=" + screen.availWidth + ",height=" + screen.availHeight);
     }
 
 </script>
