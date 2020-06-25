@@ -192,7 +192,7 @@ namespace Lincoln.OnlineExam.Repository
                             SLNo= Convert.ToInt32(dr["SLNo"]),
                             StartDate= Convert.ToDateTime(dr["StartDate"]),
                             Status= object.ReferenceEquals(dr["Status"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Status"]),
-                            ExaminationDuration= Convert.ToInt32(dr["ExaminationDuration"]),
+                            ExaminationDuration= object.ReferenceEquals(dr["ExaminationDate"], DBNull.Value) ? (int?)null : Convert.ToInt32(dr["ExaminationDuration"]),
                             ExaminationDate = object.ReferenceEquals(dr["ExaminationDate"], DBNull.Value)? (DateTime?)null : Convert.ToDateTime(dr["ExaminationDate"]),
                             TotalMarks = Convert.ToDecimal(dr["TotalMarks"]),
                         });
