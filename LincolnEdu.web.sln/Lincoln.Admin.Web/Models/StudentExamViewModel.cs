@@ -9,6 +9,7 @@ namespace Lincoln.Admin.Web.Models
     {
         public string ExaminationName { get; set; }
         public int? CourseID { get; set; }
+        public decimal? TotalMarks { get; set; }
     }
     public class ExamQuestionSectionViewModel
     {

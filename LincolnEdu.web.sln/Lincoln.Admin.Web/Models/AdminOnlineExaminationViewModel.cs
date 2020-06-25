@@ -20,7 +20,8 @@ namespace Lincoln.Admin.Web.Models
         public string strEmployeeID { get; set; }
         public string EmployeeName { get; set; }
         public int ? ProgrammeYear { get; set; }
-
+        public int? ExaminationID { get; set; }
+        public string EnrollmentNo { get; set; }
         public List<SelectListItem> AcademicList { get; set; }
         public List<SelectListItem> ProgramList { get; set; }
         public List<SelectListItem> CourseList { get; set; }
@@ -29,6 +30,7 @@ namespace Lincoln.Admin.Web.Models
         public List<SelectListItem> CountryList { get; set; }
         public List<SelectListItem> DepartmentList { get; set; }
         public List<SelectListItem> EmployeeList { get; set; }
+        public List<SelectListItem> ExaminationList { get; set; }
 
         public int? StudentID { get; set; }
         public string strStudentID { get; set; }
@@ -45,5 +47,6 @@ namespace Lincoln.Admin.Web.Models
         public int? PaperDetailsID { get; set; }
         public int? QuestionNo { get; set; }
         public string PaymentStatus { get; set; }
+        public List<AdminOnlineExaminationViewModel> CustomList { get; set; }
     }
 }

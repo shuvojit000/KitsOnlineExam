@@ -4,7 +4,8 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayoutPage.cshtml";
 }
 @model Lincoln.Admin.Web.Models.AdminOnlineExaminationViewModel
-
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/xlsx.full.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script>
 <div class="content-wrapper">
     <div class="content-body">
         <section id="basic-form-layouts">
@@ -88,6 +89,13 @@
                                         <span id="EmployeeIDVal" style="color:red;display:none" class="valClass">Please select Employee.</span>
                                     </div>
                                 </div>
+                                <div class="form-group col-lg-6">
+                                    <label><b>Examination <span class="requiredstar">*</span></b></label>
+                                    <div class="position-relative has-icon-left">
+                                        @Html.DropDownListFor(a => a.ExaminationID, Model.ExaminationList, "Select Examination", new { @class = "custom-select block" })
+                                        <span id="ExaminationIDVal" style="color:red;display:none" class="valClass">Please select Examination.</span>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="panel panel-default">
@@ -128,8 +136,12 @@
                                 </div>
                             </div>
 
-                            <div id="ExamScheduleDiv"></div>
-
+                            @*<div id="ExamScheduleDiv"></div>*@
+                            <input type="file" id="fileUpload" />
+                            <input type="button" id="upload" value="Upload" />
+                            <hr />
+                            <div id="dvExcel">
+                            </div>
                             <center>
                                 <button type="button" onclick="fnSaveExamSchedule()" class="btn btn-primary">
                                     <i class="fa fa-check-square-o"></i> Save
@@ -149,6 +161,7 @@
 <script>
     $(function () {
         $('li a[href="/Admin/Admin/ExamSchedule"]').parent('li').addClass('active');
+   
     });
     function fnResetScreen() {
         $("#AcademicID").val('');
@@ -161,12 +174,7 @@
         $('#ExamScheduleDiv').empty();
     }
     $(document).on("focus", "#ExaminationDate", function () {
-        $('#ExaminationDate').datetimepicker({
-            format: 'DD/MM/YYYY',
-            minDate: new Date(),
-            daysOfWeekDisabled: [6]
-        });
-
+        
     });
     $(document).on("change", "#AcademicID", function () {
         $("#DepartmentID").empty();
@@ -359,41 +367,51 @@
 
         }
     });
-    $(document).on("change", "#EmployeeID", function () {
-        if ($('#EmployeeID').val() != '') {
+    
+    $(document).on("change", "#ExaminationID", function () {
+        if ($('#ExaminationID').val() != '') {
             $('#overlay').show();
-
-            var model = {
-                DepartmentID: $("#DepartmentID").val(),
-                ProgrammeVersioningID: $("#ProgrammeVersioningID").val() != '' ? $("#ProgrammeVersioningID").val() : "0",
-                CountryID: $('#CountryID').val() != '' ? $("#CountryID").val() : "0",
-                ProgrammeSemesterID: $('#ProgrammeSemesterID').val() != '' ? $("#ProgrammeSemesterID").val() : "0",
-                CourseID: $('#CourseID').val() != '' ? $("#CourseID").val() : "0",
-                EmployeeID: $("#EmployeeID").val(),
-            }
             $.ajax({
-                type: 'POST',
-                url: '@Url.Action("ExamScheduleList", "Admin",new { area="Admin"})',
-                dataType: 'html',
-                contentType: "application/json;charset=utf-8",
-                data: JSON.stringify(model),
+                type: 'GET',
+                url: '@Url.Action("GetExaminationNameById", "Admin",new { area="Admin"})',
+                dataType: 'json',
+                contentType: "application/json",
+                data: { examinationId: $('#ExaminationID').val() },
                 success: function (res) {
+                    debugger;
+                    var startdate = res.StartDate;
+                    var endDate = res.EndDate
+                    var dateStart = startdate.split('-');
+                    var dateEnd = endDate.split('-');
+                    var formatedDateStart = dateStart[1] + "/" + dateStart[0] + "/" + dateStart[2];
+                    var formatedDateEnd = dateEnd[1] + "/" + dateEnd[0] + "/" + dateEnd[2];
+                    $('#ExaminationDate').datetimepicker({
+                        format: 'DD/MM/YYYY',
+                        minDate: new Date(formatedDateStart),
+                        maxDate:new Date(formatedDateEnd),
+                        daysOfWeekDisabled: [6]
+                    });
+                    $('#ExaminationDate').val('');
                     $('#overlay').hide();
-                    $('#ExamScheduleDiv').html(res);
+                   
                 },
                 error: function (ex) {
                     $('#overlay').hide();
-                   console.log(ex);
+                    console.log(ex);
                 }
             });
-        }
-        else {
-            $('#ExamScheduleDiv').empty();
-        }
 
+
+        }
     });
     function fnSaveExamSchedule() {
         $('.valClass').css({ 'display': 'none' });
+        var studentrecord = [];
+        $.each($(".req"), function () {
+            studentrecord.push({
+                EnrollmentNo: $(this).html()
+            });
+        });
         if ($('#AcademicID').val() == '') {
             $('#AcademicIDVal').css({ 'display': 'block' });
         }
@@ -410,8 +428,14 @@
         else if ($('#ProgrammeSemesterID').val() == '') {
             $('#ProgrammeSemesterIDVal').css({ 'display': 'block' });
         }
+        else if ($('#CourseID').val() == '') {
+            $('#CourseIDVal').css({ 'display': 'block' });
+        }
         else if ($('#EmployeeID').val() == '') {
             $('#EmployeeIDVal').css({ 'display': 'block' });
+        }
+        else if ($('#ExaminationID').val()=='') {
+            $('#ExaminationIDVal').css({ 'display': 'block' });
         }
         else if ($('#ExaminationDate').val() == '') {
             $('#ExaminationDateVal').html('Date is required.');
@@ -425,8 +449,12 @@
             $('#ExaminationDurationVal').html('Examination Duration is required.');
             $('#ExaminationDurationVal').css({ 'display': 'block' });
         }
+        else if (studentrecord.length==0) {
+            alert('Student record Excel Sheet need to upload with coreect format.');
+        }
         else {
             $('#overlay').show();
+            
             var model = {
                 DepartmentID: $("#DepartmentID").val(),
                 ProgrammeVersioningID: $("#ProgrammeVersioningID").val() != '' ? $("#ProgrammeVersioningID").val() : "0",
@@ -436,7 +464,9 @@
                 EmployeeID: $("#EmployeeID").val(),
                 ExaminationDate: $('#ExaminationDate').val(),
                 ExaminationTime: $('#ExaminationTime').val(),
-                ExaminationDuration: $('#ExaminationDuration').val()
+                ExaminationDuration: $('#ExaminationDuration').val(),
+                ExaminationID:$('#ExaminationID').val(),
+                CustomList: studentrecord
             };
             $.ajax({
                 url: '@Url.Action("SaveOnlineExaminationSchedule", "Admin",new {area="Admin" })',
@@ -473,13 +503,101 @@
         $("#ProgrammeYear").empty().append('<option value="">Select Programme Year</option>');
         $("#ProgrammeSemesterID").empty().append('<option value="">Select Semester</option>');
         $("#CourseID").empty().append('<option value="">Select Course</option>');
-        $("#EmployeeID").empty().append('<option value="">Select Employee</option>');
+        $("#EmployeeID").val('');
+        $('#ExaminationID').val('')
         $('#ExaminationDate').val('');
         $('#ExaminationTime').val('');
         $('#ExaminationDuration').val('');
         $('#MaximumMarks').val('');
-        $('#ExamScheduleDiv').empty();
+        $('#dvExcel').empty();
     }
+    //----------------------------------Excel Section---------------------------------------------
+    $(document).on("click", "#upload", function () {
+        //Reference the FileUpload element.
+        var fileUpload = $("#fileUpload")[0];
+
+        //Validate whether File is valid Excel file.
+        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.xls|.xlsx)$/;
+        if (regex.test(fileUpload.value.toLowerCase())) {
+            if (typeof (FileReader) != "undefined") {
+                var reader = new FileReader();
+
+                //For Browsers other than IE.
+                if (reader.readAsBinaryString) {
+                    reader.onload = function (e) {
+                        ProcessExcel(e.target.result);
+                    };
+                    reader.readAsBinaryString(fileUpload.files[0]);
+                } else {
+                    //For IE Browser.
+                    reader.onload = function (e) {
+                        var data = "";
+                        var bytes = new Uint8Array(e.target.result);
+                        for (var i = 0; i < bytes.byteLength; i++) {
+                            data += String.fromCharCode(bytes[i]);
+                        }
+                        ProcessExcel(data);
+                    };
+                    reader.readAsArrayBuffer(fileUpload.files[0]);
+                }
+            } else {
+                alert("This browser does not support HTML5.");
+            }
+        } else {
+            alert("Please upload a valid Excel file.");
+        }
+    });
+    function ProcessExcel(data) {
+        debugger;
+        //Read the Excel File data.
+        var workbook = XLSX.read(data, {
+            type: 'binary'
+        });
+
+        //Fetch the name of First Sheet.
+        var firstSheet = workbook.SheetNames[0];
+
+        //Read all rows from First Sheet into an JSON array.
+        var excelRows = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[firstSheet]);
+
+        //Create a HTML Table element.
+        var table = $("<table class='table table-striped table-bordered base-style' style='width:100%' />");
+
+        //Add the header row.
+        var row = $(table[0].insertRow(-1));
+
+        //Add the header cells.
+        var headerCell = $("<th />");
+        headerCell.html("Id");
+        row.append(headerCell);
+
+        var headerCell = $("<th />");
+        headerCell.html("Name");
+        row.append(headerCell);
+
+
+
+        //Add the data rows from Excel file.
+        for (var i = 0; i < excelRows.length; i++) {
+            //Add the data row.
+            var row = $(table[0].insertRow(-1));
+
+            //Add the data cells.
+            var cell = $("<td class='req' />");
+            cell.html(excelRows[i].Id);
+            row.append(cell);
+
+            cell = $("<td />");
+            cell.html(excelRows[i].Name);
+            row.append(cell);
+
+
+        }
+
+        var dvExcel = $("#dvExcel");
+        dvExcel.empty();
+        dvExcel.append(table);
+    };
 </script>
 
 

@@ -9,14 +9,13 @@
     }
 
     .labelqM {
-        writing-mode: vertical-rl;
+       
         text-orientation: upright;
     }
 
     .lblPos {
         position: absolute;
-        right: 0px;
-        margin-top: 0px;
+        right: 20px;
     }
 </style>
 <link href="~/Content/assets/HighPiorityjqueryLib/jquery-ui.css" rel="stylesheet" />
@@ -39,7 +38,7 @@
                                             <div class="widgetk-title">
                                                 <div class="col-lg-4">
                                                     <div class="col-sm-6 kltbx">
-                                                        Full Marks: <span id="FullMarksExam" class="timerclass">100</span>
+                                                        Full Marks: <span id="FullMarksExam" class="timerclass">@String.Format("{0:0.##}", Model.Item1.TotalMarks)</span>
                                                     </div>
                                                     <div class="col-sm-6 kltbx">
                                                         Time Left: <span id="timer" class="timerclass"></span>
@@ -72,7 +71,7 @@
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <div class="krtbx">
-                                                        StudentId: @User.UserName
+                                                        StudentID: @User.UserName
                                                     </div>
                                                 </div>
                                             </div>
@@ -106,7 +105,12 @@
 
                                                                                
                                                                             </center>
+                                                                            <span class="labelqM lblPos">
+                                                                                <span><b>Question Marks :</b></span>
+                                                                                <span id="MaxMarksQuestion">0</span>
+                                                                            </span>
                                                                         </div>
+                                                                        
                                                                     </div>
                                                                 </div>
                                                                 <!--SECTION PART END-->
@@ -135,10 +139,7 @@
                                                                         </div>
                                                                     </div><!-- /.col-sm-10 -->
                                                                     <!--QUESTION BODY RIGHT SECTION END-->
-                                                                    <span class="labelqM lblPos">
-                                                                        <span>Question Marks</span>
-                                                                        <span id="MaxMarksQuestion">0</span>
-                                                                    </span>
+                                                                    
                                                                 </div><!-- /.row -->
                                                             </div>
                                                         </div>

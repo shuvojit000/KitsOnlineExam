@@ -39,7 +39,10 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
                 SLNo = a.SLNo,
                 StartDate = a.StartDate,
                 Status = a.Status,
-                StudentName = a.StudentName
+                StudentName = a.StudentName,
+                ExaminationDuration = a.ExaminationDuration,
+                ExaminationDate = a.ExaminationDate,
+                TotalMarks=a.TotalMarks
             }).ToList();
 
             return View(model);
@@ -60,7 +63,8 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
                 }).Where(a => a.CourseID == Convert.ToInt32(returnID)).Select(a => new StudentExamViewModel()
                 {
                     ExaminationName = a.ExaminationName,
-                    CourseID = a.CourseID
+                    CourseID = a.CourseID,
+                    TotalMarks=a.TotalMarks
                 }).FirstOrDefault();
                 questionSectionViewmodel = onlineExamService.GetExamQuestionSection(new OnlineExam.Request.ExamQuestionSectionRequestDTO()
                 {
@@ -73,7 +77,7 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
                     MinQuestionNo = a.MinQuestionNo,
                     SectionName = a.SectionName
                 }).ToList();
-               
+
             }
 
 
@@ -119,7 +123,7 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
                     AnswerNo = anseredQuestion?.AnswerNo,
                     AnswerText = anseredQuestion?.AnswerText,
                     IsAnswer = anseredQuestion?.IsAnswer ?? 0,
-                    QuestionMarks=a.QuestionMarks
+                    QuestionMarks = a.QuestionMarks
                 }).FirstOrDefault();
 
 
@@ -157,17 +161,17 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
             {
                 LoginID = User.UserId,
                 CourseID = Convert.ToInt32(id)
-            }, "NOTANSWER")?.Select(a => Convert.ToInt32(a.QuestionNo)).ToList();
+            }, "NOTANSWER")?.OrderBy(a => a.QuestionNo).Select(a => Convert.ToInt32(a.QuestionNo)).ToList();
             model.FlagedList = onlineExamService.GetAttemptQuestion(new OnlineExam.Request.ExaminationTestRequestDTO()
             {
                 LoginID = User.UserId,
                 CourseID = Convert.ToInt32(id)
-            }, "FLAG")?.Select(a => Convert.ToInt32(a.QuestionNo)).ToList();
+            }, "FLAG")?.OrderBy(a => a.QuestionNo).Select(a => Convert.ToInt32(a.QuestionNo)).ToList();
             model.CompletedList = onlineExamService.GetAttemptQuestion(new OnlineExam.Request.ExaminationTestRequestDTO()
             {
                 LoginID = User.UserId,
                 CourseID = Convert.ToInt32(id)
-            }, "COMPLETED")?.Select(a => Convert.ToInt32(a.QuestionNo)).ToList();
+            }, "COMPLETED")?.OrderBy(a => a.QuestionNo).Select(a => Convert.ToInt32(a.QuestionNo)).ToList();
 
             return PartialView("_LeftSuggestionPanel", model);
         }
@@ -179,7 +183,7 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
             var total = onlineExamService.GetExamQuestionSection(new OnlineExam.Request.ExamQuestionSectionRequestDTO()
             {
                 CourseID = Convert.ToInt32(courseID)
-            }).OrderByDescending(a=>a.ExaminationSectionID).FirstOrDefault().MaxQuestionNo.Value;
+            }).OrderByDescending(a => a.ExaminationSectionID).FirstOrDefault().MaxQuestionNo.Value;
             model.Current = index == 0 ? 1 : index;
             model.Total = total;
             model.Previous = (index - 1) <= 0 ? 1 : index - 1;

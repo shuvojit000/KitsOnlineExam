@@ -19,5 +19,8 @@ namespace Lincoln.OnlineExam.Response
         public string CourseName { get; set; }
         public string Status { get; set; }
         public string ExamAttendance { get; set; }
+        public int? ExaminationDuration { get; set; }
+        public DateTime? ExaminationDate { get; set; }
+        public decimal? TotalMarks { get; set; }
     }
 }
