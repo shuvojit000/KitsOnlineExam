@@ -138,28 +138,34 @@
     </div>
     <div class="casLftPanelSectDivider"></div>
     <div id="helperPanel" class="casLftPanelSect4">
-        <a id="lnkCalc" class="noUnderline" onclick="ShowCalculator();return false;">
-            <span class="casLftPanelBaseField fa fa-calculator iconSizeMed descLabelTop1"></span>
-        </a>
-        <div id="btnCalcContent" class="casLftPanelBaseField descLabel helperContent calcRow">
-            <a onclick="ShowCalculator();return false;" id="btnCalc" title="Display Calculator" class="defaultText" href="javascript:void(0);">Calculator</a>
-        </div>
+        @if (TempData.Peek("IsCalculator").ToString() == "1")
+        {
+            <a id="lnkCalc" class="noUnderline" onclick="ShowCalculator();return false;">
+                <span class="casLftPanelBaseField fa fa-calculator iconSizeMed descLabelTop1"></span>
+            </a>
+            <div id="btnCalcContent" class="casLftPanelBaseField descLabel helperContent calcRow">
+                <a onclick="ShowCalculator();return false;" id="btnCalc" title="Display Calculator" class="defaultText" href="javascript:void(0);">Calculator</a>
+            </div>
+        }
+
+
+
         @*<a id="lnkHelp" onclick="ShowHelp(helpSrcUrl);return false;" class="noUnderline noOutline">
-            <span class="casLftPanelBaseField fa fa-question-circle iconSizeLrg helpPaddingLnk"></span>
-        </a>*@
+                <span class="casLftPanelBaseField fa fa-question-circle iconSizeLrg helpPaddingLnk"></span>
+            </a>*@
         <br>
         @*<div class="casLftPanelBaseField descLabel helperContent helpPadding">
-            <a onclick="ShowHelp();return false;" id="btnHelp" title="Display Help System" class="defaultText" href="javascript:void(0);">Help</a>
-        </div>*@
+                <a onclick="ShowHelp();return false;" id="btnHelp" title="Display Help System" class="defaultText" href="javascript:void(0);">Help</a>
+            </div>*@
     </div>
     @*<div id="takeABreak">
-        <div class="casLftPanelSectDivider"></div>
-        <div id="breakPanel" class="casLftPanelSect7 casLftPanelBaseField flagImgPad">
-            <a id="lnkTakeABreak" onclick="TakeABreak();" class="passLink" title="Take A Break">
-                <span class="fa fa-hand-paper-o iconSizeSm noUnderline"></span>
-            </a>
-            <br>
-            <a onclick="TakeABreak(); return false;" id="btnTakeABreak" title="Take A Break" class="defaultText descLabel" href="javascript:void(0);">Take a Break</a>
-        </div>
-    </div>*@
+            <div class="casLftPanelSectDivider"></div>
+            <div id="breakPanel" class="casLftPanelSect7 casLftPanelBaseField flagImgPad">
+                <a id="lnkTakeABreak" onclick="TakeABreak();" class="passLink" title="Take A Break">
+                    <span class="fa fa-hand-paper-o iconSizeSm noUnderline"></span>
+                </a>
+                <br>
+                <a onclick="TakeABreak(); return false;" id="btnTakeABreak" title="Take A Break" class="defaultText descLabel" href="javascript:void(0);">Take a Break</a>
+            </div>
+        </div>*@
 </div>

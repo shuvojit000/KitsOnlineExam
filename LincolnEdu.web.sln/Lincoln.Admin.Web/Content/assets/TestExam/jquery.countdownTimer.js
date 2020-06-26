@@ -551,6 +551,20 @@
                     }
                 }
             }
+            else if (time[0]==="00" &&  time[1]==="00" &&  time[2]==="05" && time[3]==="00") {
+                if (opts.beforeExpiryTimeFirstFunction !== null) {
+                    if ($.isFunction(opts.beforeExpiryTimeFirstFunction) === true) {
+                        opts.beforeExpiryTimeFirstFunction.apply($this, []);
+                    }
+                }
+            }
+            else if (time[0] === "00" && time[1] === "00" && time[2] === "01" && time[3] === "00") {
+                if (opts.beforeExpiryTimeSecondFunction !== null) {
+                    if ($.isFunction(opts.beforeExpiryTimeSecondFunction) === true) {
+                        opts.beforeExpiryTimeSecondFunction.apply($this, []);
+                    }
+                }
+            }
         }
     }
 
@@ -713,6 +727,8 @@
         stopButton: null,
         beforeExpiryTime: null,
         beforeExpiryTimeFunction: null,
+        beforeExpiryTimeFirstFunction: null,
+        beforeExpiryTimeSecondFunction: null,
         padZeroes: true,
         displayFormat: "HMS",
         labelsFormat: false,

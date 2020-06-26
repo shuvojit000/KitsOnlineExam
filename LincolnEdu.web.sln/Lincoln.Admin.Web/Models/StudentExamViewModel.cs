@@ -10,6 +10,12 @@ namespace Lincoln.Admin.Web.Models
         public string ExaminationName { get; set; }
         public int? CourseID { get; set; }
         public decimal? TotalMarks { get; set; }
+        public string StudentName { get; set; }
+        public string ExamHour { get; set; }
+        public string ExamMin{ get; set; }
+        public string ExamSecond { get; set; }
+        public int? ExaminationDuration { get; set; }
+        public int? IsCalculator { get; set; }
     }
     public class ExamQuestionSectionViewModel
     {

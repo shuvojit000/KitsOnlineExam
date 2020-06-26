@@ -165,7 +165,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                     ExaminationID = model.ExaminationID,
                     IntakeID = model.IntakeID,
                     EmailID = a.EmailID,
-                    StudentName = a.StudentName
+                    StudentName = a.StudentName,
+                    IsCalculator=model.IsCalculator
                 }));
             }
 
@@ -187,6 +188,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                                        new XElement("ExaminationDuration", item.ExaminationDuration),
                                        new XElement("EmployeeID", item.EmployeeID),
                                        new XElement("ReviewStatus", item.ReviewStatus),
+                                       new XElement("IsCalculator", item.IsCalculator), 
                                        new XElement("MarksObtained", item.MarksObtained ?? default(decimal)),
                                        new XElement("ExaminationID", item.ExaminationID ?? default(int))
                                    ));

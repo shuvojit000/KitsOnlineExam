@@ -42,7 +42,7 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
                 StudentName = a.StudentName,
                 ExaminationDuration = a.ExaminationDuration,
                 ExaminationDate = a.ExaminationDate,
-                TotalMarks=a.TotalMarks
+                TotalMarks = a.TotalMarks
             }).ToList();
 
             return View(model);
@@ -64,19 +64,47 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
                 {
                     ExaminationName = a.ExaminationName,
                     CourseID = a.CourseID,
-                    TotalMarks=a.TotalMarks
+                    TotalMarks = a.TotalMarks,
+                    StudentName = a.StudentName,
+                    ExaminationDuration = a.ExaminationDuration,
+                    IsCalculator=a.IsCalculator
+
                 }).FirstOrDefault();
+                TempData["IsCalculator"] = model.IsCalculator;
+                int totalSeconds = (int)model.ExaminationDuration * 60;
+                int hours = totalSeconds / 3600;
+                int minutes = (totalSeconds % 3600) / 60;
+                int seconds = (totalSeconds % 60);
+                if (hours > 0)
+                {
+                    model.ExamHour = hours.ToString("D2");
+                    model.ExamMin = minutes.ToString("D2");
+                    model.ExamSecond = seconds.ToString("D2");
+                }
+                else if (minutes > 0)
+                {
+                    model.ExamHour = "00";
+                    model.ExamMin = minutes.ToString("D2");
+                    model.ExamSecond = seconds.ToString("D2");
+                }
+                else
+                {
+                    model.ExamHour = "00";
+                    model.ExamMin = "00";
+                    model.ExamSecond = seconds.ToString("D2");
+                }
+
                 questionSectionViewmodel = onlineExamService.GetExamQuestionSection(new OnlineExam.Request.ExamQuestionSectionRequestDTO()
                 {
                     CourseID = Convert.ToInt32(returnID)
                 }).
-                Select(a => new ExamQuestionSectionViewModel()
-                {
-                    ExaminationSectionID = a.ExaminationSectionID,
-                    MaxQuestionNo = a.MaxQuestionNo,
-                    MinQuestionNo = a.MinQuestionNo,
-                    SectionName = a.SectionName
-                }).ToList();
+                        Select(a => new ExamQuestionSectionViewModel()
+                        {
+                            ExaminationSectionID = a.ExaminationSectionID,
+                            MaxQuestionNo = a.MaxQuestionNo,
+                            MinQuestionNo = a.MinQuestionNo,
+                            SectionName = a.SectionName
+                        }).ToList();
 
             }
 

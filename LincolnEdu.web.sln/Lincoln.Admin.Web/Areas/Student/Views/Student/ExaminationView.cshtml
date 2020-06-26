@@ -60,7 +60,7 @@
                                             <div class="widgetk-title" style="background:#2a2e30">
                                                 <div class="col-lg-4">
                                                     <div class="col-sm-6 kltbx">
-                                                       Name: @User.FirstName @User.LastName
+                                                       Name: @Model.Item1.StudentName
                                                     </div>
                                                    
                                                 </div>
@@ -176,7 +176,7 @@
         $(document).bind("contextmenu", function (e) {
             return false;
         });
-       
+
     });
     document.onkeypress = function (event) {
         event = (event || window.event);
@@ -198,18 +198,26 @@
     }
     $(function () {
         $("#timer").countdowntimer({
-            hours: 1,
-            minutes: 0,
-            seconds: 0,
+            hours: '@Model.Item1.ExamHour',
+            minutes: '@Model.Item1.ExamMin',
+            seconds: '@Model.Item1.ExamSecond',
             timeUp: timeisUp,
             beforeExpiryTime: "00:00:15:00",
-            beforeExpiryTimeFunction: beforeExpiryFunc
+            beforeExpiryTimeFunction: beforeExpiryFunc,
+            beforeExpiryTimeFirstFunction: fn5min,
+            beforeExpiryTimeSecondFunction: fn1min
         });
         function timeisUp() {
             fnSubmitSheet(true);
         }
         function beforeExpiryFunc() {
             alert('15 min left.');
+        }
+        function fn5min() {
+            alert('5 min left.');
+        }
+        function fn1min() {
+            alert('1 min left.');
         }
         $('#dialog').dialog({
             autoOpen: false,

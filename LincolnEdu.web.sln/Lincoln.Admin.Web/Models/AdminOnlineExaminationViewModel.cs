@@ -50,5 +50,6 @@ namespace Lincoln.Admin.Web.Models
         public int? QuestionNo { get; set; }
         public string PaymentStatus { get; set; }
         public List<AdminOnlineExaminationViewModel> CustomList { get; set; }
+        public int? IsCalculator { get; set; }
     }
 }
