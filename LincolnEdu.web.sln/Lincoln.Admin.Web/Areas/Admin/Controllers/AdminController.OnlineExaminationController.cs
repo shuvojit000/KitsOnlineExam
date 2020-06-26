@@ -42,7 +42,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                     StudentID = a.StudentID,
                     StudentName = a.StudentName,
                     Status = a.Status,
-                    PaymentStatus=a.PaymentStatus,
+                    PaymentStatus = a.PaymentStatus,
                     CreatedBy = a.CreatedBy
                 }).ToList();
 
@@ -66,6 +66,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                                      new XElement("CourseID", item.CourseID),
                                        new XElement("StudentID", item.StudentID),
                                          new XElement("EnrollmentNo", item.EnrollmentNo),
+                                          new XElement("IntakeID", item.IntakeID),
+                                         new XElement("EmailID", item.EmailID),
                                        new XElement("PaymentStatus", item.PaymentStatus),
                                        new XElement("ExaminationDate", item.ExaminationDate),
                                        new XElement("ExaminationTime", item.ExaminationTime),
@@ -98,6 +100,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             var model = new AdminOnlineExaminationViewModel();
 
             model.AcademicList = onlineExamService.GetDropdownData("Academic").Select(a => new SelectListItem { Text = a.CodeDesc, Value = a.CodeID }).ToList();
+            model.IntakeList = onlineExamService.GetDropdownData("Intake").Select(a => new SelectListItem { Text = a.CodeDesc, Value = a.CodeID }).ToList();
             model.CountryList = new List<SelectListItem>();
             model.CourseList = new List<SelectListItem>();
             model.DepartmentList = new List<SelectListItem>();
@@ -159,7 +162,10 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                     ExaminationDate = model.ExaminationDate,
                     ExaminationTime = model.ExaminationTime,
                     ExaminationDuration = model.ExaminationDuration,
-                    ExaminationID=model.ExaminationID
+                    ExaminationID = model.ExaminationID,
+                    IntakeID = model.IntakeID,
+                    EmailID = a.EmailID,
+                    StudentName = a.StudentName
                 }));
             }
 
@@ -169,9 +175,12 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 xEle = new XElement("ExaminationConfigurations",
                         from item in models
                         select new XElement("ExaminationConfiguration",
-                                     new XElement("CourseID", item.CourseID),
+                                       new XElement("CourseID", item.CourseID),
                                        new XElement("StudentID", item.StudentID),
-                                         new XElement("EnrollmentNo", item.EnrollmentNo),
+                                       new XElement("EnrollmentNo", item.EnrollmentNo),
+                                       new XElement("IntakeID", item.IntakeID),
+                                       new XElement("EmailID", item.EmailID),
+                                       new XElement("StudentName", item.StudentName),
                                        new XElement("PaymentStatus", item.PaymentStatus),
                                        new XElement("ExaminationDate", item.ExaminationDate),
                                        new XElement("ExaminationTime", item.ExaminationTime),
@@ -287,6 +296,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                                      new XElement("CourseID", item.CourseID),
                                        new XElement("StudentID", item.StudentID),
                                          new XElement("EnrollmentNo", item.EnrollmentNo),
+                                          new XElement("IntakeID", item.IntakeID),
+                                         new XElement("EmailID", item.EmailID),
                                        new XElement("PaymentStatus", item.PaymentStatus),
                                        new XElement("ExaminationDate", item.ExaminationDate),
                                        new XElement("ExaminationTime", item.ExaminationTime),
@@ -345,9 +356,9 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                     Status = a.Status,
                     CourseID = a.CourseID,
                     CreatedBy = a.CreatedBy,
-                    EmployeeID=a.EmployeeId,
-                    EmployeeName=a.EmployeeName,
-                    CourseName=a.CourseName
+                    EmployeeID = a.EmployeeId,
+                    EmployeeName = a.EmployeeName,
+                    CourseName = a.CourseName
                 }).ToList();
 
             return itemSet;
@@ -366,7 +377,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 ProgrammeVersioningID = model.ProgrammeVersioningID,
                 ProgrammeSemesterID = model.ProgrammeSemesterID,
                 CountryID = model.CountryID,
-                StudentID=model.StudentID
+                StudentID = model.StudentID
             })
                 .Select(a => new AdminAnswerReviewViewModels()
                 {
@@ -386,7 +397,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return itemSet;
         }
-        public ActionResult AnswerSheet(string StudentID, string CourseID,string EmployeeID)
+        public ActionResult AnswerSheet(string StudentID, string CourseID, string EmployeeID)
         {
 
             try
@@ -430,9 +441,9 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             var result = onlineExamService.SaveResultApproval(new OnlineExam.Request.AdminOnlineExamRequestDTO()
             {
-                CourseID =Convert.ToInt32( models.FirstOrDefault().strCourseID),
-                StudentID= Convert.ToInt32(models.FirstOrDefault().strStudentID),
-                EmployeeID= Convert.ToInt32(models.FirstOrDefault().strEmployeeID),
+                CourseID = Convert.ToInt32(models.FirstOrDefault().strCourseID),
+                StudentID = Convert.ToInt32(models.FirstOrDefault().strStudentID),
+                EmployeeID = Convert.ToInt32(models.FirstOrDefault().strEmployeeID),
                 ExaminationXML = xEle.ToString().Trim(),
                 CreatedBy = User.UserId
             });

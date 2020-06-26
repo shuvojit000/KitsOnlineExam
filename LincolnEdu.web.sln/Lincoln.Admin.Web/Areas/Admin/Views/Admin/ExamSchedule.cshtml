@@ -76,8 +76,8 @@
                                 <div class="form-group col-lg-6">
                                     <label><b>Intake<span class="requiredstar">*</span> </b></label>
                                     <div class="position-relative has-icon-left">
-                                        @*@Html.DropDownListFor(a => a.ProgrammeYear, Model.ProgYearList, "Select Programme Year", new { @class = "custom-select block" })*@
-                                        @*<span id="AcademicYearCodeVal" style="color:red;display:none" class="valClass">Please select Year.</span>*@
+                                        @Html.DropDownListFor(a => a.IntakeID, Model.IntakeList, "Select Intake", new { @class = "custom-select block" })
+                                        <span id="IntakeIDVal" style="color:red;display:none" class="valClass">Please select Intake.</span>
                                     </div>
                                 </div>
                             </div>
@@ -129,7 +129,7 @@
                                     <div class="form-group col-lg-6">
                                         <label>Maximum Marks</label>
                                         <div class="position-relative ">
-                                            @Html.TextBoxFor(a => a.MaximumMarks, new { @class = "form-control" , @readonly="readonly"})
+                                            @Html.TextBoxFor(a => a.MaximumMarks, new { @class = "form-control", @readonly = "readonly" })
                                             <span id="MaximumMarksVal" style="color:red;display:none" class="valClass"></span>
                                         </div>
                                     </div>
@@ -161,7 +161,7 @@
 <script>
     $(function () {
         $('li a[href="/Admin/Admin/ExamSchedule"]').parent('li').addClass('active');
-   
+
     });
     function fnResetScreen() {
         $("#AcademicID").val('');
@@ -174,7 +174,7 @@
         $('#ExamScheduleDiv').empty();
     }
     $(document).on("focus", "#ExaminationDate", function () {
-        
+
     });
     $(document).on("change", "#AcademicID", function () {
         $("#DepartmentID").empty();
@@ -367,7 +367,7 @@
 
         }
     });
-    
+
     $(document).on("change", "#ExaminationID", function () {
         if ($('#ExaminationID').val() != '') {
             $('#overlay').show();
@@ -388,12 +388,12 @@
                     $('#ExaminationDate').datetimepicker({
                         format: 'DD/MM/YYYY',
                         minDate: new Date(formatedDateStart),
-                        maxDate:new Date(formatedDateEnd),
+                        maxDate: new Date(formatedDateEnd),
                         daysOfWeekDisabled: [6]
                     });
                     $('#ExaminationDate').val('');
                     $('#overlay').hide();
-                   
+
                 },
                 error: function (ex) {
                     $('#overlay').hide();
@@ -409,7 +409,9 @@
         var studentrecord = [];
         $.each($(".req"), function () {
             studentrecord.push({
-                EnrollmentNo: $(this).html()
+                EnrollmentNo: $(this).html(),
+                EmailID: $(this).closest('tr').find('td:nth-child(3)').html(),
+                StudentName: $(this).closest('tr').find('td:nth-child(2)').html()
             });
         });
         if ($('#AcademicID').val() == '') {
@@ -431,10 +433,13 @@
         else if ($('#CourseID').val() == '') {
             $('#CourseIDVal').css({ 'display': 'block' });
         }
+        else if ($('#IntakeID').val() == '') {
+            $('#IntakeIDVal').css({ 'display': 'block' });
+        }
         else if ($('#EmployeeID').val() == '') {
             $('#EmployeeIDVal').css({ 'display': 'block' });
         }
-        else if ($('#ExaminationID').val()=='') {
+        else if ($('#ExaminationID').val() == '') {
             $('#ExaminationIDVal').css({ 'display': 'block' });
         }
         else if ($('#ExaminationDate').val() == '') {
@@ -449,12 +454,12 @@
             $('#ExaminationDurationVal').html('Examination Duration is required.');
             $('#ExaminationDurationVal').css({ 'display': 'block' });
         }
-        else if (studentrecord.length==0) {
+        else if (studentrecord.length == 0) {
             alert('Student record Excel Sheet need to upload with coreect format.');
         }
         else {
             $('#overlay').show();
-            
+
             var model = {
                 DepartmentID: $("#DepartmentID").val(),
                 ProgrammeVersioningID: $("#ProgrammeVersioningID").val() != '' ? $("#ProgrammeVersioningID").val() : "0",
@@ -465,7 +470,8 @@
                 ExaminationDate: $('#ExaminationDate').val(),
                 ExaminationTime: $('#ExaminationTime').val(),
                 ExaminationDuration: $('#ExaminationDuration').val(),
-                ExaminationID:$('#ExaminationID').val(),
+                ExaminationID: $('#ExaminationID').val(),
+                IntakeID: $('#IntakeID').val(),
                 CustomList: studentrecord
             };
             $.ajax({
@@ -509,6 +515,7 @@
         $('#ExaminationTime').val('');
         $('#ExaminationDuration').val('');
         $('#MaximumMarks').val('');
+        $('#IntakeID').val('');
         $('#dvExcel').empty();
     }
     //----------------------------------Excel Section---------------------------------------------
@@ -575,6 +582,9 @@
         headerCell.html("Name");
         row.append(headerCell);
 
+        var headerCell = $("<th />");
+        headerCell.html("Email");
+        row.append(headerCell);
 
 
         //Add the data rows from Excel file.
@@ -582,14 +592,25 @@
             //Add the data row.
             var row = $(table[0].insertRow(-1));
 
-            //Add the data cells.
-            var cell = $("<td class='req' />");
-            cell.html(excelRows[i].Id);
-            row.append(cell);
+            if (excelRows[i].Id == '' || excelRows[i].Name == '' || excelRows[i].Email == '') {
+                alert('Excel is not correct format in row no ' + (i + 1));
 
-            cell = $("<td />");
-            cell.html(excelRows[i].Name);
-            row.append(cell);
+            }
+            else {
+                var cell = $("<td class='req' />");
+                cell.html(excelRows[i].Id);
+                row.append(cell);
+
+                cell = $("<td />");
+                cell.html(excelRows[i].Name);
+                row.append(cell);
+
+                cell = $("<td />");
+                cell.html(excelRows[i].Email);
+                row.append(cell);
+            }
+            //Add the data cells.
+
 
 
         }

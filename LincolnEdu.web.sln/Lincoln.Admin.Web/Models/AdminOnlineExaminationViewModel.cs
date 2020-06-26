@@ -17,6 +17,7 @@ namespace Lincoln.Admin.Web.Models
         public int? ProgrammeSemesterID { get; set; }
         public int? CountryID { get; set; }
         public int? EmployeeID { get; set; }
+        public string IntakeID { get; set; }
         public string strEmployeeID { get; set; }
         public string EmployeeName { get; set; }
         public int ? ProgrammeYear { get; set; }
@@ -31,7 +32,8 @@ namespace Lincoln.Admin.Web.Models
         public List<SelectListItem> DepartmentList { get; set; }
         public List<SelectListItem> EmployeeList { get; set; }
         public List<SelectListItem> ExaminationList { get; set; }
-
+        public List<SelectListItem> IntakeList { get; set; }
+        public string EmailID { get; set; }
         public int? StudentID { get; set; }
         public string strStudentID { get; set; }
         public string StudentName { get; set; }
