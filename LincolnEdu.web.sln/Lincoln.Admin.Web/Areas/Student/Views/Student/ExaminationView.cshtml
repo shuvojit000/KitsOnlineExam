@@ -9,7 +9,6 @@
     }
 
     .labelqM {
-       
         text-orientation: upright;
     }
 
@@ -46,7 +45,7 @@
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <div class="kmdbx">
-                                                       
+
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4">
@@ -60,9 +59,9 @@
                                             <div class="widgetk-title" style="background:#2a2e30">
                                                 <div class="col-lg-4">
                                                     <div class="col-sm-6 kltbx">
-                                                       Name: @Model.Item1.StudentName
+                                                        Name: @Model.Item1.StudentName
                                                     </div>
-                                                   
+
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <div class="kmdbx">
@@ -103,14 +102,14 @@
 
                                                                                 }
 
-                                                                               
+
                                                                             </center>
                                                                             <span class="labelqM lblPos">
                                                                                 <span><b>Question Marks :</b></span>
                                                                                 <span id="MaxMarksQuestion">0</span>
                                                                             </span>
                                                                         </div>
-                                                                        
+
                                                                     </div>
                                                                 </div>
                                                                 <!--SECTION PART END-->
@@ -139,7 +138,7 @@
                                                                         </div>
                                                                     </div><!-- /.col-sm-10 -->
                                                                     <!--QUESTION BODY RIGHT SECTION END-->
-                                                                    
+
                                                                 </div><!-- /.row -->
                                                             </div>
                                                         </div>
@@ -164,7 +163,7 @@
         </div>
         <!--/ Stats -->
     </div>
-   
+
 </div>
 
 <div id="dialog" title="Calculator">
@@ -376,4 +375,22 @@
     function fnArrangeHeaderbutton(questionNo, courseID) {
         $('#navHeader').load('/Student/Student/HeaderButton/' + courseID + '/' + questionNo);
     }
+
+    setInterval(function () {
+        $.ajax({
+            url: '@Url.Action("UpdateExamTimer", "Student",new {area= "Student" })',
+            data: { examinationId: '@Model.Item1.ExaminationID', courseId: '@Model.Item1.CourseID', timerTime: $('#timer').html() },
+            type: 'POST',
+            cache: false,
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            dataType: "json",
+            success: function (result) {
+               
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+
+    }, 2000);
 </script>

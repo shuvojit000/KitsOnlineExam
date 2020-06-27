@@ -16,6 +16,8 @@ namespace Lincoln.Admin.Web.Models
         public string ExamSecond { get; set; }
         public int? ExaminationDuration { get; set; }
         public int? IsCalculator { get; set; }
+        public int? ExaminationID { get; set; }
+        public string TimerTime { get; set; }
     }
     public class ExamQuestionSectionViewModel
     {

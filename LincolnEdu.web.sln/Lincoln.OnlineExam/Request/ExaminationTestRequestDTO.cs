@@ -17,5 +17,7 @@ namespace Lincoln.OnlineExam.Request
         public int? LoginID { get; set; }
         public int? PaperID { get; set; }
         public int? CourseID { get; set; }
+        public int? ExaminationID { get; set; }
+        public string TimerTime { get; set; }
     }
 }

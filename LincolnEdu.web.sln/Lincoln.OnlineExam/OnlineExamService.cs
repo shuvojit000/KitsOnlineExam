@@ -490,6 +490,12 @@ namespace Lincoln.OnlineExam
                 return unitOfWork.CommonRepository.SaveResultApproval(recordAttributer);
             }
         }
-
+        public int SaveTimerTime(ExaminationTestRequestDTO recordAttributer)
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.StudentRepository.SaveTimerTime(recordAttributer);
+            }
+        }
     }
 }

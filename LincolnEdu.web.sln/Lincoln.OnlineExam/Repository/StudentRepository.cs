@@ -195,7 +195,9 @@ namespace Lincoln.OnlineExam.Repository
                             ExaminationDuration= object.ReferenceEquals(dr["ExaminationDate"], DBNull.Value) ? (int?)null : Convert.ToInt32(dr["ExaminationDuration"]),
                             ExaminationDate = object.ReferenceEquals(dr["ExaminationDate"], DBNull.Value)? (DateTime?)null : Convert.ToDateTime(dr["ExaminationDate"]),
                             TotalMarks = Convert.ToDecimal(dr["TotalMarks"]),
-                            IsCalculator = object.ReferenceEquals(dr["IsCalculator"], DBNull.Value) ? (int?)null : Convert.ToInt32(dr["IsCalculator"])
+                            IsCalculator = object.ReferenceEquals(dr["IsCalculator"], DBNull.Value) ? (int?)null : Convert.ToInt32(dr["IsCalculator"]),
+                            ExaminationID= object.ReferenceEquals(dr["ExaminationID"], DBNull.Value) ? (int?)null : Convert.ToInt32(dr["ExaminationID"]),
+                            TimerTime= object.ReferenceEquals(dr["TimerTime"], DBNull.Value) ? string.Empty : Convert.ToString(dr["TimerTime"]),
                         });
                     }
                 }
@@ -418,8 +420,33 @@ namespace Lincoln.OnlineExam.Repository
         }
 
 
+        public int SaveTimerTime(ExaminationTestRequestDTO recordAttributer)
+        {
+            SqlParameter loginID = new SqlParameter("@LoginID", SqlDbType.Int);
+            loginID.Value = recordAttributer.LoginID;
+
+            SqlParameter courseID = new SqlParameter("@CourseID", SqlDbType.Int);
+            courseID.Value = recordAttributer.CourseID;
+
+            SqlParameter examinationID = new SqlParameter("@ExaminationID", SqlDbType.Int);
+            examinationID.Value = recordAttributer.ExaminationID;
+
+            SqlParameter timerTime = new SqlParameter("@TimerTime", SqlDbType.VarChar);
+            timerTime.Value = recordAttributer.TimerTime;
+
+            SqlParameter status = new SqlParameter("@Status", SqlDbType.Int);
+            status.Value = recordAttributer.Status;
+            status.Direction = ParameterDirection.InputOutput;
+
+            SqlServerHelper.ExecuteNonQueryProc("[ln.Student].[upSaveTimerTime]", loginID, courseID, examinationID, timerTime, status);
+
+            recordAttributer.Status = Convert.ToInt32(status.Value);
+            return recordAttributer.Status;
+
+        }
+
         #endregion
-        
+
 
     }
 }

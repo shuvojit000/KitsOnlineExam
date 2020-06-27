@@ -67,32 +67,46 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
                     TotalMarks = a.TotalMarks,
                     StudentName = a.StudentName,
                     ExaminationDuration = a.ExaminationDuration,
-                    IsCalculator=a.IsCalculator
+                    IsCalculator=a.IsCalculator,
+                    ExaminationID=a.ExaminationID,
+                    TimerTime=a.TimerTime
 
                 }).FirstOrDefault();
                 TempData["IsCalculator"] = model.IsCalculator;
-                int totalSeconds = (int)model.ExaminationDuration * 60;
-                int hours = totalSeconds / 3600;
-                int minutes = (totalSeconds % 3600) / 60;
-                int seconds = (totalSeconds % 60);
-                if (hours > 0)
+                if (string.IsNullOrEmpty(model.TimerTime))
                 {
-                    model.ExamHour = hours.ToString("D2");
-                    model.ExamMin = minutes.ToString("D2");
-                    model.ExamSecond = seconds.ToString("D2");
-                }
-                else if (minutes > 0)
-                {
-                    model.ExamHour = "00";
-                    model.ExamMin = minutes.ToString("D2");
-                    model.ExamSecond = seconds.ToString("D2");
+                    int totalSeconds = (int)model.ExaminationDuration * 60;
+                    int hours = totalSeconds / 3600;
+                    int minutes = (totalSeconds % 3600) / 60;
+                    int seconds = (totalSeconds % 60);
+                    if (hours > 0)
+                    {
+                        model.ExamHour = hours.ToString("D2");
+                        model.ExamMin = minutes.ToString("D2");
+                        model.ExamSecond = seconds.ToString("D2");
+                    }
+                    else if (minutes > 0)
+                    {
+                        model.ExamHour = "00";
+                        model.ExamMin = minutes.ToString("D2");
+                        model.ExamSecond = seconds.ToString("D2");
+                    }
+                    else
+                    {
+                        model.ExamHour = "00";
+                        model.ExamMin = "00";
+                        model.ExamSecond = seconds.ToString("D2");
+                    }
                 }
                 else
                 {
-                    model.ExamHour = "00";
-                    model.ExamMin = "00";
-                    model.ExamSecond = seconds.ToString("D2");
+                    var times = model.TimerTime.Split(':');
+                    model.ExamHour = times[0];
+                    model.ExamMin = times[1];
+                    model.ExamSecond = times[2];
                 }
+
+               
 
                 questionSectionViewmodel = onlineExamService.GetExamQuestionSection(new OnlineExam.Request.ExamQuestionSectionRequestDTO()
                 {
@@ -255,5 +269,20 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
                 QuestionNo = model.QuestionNo
             }, model.IsAnswer > 0 ? "UPDATE" : "INSERT"), JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult UpdateExamTimer(string examinationId, string courseId, string timerTime)
+        {
+            return Json(onlineExamService.SaveTimerTime(new OnlineExam.Request.ExaminationTestRequestDTO()
+            {
+                LoginID=User.UserId,
+                CourseID=Convert.ToInt32(courseId),
+                ExaminationID=Convert.ToInt32(examinationId),
+                TimerTime=timerTime
+               
+            }), JsonRequestBehavior.AllowGet);
+
+        }
+
     }
 }

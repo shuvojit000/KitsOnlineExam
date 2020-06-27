@@ -22,6 +22,7 @@ namespace Lincoln.OnlineExam.Repository
         List<StudentExaminationTestResponseDTO> GetExaminationTest(ExaminationTestRequestDTO request);
         int SaveExaminationSheet(StudentExaminationSheetResponseDTO recordAttributer, string Operation);
         List<LeftPanelFeedResponseDTO> GetAttemptQuestion(ExaminationTestRequestDTO request, string Operation);
+        int SaveTimerTime(ExaminationTestRequestDTO recordAttributer);
 
     }
 }
