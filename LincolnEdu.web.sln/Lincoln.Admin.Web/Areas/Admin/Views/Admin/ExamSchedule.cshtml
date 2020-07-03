@@ -388,11 +388,16 @@
                 contentType: "application/json",
                 data: { examinationId: $('#ExaminationID').val() },
                 success: function (res) {
-                    debugger;
                     var startdate = res.StartDate;
                     var endDate = res.EndDate
                     var dateStart = startdate.split('-');
                     var dateEnd = endDate.split('-');
+                    if (dateStart.length == 1) {
+                        dateStart = startdate.split('/');
+                    }
+                    if (dateEnd.length == 1) {
+                        dateEnd = endDate.split('/');
+                    }
                     var formatedDateStart = dateStart[1] + "/" + dateStart[0] + "/" + dateStart[2];
                     var formatedDateEnd = dateEnd[1] + "/" + dateEnd[0] + "/" + dateEnd[2];
                     $('#ExaminationDate').datetimepicker({

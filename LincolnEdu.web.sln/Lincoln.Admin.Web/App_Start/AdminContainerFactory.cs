@@ -2,6 +2,7 @@
 using Autofac;
 using Autofac.Integration.Mvc;
 using Lincoln.OnlineExam;
+using Lincoln.Utility.EmailSending;
 
 namespace Lincoln.Admin.Web.App_Start
 {
@@ -24,6 +25,7 @@ namespace Lincoln.Admin.Web.App_Start
             // builder.RegisterModule(new DataModule("MVCWithAutofacDB"));
 
             builder.RegisterType<OnlineExamService>().As<IOnlineExam>();
+            builder.RegisterType<EmailSender>().As<IEmailSender>();
 
             var container = builder.Build();
 

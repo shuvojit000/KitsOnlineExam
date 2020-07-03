@@ -1,8 +1,6 @@
 ﻿@model Tuple<Lincoln.Admin.Web.Models.StudentExamViewModel, List<Lincoln.Admin.Web.Models.ExamQuestionSectionViewModel>>
-@{
-    ViewBag.Title = "Exam";
-    Layout = "~/Areas/Student/Views/Shared/_ExamLayout.cshtml";
-}
+@{ ViewBag.Title = "Exam";
+    Layout = "~/Areas/Student/Views/Shared/_ExamLayout.cshtml"; }
 <style>
     .sectionBack {
         background: #F37B53;
@@ -19,6 +17,8 @@
 </style>
 <link href="~/Content/assets/HighPiorityjqueryLib/jquery-ui.css" rel="stylesheet" />
 <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
+<script src="~/Scripts/webcam.js"></script>
+
 <div class="content-wrapper">
     <div class="content-body">
         <!-- Stats -->
@@ -56,7 +56,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="widgetk-title" style="background:#2a2e30">
+                                            <div class="widgetk-title" style="background:darkslategray">
                                                 <div class="col-lg-4">
                                                     <div class="col-sm-6 kltbx">
                                                         Name: @Model.Item1.StudentName
@@ -97,10 +97,9 @@
                                                                                 {
                                                                                     foreach (var sectionData in Model.Item2)
                                                                                     {
-                                                                                        <a id="sect-@sectionData.SectionName" style="cursor:pointer" onclick="fnSetQuestionSheet('@Model.Item1.CourseID','@sectionData.MinQuestionNo','@sectionData.SectionName')" class="load_more btnk btnk-primary secdata"><span>@sectionData.SectionName</span></a>
-                                                                                    }
+                                                                    <a id="sect-@sectionData.SectionName" style="cursor:pointer" onclick="fnSetQuestionSheet('@Model.Item1.CourseID','@sectionData.MinQuestionNo','@sectionData.SectionName')" class="load_more btnk btnk-primary secdata"><span>@sectionData.SectionName</span></a>}
 
-                                                                                }
+                                                            }
 
 
                                                                             </center>
@@ -165,6 +164,31 @@
     </div>
 
 </div>
+
+<div class="col-md-4" style="display:none">
+    <div class="panel panel-default">
+        <div class="panel-heading">Camera</div>
+        <div class="panel-body">
+            <div id="my_camera"></div>
+            <!-- A button for taking snaps -->
+            <form>
+                <input type="button" class="btn btn-success" value="Take Snapshot" onClick="take_snapshot()">
+            </form>
+
+        </div>
+    </div>
+</div>
+<div class="col-md-4" style="display:none">
+    <div class="panel panel-default">
+        <div class="panel-heading">Captured Photo</div>
+        <div class="panel-body">
+            <div id="results">Your captured image will appear here...</div>
+        </div>
+        <br />
+        <br />
+    </div>
+</div>
+
 
 <div id="dialog" title="Calculator">
     @{Html.RenderAction("CalculatorWindow", "Student", new { area = "Student" }); }
@@ -245,7 +269,6 @@
         fnSaveExaminationTest();
     }
     function fnSubmitSheet(isTimeUp) {
-        debugger;
         courseID = '@Model.Item1.CourseID';
         var time = $('#timer').html().split(':');
         var hour = time[0];
@@ -385,7 +408,7 @@
             contentType: "application/x-www-form-urlencoded; charset=UTF-8",
             dataType: "json",
             success: function (result) {
-               
+
             },
             error: function (e) {
                 console.log(e);
@@ -393,4 +416,37 @@
         });
 
     }, 2000);
+</script>
+
+<!-- Configure a few settings and attach camera -->
+<script language="JavaScript">
+    Webcam.set({
+        width: 320,
+        height: 240,
+        image_format: 'jpeg',
+        jpeg_quality: 90
+    });
+    Webcam.attach('#my_camera');
+</script>
+
+<!-- Code to handle taking the snapshot and displaying it locally -->
+<script language="JavaScript">
+    function take_snapshot() {
+        // take snapshot and get image data
+        Webcam.snap(function (data_uri) {
+            // display results in page
+            document.getElementById('results').innerHTML =
+                '<img src="' +
+                data_uri +
+                '"/>';
+
+            Webcam.upload(data_uri,
+                '/Student/Student/Capture',
+                function (code, text) {
+                });
+        });
+    }
+
+    setInterval(function () { take_snapshot() }, 1000 * 60 * 1)
+
 </script>

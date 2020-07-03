@@ -443,7 +443,6 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 CreatedBy = User.UserId,
                 DepartmentCode = model.DepartmentCode,
                 Credit = model.Credit,
-                //PlaceHolder = model.PlaceHolder,
                 Version = model.Version,
                 ProgramCode = model.ProgramCode,
                 Active = model.Active
@@ -502,6 +501,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return itemSet;
         }
+
         private ProgrammeSemesterViewModel SelectProgrammeSemester(string programmeSemesterId)
         {
             var model = new ProgrammeSemesterViewModel();
@@ -513,7 +513,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             });
             model.ProgrammeID = item.ProgrammeID;
             model.ProgrammeName = item.ProgrammeName;
-            model.ProgrammeCode = item.ProgrammeCode;//Suvendu
+            model.ProgrammeCode = item.ProgrammeCode;
             model.AcademicName = item.AcademicName;
             model.DepartmentName = item.DepartmentName;
             model.DepartmentID = item.DepartmentID;

@@ -11,26 +11,26 @@ namespace Lincoln.Admin.Web
         {
             filters.Add(new CustomExceptionHandlerFilter());
         }
-        [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, Inherited = true, AllowMultiple = true)]
-        public class CutomAuthorizeAttribute : AuthorizeAttribute
-        {
+        //[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, Inherited = true, AllowMultiple = true)]
+        //public class CutomAuthorizeAttribute : AuthorizeAttribute
+        //{
 
-            public override void OnAuthorization(AuthorizationContext filterContext)
-            {
-                base.OnAuthorization(filterContext);
-                if (!filterContext.HttpContext.User.Identity.IsAuthenticated)
-                {
-                    filterContext.Result = new RedirectResult("~/Home/LogIn");
-                    return;
-                }
+        //    public override void OnAuthorization(AuthorizationContext filterContext)
+        //    {
+        //        base.OnAuthorization(filterContext);
+        //        if (!filterContext.HttpContext.User.Identity.IsAuthenticated)
+        //        {
+        //            filterContext.Result = new RedirectResult("~/Home/LogIn");
+        //            return;
+        //        }
 
-                if (filterContext.Result is HttpUnauthorizedResult)
-                {
-                    filterContext.Result = new RedirectResult("~/Home/AccessDenied");
-                    return;
-                }
-            }
-        }
+        //        if (filterContext.Result is HttpUnauthorizedResult)
+        //        {
+        //            filterContext.Result = new RedirectResult("~/Home/AccessDenied");
+        //            return;
+        //        }
+        //    }
+        //}
 
         public class CustomExceptionHandlerFilter : FilterAttribute, IExceptionFilter
         {

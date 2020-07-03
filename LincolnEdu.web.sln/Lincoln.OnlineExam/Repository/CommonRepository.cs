@@ -979,20 +979,15 @@ namespace Lincoln.OnlineExam.Repository
 
         public int SaveExaminationName(ExaminationNameRequestDTO recordAttributer, string Operation)
         {
-            CultureInfo culture = new CultureInfo("en-IN");
+           
             SqlParameter ExaminationID = new SqlParameter("@ExaminationID", SqlDbType.Int);
             ExaminationID.Value = recordAttributer.ExaminationNameID;
             SqlParameter ExaminationName = new SqlParameter("@ExaminationName", SqlDbType.VarChar);
             ExaminationName.Value = recordAttributer.ExaminationName;
             SqlParameter StartDate = new SqlParameter("@StartDate", SqlDbType.Date);
-            StartDate.Value = Convert.ToDateTime(recordAttributer.StartDate, culture);
+            StartDate.Value = DateTime.ParseExact(recordAttributer.StartDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
             SqlParameter EndDate = new SqlParameter("@EndDate", SqlDbType.Date);
-            EndDate.Value = Convert.ToDateTime(recordAttributer.EndDate, culture);
-            //SqlParameter StartTime = new SqlParameter("@StartTime", SqlDbType.VarChar);
-            //StartTime.Value = recordAttributer.StartTime;
-            //SqlParameter EndTime = new SqlParameter("@EndTime", SqlDbType.VarChar);
-            //EndTime.Value = recordAttributer.EndTime;
-
+            EndDate.Value = DateTime.ParseExact(recordAttributer.EndDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
             SqlParameter active = new SqlParameter("@Active", SqlDbType.Char);
             active.Value = recordAttributer.Active;
             SqlParameter createdBy = new SqlParameter("@CreatedBy", SqlDbType.Int);

@@ -1,21 +1,24 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.SessionState;
 using Lincoln.Admin.Web.Controllers;
 using Lincoln.Admin.Web.Models;
 using Lincoln.OnlineExam;
+using Lincoln.Utility.EmailSending;
 
 namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 {
-    [Authorize]
+    [AuthorizeAccessAttribute]
     public partial class AdminController : BaseController
     {
         private readonly IOnlineExam onlineExamService;
+        private readonly IEmailSender emailSender;
 
-        // GET: Admin/Admin
-        public AdminController(IOnlineExam onlineExamService)
+        public AdminController(IOnlineExam onlineExamService, IEmailSender emailSender)
         {
             this.onlineExamService = onlineExamService;
+            this.emailSender = emailSender;
         }
 
         public ActionResult Dashboard()
@@ -36,9 +39,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 Table = model.Table,
 
             }), JsonRequestBehavior.AllowGet);
-        }
-
-       
+        }       
 
         #region Dropdown Code
         [HttpPost]
@@ -104,9 +105,5 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                     }).ToList(), JsonRequestBehavior.AllowGet);
         }
         #endregion
-
-        
-
-       
     }
 }

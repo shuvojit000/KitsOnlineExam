@@ -553,12 +553,12 @@
 }
 
 .directNavElement {
-    display:inline-block;
-    color:#f7f7f7;
-    font-size:30px;
-    padding-left:4px;
-    position:relative;
-    top:-23px;
+    display: inline-block;
+    color: darkolivegreen;
+    font-size: 30px;
+    padding-left: 4px;
+    position: relative;
+    top: -23px;
 }
 
 .leftFirst {
@@ -1599,4 +1599,12 @@ div.attachmentPane {
     padding-top: 10px;
     padding-left: 115px;
     font-weight: bold;
+}
+
+.navPanelL{
+    text-align:end;
+}
+.krtbx {
+    margin-left: 50%;
+    text-align: end;
 }

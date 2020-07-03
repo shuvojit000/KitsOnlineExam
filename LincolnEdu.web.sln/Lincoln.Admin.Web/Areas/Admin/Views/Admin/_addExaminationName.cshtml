@@ -69,30 +69,30 @@
 </div>
 <script>
 
-    $(document).on("focus", "#StartDate", function () {
-        debugger;
-        $('#StartDate').datetimepicker({
-            format: 'DD/MM/YYYY',
-            minDate: new Date(),
-            daysOfWeekDisabled: [6]
-        });
+    //$(document).on("focus", "#StartDate", function () {
+    //    debugger;
+    //    $('#StartDate').datetimepicker({
+    //        format: 'DD/MM/YYYY',
+    //        minDate: new Date(),
+    //        daysOfWeekDisabled: [6]
+    //    });
 
-    });
-    $(document).on("focus", "#EndDate", function () {
-        $('#EndDate').datetimepicker({
-            format: 'DD/MM/YYYY',
-            minDate: convertInputtoDate(),
-            daysOfWeekDisabled: [6]
-        });
-    });
-    function convertInputtoDate() {
-        var input = $("#StartDate").datetimepicker().val();
-        var date = input.split('/');
-        var formatedDate = date[1] + "/" + date[0] + "/" + date[2];
-        var selectdate = new Date(formatedDate);
-        selectdate.setDate(selectdate.getDate() + 15);
-        return selectdate;
-    }
+    //});
+    //$(document).on("focus", "#EndDate", function () {
+    //    $('#EndDate').datetimepicker({
+    //        format: 'DD/MM/YYYY',
+    //        minDate: convertInputtoDate(),
+    //        daysOfWeekDisabled: [6]
+    //    });
+    //});
+    //function convertInputtoDate() {
+    //    var input = $("#StartDate").datetimepicker().val();
+    //    var date = input.split('/');
+    //    var formatedDate = date[1] + "/" + date[0] + "/" + date[2];
+    //    var selectdate = new Date(formatedDate);
+    //    selectdate.setDate(selectdate.getDate() + 15);
+    //    return selectdate;
+    //}
 
 
 </script>

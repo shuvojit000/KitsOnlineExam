@@ -2,25 +2,30 @@
 using Lincoln.Admin.Web.Models;
 using Lincoln.Framework.Common;
 using Lincoln.OnlineExam;
+using Lincoln.Utility.EmailSending;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using static Lincoln.Admin.Web.FilterConfig;
 
 namespace Lincoln.Admin.Web.Areas.Student.Controllers
 {
-    [CutomAuthorizeAttribute]
+    [AuthorizeAccessAttribute]
     public class StudentController : BaseController
     {
         private readonly IOnlineExam onlineExamService;
+        private readonly IEmailSender emailSender;
 
-        public StudentController(IOnlineExam onlineExamService)
+        public StudentController(IOnlineExam onlineExamService, IEmailSender EmailSender)
         {
             this.onlineExamService = onlineExamService;
+            this.emailSender = EmailSender;
         }
 
-        // GET: Faculty/Faculty
         public ActionResult Dashboard()
         {
             var model = new List<StudentDashboardViewModel>();
@@ -67,9 +72,9 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
                     TotalMarks = a.TotalMarks,
                     StudentName = a.StudentName,
                     ExaminationDuration = a.ExaminationDuration,
-                    IsCalculator=a.IsCalculator,
-                    ExaminationID=a.ExaminationID,
-                    TimerTime=a.TimerTime
+                    IsCalculator = a.IsCalculator,
+                    ExaminationID = a.ExaminationID,
+                    TimerTime = a.TimerTime
 
                 }).FirstOrDefault();
                 TempData["IsCalculator"] = model.IsCalculator;
@@ -106,8 +111,6 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
                     model.ExamSecond = times[2];
                 }
 
-               
-
                 questionSectionViewmodel = onlineExamService.GetExamQuestionSection(new OnlineExam.Request.ExamQuestionSectionRequestDTO()
                 {
                     CourseID = Convert.ToInt32(returnID)
@@ -121,7 +124,6 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
                         }).ToList();
 
             }
-
 
             var tupleData = new Tuple<StudentExamViewModel, List<ExamQuestionSectionViewModel>>(model, questionSectionViewmodel);
             return View(tupleData);
@@ -217,6 +219,7 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
 
             return PartialView("_LeftSuggestionPanel", model);
         }
+
         public PartialViewResult HeaderButton(string courseID, string questionNo)
         {
             var model = new ExamHeaderButtonViewModel();
@@ -235,7 +238,6 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
             model.SecondLengthStart = index + 1 > total ? index : index + 1;
             model.SecondLengthEnd = index == total ? 0 : index + 14 > total ? total : index + 14;
 
-
             return PartialView("_HeaderButton", model);
         }
 
@@ -247,7 +249,7 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
         [HttpPost]
         public JsonResult SaveExaminationSheet(QuestionSetUpViewModel model)
         {
-            return Json(onlineExamService.SaveExaminationSheet(new OnlineExam.Request.StudentExaminationSheetResponseDTO()
+            var result = onlineExamService.SaveExaminationSheet(new OnlineExam.Request.StudentExaminationSheetResponseDTO()
             {
 
                 LoginID = User.UserId,
@@ -255,8 +257,17 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
                 PaperID = model.PaperID,
                 ExaminationDuration = model.ExaminationDuration,
                 TotalTime = model.TotalTime
-            }, "INSERT"), JsonRequestBehavior.AllowGet);
+            }, "INSERT");
+
+            if (result == 1)
+            {
+                emailSender.SendHtmlEmailAsync("Test Subject", "Test Body", "gouranga.kts@gmail.com", "employeemail@gmail.com", null);
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+
         }
+
         [HttpPost]
         public JsonResult SaveExaminationTest(QuestionSetUpViewModel model)
         {
@@ -275,12 +286,45 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
         {
             return Json(onlineExamService.SaveTimerTime(new OnlineExam.Request.ExaminationTestRequestDTO()
             {
-                LoginID=User.UserId,
-                CourseID=Convert.ToInt32(courseId),
-                ExaminationID=Convert.ToInt32(examinationId),
-                TimerTime=timerTime
-               
+                LoginID = User.UserId,
+                CourseID = Convert.ToInt32(courseId),
+                ExaminationID = Convert.ToInt32(examinationId),
+                TimerTime = timerTime
+
             }), JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpPost]
+        public ActionResult Capture(string name)
+        {
+            var files = HttpContext.Request.Files;
+            if (files != null)
+            {
+                foreach (var _file in files)
+                {
+                    HttpPostedFileBase file = Request.Files[_file.ToString()];
+                    if (file.ContentLength > 0)
+                    {
+                        var webcamPath = ConfigurationManager.AppSettings["WebcamPath"].ToString();
+                        //var folderPath = Path.Combine(Server.MapPath("~/CameraPhotos/"), User.UserName);
+                        var folderPath = Path.Combine(webcamPath, User.UserName);
+                        if (!Directory.Exists(folderPath))
+                        {
+                            Directory.CreateDirectory(folderPath);
+                        }
+                        //var fileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(file.FileName);
+                        var fileName = DateTime.Now.ToString("dd-MM-yyyy") + "_" + DateTime.Now.ToString("hh-mm-ss") + "_" + DateTime.Now.ToString("tt") + "_" + User.UserId.ToString() + System.IO.Path.GetExtension(file.FileName);
+                        var path = Path.Combine(folderPath + "\\", fileName);
+                        file.SaveAs(path);
+                    }
+                }
+                return Json(true);
+            }
+            else
+            {
+                return Json(false);
+            }
 
         }
 

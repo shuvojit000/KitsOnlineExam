@@ -11,7 +11,7 @@ using static Lincoln.Admin.Web.FilterConfig;
 
 namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
 {
-    [CutomAuthorizeAttribute]
+    [AuthorizeAccessAttribute]
     public class FacultyController : BaseController
     {
         private readonly IOnlineExam onlineExamService;
@@ -21,7 +21,6 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
             this.onlineExamService = onlineExamService;
         }
 
-        // GET: Faculty/Faculty
         public ActionResult Dashboard()
         {
             var modelList = new List<FacultyDashboardViewModel>();
@@ -45,6 +44,7 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
 
             return View(modelList);
         }
+
         public ActionResult QuestionSetUp(string id)
         {
             var returnID = CryptoSecurity.Decrypt(id);
@@ -59,6 +59,7 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
             TempData["CourseID"] = model.CourseID;
             return View(model);
         }
+
         private List<ExaminationSectionViewModel> GetAllExaminationSection()
         {
             var itemSet = new List<ExaminationSectionViewModel>();
@@ -124,8 +125,8 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
             model.CreatedOn = item.CreatedOn;
             model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
             return model;
-
         }
+
         public PartialViewResult AddQuestion(string examSectionID, string paperDetailsID)
         {
             var model = new QuestionSetUpViewModel();
@@ -174,19 +175,17 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
             else
             {
                 return PartialView("_listQuestion", GetPaperDetails());
-            }
-
-           
+            }           
         }
 
         public PartialViewResult QuestionView(string id)
         {
             return PartialView("_QuestionView", SelectPaperDetails(id));
         }
+
         [HttpPost]
         public JsonResult SavePaperDetails(QuestionSetUpViewModel model)
         {
-
             model.PaperID = onlineExamService.SelectPaper(new OnlineExam.Request.PaperRequestDTO()
             {
                 CourseID = model.CourseID,
@@ -256,13 +255,9 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
             return Json(resultDetails, JsonRequestBehavior.AllowGet);
         }
 
-
-
         private List<QuestionSetUpViewModel> GetPaperDetails()
         {
             var itemSet = new List<QuestionSetUpViewModel>();
-
-
             itemSet = onlineExamService.GetAllPaperDetails(new OnlineExam.Request.PaperDetailsRequestDTO() { LoginID = User.UserId }).Select(a => new QuestionSetUpViewModel()
             {
                 ExaminationSectionID = a.ExaminationSectionID,
@@ -290,9 +285,7 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
                 TextOrImageQuestion = a.TextOrImageQuestion,
                 QuestionText = HttpUtility.HtmlDecode(a.QuestionText),
                 RemainingMarks = a.RemainingMarks
-
             }).ToList();
-
 
             return itemSet;
         }
@@ -300,8 +293,6 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
         private QuestionSetUpViewModel SelectPaperDetails(string paperDetailsID)
         {
             var model = new QuestionSetUpViewModel();
-
-
             var itemSet = onlineExamService.SelectAllPaperDetails(new OnlineExam.Request.PaperDetailsRequestDTO() { PaperDetailsID = Convert.ToInt32(paperDetailsID) });
             model.Active = itemSet.Status;
             model.AnswerNo = itemSet.AnswerNo;
@@ -330,11 +321,9 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
             return model;
         }
 
-
         [HttpPost]
         public JsonResult DeletePaperDetails(QuestionSetUpViewModel model)
         {
-
             var result = onlineExamService.SavePaperDetails(new OnlineExam.Request.PaperDetailsRequestDTO()
             {
 
@@ -343,7 +332,6 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
                 Active="I"
 
             }, "DELETE");
-
             return Json(result, JsonRequestBehavior.AllowGet);
         }
     }

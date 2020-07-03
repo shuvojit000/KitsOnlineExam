@@ -30,20 +30,12 @@
     <link rel="stylesheet" type="text/css" href="~/Content/assets/css/pages/timeline.min.css">
     <link href="~/Content/assets/vendors/css/pickers/datetime/bootstrap-datetimepicker.css" rel="stylesheet" />
     <!-- BEGIN Vendor JS-->
-    <!-- BEGIN: Page Vendor JS-->
-    @*<script src="~/Content/assets/vendors/js/charts/raphael-min.js"></script>
-        <script src="~/Content/assets/vendors/js/charts/morris.min.js"></script>
-        <script src="~/Content/assets/vendors/js/extensions/unslider-min.js"></script>
-        <script src="~/Content/assets/vendors/js/timeline/horizontal-timeline.js"></script>*@
-    <!-- END: Page Vendor JS-->
     <!-- BEGIN: Theme JS-->
     <script src="~/Content/assets/vendors/js/vendors.min.js"></script>
     <script src="~/Content/assets/vendors/js/extensions/moment.min.js"></script>
     <script src="~/Content/assets/vendors/js/pickers/dateTime/bootstrap-datetimepicker.min.js"></script>
     <script src="~/Content/assets/js/scripts/pickers/dateTime/bootstrap-datetime.min.js"></script>
     <script src="~/Content/assets/vendors/js/tables/datatable/datatables.min.js"></script>
-
-    @*<script src="~/Content/assets/js/scripts/customizer.min.js"></script>*@
     <script src="~/Content/assets/js/scripts/tables/datatables/datatable-styling.min.js"></script>
     <style>
     #overlay {
@@ -116,7 +108,7 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav float-right">
-                        
+
                         <li class="dropdown dropdown-user nav-item">
                             <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                                 <span class="avatar avatar-online">
@@ -165,8 +157,6 @@
                         <li>
                             <a class="menu-item" href="@Url.Action("Course","Admin",new {area="Admin" })">Course</a>
                         </li>
-
-
                     </ul>
                 </li>
 
@@ -202,7 +192,7 @@
                         <li>
                             <a class="menu-item" href="@Url.Action("SubjectAllocation","Admin",new {area="Admin" })">Course Allocation</a>
                         </li>
-                        
+
 
 
                     </ul>
@@ -210,11 +200,9 @@
                 <li class="nav-item">
                     <a href="#"><i class="ft-edit"></i><span class="menu-title" data-i18n="">Online Examination</span></a>
                     <ul class="menu-content">
-
-
                         @*<li>
-                            <a class="menu-item" href="@Url.Action("OnlineExaminationApp","Admin",new {area="Admin" })">Online Examination Application</a>
-                        </li>*@
+                                <a class="menu-item" href="@Url.Action("OnlineExaminationApp","Admin",new {area="Admin" })">Online Examination Application</a>
+                            </li>*@
                         <li>
                             <a class="menu-item" href="@Url.Action("ExamSchedule","Admin",new {area="Admin" })">Examination Scheduling</a>
                         </li>
@@ -247,6 +235,17 @@
         <h3><b>Loading.....</b></h3>
     </div>
     <!-- END: Content-->
+
+    <div class="col-lg-12">
+        <div class="modal fade" id="sessionTimeoutWarning" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- BEGIN: Footer-->
     <footer class="footer fixed-bottom footer-light navbar-border">
         <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2">
@@ -258,46 +257,88 @@
         </p>
     </footer>
     <!-- END: Footer-->
-    <!---Password POPUP start--->
-    <!---Password POPUP end--->
-    <!---MyProfile POPUP start--->
-    @*<div class="col-lg-12">
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">
-                                <label class="modal-title text-text-bold-600"></label>
-                            </h4>
-                            <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body recoPas">
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>*@
-    <!---MyProfile POPUP end--->
-    <!-- BEGIN: Vendor JS-->
-    @*<script src="~/Content/assets/vendors/js/vendors.min.js"></script>
-        <script src="~/Content/assets/vendors/js/tables/datatable/datatables.min.js"></script>*@
-    <!-- BEGIN Vendor JS-->
-    <!-- BEGIN: Page Vendor JS-->
-    @*<script src="~/Content/assets/vendors/js/charts/raphael-min.js"></script>
-        <script src="~/Content/assets/vendors/js/charts/morris.min.js"></script>
-        <script src="~/Content/assets/vendors/js/extensions/unslider-min.js"></script>
-        <script src="~/Content/assets/vendors/js/timeline/horizontal-timeline.js"></script>*@
-    <!-- END: Page Vendor JS-->
-    <!-- BEGIN: Theme JS-->
-    @*<script src="~/Content/assets/js/core/app-menu.min.js"></script>
-        <script src="~/Content/assets/js/core/app.min.js"></script>
-        <script src="~/Content/assets/js/scripts/customizer.min.js"></script>
-        <script src="~/Content/assets/js/scripts/tables/datatables/datatable-styling.min.js"></script>*@
-    <!-- END: Theme JS-->
-    <!-- BEGIN: Page JS-->
-    @*<script src="~/Content/assets/js/scripts/pages/dashboard-ecommerce.min.js"></script>*@
-    <!-- END: Page JS-->
+    <script>
+        $(document).ajaxError(function (xhr, props) {
+            if (props.status === 401) {
+                        window.location.href = '@Url.Action("LogIn","Home",new {area="" })';
+                     }
+        });
+
+    //session end
+        var sessionTimeoutWarning = @Session.Timeout - 1;
+
+        var timeout = parseInt(sessionTimeoutWarning) * 60 * 1000;
+        var time = setTimeout('SessionEnd()', timeout);
+
+    function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+        setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        if (minutes + ":" + seconds == "00:00") {
+            window.location.href = '@Url.Action("LogIn","Home",new {area="" })';
+        }
+
+        display.text(minutes + ":" + seconds);
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+    }, 1000);
+}
+        function ResetTimer() {
+            clearTimeout(time);
+            time = setTimeout('SessionEnd()', timeout);
+        }
+
+    function SessionEnd() {
+        $("#sessionTimeoutWarning").modal('show');
+        $('#sessionTimeoutWarning .modal-content').html('');
+        $('#sessionTimeoutWarning .modal-content').html('<div class="modal-body">'+
+                                        '<div style="width:100%;height:100%;margin: 0px; padding:0px">'+
+                                            '<div style="width:25%;margin: 0px; padding:0px;float:left;">'+
+                                                '<i class="fa fa-warning" style="font-size: 120px;color:#da4f49"></i>'+
+                                            '</div>'+
+                                            '<div style="width:70%; margin: 0px; padding:0px; padding-top: 10px; padding-left: 3%; float:right; text-align:center;">'+
+                                                '<h6>Your session is about to expire!</h6>'+
+                                                '<p style="font-size: 15px;">'+
+                                                    'You will be logged out in'+
+                                                    '<span style="display: inline;font-size: 20px;font-weight: bold" id="time">'+
+                                                    '</span>'+
+                                                    '<br />'+
+                                                    'Do you want to stay signed in?'+
+                                                '</p>'+
+                                            '</div>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<div class="clearfix"></div>'+
+                                    '<div style="width:100%;margin-bottom: 20px;margin-top: 20px; text-align:center;">'+
+                                        '<button id="btnYes" class="btn btn-primary">Yes, Keep me signed in</button>'+
+                                        '<button id="btnNo" class="btn btn-danger">No, Sign me out</button>'+
+                                '</div>');
+        var display = $('#time');
+        startTimer(timeout / 1000, display);
+    }
+
+    $(document).on('click', '#btnYes', function () {
+         $("#sessionTimeoutWarning").modal('hide');
+        window.location = window.location.href;
+    });
+
+        window.onload = ResetTimer;
+        window.onmousemove = ResetTimer;
+        window.onmousedown = ResetTimer;
+        window.ontouchstart = ResetTimer;
+        window.onclick = ResetTimer;
+        window.onkeypress = ResetTimer;
+
+        
+    </script>
 
 </body>
 </html>

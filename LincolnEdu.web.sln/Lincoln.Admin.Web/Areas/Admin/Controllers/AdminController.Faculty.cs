@@ -38,6 +38,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return itemSet;
         }
+
         private EmployeeViewModel SelectEmployee(string employeeId)
         {
             var model = new EmployeeViewModel();
@@ -76,14 +77,17 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             }
             return PartialView("_addEmployee", model);
         }
+
         public PartialViewResult EmployeeView(string id)
         {
             return PartialView("_viewEmployee", SelectEmployee(id));
         }
+
         public PartialViewResult EmployeeList()
         {
             return PartialView("_listEmployee", GetAllEmployee());
         }
+
         [HttpPost]
         public JsonResult SaveEmployee(EmployeeViewModel model)
         {
@@ -111,6 +115,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
         [HttpPost]
         public JsonResult DeleteEmployee(EmployeeViewModel model)
         {
@@ -127,10 +132,10 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-
         #endregion
 
         #region Subject Allocation
+
         public ActionResult SubjectAllocation() => View();
 
         private List<SubjectAllocationViewModel> GetAllSubjectAllocation()
@@ -159,8 +164,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             }).ToList();
 
             return itemSet;
-
         }
+
         private SubjectAllocationViewModel SelectSubjectAllocation(string SubjectAllocationId)
         {
             var itemSet = onlineExamService.SelectSubjectAllocation(new OnlineExam.Request.SubjectAllocationRequestDTO
@@ -282,14 +287,17 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return PartialView("_addSubjectAllocation", model);
         }
+
         public PartialViewResult SubjectAllocationView(string id)
         {
             return PartialView("_viewSubjectAllocation", SelectSubjectAllocation(id));
         }
+
         public PartialViewResult SubjectAllocationList()
         {
             return PartialView("_listSubjectAllocation", GetAllSubjectAllocation());
         }
+
         [HttpPost]
         public JsonResult SaveSubjectAllocation(SubjectAllocationViewModel model)
         {
@@ -326,6 +334,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
         [HttpPost]
         public JsonResult DeleteSubjectAllocation(SubjectAllocationViewModel model)
         {

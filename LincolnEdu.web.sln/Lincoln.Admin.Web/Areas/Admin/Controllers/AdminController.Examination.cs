@@ -48,12 +48,10 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.EndDate = item.EndDate != null ? Convert.ToDateTime(item.EndDate).ToString("dd/MM/yyyy") : string.Empty;
             model.ModifiedOn = item.ModifiedOn?.Date;
             model.Status = item.Status;
-            //model.AcademicID = item.AcademicID;
             model.CreatedBy = item.CreatedBy;
             model.CreatedOn = item.CreatedOn;
             model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
             return model;
-
         }
 
         public PartialViewResult AddExaminationName(string id)
@@ -65,14 +63,17 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             }
             return PartialView("_addExaminationName", model);
         }
+
         public PartialViewResult ExaminationNameView(string id)
         {
             return PartialView("_viewExaminationName", SelectExaminationName(id));
         }
+
         public PartialViewResult ExaminationNameList()
         {
             return PartialView("_listExaminationName", GetAllExaminationName());
         }
+
         [HttpPost]
         public JsonResult SaveExaminationName(ExaminationNameViewModel model)
         {
@@ -95,6 +96,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
         [HttpPost]
         public JsonResult DeleteExaminationName(ExaminationNameViewModel model)
         {
@@ -144,6 +146,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return itemSet;
         }
+
         private AssessmentViewModel SelectAssessment(string AssesssmentId)
         {
             var model = new AssessmentViewModel();
@@ -214,14 +217,17 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                              };
             return PartialView("_addAssessment", model);
         }
+
         public PartialViewResult AssessmentView(string id)
         {
             return PartialView("_viewAssessment", SelectAssessment(id));
         }
+
         public PartialViewResult AssessmentList()
         {
             return PartialView("_listAssessment", GetAllAssessment());
         }
+
         [HttpPost]
         public JsonResult SaveAssessment(AssessmentViewModel model)
         {
@@ -247,6 +253,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
         [HttpPost]
         public JsonResult DeleteAssessment(AssessmentViewModel model)
         {
@@ -262,6 +269,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
         #endregion
 
         #region Examination Section 
@@ -300,6 +308,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return itemSet;
         }
+
         private ExaminationSectionViewModel SelectExaminationSection(string ExaminationSectionId)
         {
             var model = new ExaminationSectionViewModel();
@@ -396,8 +405,6 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                                            .Select(g => g.FirstOrDefault())
                                            .ToList();
 
-
-
                 model.SectionList = new List<SelectListItem>
                             {
                                 new SelectListItem{ Text="A", Value = "A" },
@@ -436,14 +443,17 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return PartialView("_addExaminationSection", model);
         }
+
         public PartialViewResult ExaminationSectionView(string id)
         {
             return PartialView("_viewExaminationSection", SelectExaminationSection(id));
         }
+
         public PartialViewResult ExaminationSectionList()
         {
             return PartialView("_listExaminationSection", GetAllExaminationSection());
         }
+
         [HttpPost]
         public JsonResult SaveExaminationSection(ExaminationSectionViewModel model)
         {
@@ -472,6 +482,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
         [HttpPost]
         public JsonResult DeleteExaminationSection(ExaminationSectionViewModel model)
         {
@@ -487,6 +498,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
         [HttpPost]
         public JsonResult GetCourseExam(string programVersioningID, string countryId, string programmeYear, string programmeSem)
         {
@@ -502,6 +514,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
                     }).ToList(), JsonRequestBehavior.AllowGet);
         }
+
         #endregion
 
         #region Subject Assesssment 
@@ -538,6 +551,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return itemSet;
         }
+
         private SubjectAssessmentResponseDTO SelectSubjectAssessment(string SubjectAssessmentId)
         {
             var model = new SubjectAssessmentResponseDTO();
@@ -670,14 +684,17 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return PartialView("_addSubjectAssessment", model);
         }
+
         public PartialViewResult SubjectAssessmentView(string id)
         {
             return PartialView("_viewSubjectAssessment", SelectSubjectAssessment(id));
         }
+
         public PartialViewResult SubjectAssessmentList()
         {
             return PartialView("_listSubjectAssessment", GetAllSubjectAssessment());
         }
+
         [HttpPost]
         public JsonResult SaveSubjectAssessment(SubjectAssessmentViewModel model)
         {
@@ -718,6 +735,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
         [HttpPost]
         public JsonResult DeleteSubjectAssessment(SubjectAssessmentViewModel model)
         {
@@ -733,7 +751,6 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
 
         [HttpGet]
         public JsonResult GetAssessmentById(string departmentId, string programmeVersioningId,string countryID)

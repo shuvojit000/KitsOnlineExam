@@ -92,6 +92,23 @@
 <script>
    
     $(function () {
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#StartDate').datetimepicker({
+            //    format: 'DD/MM/YYYY',
+            //    daysOfWeekDisabled: [6]
+            //});
+            //$('#EndDate').datetimepicker({
+            //    format: 'DD/MM/YYYY',
+            //    daysOfWeekDisabled: [6]
+            //});
+            dateFormat: 'dd-mm-yy',
+            minDate: '+5d',
+            changeMonth: true,
+            changeYear: true,
+            altField: "#StartDate",
+            altFormat: "yy-mm-dd"
+        });
+
         $('li a[href="/Admin/Admin/ExaminationName"]').parent('li').addClass('active');
         $("#ddlStatus").change(function () {
            

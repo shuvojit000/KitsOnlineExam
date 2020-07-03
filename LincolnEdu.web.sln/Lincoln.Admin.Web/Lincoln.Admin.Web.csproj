@@ -128,6 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AdminContainerFactory.cs" />
+    <Compile Include="App_Start\AuthorizeAccessAttribute.cs" />
     <Compile Include="App_Start\BaseViewPage.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\CustomPrincipal.cs" />
@@ -859,6 +860,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\webcam.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -904,6 +906,10 @@
     <ProjectReference Include="..\Lincoln.OnlineExam\Lincoln.OnlineExam.csproj">
       <Project>{02936113-4598-4d00-a7ec-c266ece846a8}</Project>
       <Name>Lincoln.OnlineExam</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lincoln.Utility.EmailSending\Lincoln.Utility.EmailSending.csproj">
+      <Project>{e0e9db2c-9740-49ee-addf-7e970f75227e}</Project>
+      <Name>Lincoln.Utility.EmailSending</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -48,6 +48,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return itemSet;
         }
+
         public PartialViewResult OnlineExaminationAppList(AdminOnlineExaminationViewModel model)
         {
             return PartialView("_listOnlineExaminationApp", GetAllOnlineExamApp(model));
@@ -141,6 +142,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return itemSet;
         }
+
         public PartialViewResult ExamScheduleList(AdminOnlineExaminationViewModel model)
         {
             return PartialView("_listExamSchedule", GetAllExamSchedule(model));
@@ -201,6 +203,10 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 CreatedBy = User.UserId
             }, "Scheduling");
 
+            if (result == 1)
+            {
+                emailSender.SendHtmlEmailAsync("Test Subject","Test Body","gouranga.kts@gmail.com",models.Select(a=>a.EmailID).AsEnumerable(),null);
+            }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
@@ -268,10 +274,12 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return itemSet;
         }
+
         public PartialViewResult EvaluationAllotmentList(AdminOnlineExaminationViewModel model)
         {
             return PartialView("_listEvaluationAllotment", GetAllEvaluationAllotment(model));
         }
+
         [HttpPost]
         public JsonResult SaveEvaluationAllotment(AdminOnlineExaminationViewModel model)
         {
@@ -318,6 +326,10 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 CreatedBy = User.UserId
             }, "Evaluation");
 
+            if (result == 1)
+            {
+                emailSender.SendHtmlEmailAsync("Test Subject", "Test Body", "gouranga.kts@gmail.com", "employeemail@gmail.com", null);
+            }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         #endregion
@@ -365,10 +377,12 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return itemSet;
         }
+
         public PartialViewResult ResultApprovalList(AdminOnlineExaminationViewModel model)
         {
             return PartialView("_listResultApproval", GetAllResultApproval(model));
         }
+
         private List<AdminAnswerReviewViewModels> GetAllResultReview(AdminOnlineExaminationViewModel model)
         {
             var itemSet = new List<AdminAnswerReviewViewModels>();
@@ -399,6 +413,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return itemSet;
         }
+
         public ActionResult AnswerSheet(string StudentID, string CourseID, string EmployeeID)
         {
 
@@ -426,6 +441,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             return View("Error");
 
         }
+
         [HttpPost]
         public JsonResult SaveResultApproval(List<AdminOnlineExaminationViewModel> models)
         {
@@ -449,6 +465,11 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 ExaminationXML = xEle.ToString().Trim(),
                 CreatedBy = User.UserId
             });
+
+            if (result == 1)
+            {
+                emailSender.SendHtmlEmailAsync("Test Subject", "Test Body", "gouranga.kts@gmail.com", "employeemail@gmail.com", null);
+            }
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
