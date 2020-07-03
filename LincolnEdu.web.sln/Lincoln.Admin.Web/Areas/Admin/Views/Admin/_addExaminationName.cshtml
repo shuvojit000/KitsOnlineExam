@@ -2,8 +2,6 @@
 
 @model Lincoln.Admin.Web.Models.ExaminationNameViewModel
 <style>
-
-
     .bootstrap-datetimepicker-widget .weekend {
         color: red;
     }
@@ -35,7 +33,7 @@
                     <div class="form-group col-lg-6">
                         <label>Examination Start Date<span class="requiredstar">*</span> </label>
                         <div class="position-relative has-icon-left">
-                            @Html.TextBoxFor(a => a.StartDate, new { @class = "form-control" })
+                            @Html.TextBoxFor(a => a.StartDate, new { @class = "form-control",autocomplete="off" })
                             <div class="form-control-position">
                                 <i class="fa fa-calendar"></i>
                             </div>
@@ -45,7 +43,7 @@
                     <div class="form-group col-lg-6">
                         <label>Examination End Date<span class="requiredstar">*</span> </label>
                         <div class="position-relative has-icon-left">
-                            @Html.TextBoxFor(a => a.EndDate, new { @class = "form-control" })
+                            @Html.TextBoxFor(a => a.EndDate, new { @class = "form-control", autocomplete = "off" })
                             <div class="form-control-position">
                                 <i class="fa fa-calendar"></i>
                             </div>
