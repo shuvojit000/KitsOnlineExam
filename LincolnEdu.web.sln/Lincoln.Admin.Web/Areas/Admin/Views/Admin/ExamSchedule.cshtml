@@ -377,7 +377,10 @@
 
         }
     });
-
+    $('#ExaminationDate').datetimepicker({
+        format: 'DD/MM/YYYY',
+        daysOfWeekDisabled: [6]
+    });
     $(document).on("change", "#ExaminationID", function () {
         if ($('#ExaminationID').val() != '') {
             $('#overlay').show();
@@ -400,6 +403,7 @@
                     }
                     var formatedDateStart = dateStart[1] + "/" + dateStart[0] + "/" + dateStart[2];
                     var formatedDateEnd = dateEnd[1] + "/" + dateEnd[0] + "/" + dateEnd[2];
+                    $('#ExaminationDate').datetimepicker('destroy');
                     $('#ExaminationDate').datetimepicker({
                         format: 'DD/MM/YYYY',
                         minDate: new Date(formatedDateStart),
