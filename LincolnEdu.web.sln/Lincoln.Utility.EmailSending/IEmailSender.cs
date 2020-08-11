@@ -8,12 +8,8 @@ namespace Lincoln.Utility.EmailSending
 {
     public interface IEmailSender
     {
-        Task SendHtmlEmailAsync(string subject, string body, string from, string to, IEnumerable<string> attachments = null);
-
-       // Task SendHtmlEmailWithInMemoryAttachmentsAsync(string subject, string body, string from, string to, IEnumerable<Tuple<string, byte[]>> attachments = null);
-
-        Task SendHtmlEmailAsync(string subject, string body, string from, IEnumerable<string> to,  IEnumerable<string> attachments = null);
-
-       // Task SendHtmlEmailWithInMemoryAttachmentsAsync(string subject, string body, string from, IEnumerable<string> to,  IEnumerable<Tuple<string, byte[]>> attachments = null);
+        void SendHtmlEmailAsync(string subject, string body, string from, string to, string cc, string bcc, IEnumerable<string> attachments = null);
+        void SendHtmlEmailAsync(string subject, string body, string from, string to, IEnumerable<string> cc, IEnumerable<string> bcc, IEnumerable<string> attachments = null);
+        void SendHtmlEmailAsync(string subject, string body, string from, IEnumerable<string> to, IEnumerable<string> cc, IEnumerable<string> bcc, IEnumerable<string> attachments = null);
     }
 }

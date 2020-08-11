@@ -207,7 +207,12 @@
                         }
                        
                         $("#myModal").modal('hide');
-                        fnLoadCourseList();
+                        fnLoadProgramVersioningList();
+                    }
+                    else if (result == -1) {
+                        alert('Programme Versioning already exist.');
+                        $("#myModal").modal('hide');
+                        fnLoadProgramVersioningList();
                     } else {
                         alert('Error in your requst.');
                         $("#myModal").modal('hide');
@@ -223,7 +228,7 @@
     function fnViewProgramVersioning(id) {
         $('.modal-body').load('/Admin/Admin/ProgramVersioningView/' + id, function () { $("#myModal").modal('show'); });
     }
-    function fnLoadCourseList() {
+    function fnLoadProgramVersioningList() {
         $('.listProgramVersioning').load('/Admin/Admin/ProgramVersioningList');
     }
     function fnDeleteProgramVersioning(programVersioningID) {

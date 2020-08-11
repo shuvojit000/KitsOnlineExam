@@ -22,6 +22,7 @@ namespace Lincoln.OnlineExam.Response
         public int? ExaminationDuration { get; set; }
         public DateTime? ExaminationDate { get; set; }
         public decimal? TotalMarks { get; set; }
+        public decimal? MarksObtained { get; set; }
         public int? IsCalculator { get; set; }
         public int? ExaminationID { get; set; }
         public string TimerTime { get; set; }

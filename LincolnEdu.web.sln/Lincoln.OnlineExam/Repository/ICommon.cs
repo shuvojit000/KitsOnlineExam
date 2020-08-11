@@ -72,5 +72,7 @@ namespace Lincoln.OnlineExam.Repository
         List<AdminAnswerReviewResponseDTO> GetAnserReview(AdminOnlineExamRequestDTO request);
         int SaveExaminationConfiguration(AdminOnlineExamRequestDTO recordAttributer, string Operation);
         int SaveResultApproval(AdminOnlineExamRequestDTO recordAttributer);
+
+        List<EmailResponseDTO> GetEmail();
     }
 }

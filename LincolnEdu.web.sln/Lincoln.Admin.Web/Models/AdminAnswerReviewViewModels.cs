@@ -18,5 +18,7 @@ namespace Lincoln.Admin.Web.Models
         public string AnswerNoByStudent { get; set; }
         public string AnswerTextByStudent { get; set; }
         public decimal? QuestionMarksObtain { get; set; }
+        public decimal? MarksObtained { get; set; }
+        public int? ResultApproved { get; set; }
     }
 }

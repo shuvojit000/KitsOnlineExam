@@ -192,6 +192,8 @@ namespace Lincoln.OnlineExam.Repository
         {
             var itemSet = new List<PaperDetailsResponseDTO>();
 
+            SqlParameter courseID = new SqlParameter("@CourseID", SqlDbType.Int);
+            courseID.Value = recordAttributer.CourseID;
 
             SqlParameter paperDetailsID = new SqlParameter("@PaperDetailsID", SqlDbType.Int);
             paperDetailsID.Value = recordAttributer.PaperDetailsID;
@@ -204,7 +206,7 @@ namespace Lincoln.OnlineExam.Repository
 
             SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
             type.Value = "GET";
-            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Faculty].[upGetPaperDetails]", paperDetailsID, paperID, loginID, type))
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Faculty].[upGetPaperDetails]", courseID, paperDetailsID, paperID, loginID, type))
             {
                 if (dr != null && dr.HasRows)
                 {

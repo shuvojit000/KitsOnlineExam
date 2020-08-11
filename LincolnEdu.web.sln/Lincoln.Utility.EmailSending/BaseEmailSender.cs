@@ -20,62 +20,56 @@ namespace Lincoln.Utility.EmailSending
             {
                 EmailAccountPassword = ConfigurationManager.AppSettings["Password"],
                 EMailAccountUserName = ConfigurationManager.AppSettings["UserName"],
-                EnableSsl = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableSsl"]),
+                EnableSsl = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableSsl"].ToString()),
                 Port = ConfigurationManager.AppSettings["Port"],
-                Host=ConfigurationManager.AppSettings["Host"]
+                Host = ConfigurationManager.AppSettings["Host"]
             };
         }
 
-        public Task SendHtmlEmailAsync(string subject, string body, string from, string to, IEnumerable<string> attachments = null)
+        public void SendHtmlEmailAsync(string subject, string body, string from, string to, string cc, string bcc, IEnumerable<string> attachments = null)
         {
-            return this.SendHtmlEmailAsync(subject, body, from, new[] { to }, attachments);
+            this.SendHtmlEmailAsync(subject, body, from, new[] { to }, new[] { cc }, new[] { bcc }, attachments);
         }
 
-        //public Task SendHtmlEmailWithInMemoryAttachmentsAsync(string subject, string body, string from, string to, IEnumerable<Tuple<string, byte[]>> attachments = null)
-        //{
-        //    return this.SendHtmlEmailWithInMemoryAttachmentsAsync(subject, body, from, new[] { to }, attachments);
-        //}
-
-        public async Task SendHtmlEmailAsync(string subject, string body, string from, IEnumerable<string> to, IEnumerable<string> attachments = null)
+        public void SendHtmlEmailAsync(string subject, string body, string from, string to, IEnumerable<string> cc, IEnumerable<string> bcc, IEnumerable<string> attachments = null)
         {
-            var msg = this.CreateMessage(subject, body, from, to.ToArray());
+            this.SendHtmlEmailAsync(subject, body, from, new[] { to }, cc?.ToArray(), bcc?.ToArray(), attachments);
+        }
+
+        public void SendHtmlEmailAsync(string subject, string body, string from, IEnumerable<string> to, IEnumerable<string> cc, IEnumerable<string> bcc, IEnumerable<string> attachments = null)
+        {
+            var msg = this.CreateMessage(subject, body, from, to?.ToArray(), cc?.ToArray(), bcc?.ToArray());
 
             if (attachments != null)
             {
-                AddAttachmentsToMessageAsync(msg, attachments);
+                AddAttachmentsToMessage(msg, attachments);
             }
-
-            await this.SendEmailAsync(msg).ConfigureAwait(false);
+            this.SendEmailAsync(msg);
         }
 
-        //public async Task SendHtmlEmailWithInMemoryAttachmentsAsync(string subject, string body, string from, IEnumerable<string> to, IEnumerable<string> attachments = null)
-        //{
-        //    var message = this.CreateMessage(subject, body, from, to.ToArray());
-
-        //    if (attachments != null)
-        //    {
-        //        AddAttachmentsToMessageAsync(message, attachments);
-        //    }
-
-        //    await this.SendEmailAsync(message).ConfigureAwait(false);
-        //}
-
-
-        private MailMessage CreateMessage(string subject, string body, string from, string[] TO)
+        private MailMessage CreateMessage(string subject, string body, string from, string[] TO, string[] CC, string[] BCC)
         {
-            // Note: SendGrid does not allow a message body with no content
             var message = new MailMessage
             {
                 From = new MailAddress(from),
                 Subject = subject,
                 Body = string.IsNullOrEmpty(body) ? " " : body,
-                IsBodyHtml=true,
-                
+                IsBodyHtml = true,
+
             };
             foreach (var m in TO) { message.To.Add(new MailAddress(m)); }
+            if (CC != null && CC.Count() > 0)
+            {
+                foreach (var m in CC) { message.CC.Add(new MailAddress(m)); }
+            }
+            if (BCC != null && BCC.Count() > 0)
+            {
+                foreach (var m in BCC) { message.Bcc.Add(new MailAddress(m)); }
+            }
             return message;
         }
-        internal static MailMessage AddAttachmentsToMessageAsync(MailMessage message, IEnumerable<string> attachments)
+
+        internal static MailMessage AddAttachmentsToMessage(MailMessage message, IEnumerable<string> attachments)
         {
             if (attachments == null)
             {
@@ -91,26 +85,28 @@ namespace Lincoln.Utility.EmailSending
             return message;
         }
 
-
-
-        private async Task SendEmailAsync(MailMessage message)
-        {          
-
-            using (var smtp = new SmtpClient())
+        private void SendEmailAsync(MailMessage message)
+        {
+            using (var smtpClient = new SmtpClient())
             {
-                smtp.Host = EmailConfigurationSection.Host;
-                smtp.EnableSsl = EmailConfigurationSection.EnableSsl;
+                smtpClient.Host = EmailConfigurationSection.Host;
+                smtpClient.Port = int.Parse(EmailConfigurationSection.Port);
                 System.Net.NetworkCredential NetworkCred = new System.Net.NetworkCredential();
-                smtp.UseDefaultCredentials = true;
-                smtp.Credentials = NetworkCred;
                 NetworkCred.UserName = EmailConfigurationSection.EMailAccountUserName;
-                NetworkCred.Password = EmailConfigurationSection.EmailAccountPassword; 
-                smtp.Port = int.Parse(EmailConfigurationSection.Port);  
-                await smtp.SendMailAsync(message);
+                NetworkCred.Password = EmailConfigurationSection.EmailAccountPassword;
+                smtpClient.Credentials = NetworkCred;
+                smtpClient.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
+                //smtpClient.UseDefaultCredentials = false;
+                //smtpClient.EnableSsl = EmailConfigurationSection.EnableSsl;
+                try
+                {
+                    smtpClient.Send(message);
+                }
+                catch (Exception ex)
+                {
+                    ex.Message.ToString();
+                }
             }
-
-            
-
         }
     }
 }

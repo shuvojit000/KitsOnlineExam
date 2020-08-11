@@ -29,10 +29,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult ChangeAllStatus(UpdateStatusViewModel model)
         {
-
             return Json(onlineExamService.UpdateStatus(new OnlineExam.Request.UpdateStatusReuestDTO
             {
-
                 Active = model.Active,
                 CreatedBy = User.UserId,
                 ID = model.ID,
@@ -58,8 +56,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult GetProgDropWithVersion(string departmentID)
         {
-
-            return Json(onlineExamService.GetAllProgrammeWithVersion().Where(a => a.DepartmentID == Convert.ToInt32(departmentID) && a.Status == "A")
+            return Json(onlineExamService.GetAllProgrammeWithVersion().Where(a => a.DepartmentID == Convert.ToInt32(departmentID) && a.Status == "A"
+                                    && !string.IsNullOrEmpty(a.Version))
                     .Select(a => new SelectListItem
                     {
                         Text = a.ProgrammeName + "(" + a.Version + ")",
@@ -71,7 +69,6 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult GetDepartmentDrop(string academicID)
         {
-
             return Json(onlineExamService.GetAllDepartment().Where(a => a.AcademicID == Convert.ToInt32(academicID) && a.Status == "A")
                     .Select(a => new SelectListItem
                     {
@@ -93,9 +90,9 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                       }).ToList(), JsonRequestBehavior.AllowGet);
 
         }
+
         public JsonResult GetCourseDDL(string SemisterID)
         {
-
             return Json(onlineExamService.GetAllCourse().Where(a => a.CourseID == Convert.ToInt32(SemisterID))
                     .Select(a => new SelectListItem
                     {

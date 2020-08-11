@@ -497,5 +497,12 @@ namespace Lincoln.OnlineExam
                 return unitOfWork.StudentRepository.SaveTimerTime(recordAttributer);
             }
         }
+        public List<EmailResponseDTO> GetEmail()
+        {
+            using (var unitOfWork = new OnlineExamUnitOfWork())
+            {
+                return unitOfWork.CommonRepository.GetEmail();
+            }
+        }
     }
 }

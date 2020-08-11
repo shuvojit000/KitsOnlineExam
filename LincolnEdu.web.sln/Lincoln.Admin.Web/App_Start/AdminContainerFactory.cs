@@ -3,6 +3,9 @@ using Autofac;
 using Autofac.Integration.Mvc;
 using Lincoln.OnlineExam;
 using Lincoln.Utility.EmailSending;
+using Autofac.Integration.WebApi;
+using System.Reflection;
+using System.Web.Http;
 
 namespace Lincoln.Admin.Web.App_Start
 {
@@ -10,8 +13,10 @@ namespace Lincoln.Admin.Web.App_Start
     {
         public static void ConfigureContainer()
         {
+           
             var builder = new ContainerBuilder();
 
+            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
             // Register dependencies in controllers
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
 
@@ -31,6 +36,8 @@ namespace Lincoln.Admin.Web.App_Start
 
             // Set MVC DI resolver to use our Autofac container
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            var webApiResolver = new AutofacWebApiDependencyResolver(container);
+            GlobalConfiguration.Configuration.DependencyResolver = webApiResolver;
         }
     }
 }

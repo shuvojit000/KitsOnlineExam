@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lincoln.Utility.EmailSending
+namespace Lincoln.OnlineExam.Response
 {
-    public class EmailSender : BaseEmailSender
-    {       
+    public class EmailResponseDTO
+    {
+        public string Email { get; set; }
     }
 }

@@ -88,5 +88,7 @@ namespace Lincoln.OnlineExam
         int SaveExaminationConfiguration(AdminOnlineExamRequestDTO recordAttributer, string Operation);
         int SaveResultApproval(AdminOnlineExamRequestDTO recordAttributer);
         int SaveTimerTime(ExaminationTestRequestDTO recordAttributer);
+
+        List<EmailResponseDTO> GetEmail();
     }
 }

@@ -63,8 +63,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.CreatedBy = item.CreatedBy;
             model.CreatedOn = item.CreatedOn;
             model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
-            return model;
 
+            return model;
         }
 
         public PartialViewResult AddEmployee(string id)
@@ -73,7 +73,6 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             if (!string.IsNullOrEmpty(id))
             {
                 model = SelectEmployee(id);
-
             }
             return PartialView("_addEmployee", model);
         }
@@ -113,20 +112,53 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             }, type);
 
+            var ccEmail = new List<AdminOnlineExaminationViewModel>()
+            {
+            new AdminOnlineExaminationViewModel { EmailID = "subhankarchandra@lincoln.edu.my" }
+            };
+
+            var bccEmail = new List<AdminOnlineExaminationViewModel>()
+            {
+            new AdminOnlineExaminationViewModel { EmailID = "chandrasubhankar163@gmail.com" }
+            };
+
+            /*************** Please Change Subject & Body Message *********************/
+            var subject = "Faculty Registration";
+            var _content = "";
+
+
+            // _content = null;
+            // _content += header_content();
+            _content += "<div><b>Dear " + model.EmployeeName + ",</b></div><br />";
+            _content += "<div>You are now registered as a Ph.D scholar under Lincoln University College, Malaysia.</div><br />";
+            _content += "An account has been created for you in our system by your student id. <br />";
+            _content += "To check the details you need to login into your account with the credentials given below</div><br />";
+            _content += "<b>URL : <a href='https://phdresearch.lincolnedu.education/student/stdlogin.aspx' target='_blank'>https://phdresearch.lincolnedu.education/student/stdlogin.aspx<a> </b><br />";
+            _content += "<b>Username : " + model.UserName + "</b><br />";
+            _content += "<b>Password : " + model.Password + " </ b >< br /> ";
+            _content += "<div>For any other assistance please mail us at <i>postgraduate@lincoln.edu.my</i><br /><br /></div>";
+
+            _content += "Thanks & Regards,";
+            _content += "<b><br />LUC Online Mail Service</b><br />";
+
+            // _content += footer_content();
+
+            var form = System.Configuration.ConfigurationManager.AppSettings["FromEmail"].ToString();
+
+           emailSender.SendHtmlEmailAsync(subject, _content, form, model.EmailID, ccEmail.Select(a => a.EmailID).AsEnumerable(), bccEmail.Select(a => a.EmailID).AsEnumerable(), null);
+             //emailSender.SendHtmlEmailAsync(subject, _content, form, model.EmailID, null, null, null);
+
+
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult DeleteEmployee(EmployeeViewModel model)
         {
-
             var result = onlineExamService.SaveEmployee(new OnlineExam.Request.EmployeeRequestDTO()
             {
-
                 CreatedBy = User.UserId,
                 EmployeeID = model.EmployeeID
-
-
             }, "DELETE");
 
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -230,7 +262,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                        Value = a.DepartmentID.ToString()
 
                    }).ToList();
-                model.ProgramList = onlineExamService.GetAllProgrammeWithVersion().Where(a => a.DepartmentID == Convert.ToInt32(model.FacultyCode) && a.Status == "A")
+                model.ProgramList = onlineExamService.GetAllProgrammeWithVersion().Where(a => a.DepartmentID == Convert.ToInt32(model.FacultyCode) && a.Status == "A"
+                                    && !string.IsNullOrEmpty(a.Version))
                        .Select(a => new SelectListItem
                        {
                            Text = a.ProgrammeName + "(" + a.Version + ")",

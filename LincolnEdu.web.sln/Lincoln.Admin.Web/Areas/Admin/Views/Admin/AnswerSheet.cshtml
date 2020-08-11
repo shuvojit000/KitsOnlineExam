@@ -2,7 +2,6 @@
 @{
     Layout = null;
 }
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +12,7 @@
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <style>
+
         #overlay {
             background: #ffffff;
             color: #666666;
@@ -56,57 +56,131 @@
         <h3><b>Loading.....</b></h3>
     </div>
     <div class="container">
-
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>Question No</th>
+                    <th>Question Type</th>
                     <th>Question Text</th>
-                    <th>Student Answer Text</th>
-                    <th>Answer No</th>
-                    <th>Student Answer No</th>
+                    <th>Student Given Answer Text</th>
+                    <th>Correct Answer No</th>
+                    <th>Student Given Answer No</th>
                     <th>Question Marks</th>
-                    <th>Remarks</th>
+                    <th>Marks Obtained</th>
                 </tr>
             </thead>
             <tbody>
-
                 @if (Model != null && Model.Count() > 0)
                 {
                     foreach (var item in Model)
                     {
                         <tr>
                             <td>@item.QuestionNo</td>
+                            <td>@(item.QuestionType == "S" ? "Subjective" : "Objective")</td>
                             <td>@Html.Raw(item.QuestionText)</td>
                             <td>@Html.Raw(item.AnswerTextByStudent)</td>
                             <td>@item.AnswerNo</td>
                             <td>@item.AnswerNoByStudent</td>
                             <td>@item.QuestionMarks</td>
                             <td>
-                                <input type="text" class="studentRemarks form-control" data-qNo="@item.QuestionNo" data-padetId="@item.PaperDetailsID" data-eid="@ViewBag.EmployeeID"
-                                       data-sid="@ViewBag.StudentID" data-cid="@ViewBag.CourseID"
-                                       value="@(item.AnswerNo==item.AnswerNoByStudent && item.QuestionType=="O"?item.QuestionMarks.ToString():"0")">
-                            </td>
+                                @if (item.ResultApproved == 0)
+                                {
+                                    <input type="text" class="studentRemarks form-control" data-qNo="@item.QuestionNo" data-padetId="@item.PaperDetailsID" data-eid="@ViewBag.EmployeeID"
+                                        data-sid="@ViewBag.StudentID" data-cid="@ViewBag.CourseID"
+                                        value="@(item.AnswerNo == item.AnswerNoByStudent && item.QuestionType == "O" ? item.QuestionMarks.ToString() : String.Format("{0:0.##}", item.MarksObtained))"
+                                        onkeypress="return Decimals(event,this,@item.QuestionMarks);"> 
+                                }
+                                else
+                                {
+                                    <input type="text" class="studentRemarks form-control" data-qNo="@item.QuestionNo" data-padetId="@item.PaperDetailsID" data-eid="@ViewBag.EmployeeID"
+                                        data-sid="@ViewBag.StudentID" data-cid="@ViewBag.CourseID"
+                                        value="@(item.AnswerNo==item.AnswerNoByStudent && item.QuestionType=="O"?item.QuestionMarks.ToString():String.Format("{0:0.##}", item.MarksObtained))"
+                                        onkeypress="return Decimals(event,this,@item.QuestionMarks);" readonly>
+                                }
 
+                            </td>
 
                         </tr>
                     }
                 }
 
-
             </tbody>
         </table>
+        <div style="float:right">
+            <label>Total Marks Obtained: </label> <input type="text" id="totalMarks" disabled="disabled" />
+        </div>
 
         <div class="row">
-            <button type="button" onclick="fnSaveResult()" class="btn btn-primary">
-                <i class="fa fa-check-square-o"></i> Save
-            </button>
+            @if (Model.ToList()[0].ResultApproved == 0)
+            {
+                <button type="button" onclick="fnSaveResult()" class="btn btn-primary">
+                    <i class="fa fa-check-square-o"></i> Save
+                </button>
+            }
+            &nbsp;
             <button type="button" onclick="fnResetWindow()" class="btn btn-danger">
                 <i class="fa fa-check-square-o"></i> Close
             </button>
         </div>
+
+
     </div>
     <script>
+
+        /************** Allow Only decimal *******************/
+        function Decimals(evt, el, questionMarks) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            var number = el.value.split('.');
+            if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            /************** Just one dot *******************/
+            if (number.length > 1 && charCode == 46) {
+                return false;
+            }
+            /************** get the character position *******************/
+            var caratPos = getSelectionStart(el);
+            var dotPos = el.value.indexOf(".");
+            if (caratPos > dotPos && dotPos > -1 && (number[1].length > 1)) {
+                return false;
+            }
+            if (parseFloat(el.value + evt.key) > parseFloat(questionMarks)) {
+                return false;
+            }
+            else {
+                //alert(el.parentNode.parentNode.rowIndex);
+                CalculateMarks(el.parentNode.parentNode.rowIndex-1, parseFloat(el.value + evt.key),parseFloat(questionMarks));
+            }
+
+            return true;
+        }
+        function getSelectionStart(o) {
+            if (o.createTextRange) {
+                var r = document.selection.createRange().duplicate()
+                r.moveEnd('character', o.value.length)
+                if (r.text == '') return o.value.length
+                return o.value.lastIndexOf(r.text)
+            } else return o.selectionStart
+        }
+
+        $(document).ready(function () {
+            var totalMarks = 0;
+            $('.studentRemarks').each(function () {
+                totalMarks = totalMarks + parseFloat($(this).val());
+            })
+            $('#totalMarks').val(isNaN(totalMarks) ? 0 : totalMarks);
+        })
+
+        function CalculateMarks(index,el,e) {
+            var totalMarks = 0;
+            $('.studentRemarks').each(function (rowIndex) {
+                if (index != rowIndex) {
+                    totalMarks = totalMarks + parseFloat($(this).val());
+                }
+            })
+            totalMarks = totalMarks + el;
+            $('#totalMarks').val(isNaN(totalMarks) ? 0 : parseFloat(totalMarks).toFixed(2));
+        }
 
         function fnSaveResult() {
             $('#overlay').show();

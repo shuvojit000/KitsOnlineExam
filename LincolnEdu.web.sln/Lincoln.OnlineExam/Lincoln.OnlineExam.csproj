@@ -109,6 +109,7 @@
     <Compile Include="Response\CourseResponseDTO.cs" />
     <Compile Include="Response\DepartmentResponseDTO.cs" />
     <Compile Include="Response\DropdownResponseDTO.cs" />
+    <Compile Include="Response\EmailResponseDTO.cs" />
     <Compile Include="Response\EmployeeResponseDTO.cs" />
     <Compile Include="Response\ExaminationConfigurationResponseDTO.cs" />
     <Compile Include="Response\ExaminationNameResponseDTO.cs" />

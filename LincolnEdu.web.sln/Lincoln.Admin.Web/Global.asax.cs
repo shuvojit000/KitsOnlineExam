@@ -9,6 +9,7 @@ using System.Web.Security;
 using Lincoln.Admin.Web.App_Start;
 using Lincoln.Admin.Web.Models;
 using Newtonsoft.Json;
+using System.Web.Http;
 
 namespace Lincoln.Admin.Web
 {
@@ -19,8 +20,10 @@ namespace Lincoln.Admin.Web
             AdminContainerFactory.ConfigureContainer();
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
         }
         protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
         {

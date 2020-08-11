@@ -8,6 +8,7 @@ namespace Lincoln.Admin.Web.Models
     public class StudentExamViewModel
     {
         public string ExaminationName { get; set; }
+        public string CourseName { get; set; }
         public int? CourseID { get; set; }
         public decimal? TotalMarks { get; set; }
         public string StudentName { get; set; }

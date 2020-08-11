@@ -7,8 +7,7 @@ using System.Web.Mvc;
 namespace Lincoln.Admin.Web.Models
 {
     public class QuestionSetUpViewModel
-    {
-       
+    {      
         
         public int? CourseID { get; set; }
         public int? ExaminationSectionID { get; set; }

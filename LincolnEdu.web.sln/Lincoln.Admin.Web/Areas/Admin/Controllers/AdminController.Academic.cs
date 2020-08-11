@@ -28,6 +28,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return itemSet;
         }
+
         private AcademicViewModel SelectAcademicLevel(string academicId)
         {
             var model = new AcademicViewModel();
@@ -44,8 +45,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.CreatedBy = item.CreatedBy;
             model.CreatedOn = item.CreatedOn;
             model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
-            return model;
 
+            return model;
         }
 
         public PartialViewResult AddAcademicLevel(string id)
@@ -57,14 +58,17 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             }
             return PartialView("_addAcademicLevel", model);
         }
+
         public PartialViewResult AcademicLevelView(string id)
         {
             return PartialView("_viewAcademicLevel", SelectAcademicLevel(id));
         }
+
         public PartialViewResult AcademicLevelList()
         {
             return PartialView("_listAcademicLevel", GetAllAcademicLevel());
         }
+
         [HttpPost]
         public JsonResult SaveAcademicLevel(AcademicViewModel model)
         {
@@ -86,10 +90,10 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
         [HttpPost]
         public JsonResult DeleteAcademicLevel(AcademicViewModel model)
         {
-
             var result = onlineExamService.SaveAcademicLevel(new OnlineExam.Request.AcademicLevelRequestDTO()
             {
                 AcademicID = model.AcademicID,
@@ -127,6 +131,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return itemSet;
         }
+
         private DepartmentViewModel SelectDepartment(string departmentId)
         {
             var model = new DepartmentViewModel();
@@ -148,8 +153,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.CreatedBy = item.CreatedBy;
             model.CreatedOn = item.CreatedOn;
             model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
-            return model;
 
+            return model;
         }
 
         public PartialViewResult AddDepartment(string id)
@@ -162,14 +167,17 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.AcademicList = onlineExamService.GetDropdownData("Academic").Select(a => new SelectListItem { Text = a.CodeDesc, Value = a.CodeID }).ToList();
             return PartialView("_addDepartment", model);
         }
+
         public PartialViewResult DepartmentView(string id)
         {
             return PartialView("_viewDepartment", SelectDepartment(id));
         }
+
         public PartialViewResult DepartmentList()
         {
             return PartialView("_listDepartment", GetAllDepartment());
         }
+
         [HttpPost]
         public JsonResult SaveDepartment(DepartmentViewModel model)
         {
@@ -194,6 +202,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
         [HttpPost]
         public JsonResult DeleteDepartment(DepartmentViewModel model)
         {
@@ -209,6 +218,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
         #endregion
 
         #region Programme
@@ -238,14 +248,13 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return itemSet;
         }
+
         private ProgrammeViewModel SelectProgramme(string programmeId)
         {
             var model = new ProgrammeViewModel();
             var item = onlineExamService.SelectProgramme(new OnlineExam.Request.ProgrammeRequestDTO
             {
                 ProgrammeID = Convert.ToInt32(programmeId),
-
-
             });
             model.ProgrammeID = item.ProgrammeID;
             model.ProgrammeName = item.ProgrammeName;
@@ -261,8 +270,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.CreatedBy = item.CreatedBy;
             model.CreatedOn = item.CreatedOn;
             model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
-            return model;
 
+            return model;
         }
 
         public PartialViewResult AddProgramme(string id)
@@ -287,14 +296,17 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return PartialView("_addProgramme", model);
         }
+
         public PartialViewResult ProgrammeView(string id)
         {
             return PartialView("_viewProgramme", SelectProgramme(id));
         }
+
         public PartialViewResult ProgrammeList()
         {
             return PartialView("_listProgramme", GetAllProgramme());
         }
+
         [HttpPost]
         public JsonResult SaveProgramme(ProgrammeViewModel model)
         {
@@ -320,6 +332,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
         [HttpPost]
         public JsonResult DeleteProgramme(ProgrammeViewModel model)
         {
@@ -335,7 +348,6 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
 
         #endregion
 
@@ -366,13 +378,13 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return itemSet;
         }
+
         private ProgramVersioningViewModel SelectProgramVersioning(string programVersioningId)
         {
             var model = new ProgramVersioningViewModel();
             var item = onlineExamService.SelectProgramVersioning(new OnlineExam.Request.ProgramVersioningRequestDTO
             {
                 ProgramVersioningID = Convert.ToInt32(programVersioningId)
-
             });
             model.ProgramVersioningID = item.ProgramVersioningID;
             model.ProgramCode = item.ProgramCode;
@@ -387,6 +399,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.CreatedBy = item.CreatedBy;
             model.CreatedOn = item.CreatedOn;
             model.ModifiedBy = Convert.ToInt32(item.ModifiedBy);
+
             return model;
 
         }
@@ -420,14 +433,17 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.AcademicList = onlineExamService.GetDropdownData("Academic").Select(a => new SelectListItem { Text = a.CodeDesc, Value = a.CodeID }).ToList();
             return PartialView("_addProgramVersioning", model);
         }
+
         public PartialViewResult ProgramVersioningView(string id)
         {
             return PartialView("_viewProgramVersioning", SelectProgramVersioning(id));
         }
+
         public PartialViewResult ProgramVersioningList()
         {
             return PartialView("_listProgramVersioning", GetAllProgramVersioning());
         }
+
         [HttpPost]
         public JsonResult SaveProgramVersioning(ProgramVersioningViewModel model)
         {
@@ -450,6 +466,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
         [HttpPost]
         public JsonResult DeleteProgramVersioning(ProgramVersioningViewModel model)
         {
@@ -465,6 +482,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
         #endregion
 
         #region Programme Semester
@@ -508,8 +526,6 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             var item = onlineExamService.SelectProgrammeSemester(new OnlineExam.Request.ProgrammeSemesterRequestDTO
             {
                 ProgrammeSemesterID = Convert.ToInt32(programmeSemesterId),
-
-
             });
             model.ProgrammeID = item.ProgrammeID;
             model.ProgrammeName = item.ProgrammeName;
@@ -531,10 +547,9 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.Version = item.Version;
             model.ProgramVersioningID = item.ProgrammeVersioningID;
             model.CountryName = (item.CountryID == 1) ? "India" : (item.CountryID == 2) ? "Malaysia" : item.CountryID == 3 ? "United States" : string.Empty;
+
             return model;
-
         }
-
 
         public PartialViewResult AddProgrammeSemester(string id)
         {
@@ -549,7 +564,9 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                        Value = a.DepartmentID.ToString()
 
                    }).ToList();
-                model.ProgrammeList = onlineExamService.GetAllProgrammeWithVersion().Where(a => a.DepartmentID == Convert.ToInt32(model.DepartmentID) && a.Status == "A")
+
+                model.ProgrammeList = onlineExamService.GetAllProgrammeWithVersion().Where(a => a.DepartmentID == Convert.ToInt32(model.DepartmentID) && a.Status == "A"
+                                        && !string.IsNullOrEmpty(a.Version))
                     .Select(a => new SelectListItem
                     {
                         Text = a.ProgrammeName + "(" + a.Version + ")",
@@ -574,14 +591,17 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return PartialView("_addProgrammeSemester", model);
         }
+
         public PartialViewResult ProgrammeSemesterView(string id)
         {
             return PartialView("_viewProgrammeSemester", SelectProgrammeSemester(id));
         }
+
         public PartialViewResult ProgrammeSemesterList()
         {
             return PartialView("_listProgrammeSemester", GetAllProgrammeSemester());
         }
+
         [HttpPost]
         public JsonResult SaveProgrammeSemester(ProgrammeSemesterViewModel model)
         {
@@ -607,28 +627,26 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
         [HttpPost]
         public JsonResult DeleteProgrammeSemester(ProgrammeSemesterViewModel model)
         {
-
             var result = onlineExamService.SaveProgrammeSemester(new OnlineExam.Request.ProgrammeSemesterRequestDTO()
             {
-
                 CreatedBy = User.UserId,
                 ProgrammeSemesterID = model.ProgrammeSemesterID
-
 
             }, "DELETE");
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-
         #endregion
 
         #region Course
 
         public ActionResult Course() => View();
+
         private List<CourseViewModel> GetAllCourse()
         {
             var itemSet = new List<CourseViewModel>();
@@ -663,13 +681,13 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return itemSet;
         }
+
         private CourseViewModel SelectCourse(string courseId)
         {
             var model = new CourseViewModel();
             var item = onlineExamService.SelectCourse(new OnlineExam.Request.CourseRequestDTO
             {
                 CourseID = Convert.ToInt32(courseId)
-
             });
             model.CourseName = item.CourseName;
             model.CourseCode = item.CourseCode;
@@ -696,6 +714,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.CourseType = item.CourseType;
             model.ProgramVersioningID = item.ProgramVersioningID;
             model.Version = item.Version;
+
             return model;
 
         }
@@ -710,7 +729,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             if (!string.IsNullOrEmpty(id))
             {
                 model = SelectCourse(id);
-                model.ProgrammeList = onlineExamService.GetAllProgrammeWithVersion().Where(a => a.DepartmentID == Convert.ToInt32(model.DepartmentID) && a.Status == "A")
+                model.ProgrammeList = onlineExamService.GetAllProgrammeWithVersion().Where(a => a.DepartmentID == Convert.ToInt32(model.DepartmentID) && a.Status == "A"
+                                        && !string.IsNullOrEmpty(a.Version))
                    .Select(a => new SelectListItem
                    {
                        Text = a.ProgrammeName + "(" + a.Version + ")",
@@ -742,17 +762,19 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             model.AcademicList = onlineExamService.GetDropdownData("Academic").Select(a => new SelectListItem { Text = a.CodeDesc, Value = a.CodeID }).ToList();
 
-
             return PartialView("_addCourse", model);
         }
+
         public PartialViewResult CourseView(string id)
         {
             return PartialView("_viewCourse", SelectCourse(id));
         }
+
         public PartialViewResult CourseList()
         {
             return PartialView("_listCourse", GetAllCourse());
         }
+
         [HttpPost]
         public JsonResult SaveCourse(CourseViewModel model)
         {
@@ -783,10 +805,10 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
         [HttpPost]
         public JsonResult DeleteCourse(CourseViewModel model)
         {
-
             var result = onlineExamService.SaveCourse(new OnlineExam.Request.CourseRequestDTO()
             {
                 CourseID = model.CourseID,
@@ -807,13 +829,11 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 model.CountryList = itemList.Select(a => new SelectListItem() { Text = (a.CountryID == 1) ? "India" : (a.CountryID == 2) ? "Malaysia" : "United States", Value = a.CountryID.ToString() }).ToList().GroupBy(n => new { n.Text, n.Value })
                                            .Select(g => g.FirstOrDefault())
                                            .ToList();
-
             }
 
-
             return Json(model, JsonRequestBehavior.AllowGet);
-
         }
+
         [HttpPost]
         public JsonResult ChangeCountrySelection(string programmeVersionID, string countryId)
         {
@@ -828,13 +848,11 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 model.ProgYearList = itemList.Select(a => new SelectListItem() { Text = a.ProgrammeYear.ToString(), Value = a.ProgrammeYear.ToString() }).ToList().GroupBy(n => new { n.Text, n.Value })
                                             .Select(g => g.FirstOrDefault())
                                             .ToList();
-
             }
 
-
             return Json(model, JsonRequestBehavior.AllowGet);
-
         }
+
         [HttpPost]
         public JsonResult ChangeProgramYearSelection(string programmeVersionID, string countryId, string programYear)
         {
@@ -846,27 +864,23 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             model.ProgSEMList = new List<SelectListItem>();
             if (itemList != null && itemList.Count() > 0)
             {
-
                 model.ProgSEMList = itemList.Select(a => new SelectListItem() { Text = a.ProgrammeSemester.ToString(), Value = a.ProgrammeSemesterID.ToString() }).ToList().GroupBy(n => new { n.Text, n.Value })
                                            .Select(g => g.FirstOrDefault())
                                            .ToList();
-
             }
 
-
             return Json(model, JsonRequestBehavior.AllowGet);
-
         }
+
         [HttpPost]
         public JsonResult ChangeProgramSemSelection(string progSemId, string countryID, string programmeID, string programYear)
         {
             return Json(onlineExamService.SelectProgrammeSemester(new OnlineExam.Request.ProgrammeSemesterRequestDTO
             {
                 ProgrammeSemesterID = Convert.ToInt32(progSemId),
-
-
             }).SemesterType, JsonRequestBehavior.AllowGet);
         }
+
         #endregion
     }
 }

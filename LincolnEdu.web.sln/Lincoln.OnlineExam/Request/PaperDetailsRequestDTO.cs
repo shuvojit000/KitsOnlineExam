@@ -11,6 +11,7 @@ namespace Lincoln.OnlineExam.Request
         public int? PaperDetailsID { get; set; }
         public int? LoginID { get; set; }
         public int? PaperID { get; set; }
+        public int? CourseID { get; set; }
         public string QuestionType { get; set; }
         public int? QuestionNo { get; set; }
         public string QuestionText { get; set; }

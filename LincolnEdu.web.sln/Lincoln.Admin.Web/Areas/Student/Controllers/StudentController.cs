@@ -47,7 +47,8 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
                 StudentName = a.StudentName,
                 ExaminationDuration = a.ExaminationDuration,
                 ExaminationDate = a.ExaminationDate,
-                TotalMarks = a.TotalMarks
+                TotalMarks = a.TotalMarks,
+                MarksObtained = a.MarksObtained
             }).ToList();
 
             return View(model);
@@ -259,10 +260,10 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
                 TotalTime = model.TotalTime
             }, "INSERT");
 
-            if (result == 1)
-            {
-                emailSender.SendHtmlEmailAsync("Test Subject", "Test Body", "gouranga.kts@gmail.com", "employeemail@gmail.com", null);
-            }
+            //if (result == 1)
+            //{
+            //    emailSender.SendHtmlEmailAsync("Test Subject", "Test Body", "", "", null);
+            //}
 
             return Json(result, JsonRequestBehavior.AllowGet);
 
@@ -298,6 +299,17 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
         [HttpPost]
         public ActionResult Capture(string name)
         {
+            /******************* Examination & Course ************************/
+            var model = new StudentExamViewModel();
+            model = onlineExamService.GetStudentExamination(new OnlineExam.Request.OnlineTestRequestDTO()
+            {
+                LoginID = User.UserId
+            }).Select(a => new StudentExamViewModel()
+            {
+                ExaminationName = a.ExaminationName,
+                CourseName = a.CourseName,
+            }).FirstOrDefault();
+
             var files = HttpContext.Request.Files;
             if (files != null)
             {
@@ -306,7 +318,7 @@ namespace Lincoln.Admin.Web.Areas.Student.Controllers
                     HttpPostedFileBase file = Request.Files[_file.ToString()];
                     if (file.ContentLength > 0)
                     {
-                        var webcamPath = ConfigurationManager.AppSettings["WebcamPath"].ToString();
+                        var webcamPath = ConfigurationManager.AppSettings["WebcamPath"].ToString() + model.ExaminationName + "\\" + model.CourseName;
                         //var folderPath = Path.Combine(Server.MapPath("~/CameraPhotos/"), User.UserName);
                         var folderPath = Path.Combine(webcamPath, User.UserName);
                         if (!Directory.Exists(folderPath))

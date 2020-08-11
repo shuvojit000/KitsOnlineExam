@@ -979,7 +979,6 @@ namespace Lincoln.OnlineExam.Repository
 
         public int SaveExaminationName(ExaminationNameRequestDTO recordAttributer, string Operation)
         {
-           
             SqlParameter ExaminationID = new SqlParameter("@ExaminationID", SqlDbType.Int);
             ExaminationID.Value = recordAttributer.ExaminationNameID;
             SqlParameter ExaminationName = new SqlParameter("@ExaminationName", SqlDbType.VarChar);
@@ -988,6 +987,7 @@ namespace Lincoln.OnlineExam.Repository
             StartDate.Value = DateTime.ParseExact(recordAttributer.StartDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
             SqlParameter EndDate = new SqlParameter("@EndDate", SqlDbType.Date);
             EndDate.Value = DateTime.ParseExact(recordAttributer.EndDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
             SqlParameter active = new SqlParameter("@Active", SqlDbType.Char);
             active.Value = recordAttributer.Active;
             SqlParameter createdBy = new SqlParameter("@CreatedBy", SqlDbType.Int);
@@ -1956,8 +1956,9 @@ namespace Lincoln.OnlineExam.Repository
                             QuestionMarksObtain= Convert.ToDecimal(dr["QuestionMarksObtain"]),
                             QuestionNo = Convert.ToInt32(dr["QuestionNo"]),
                             QuestionText = object.ReferenceEquals(dr["QuestionText"], DBNull.Value) ? string.Empty : Convert.ToString(dr["QuestionText"]),
-                            QuestionType = object.ReferenceEquals(dr["QuestionType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["QuestionType"])
-
+                            QuestionType = object.ReferenceEquals(dr["QuestionType"], DBNull.Value) ? string.Empty : Convert.ToString(dr["QuestionType"]),
+                            MarksObtained = Convert.ToDecimal(dr["MarksObtained"]),
+                            ResultApproved = Convert.ToInt32(dr["ResultApproved"]),
                         });
 
                     }
@@ -2026,6 +2027,29 @@ namespace Lincoln.OnlineExam.Repository
         }
 
         #endregion
+
+        public List<EmailResponseDTO> GetEmail()
+        {
+            var itemSet = new List<EmailResponseDTO>();
+            SqlParameter type = new SqlParameter("@Type", SqlDbType.Char);
+            type.Value = "GET";
+            using (SqlDataReader dr = SqlServerHelper.ExecuteReaderProc("[ln.Admin].[upGetEmail]", type))
+            {
+                if (dr != null && dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        itemSet.Add(new EmailResponseDTO()
+                        {
+                            Email = object.ReferenceEquals(dr["Email"], DBNull.Value) ? string.Empty : Convert.ToString(dr["Email"])
+                        });
+
+                    }
+                }
+            }
+            return itemSet;
+
+        }
 
     }
 }

@@ -258,7 +258,7 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
         private List<QuestionSetUpViewModel> GetPaperDetails()
         {
             var itemSet = new List<QuestionSetUpViewModel>();
-            itemSet = onlineExamService.GetAllPaperDetails(new OnlineExam.Request.PaperDetailsRequestDTO() { LoginID = User.UserId }).Select(a => new QuestionSetUpViewModel()
+            itemSet = onlineExamService.GetAllPaperDetails(new OnlineExam.Request.PaperDetailsRequestDTO() { LoginID = User.UserId, CourseID = Convert.ToInt32(TempData.Peek("CourseID")) }).Select(a => new QuestionSetUpViewModel()
             {
                 ExaminationSectionID = a.ExaminationSectionID,
                 Active = a.Status,
@@ -318,6 +318,7 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
             model.QuestionText = itemSet.QuestionText;
             model.RemainingMarks = itemSet.RemainingMarks;
             model.SectionName = itemSet.SectionName;
+
             return model;
         }
 
@@ -326,11 +327,9 @@ namespace Lincoln.Admin.Web.Areas.Faculty.Controllers
         {
             var result = onlineExamService.SavePaperDetails(new OnlineExam.Request.PaperDetailsRequestDTO()
             {
-
                 CreatedBy = User.UserId,
                 PaperDetailsID = model.PaperDetailsID,
                 Active="I"
-
             }, "DELETE");
             return Json(result, JsonRequestBehavior.AllowGet);
         }

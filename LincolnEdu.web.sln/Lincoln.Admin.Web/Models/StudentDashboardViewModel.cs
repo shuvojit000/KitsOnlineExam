@@ -21,6 +21,7 @@ namespace Lincoln.Admin.Web.Models
         public int? ExaminationDuration { get; set; }
         public DateTime ? ExaminationDate { get; set; }
         public decimal? TotalMarks { get; set; }
+        public decimal? MarksObtained { get; set; }
     }
 
    

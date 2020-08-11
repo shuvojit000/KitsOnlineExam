@@ -240,7 +240,10 @@
 
         if (confirm("Are you sure want to delete?")) {
             var model = {
-                ExaminationNameID: ExaminationNameID
+                ExaminationNameID: ExaminationNameID,
+                ExaminationName: $('#ExaminationName').val(),
+                StartDate: $('#StartDate').val(),
+                EndDate: $('#EndDate').val()
             };
             $.ajax({
                 url: '@Url.Action("DeleteExaminationName", "Admin",new {area="Admin" })',

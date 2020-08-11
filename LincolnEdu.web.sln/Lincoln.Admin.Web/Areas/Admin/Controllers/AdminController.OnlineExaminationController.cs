@@ -120,6 +120,8 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             return View(model);
         }
 
+
+
         private List<AdminOnlineExaminationViewModel> GetAllExamSchedule(AdminOnlineExaminationViewModel model)
         {
             var itemSet = new List<AdminOnlineExaminationViewModel>();
@@ -151,7 +153,6 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult SaveOnlineExaminationSchedule(AdminOnlineExaminationViewModel model)
         {
-
             var models = new List<AdminOnlineExaminationViewModel>();
 
             var studentlst = model.CustomList;
@@ -160,7 +161,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 models.AddRange(studentlst.Select(a => new AdminOnlineExaminationViewModel()
                 {
                     CourseID = model.CourseID,
-                    EnrollmentNo = a.EnrollmentNo,
+                    EnrollmentNo = a.EnrollmentNo, // Student ID
                     ExaminationDate = model.ExaminationDate,
                     ExaminationTime = model.ExaminationTime,
                     ExaminationDuration = model.ExaminationDuration,
@@ -168,7 +169,7 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                     IntakeID = model.IntakeID,
                     EmailID = a.EmailID,
                     StudentName = a.StudentName,
-                    IsCalculator=model.IsCalculator
+                    IsCalculator = model.IsCalculator
                 }));
             }
 
@@ -176,24 +177,24 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
             if (models.Any())
             {
                 xEle = new XElement("ExaminationConfigurations",
-                        from item in models
-                        select new XElement("ExaminationConfiguration",
-                                       new XElement("CourseID", item.CourseID),
-                                       new XElement("StudentID", item.StudentID),
-                                       new XElement("EnrollmentNo", item.EnrollmentNo),
-                                       new XElement("IntakeID", item.IntakeID),
-                                       new XElement("EmailID", item.EmailID),
-                                       new XElement("StudentName", item.StudentName),
-                                       new XElement("PaymentStatus", item.PaymentStatus),
-                                       new XElement("ExaminationDate", item.ExaminationDate),
-                                       new XElement("ExaminationTime", item.ExaminationTime),
-                                       new XElement("ExaminationDuration", item.ExaminationDuration),
-                                       new XElement("EmployeeID", item.EmployeeID),
-                                       new XElement("ReviewStatus", item.ReviewStatus),
-                                       new XElement("IsCalculator", item.IsCalculator), 
-                                       new XElement("MarksObtained", item.MarksObtained ?? default(decimal)),
-                                       new XElement("ExaminationID", item.ExaminationID ?? default(int))
-                                   ));
+                from item in models
+                select new XElement("ExaminationConfiguration",
+                new XElement("CourseID", item.CourseID),
+                new XElement("StudentID", item.StudentID),
+                new XElement("EnrollmentNo", item.EnrollmentNo),
+                new XElement("IntakeID", item.IntakeID),
+                new XElement("EmailID", item.EmailID),
+                new XElement("StudentName", item.StudentName),
+                new XElement("PaymentStatus", item.PaymentStatus),
+                new XElement("ExaminationDate", item.ExaminationDate),
+                new XElement("ExaminationTime", item.ExaminationTime),
+                new XElement("ExaminationDuration", item.ExaminationDuration),
+                new XElement("EmployeeID", item.EmployeeID),
+                new XElement("ReviewStatus", item.ReviewStatus),
+                new XElement("IsCalculator", item.IsCalculator),
+                new XElement("MarksObtained", item.MarksObtained ?? default(decimal)),
+                new XElement("ExaminationID", item.ExaminationID ?? default(int))
+                ));
             }
 
             var result = onlineExamService.SaveExaminationConfiguration(new OnlineExam.Request.AdminOnlineExamRequestDTO()
@@ -205,7 +206,41 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
 
             if (result == 1)
             {
-                emailSender.SendHtmlEmailAsync("Test Subject","Test Body","gouranga.kts@gmail.com",models.Select(a=>a.EmailID).AsEnumerable(),null);
+                var bccEmail = new List<EmailViewModel>();
+                bccEmail = onlineExamService.GetEmail().Select(a => new EmailViewModel()
+                {
+                    Email = a.Email,
+                }).ToList();
+
+                /*************** Please Change Subject & Body Message *********************/
+                var subject = "Examination Schedule";
+                var _content = "";
+                foreach (var item in models)
+                {
+                    var user = onlineExamService.ValidateUser(new OnlineExam.Request.LogInRequestDTO()
+                    {
+                        EmailID = item.EmailID,
+                        UserName = item.EnrollmentNo
+
+                    }, "LOGIN");
+
+                    // _content = null;
+                    // _content += header_content();
+                    _content += "<div><b>Dear " + item.StudentName + ",</b></div><br />";
+                    _content += "<div>You are now registered as a Ph.D scholar under Lincoln University College, Malaysia.</div><br />";
+                    _content += "An account has been created for you in our system by your student id. <br />";
+                    _content += "To check the details you need to login into your account with the credentials given below</div><br />";
+                    _content += "<b>URL : <a href='https://phdresearch.lincolnedu.education/student/stdlogin.aspx' target='_blank'>https://phdresearch.lincolnedu.education/student/stdlogin.aspx<a> </b><br />";
+                    _content += "<b>Username : " + user.UserName + "</b><br />";
+                    _content += "<b>Password : " + user.Password + " </ b >< br /> ";
+                    _content += "<div>For any other assistance please mail us at <i>postgraduate@lincoln.edu.my</i><br /><br /></div>";
+
+                    _content += "Thanks & Regards,";
+                    _content += "<b><br />LUC Online Mail Service</b><br />";
+                    var form = System.Configuration.ConfigurationManager.AppSettings["FromEmail"].ToString();
+
+                    emailSender.SendHtmlEmailAsync(subject, _content, form, models.Select(a => a.EmailID).AsEnumerable(), null, bccEmail.Select(a => a.Email).AsEnumerable(), null);
+                }
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -326,10 +361,10 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 CreatedBy = User.UserId
             }, "Evaluation");
 
-            if (result == 1)
-            {
-                emailSender.SendHtmlEmailAsync("Test Subject", "Test Body", "gouranga.kts@gmail.com", "employeemail@gmail.com", null);
-            }
+            //if (result == 1)
+            //{
+            //    emailSender.SendHtmlEmailAsync("Test Subject", "Test Body", "", "", null);
+            //}
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         #endregion
@@ -407,8 +442,9 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                     QuestionMarksObtain = a.QuestionMarksObtain,
                     QuestionNo = a.QuestionNo,
                     QuestionText = a.QuestionText,
-                    QuestionType = a.QuestionType
-
+                    QuestionType = a.QuestionType,
+                    MarksObtained = a.MarksObtained,
+                    ResultApproved = a.ResultApproved,
                 }).ToList();
 
             return itemSet;
@@ -466,10 +502,10 @@ namespace Lincoln.Admin.Web.Areas.Admin.Controllers
                 CreatedBy = User.UserId
             });
 
-            if (result == 1)
-            {
-                emailSender.SendHtmlEmailAsync("Test Subject", "Test Body", "gouranga.kts@gmail.com", "employeemail@gmail.com", null);
-            }
+            //if (result == 1)
+            //{
+            //    emailSender.SendHtmlEmailAsync("Test Subject", "Test Body", "", "", null);
+            //}
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
